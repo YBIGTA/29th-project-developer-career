@@ -70,3 +70,55 @@ docker compose --profile batch run --rm batch
 pip install -r requirements.txt
 pytest
 ```
+
+## 컨테이너 포트
+
+로컬 `docker compose up`(API + DB) 기준.
+
+| 컨테이너 | 포트 | 비고 |
+| --- | --- | --- |
+| `db` | `5432:5432` | Postgres 16, 데이터는 `db_data` 볼륨에 저장 |
+| `api` | `8000:8000` | FastAPI (uvicorn) |
+| `batch` | 없음 | 상시 구동 아님, `--profile batch run`으로 1회 실행 |
+
+배치 서버 VM(`deploy/docker-compose.batch.yml`)에는 DB/API 컨테이너가 없고, `.env`의 `DATABASE_URL`로 API 서버 VM의 DB에 원격 접속한다.
+
+## DB 접속 방법 (DBeaver)
+
+사전 준비: `docker compose up`으로 `db` 컨테이너가 떠 있어야 하고, 테이블이 없다면 먼저 `python scripts/init_db.py`로 스키마를 생성한다.
+
+1. DBeaver 실행 → 좌측 상단 **New Database Connection** (플러그 아이콘) 클릭
+2. 연결 목록에서 **PostgreSQL** 선택 → Next
+3. Main 탭에 접속 정보 입력 (`.env` 값 기준, 기본값은 아래)
+
+   | 항목 | 값 |
+   | --- | --- |
+   | Host | `localhost` |
+   | Port | `5432` |
+   | Database | `devcompass` (`.env`의 `POSTGRES_DB`) |
+   | Username | `devcompass` (`.env`의 `POSTGRES_USER`) |
+   | Password | `devcompass` (`.env`의 `POSTGRES_PASSWORD`) |
+
+4. **Test Connection** 클릭해서 정상 연결 확인 (처음이면 PostgreSQL 드라이버 다운로드 팝업이 뜨는데 그대로 Download 진행)
+5. **Finish**로 저장하면 좌측 Database Navigator에 연결이 추가됨
+6. 좌측 트리에서 `devcompass` → `Schemas` → `public` → `Tables`로 들어가면 `job_postings`, `technologies`, `gap_results` 테이블 확인 가능
+7. 테이블 더블클릭 → **Data** 탭에서 저장된 row를 바로 조회/편집 가능
+8. SQL로 직접 조회하려면 테이블 위에서 우클릭 → **SQL Editor** → **Open SQL script**
+
+```sql
+SELECT * FROM job_postings;
+```
+
+> 배치 서버 VM에서 접속할 때는 Host를 `localhost`가 아니라 API 서버 VM의 실제 접근 가능한 호스트/IP로 넣어야 한다 (`.env`의 `DATABASE_URL`과 동일한 값).
+
+**파이썬 코드에서 조회**
+
+```python
+from app.db.database import SessionLocal
+from app.db.models import JobPosting
+
+db = SessionLocal()
+print(db.query(JobPosting).all())
+```
+
+테이블이 아직 없다면 먼저 `python scripts/init_db.py`로 스키마를 생성해야 한다.

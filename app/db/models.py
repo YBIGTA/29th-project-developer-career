@@ -2,7 +2,7 @@ from sqlalchemy import Column, Float, Integer, String
 
 from app.db.database import Base
 
-
+#다시 작성 임의의 코드임
 class JobPosting(Base):
     __tablename__ = "job_postings"
 

@@ -1,6 +1,6 @@
 # app/db, app/core 등 API·배치 양쪽에서 공통으로 쓰는 의존성
 python-dotenv==1.2.2
-psycopg==3.3.4
+psycopg[binary]==3.3.4
 SQLAlchemy==2.0.51
 pydantic==2.13.4
 pydantic_core==2.46.4

@@ -1,0 +1,14 @@
+# app/db, app/core 등 API·배치 양쪽에서 공통으로 쓰는 의존성
+python-dotenv==1.2.2
+psycopg==3.3.4
+SQLAlchemy==2.0.51
+pydantic==2.13.4
+pydantic_core==2.46.4
+typing_extensions==4.16.0
+typing-inspection==0.4.3
+certifi==2026.7.22
+idna==3.18
+charset-normalizer==3.4.9
+urllib3==2.7.0
+packaging==26.1
+six==1.17.0

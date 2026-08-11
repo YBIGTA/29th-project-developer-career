@@ -1,0 +1,14 @@
+# 배치 전용 이미지 — 별도 VM에 이 이미지만 배포
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements/base.txt requirements/batch.txt requirements/
+RUN pip install --no-cache-dir -r requirements/batch.txt
+
+COPY app/__init__.py app/config.py app/
+COPY app/batch app/batch
+COPY app/db app/db
+COPY app/core app/core
+
+CMD ["python", "-m", "app.batch.run"]

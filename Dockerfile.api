@@ -1,0 +1,15 @@
+FROM python:3.12-slim
+
+WORKDIR /app
+
+COPY requirements/base.txt requirements/api.txt requirements/
+RUN pip install --no-cache-dir -r requirements/api.txt
+
+COPY app/__init__.py app/main.py app/config.py app/
+COPY app/api app/api
+COPY app/db app/db
+COPY app/core app/core
+
+EXPOSE 8000
+
+CMD ["uvicorn", "app.main:app", "--host", "0.0.0.0", "--port", "8000"]

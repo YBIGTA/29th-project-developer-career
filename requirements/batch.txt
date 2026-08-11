@@ -1,0 +1,6 @@
+# 배치 파이프라인(app/batch) 전용 의존성 — 별도 VM에 이 파일만 설치
+-r base.txt
+pandas==3.0.5
+numpy==2.5.2
+requests==2.34.2
+python-dateutil==2.9.0.post0

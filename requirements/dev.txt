@@ -1,0 +1,7 @@
+# 로컬 개발 및 CI에서만 필요 (테스트, 빌드 도구)
+pytest==9.1.1
+pluggy==1.6.0
+iniconfig==2.3.0
+Pygments==2.20.0
+setuptools==83.0.0
+wheel==0.47.0

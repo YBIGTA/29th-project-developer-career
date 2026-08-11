@@ -1,0 +1,10 @@
+# API 서버(app/api, app/main.py) 전용 의존성
+-r base.txt
+fastapi==0.141.1
+uvicorn==0.52.1
+starlette==1.6.0
+anyio==4.14.2
+h11==0.16.0
+click==8.4.2
+annotated-doc==0.0.5
+annotated-types==0.8.0

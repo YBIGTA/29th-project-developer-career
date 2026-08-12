@@ -1,0 +1,3 @@
+# 배치 서버 VM의 crontab 예시 (crontab -e 로 등록)
+# 매일 새벽 3시에 배치 파이프라인 실행
+0 3 * * * cd ~/devcompass && docker compose -f docker-compose.batch.yml run --rm batch >> /var/log/devcompass-batch.log 2>&1

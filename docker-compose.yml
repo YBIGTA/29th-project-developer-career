@@ -1,0 +1,42 @@
+# 로컬 개발용. 실제 배포에서는 API 서버와 배치 서버가 서로 다른 VM에서 각자 뜬다.
+# API 서버는 Dockerfile.api로, 배치 서버는 deploy/docker-compose.batch.yml + Dockerfile.batch로 별도 배포한다.
+services:
+  db:
+    image: postgres:16
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-devcompass}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-devcompass}
+      POSTGRES_DB: ${POSTGRES_DB:-devcompass}
+    ports:
+      - "5432:5432"
+    volumes:
+      - db_data:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile.api
+    restart: unless-stopped
+    env_file:
+      - .env
+    depends_on:
+      - db
+    ports:
+      - "8000:8000"
+
+  # 로컬에서 배치를 한 번 돌려보고 싶을 때만 사용. `docker compose --profile batch run batch`
+  # 실제 배치 서버는 다른 VM에서 deploy/docker-compose.batch.yml로 운영한다.
+  batch:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch
+    env_file:
+      - .env
+    depends_on:
+      - db
+    profiles:
+      - batch
+
+volumes:
+  db_data:

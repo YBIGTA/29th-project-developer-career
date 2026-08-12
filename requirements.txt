@@ -1,0 +1,5 @@
+# 로컬 풀 개발환경 / CI용 (API + 배치 + 테스트 도구 전체 설치)
+# 배포 시에는 API 서버는 requirements/api.txt, 배치 서버는 requirements/batch.txt만 설치할 것
+-r requirements/api.txt
+-r requirements/batch.txt
+-r requirements/dev.txt

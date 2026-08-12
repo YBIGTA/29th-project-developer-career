@@ -104,3 +104,7 @@ $RECYCLE.BIN/
 *.lnk
 
 # End of https://www.toptal.com/developers/gitignore/api/venv,macos,windows,vercel,dotenv,visualstudiocode
+
+# frontend/lib is real source code (api.js, mockData.json, ...), not a Python venv lib/ dir
+!frontend/lib/
+!frontend/lib/**

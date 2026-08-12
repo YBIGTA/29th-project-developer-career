@@ -71,6 +71,73 @@ pip install -r requirements.txt
 pytest
 ```
 
+## 배치 팀 가이드: 수집 데이터 DB 저장
+
+배치 파이프라인은 `app/batch/collect/*.py`에서 소스별로 데이터를 수집하고, `app/batch/run.py`가 이를 모아 DB에 저장하는 구조다.
+
+1. **수집 함수 작성**: `app/batch/collect/adzuna.py`, `remoteok.py`처럼 소스별 파일에 `collect() -> list[dict]` 형태로 작성한다. 외부 API 응답을 그대로 반환하지 말고, `models.py`의 컬럼명에 맞춘 dict 리스트로 정리해서 반환한다.
+
+   ```python
+   # app/batch/collect/adzuna.py
+   def collect() -> list[dict]:
+       # 외부 API 호출 후 아래 형태로 정리해서 반환
+       return [
+           {"title": "...", "company": "...", "source": "adzuna", "url": "...", "raw_text": "..."},
+           ...
+       ]
+   ```
+
+2. **DB 저장은 `app/batch/run.py`에서 처리**: 수집 함수는 순수하게 데이터만 반환하고, DB 세션/커밋은 `run.py`에서 일괄 담당한다. `app/db/database.py`의 `SessionLocal`과 `app/db/models.py`의 모델을 사용한다.
+
+   ```python
+   # app/batch/run.py
+   from app.db.database import SessionLocal
+   from app.db.models import JobPosting
+   from app.batch.collect import adzuna, remoteok
+
+   def main():
+       db = SessionLocal()
+       try:
+           postings = adzuna.collect() + remoteok.collect()
+           for p in postings:
+               db.add(JobPosting(**p))
+           db.commit()
+       finally:
+           db.close()
+
+   if __name__ == "__main__":
+       main()
+   ```
+
+3. **새 컬럼/테이블이 필요하면** `app/db/models.py`를 수정하고 `python scripts/init_db.py`로 스키마를 반영한다 (별도 마이그레이션 도구는 없음, `create_all` 기반이라 기존 테이블 컬럼 변경은 직접 DB에서 처리하거나 테이블을 새로 만들어야 함).
+4. **중복 저장 주의**: 현재 `job_postings.url`에 unique 제약이 없다. 배치를 여러 번 돌려도 중복이 쌓이지 않게 하려면 저장 전에 `db.query(JobPosting).filter_by(url=p["url"]).first()`로 존재 여부를 확인하거나, 모델에 unique 제약을 추가하는 방향을 논의해서 반영한다.
+5. 로컬에서 확인은 위 [DB 접속 방법 (DBeaver)](#db-접속-방법-dbeaver) 또는 파이썬 스니펫으로 한다.
+
+## 프론트엔드 배포 (Vercel)
+
+`frontend/`는 Next.js 프로젝트로, Vercel에 별도 배포한다 (API/배치 서버 VM과는 독립).
+
+1. **Vercel 프로젝트 생성**
+   - [vercel.com](https://vercel.com)에서 GitHub 레포 import
+   - **Root Directory를 `frontend`로 지정** (모노레포라서 필수, 안 하면 빌드 실패함)
+   - Framework Preset은 Next.js로 자동 인식됨
+
+2. **환경변수 설정**: Vercel 프로젝트 Settings → Environment Variables에서 API 서버 주소를 등록한다 (예: `NEXT_PUBLIC_API_URL=https://<api-vm-host>:8000`). 코드에서는 `process.env.NEXT_PUBLIC_API_URL`로 참조.
+
+3. **CORS 주의**: 현재 `app/main.py`에 CORS 미들웨어가 없다. Vercel 도메인에서 API 서버로 요청하면 브라우저 CORS 에러가 나므로, API 쪽에 `fastapi.middleware.cors.CORSMiddleware`를 추가해서 Vercel 배포 도메인을 `allow_origins`에 등록해야 한다.
+
+4. **배포 방식**
+   - GitHub 연동 시 `main`(또는 지정한 브랜치)에 push하면 자동 배포됨 (PR마다 프리뷰 배포도 생성됨)
+   - CLI로 직접 배포하려면:
+     ```bash
+     npm i -g vercel
+     cd frontend
+     vercel        # 프리뷰 배포
+     vercel --prod # 프로덕션 배포
+     ```
+
+5. 로컬에서 프로덕션 빌드를 미리 확인하려면 `cd frontend && npm run build && npm run start`.
+
 ## 컨테이너 포트
 
 로컬 `docker compose up`(API + DB) 기준.

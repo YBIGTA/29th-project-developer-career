@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import MobileTopBar from "@/components/mobile/MobileTopBar";
 import MobileTabBar from "@/components/mobile/MobileTabBar";
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
-import { trendColor } from "@/lib/trend";
+import { ecosystemBars } from "@/lib/ecosystem";
+import { mapCodeSet } from "@/lib/mapPoints";
 import { getGapMapData } from "@/lib/api";
 
 const SORTS = [
@@ -30,6 +31,7 @@ function matches(tech, query) {
 
 export default function MobileDictionary() {
   const [data, setData] = useState([]);
+  const [dataMeta, setDataMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
@@ -45,7 +47,10 @@ export default function MobileDictionary() {
       setError(null);
       try {
         const result = await getGapMapData();
-        if (!cancelled) setData(result);
+        if (!cancelled) {
+          setData(result.items);
+          setDataMeta(result.meta);
+        }
       } catch (err) {
         if (!cancelled) setError(err);
       } finally {
@@ -67,6 +72,10 @@ export default function MobileDictionary() {
     if (sort === "ecosystem") return rows.sort((a, b) => b.ecosystemScore - a.ecosystemScore);
     return rows.sort((a, b) => a.tech.localeCompare(b.tech, "en"));
   }, [data, query, quadFilter, sort]);
+
+  // 지도는 수요 상위 N개까지만 찍는다. 사전에는 전부 실리므로, 지도에서
+  // 잘린 항목임을 여기서 알려준다.
+  const onMap = useMemo(() => mapCodeSet(data, dataMeta?.mapLimit), [data, dataMeta?.mapLimit]);
 
   const groups = useMemo(() => {
     if (sort !== "dict") return [{ letter: null, items: filtered }];
@@ -254,9 +263,9 @@ export default function MobileDictionary() {
                             <span className="mv-dict-score">
                               채용 수요 <span className="mv-dict-score__value">{tech.demand}</span>
                             </span>
-                            <span className="mv-dict-score__trend" style={{ color: trendColor(tech.trend) }}>
-                              {tech.trendLabel}
-                            </span>
+                            {!onMap.has(tech.skillCode) && (
+                              <span className="mv-dict-score__offmap">지도 미표시</span>
+                            )}
                           </span>
 
                           <span className="mv-dict-entry__chevron" aria-hidden="true">
@@ -276,35 +285,34 @@ export default function MobileDictionary() {
                         {open && (
                           <div className="mv-dict-entry__panel" id={`mv-entry-${tech.tech}`}>
                             <div>
-                              <div className="mv-dict-entry__sub">지표</div>
+                              <div className="mv-dict-entry__sub">생태계 지표</div>
                               <div className="mv-dict-entry__metrics">
-                                {tech.metrics.map((m) => (
-                                  <div key={m.label}>
+                                {ecosystemBars(tech).map((bar) => (
+                                  <div key={bar.key}>
                                     <div className="mv-dict-entry__metric-row">
-                                      <span>{m.label}</span>
-                                      <span className="mv-dict-entry__metric-value">{m.value}</span>
+                                      <span>{bar.label}</span>
+                                      <span className="mv-dict-entry__metric-value">
+                                        {bar.score}
+                                        <span className="mv-dict-entry__metric-raw">
+                                          {bar.rawText}
+                                        </span>
+                                      </span>
                                     </div>
                                     <div className="mv-dict-entry__metric-track">
                                       <div
                                         className="mv-dict-entry__metric-fill"
-                                        style={{ width: `${m.value}%`, background: color }}
+                                        style={{ width: `${bar.score}%`, background: color }}
                                       />
                                     </div>
                                   </div>
                                 ))}
-                              </div>
-
-                              <div className="mv-dict-entry__sub">경쟁 강도</div>
-                              <div className="mv-dict-entry__competition">
-                                <strong>{tech.competition}</strong>
-                                <span>{tech.competitionNote}</span>
                               </div>
                             </div>
 
                             <div>
                               <div className="mv-dict-entry__sub">이 자리에 있는 이유</div>
                               <div className="mv-dict-entry__signals">
-                                {tech.signals.map((s) => (
+                                {(tech.signals ?? []).map((s) => (
                                   <div className="mv-dict-entry__signal" key={s.meta}>
                                     <span className="mv-dict-entry__signal-dot" style={{ background: color }} />
                                     <span className="mv-dict-entry__signal-meta">{s.meta}</span>
@@ -315,7 +323,7 @@ export default function MobileDictionary() {
 
                               <div className="mv-dict-entry__sub">함께 요구되는 기술</div>
                               <div className="mv-dict-entry__stack">
-                                {tech.stack.map((s) => (
+                                {(tech.stack ?? []).map((s) => (
                                   <button
                                     type="button"
                                     className="mv-dict-entry__chip"

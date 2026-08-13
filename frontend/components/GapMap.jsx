@@ -2,7 +2,6 @@
 
 import { useState } from "react";
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
-import { trendColor } from "@/lib/trend";
 
 const LEGEND = [
   { slug: "early-mover", label: "선점 후보", note: "채운 원 · 생태계 높고 채용 낮음" },
@@ -26,9 +25,7 @@ function GapMapTooltip({ tech }) {
     >
       <div className="tooltip__row">
         <span className="tooltip__name">{tech.tech}</span>
-        <span className="tooltip__trend" style={{ color: trendColor(tech.trend) }}>
-          {tech.trendLabel}
-        </span>
+        <span className="tooltip__kind">{tech.kind}</span>
       </div>
       <div className="tooltip__quad">
         <span
@@ -46,7 +43,9 @@ function GapMapTooltip({ tech }) {
         <span>생태계 {tech.ecosystemScore}</span>
         <span>수요 {tech.demand}</span>
       </div>
-      {tech.postings && <div className="tooltip__postings">공고 {tech.postings}</div>}
+      {tech.postings > 0 && (
+        <div className="tooltip__postings">공고 {tech.postings.toLocaleString("ko-KR")}건</div>
+      )}
     </div>
   );
 }

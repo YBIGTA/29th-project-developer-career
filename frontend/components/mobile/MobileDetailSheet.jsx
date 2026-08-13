@@ -1,8 +1,57 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
+import { useRef, useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
-import { trendColor } from "@/lib/trend";
+import { ecosystemBars } from "@/lib/ecosystem";
+import { useTechPostings } from "@/lib/useTechPostings";
+
+function PostingList({ postings, loading, techName }) {
+  if (loading) {
+    return <div className="mv-sheet__postings-status">공고를 불러오는 중입니다…</div>;
+  }
+
+  if (!postings.length) {
+    return (
+      <div className="mv-sheet__postings-status">
+        {techName}을(를) 요구하는 공고를 아직 찾지 못했습니다.
+      </div>
+    );
+  }
+
+  return (
+    <ul className="mv-sheet__postings">
+      {postings.map((p, i) => (
+        <li className="mv-sheet__posting" key={`${p.company}-${p.title}-${i}`}>
+          <div className="mv-sheet__posting-company">{p.company}</div>
+          <div className="mv-sheet__posting-title">{p.title}</div>
+          <div className="mv-sheet__posting-meta">
+            {[p.location, p.employmentType, p.publishedAt].filter(Boolean).join(" · ")}
+          </div>
+          {p.applyUrl && (
+            <a
+              className="mv-sheet__posting-link"
+              href={p.applyUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              공고 열기
+              <svg viewBox="0 0 16 16" aria-hidden="true" width="12" height="12">
+                <path
+                  d="M6 3.4h6.6V10M12.6 3.4 3.6 12.4"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.5"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
+            </a>
+          )}
+        </li>
+      ))}
+    </ul>
+  );
+}
 
 /**
  * 데스크톱의 sticky 사이드 DetailPanel 대신, 하단에서 올라오는 바텀시트로
@@ -10,14 +59,16 @@ import { trendColor } from "@/lib/trend";
  */
 export default function MobileDetailSheet({ tech, onClose }) {
   const [favs, setFavs] = useState({});
+  const [tab, setTab] = useState("overview");
   const open = Boolean(tech);
 
   const sheetRef = useRef(null);
+  const scrollRef = useRef(null);
   const dragStartYRef = useRef(0);
   const [dragY, setDragY] = useState(0);
   const [dragging, setDragging] = useState(false);
 
-  // tech가 바뀔 때(새로 열리거나 완전히 닫힐 때) 드래그 오프셋을 정리한다.
+  // tech가 바뀔 때(새로 열리거나 완전히 닫힐 때) 드래그 오프셋과 탭을 정리한다.
   // effect 대신 렌더링 중 조정하는 방식을 쓴다 — setState-in-effect는
   // 불필요한 추가 렌더를 유발한다 (https://react.dev/learn/you-might-not-need-an-effect).
   const [prevTech, setPrevTech] = useState(tech);
@@ -25,7 +76,20 @@ export default function MobileDetailSheet({ tech, onClose }) {
     setPrevTech(tech);
     setDragY(0);
     setDragging(false);
+    setTab("overview");
   }
+
+  const { postings, loading: postingsLoading } = useTechPostings(
+    tech?.skillCode,
+    open && tab === "postings"
+  );
+
+  const selectTab = (next) => {
+    setTab(next);
+    // 탭을 바꿨는데 이전 탭에서 내려온 스크롤 위치가 남아 있으면 새 탭의
+    // 중간부터 보이게 된다.
+    if (scrollRef.current) scrollRef.current.scrollTop = 0;
+  };
 
   const handleGripPointerDown = (e) => {
     setDragging(true);
@@ -46,7 +110,7 @@ export default function MobileDetailSheet({ tech, onClose }) {
     const threshold = Math.min(120, sheetHeight * 0.3);
     if (dragY > threshold) {
       // 임계값을 넘겼으면 여기서 dragY를 되돌리지 않는다. tech가 null이
-      // 되면서 위 useEffect가 정리할 때 [data-open="false"]의 닫힘
+      // 되면서 위 렌더 중 조정이 정리할 때 [data-open="false"]의 닫힘
       // 트랜지션이 지금 드래그된 위치에서 이어받아 자연스럽게 끝까지 내려간다.
       onClose?.();
     } else {
@@ -62,6 +126,7 @@ export default function MobileDetailSheet({ tech, onClose }) {
   const meta = tech ? getQuadrantMeta(tech.quadrant) : null;
   const color = meta ? `var(--quad-${meta.slug})` : undefined;
   const isFav = tech ? Boolean(favs[tech.tech]) : false;
+  const bars = tech ? ecosystemBars(tech) : [];
 
   return (
     <>
@@ -86,11 +151,11 @@ export default function MobileDetailSheet({ tech, onClose }) {
           <span className="mv-sheet__grip-bar" />
         </div>
 
-        <div className="mv-sheet__scroll">
+        <div className="mv-sheet__scroll" ref={scrollRef}>
           {!tech ? (
             <div className="mv-sheet__empty-hint">
-              지도의 점이나 목록을 탭하면 채용 공고 수요, 경쟁 강도, 생태계 지표, 함께 요구되는
-              기술을 여기서 볼 수 있습니다.
+              지도의 점이나 목록을 탭하면 채용 공고 수요, 생태계 지표, 함께 요구되는 기술을 여기서
+              볼 수 있습니다.
             </div>
           ) : (
             <>
@@ -112,86 +177,133 @@ export default function MobileDetailSheet({ tech, onClose }) {
                   <span className="mv-sheet__badge-dot" style={{ background: color }} />
                   {meta.label}
                 </span>
-                <span className="mv-sheet__badge" style={{ color: trendColor(tech.trend) }}>
-                  {tech.trendLabel}
-                </span>
+                {tech.role && <span className="mv-sheet__badge">{tech.role}</span>}
               </div>
 
-              <p className="mv-sheet__summary">{tech.summary}</p>
-
-              <div className="mv-sheet__stats">
-                <div className="mv-sheet__stat">
-                  <div className="mv-sheet__stat-label">채용 공고 언급</div>
-                  <div className="mv-sheet__stat-value">{tech.postings}</div>
-                  <div className="mv-sheet__stat-note">{tech.postingsNote}</div>
-                </div>
-                <div className="mv-sheet__stat">
-                  <div className="mv-sheet__stat-label">경쟁 강도</div>
-                  <div className="mv-sheet__stat-value">{tech.competition}</div>
-                  <div className="mv-sheet__stat-note">{tech.competitionNote}</div>
-                </div>
-              </div>
-
-              <div className="mv-sheet__metrics">
-                {tech.metrics.map((m) => (
-                  <div key={m.label}>
-                    <div className="mv-sheet__metric-row">
-                      <span className="mv-sheet__metric-label">{m.label}</span>
-                      <span className="mv-sheet__metric-value">{m.value}</span>
-                    </div>
-                    <div className="mv-sheet__metric-track">
-                      <div
-                        className="mv-sheet__metric-fill"
-                        style={{ width: `${m.value}%`, background: color }}
-                      />
-                    </div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mv-sheet__section-title">이 자리에 있는 이유</div>
-              <div className="mv-sheet__signals">
-                {tech.signals.map((s) => (
-                  <div className="mv-sheet__signal" key={s.meta}>
-                    <span className="mv-sheet__signal-dot" style={{ background: color }} />
-                    <div className="mv-sheet__signal-meta">{s.meta}</div>
-                    <div className="mv-sheet__signal-title">{s.title}</div>
-                  </div>
-                ))}
-              </div>
-
-              <div className="mv-sheet__section-title">함께 요구되는 기술</div>
-              <div className="mv-sheet__stack">
-                {tech.stack.map((s) => (
-                  <span className="mv-sheet__chip" key={s}>
-                    {s}
-                  </span>
-                ))}
-              </div>
-
-              <div className="mv-sheet__verdict" style={{ background: meta.tint }}>
-                <div className="mv-sheet__eyebrow">지금 배운다면</div>
-                <div className="mv-sheet__verdict-text">{tech.verdict}</div>
-              </div>
-
-              <div className="mv-sheet__actions">
+              <div className="mv-sheet__tabs" role="tablist" aria-label="상세 정보 보기">
                 <button
                   type="button"
-                  className="mv-sheet__btn"
-                  style={{ background: isFav ? meta.tint : "transparent" }}
-                  onClick={() => setFavs((f) => ({ ...f, [tech.tech]: !f[tech.tech] }))}
+                  role="tab"
+                  className="mv-sheet__tab"
+                  aria-selected={tab === "overview"}
+                  onClick={() => selectTab("overview")}
                 >
-                  {isFav ? "★ 담아둔 기술" : "☆ 관심 기술로 담기"}
+                  개요
                 </button>
-                <button type="button" className="mv-sheet__btn mv-sheet__btn--ghost">
-                  학습 경로 보기
+                <button
+                  type="button"
+                  role="tab"
+                  className="mv-sheet__tab"
+                  aria-selected={tab === "postings"}
+                  onClick={() => selectTab("postings")}
+                >
+                  채용 공고
                 </button>
               </div>
 
-              <p className="mv-sheet__footnote">
-                경쟁 강도 등 일부 지표는 예시 값이며, 언급 건수는 tech_stack_pipeline 채용공고
-                태그 추출 결과를 참고했습니다.
-              </p>
+              {tab === "overview" ? (
+                <>
+                  {tech.summary && <p className="mv-sheet__summary">{tech.summary}</p>}
+
+                  <div className="mv-sheet__stats">
+                    <div className="mv-sheet__stat">
+                      <div className="mv-sheet__stat-label">채용 공고 언급</div>
+                      <div className="mv-sheet__stat-value">
+                        {tech.postings.toLocaleString("ko-KR")}건
+                      </div>
+                      <div className="mv-sheet__stat-note">{tech.postingsNote}</div>
+                    </div>
+                    <div className="mv-sheet__stat">
+                      <div className="mv-sheet__stat-label">생태계 종합</div>
+                      <div className="mv-sheet__stat-value">{tech.ecosystemScore}</div>
+                      <div className="mv-sheet__stat-note">아래 세 지표(각 0~100)의 평균입니다.</div>
+                    </div>
+                  </div>
+
+                  <div className="mv-sheet__metrics">
+                    {bars.map((bar) => (
+                      <div key={bar.key}>
+                        <div className="mv-sheet__metric-row">
+                          <span className="mv-sheet__metric-label">{bar.label}</span>
+                          <span className="mv-sheet__metric-value">
+                            {bar.score}
+                            <span className="mv-sheet__metric-raw">{bar.rawText}</span>
+                          </span>
+                        </div>
+                        <div className="mv-sheet__metric-track">
+                          <div
+                            className="mv-sheet__metric-fill"
+                            style={{ width: `${bar.score}%`, background: color }}
+                          />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+
+                  {tech.signals?.length > 0 && (
+                    <>
+                      <div className="mv-sheet__section-title">이 자리에 있는 이유</div>
+                      <div className="mv-sheet__signals">
+                        {tech.signals.map((s) => (
+                          <div className="mv-sheet__signal" key={s.meta}>
+                            <span className="mv-sheet__signal-dot" style={{ background: color }} />
+                            <div className="mv-sheet__signal-meta">{s.meta}</div>
+                            <div className="mv-sheet__signal-title">{s.title}</div>
+                          </div>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {tech.stack?.length > 0 && (
+                    <>
+                      <div className="mv-sheet__section-title">함께 요구되는 기술</div>
+                      <div className="mv-sheet__stack">
+                        {tech.stack.map((s) => (
+                          <span className="mv-sheet__chip" key={s}>
+                            {s}
+                          </span>
+                        ))}
+                      </div>
+                    </>
+                  )}
+
+                  {tech.verdict && (
+                    <div className="mv-sheet__verdict" style={{ background: meta.tint }}>
+                      <div className="mv-sheet__eyebrow">지금 배운다면</div>
+                      <div className="mv-sheet__verdict-text">{tech.verdict}</div>
+                    </div>
+                  )}
+
+                  <div className="mv-sheet__actions">
+                    <button
+                      type="button"
+                      className="mv-sheet__btn"
+                      style={{ background: isFav ? meta.tint : "transparent" }}
+                      onClick={() => setFavs((f) => ({ ...f, [tech.tech]: !f[tech.tech] }))}
+                    >
+                      {isFav ? "★ 담아둔 기술" : "☆ 관심 기술로 담기"}
+                    </button>
+                    <button type="button" className="mv-sheet__btn mv-sheet__btn--ghost">
+                      학습 경로 보기
+                    </button>
+                  </div>
+
+                  <p className="mv-sheet__footnote">
+                    생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 API
+                    연결 전 예시 값입니다.
+                  </p>
+                </>
+              ) : (
+                <>
+                  <p className="mv-sheet__summary">
+                    {tech.tech}을(를) 요구하는 공고입니다. 회사명과 지원 링크는 수집된 채용공고에서
+                    그대로 가져옵니다.
+                  </p>
+                  <PostingList postings={postings} loading={postingsLoading} techName={tech.tech} />
+                  <p className="mv-sheet__footnote">채용 API 연결 전이라 예시 공고가 표시됩니다.</p>
+                </>
+              )}
             </>
           )}
         </div>

@@ -11,6 +11,13 @@ const GAP_MAP_ENDPOINT = `${API_URL}/gapmap`;
  *   stack, verdict }[]
  */
 export async function getGapMapData() {
+  // API_URL이 설정되지 않은 환경(로컬 .env.local 미배치 등)에서는 실패가
+  // 확정된 요청을 굳이 보내지 않는다. 그대로 두면 매번 404가 나고 콘솔에
+  // 놀랄 만한 에러 로그만 남긴 채 어차피 mockData로 대체된다.
+  if (!API_URL) {
+    return mockData;
+  }
+
   try {
     const res = await fetch(GAP_MAP_ENDPOINT, { cache: "no-store" });
 

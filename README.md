@@ -113,6 +113,46 @@ pytest
 4. **중복 저장 주의**: 현재 `job_postings.url`에 unique 제약이 없다. 배치를 여러 번 돌려도 중복이 쌓이지 않게 하려면 저장 전에 `db.query(JobPosting).filter_by(url=p["url"]).first()`로 존재 여부를 확인하거나, 모델에 unique 제약을 추가하는 방향을 논의해서 반영한다.
 5. 로컬에서 확인은 위 [DB 접속 방법 (DBeaver)](#db-접속-방법-dbeaver) 또는 파이썬 스니펫으로 한다.
 
+## 프론트엔드 ↔ API 계약
+
+프론트(`frontend/lib/api.js`)가 기대하는 응답 형태다. `NEXT_PUBLIC_API_URL`이 비어 있거나 요청이 실패하면 `frontend/lib/mockData.json` / `mockPostings.json`으로 자동 대체되므로, API가 없어도 화면은 그대로 뜬다.
+
+```
+GET {NEXT_PUBLIC_API_URL}/api/v1/gapmap?role=
+  → { meta: { fromDate, toDate, totalTechs, mappedTechs, totalPostings, mapLimit },
+      items: [{
+        tech, skillCode, kind, role,
+        demand, ecosystemScore, quadrant,
+        postings, postingsNote,
+        ecosystem: {                      // 각 { score: 0~100, raw: 정수 }
+          githubRepo, githubActivity, stackoverflow
+        },
+        sampleRepositories: [],
+        summary, signals: [{ meta, title }], stack: [], verdict
+      }] }
+
+GET {NEXT_PUBLIC_API_URL}/api/v1/tech/{skillCode}/postings?limit=5
+  → { items: [{ company, title, location, employmentType, publishedAt, applyUrl }] }
+```
+
+산출 규칙:
+
+- **`ecosystemScore`** = `github_repo_score`, `github_activity_score`, `ecosystem_heat_score_log`(각각 0~100 정규화)의 **단순 평균**, 소수 1자리 반올림.
+- **`quadrant`** = 두 축을 **50** 기준으로 4분류한 한글 문자열 (`필수` / `선점 후보` / `희소가치` / `저관심`). **서버가 계산해서 내려준다** — 프론트는 색상·라벨에 매핑만 하고 좌표로부터 재계산하지 않는다 (`frontend/lib/quadrants.js`).
+- **`ecosystem.*.raw`**는 화면에 항상 함께 표시된다. 세 점수 모두 대상 기술 집합 안에서의 Min-Max 정규화라 최하위가 0점으로 눌리는데, raw가 없으면 "안 쓰인다"로 오독되기 때문이다.
+- **`mapLimit`**: 지도에는 `demand` 상위 이 개수까지만 점을 찍고, 나머지는 기술 사전으로 넘긴다 (기본 30).
+- 공고 목록은 `JOB_POSTING`의 `is_active = true`만, 회사명은 `ATS_BOARD.company_name`에서 조인해 채운다.
+
+> **현재 백엔드와 어긋나는 지점** (아직 수정 전)
+> - 경로: `app/api/routes.py`는 `/gap`, `/tech/{name}`이고 둘 다 `NotImplementedError`다. 위 계약은 `/api/v1/gapmap`, `/api/v1/tech/{skillCode}/postings`를 쓴다.
+> - 필드명: `app/api/schemas.py`의 `TechGap`은 `technology`/`demand_score`/`ecosystem_score`/`gap_score`로, 프론트가 쓰는 `tech`/`demand`/`ecosystemScore`와 다르다. `gap_score`는 프론트에서 쓰지 않는다.
+> - `app/db/models.py`는 "임의의 코드임" 주석이 달린 플레이스홀더로, `devcompass-dw-erd.html`의 DW ERD(12테이블)와 무관하다.
+
+### 다루지 않는 것
+
+- **추세(trend)**: 생태계 CSV가 180일 스냅샷 1회분이라 시계열이 없다. 시계열 적재가 시작되기 전까지 상승/하락 표시는 넣지 않는다.
+- **경쟁 강도**: 지원자 수에 해당하는 데이터가 DW에 없다. 근거 없는 수치라 화면에서 제거했다.
+
 ## 프론트엔드 배포 (Vercel)
 
 `frontend/`는 Next.js 프로젝트로, Vercel에 별도 배포한다 (API/배치 서버 VM과는 독립).

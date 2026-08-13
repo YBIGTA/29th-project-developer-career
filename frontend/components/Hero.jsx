@@ -1,6 +1,7 @@
 import Compass from "@/components/Compass";
+import { formatPeriod } from "@/lib/ecosystem";
 
-export default function Hero({ techCount }) {
+export default function Hero({ techCount, meta }) {
   return (
     <header className="hero">
       <div className="hero__inner">
@@ -40,15 +41,17 @@ export default function Hero({ techCount }) {
             <dl className="hero__facts">
               <div>
                 <dt>수집 채용공고</dt>
-                <dd>5,781건</dd>
+                <dd>
+                  {meta?.totalPostings ? `${meta.totalPostings.toLocaleString("ko-KR")}건` : "—"}
+                </dd>
               </div>
               <div>
                 <dt>추적 기술</dt>
                 <dd>{techCount ? `${techCount}개` : "—"}</dd>
               </div>
               <div>
-                <dt>기준 시점</dt>
-                <dd>2026.07</dd>
+                <dt>기준 기간</dt>
+                <dd>{formatPeriod(meta)}</dd>
               </div>
             </dl>
           </div>

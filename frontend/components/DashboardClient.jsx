@@ -9,10 +9,12 @@ import Hero from "@/components/Hero";
 import QuadrantIntro from "@/components/QuadrantIntro";
 import TopBar from "@/components/TopBar";
 import { getGapMapData } from "@/lib/api";
+import { pickMapPoints } from "@/lib/mapPoints";
 import { useInView } from "@/lib/useInView";
 
 export default function DashboardClient() {
   const [data, setData] = useState([]);
+  const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [selectedRole, setSelectedRole] = useState("all");
@@ -34,7 +36,10 @@ export default function DashboardClient() {
       setError(null);
       try {
         const result = await getGapMapData();
-        if (!cancelled) setData(result);
+        if (!cancelled) {
+          setData(result.items);
+          setMeta(result.meta);
+        }
       } catch (err) {
         if (!cancelled) setError(err);
       } finally {
@@ -60,6 +65,14 @@ export default function DashboardClient() {
     if (!hasRoleData || selectedRole === "all") return data;
     return data.filter((d) => d.role === selectedRole);
   }, [data, hasRoleData, selectedRole]);
+
+  // 점이 겹쳐 읽히지 않는 것을 막으려고 수요 상위 N개만 찍는다. 잘린 기술은
+  // 아래 기술 사전 안내로 넘긴다.
+  const mapData = useMemo(
+    () => pickMapPoints(filteredData, meta?.mapLimit),
+    [filteredData, meta?.mapLimit]
+  );
+  const hiddenCount = filteredData.length - mapData.length;
 
   useEffect(() => {
     if (!selectedTech) return;
@@ -88,7 +101,7 @@ export default function DashboardClient() {
       />
 
       <span id="top" ref={heroSentinelRef} className="hero-sentinel" aria-hidden="true" />
-      <Hero techCount={data.length} />
+      <Hero techCount={data.length} meta={meta} />
 
       <main className="page__main">
         <QuadrantIntro data={data} loading={loading} onPickQuadrant={pickFromQuadrant} />
@@ -118,10 +131,14 @@ export default function DashboardClient() {
             <div className="chart-panel">
               <div className="chart-panel__head">
                 <div className="chart-panel__title">생태계 × 채용 수요</div>
-                <div className="chart-panel__hint">점을 클릭해 상세 정보 보기</div>
+                <div className="chart-panel__hint">
+                  {hiddenCount > 0
+                    ? `수요 상위 ${mapData.length}개만 표시 · 점을 클릭해 상세 보기`
+                    : "점을 클릭해 상세 정보 보기"}
+                </div>
               </div>
               <GapMap
-                data={filteredData}
+                data={mapData}
                 selectedTech={selectedTech}
                 onSelectPoint={setSelectedTech}
                 loading={loading}
@@ -141,8 +158,9 @@ export default function DashboardClient() {
             <span className="next-step__copy">
               <span className="next-step__title">전체 기술 목록</span>
               <span className="next-step__text">
-                지도에 찍힌 기술을 이름순으로 정리했습니다. 각 기술이 무엇인지, 어떤 기술과 함께
-                쓰이는지 한 항목에서 볼 수 있습니다.
+                {hiddenCount > 0
+                  ? `지도에는 수요 상위 ${mapData.length}개만 찍혀 있습니다. 나머지 ${hiddenCount}개를 포함한 전체 목록을 여기서 볼 수 있습니다.`
+                  : "지도에 찍힌 기술을 이름순으로 정리했습니다. 각 기술이 무엇인지, 어떤 기술과 함께 쓰이는지 한 항목에서 볼 수 있습니다."}
               </span>
             </span>
             <span className="next-step__cta">
@@ -165,8 +183,8 @@ export default function DashboardClient() {
       <footer className="page__footer">
         <span className="page__footer-brand">DevCompass</span>
         <span>
-          채용공고 태그 추출은 tech_stack_pipeline 집계 결과를 사용합니다. 경쟁 강도 등 일부 지표는
-          예시 값입니다.
+          생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값입니다. 채용 수요와 공고 건수는
+          채용 API 연결 전 예시 값입니다.
         </span>
       </footer>
     </div>

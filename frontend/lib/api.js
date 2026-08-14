@@ -9,9 +9,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  * 괴리맵(수요-생태계) 데이터를 가져온다.
  *
  * 반환 형태:
- *   meta  { fromDate, toDate, totalTechs, mappedTechs, totalPostings, mapLimit }
- *   items { tech, skillCode, kind, role, demand, ecosystemScore, quadrant,
- *           postings, postingsNote,
+ *   meta  { fromDate, toDate, totalTechs, mappedTechs, totalPostings, mapLimit, roles }
+ *   items { tech, skillCode, kind, roles: string[](최대 2개),
+ *           demand(공고 언급 빈도의 백분위 순위 0~100), demandRank,
+ *           ecosystemScore, quadrant, postings, postingsShare, postingsNote,
  *           ecosystem: { githubRepo, githubActivity, stackoverflow } — 각 { score, raw },
  *           sampleRepositories, summary, signals, stack, verdict }[]
  *

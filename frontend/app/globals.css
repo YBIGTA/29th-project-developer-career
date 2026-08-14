@@ -1276,7 +1276,9 @@ a {
 
 .gap-map__corner {
   position: absolute;
-  z-index: 3;
+  /* 사분면 이름표는 장식이다. 모서리에 찍힌 점(z-index 2)과 그 이름표(1)를
+     가리면 안 되므로 데이터보다 아래에 깐다. */
+  z-index: 0;
   display: inline-flex;
   align-items: center;
   gap: 7px;
@@ -1436,6 +1438,11 @@ a {
   transform: translate(-50%, 30px);
 }
 
+/* 판 바닥에 붙은 점은 이름표를 점 위로 올린다. 아래에 두면 판 밖으로 잘린다. */
+.gap-map__dot-label[data-flip="up"] {
+  transform: translate(-50%, -18px);
+}
+
 .gap-map__dot-label--minimal,
 .gap-map__dot-label--unknown {
   color: var(--text-muted);
@@ -1446,6 +1453,10 @@ a {
   transform: translate(-50%, 26px);
   transition: opacity 500ms var(--ease-out) var(--reveal-delay, 0ms),
     transform 500ms var(--ease-out) var(--reveal-delay, 0ms);
+}
+
+.gap-map[data-revealed="true"] .gap-map__dot-label[data-flip="up"] {
+  transform: translate(-50%, -14px);
 }
 
 /* ---------- gap map: tooltip ---------- */
@@ -2621,6 +2632,57 @@ a {
   padding: 3px 8px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
+  color: var(--text-muted);
+}
+
+/* 리드 문단 — 사전 전체와 상세 27개의 관계를 먼저 설명한다. */
+.dict__lead {
+  margin-top: 16px;
+  max-width: 68ch;
+  color: var(--text-muted);
+  font-size: 0.92rem;
+  line-height: 1.65;
+  animation: riseIn 0.7s var(--ease-out) 0.05s both;
+}
+
+.dict__lead strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* 분류 칩은 11종이라 사분면 줄보다 훨씬 길다. 한 줄에 몰아넣지 않고 흘려보낸다. */
+.dict-filters--cat {
+  gap: 6px;
+}
+
+/*
+ * 생태계 지표가 없는 표제어(190개)는 펼칠 내용이 없으므로 버튼이 아니라 정적 블록이다.
+ * 상세 항목과 같은 그리드를 쓰되, 시선이 27개 상세 쪽에 남도록 한 톤 죽인다.
+ */
+.dict-entry--brief {
+  background: transparent;
+  border-style: dashed;
+}
+
+.dict-entry--brief:hover {
+  border-color: var(--line-strong);
+  background: var(--ink-900);
+}
+
+.dict-entry__head--static {
+  padding-right: 22px;
+  cursor: default;
+}
+
+.dict-entry__head--static:active {
+  transform: none;
+}
+
+.dict-entry--brief .dict-entry__name {
+  font-size: 1.02rem;
+}
+
+.dict-entry--brief .dict-entry__summary {
   color: var(--text-muted);
 }
 

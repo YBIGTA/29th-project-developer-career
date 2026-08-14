@@ -53,17 +53,17 @@ export default function DashboardClient() {
     };
   }, []);
 
-  // role은 아직 데이터팀 공식 스펙에 없는 임시 필드라, 값이 하나도 없으면
-  // 필터 UI는 남기고 비활성화한다 (FilterBar의 hasRoleData 참고).
+  // roles는 채용공고에서 뽑은 직군 그룹 6종이고, 한 기술이 두 개까지 가질 수 있다.
+  // 순서는 meta.roles(공고 수 내림차순)를 따르고, 없으면 데이터에서 직접 모은다.
   const roles = useMemo(() => {
-    const set = new Set(data.filter((d) => d.role).map((d) => d.role));
-    return Array.from(set).sort();
-  }, [data]);
+    if (meta?.roles?.length) return meta.roles;
+    return Array.from(new Set(data.flatMap((d) => d.roles ?? []))).sort();
+  }, [data, meta?.roles]);
   const hasRoleData = roles.length > 0;
 
   const filteredData = useMemo(() => {
     if (!hasRoleData || selectedRole === "all") return data;
-    return data.filter((d) => d.role === selectedRole);
+    return data.filter((d) => d.roles?.includes(selectedRole));
   }, [data, hasRoleData, selectedRole]);
 
   // 점이 겹쳐 읽히지 않는 것을 막으려고 수요 상위 N개만 찍는다. 잘린 기술은
@@ -183,8 +183,9 @@ export default function DashboardClient() {
       <footer className="page__footer">
         <span className="page__footer-brand">DevCompass</span>
         <span>
-          생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값입니다. 채용 수요와 공고 건수는
-          채용 API 연결 전 예시 값입니다.
+          생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된 공고{" "}
+          {meta?.totalPostings ? `${meta.totalPostings.toLocaleString("ko-KR")}건` : ""}에서
+          tech_stack_pipeline이 추출한 기술 태그 기준입니다. 개별 공고 목록만 아직 예시입니다.
         </span>
       </footer>
     </div>

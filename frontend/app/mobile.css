@@ -784,7 +784,8 @@
 
 .mv-map__corner {
   position: absolute;
-  z-index: 3;
+  /* 사분면 이름표는 장식이라 모서리에 찍힌 점을 가리면 안 된다. 데이터보다 아래에 깐다. */
+  z-index: 0;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1817,6 +1818,33 @@
   padding: 2px 7px;
   border: 1px solid var(--line-strong);
   border-radius: 999px;
+  color: var(--text-muted);
+}
+
+.mv-dict__lead {
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.mv-dict__lead strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* 생태계 지표가 없는 표제어는 펼칠 내용이 없어 정적 블록으로 둔다. */
+.mv-dict-entry--brief {
+  background: transparent;
+  border-style: dashed;
+}
+
+.mv-dict-entry__head--static {
+  padding-right: 14px;
+  cursor: default;
+}
+
+.mv-dict-entry--brief .mv-dict-entry__summary {
   color: var(--text-muted);
 }
 

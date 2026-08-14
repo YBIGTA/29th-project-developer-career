@@ -7,10 +7,11 @@ import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
 import { ecosystemBars } from "@/lib/ecosystem";
 import { mapCodeSet } from "@/lib/mapPoints";
 import { getGapMapData } from "@/lib/api";
+import { getSkillIndex, mergeSkills, skillHaystack } from "@/lib/skills";
 
 const SORTS = [
   { key: "dict", label: "사전순" },
-  { key: "demand", label: "채용 수요순" },
+  { key: "postings", label: "공고순" },
   { key: "ecosystem", label: "생태계순" },
 ];
 
@@ -19,19 +20,18 @@ function initialOf(name) {
   return first >= "A" && first <= "Z" ? first : "#";
 }
 
-function matches(tech, query) {
+function matches(skill, query) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
-  const haystack = [tech.tech, tech.kind, tech.role, tech.summary, ...tech.stack]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-  return haystack.includes(q);
+  return skillHaystack(skill).includes(q);
 }
 
 export default function MobileDictionary() {
   const [data, setData] = useState([]);
   const [dataMeta, setDataMeta] = useState(null);
+  const [indexMeta, setIndexMeta] = useState(null);
+  const [mapItems, setMapItems] = useState([]);
+  const [catFilter, setCatFilter] = useState("all");
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
@@ -46,10 +46,13 @@ export default function MobileDictionary() {
       setLoading(true);
       setError(null);
       try {
-        const result = await getGapMapData();
+        // 사전 전체와 상세 27개는 별개 소스라 함께 받아 합친다.
+        const [index, gapmap] = await Promise.all([getSkillIndex(), getGapMapData()]);
         if (!cancelled) {
-          setData(result.items);
-          setDataMeta(result.meta);
+          setData(mergeSkills(index.items, gapmap.items));
+          setIndexMeta(index.meta);
+          setDataMeta(gapmap.meta);
+          setMapItems(gapmap.items);
         }
       } catch (err) {
         if (!cancelled) setError(err);
@@ -66,16 +69,24 @@ export default function MobileDictionary() {
 
   const filtered = useMemo(() => {
     const rows = data.filter(
-      (d) => matches(d, query) && (quadFilter === "all" || d.quadrant === quadFilter)
+      (d) =>
+        matches(d, query) &&
+        (quadFilter === "all" || d.quadrant === quadFilter) &&
+        (catFilter === "all" || d.category === catFilter)
     );
-    if (sort === "demand") return rows.sort((a, b) => b.demand - a.demand);
-    if (sort === "ecosystem") return rows.sort((a, b) => b.ecosystemScore - a.ecosystemScore);
+    if (sort === "postings") return rows.sort((a, b) => b.postings - a.postings);
+    // 생태계 점수는 상세 27개에만 있다. 점수가 없는 항목은 뒤로 민다.
+    if (sort === "ecosystem")
+      return rows.sort((a, b) => (b.ecosystemScore ?? -1) - (a.ecosystemScore ?? -1));
     return rows.sort((a, b) => a.tech.localeCompare(b.tech, "en"));
-  }, [data, query, quadFilter, sort]);
+  }, [data, query, quadFilter, catFilter, sort]);
 
   // 지도는 수요 상위 N개까지만 찍는다. 사전에는 전부 실리므로, 지도에서
   // 잘린 항목임을 여기서 알려준다.
-  const onMap = useMemo(() => mapCodeSet(data, dataMeta?.mapLimit), [data, dataMeta?.mapLimit]);
+  const onMap = useMemo(
+    () => mapCodeSet(mapItems, dataMeta?.mapLimit),
+    [mapItems, dataMeta?.mapLimit]
+  );
 
   const groups = useMemo(() => {
     if (sort !== "dict") return [{ letter: null, items: filtered }];
@@ -90,7 +101,13 @@ export default function MobileDictionary() {
 
   const quadCounts = useMemo(() => {
     const counts = {};
-    for (const d of data) counts[d.quadrant] = (counts[d.quadrant] ?? 0) + 1;
+    for (const d of data) if (d.quadrant) counts[d.quadrant] = (counts[d.quadrant] ?? 0) + 1;
+    return counts;
+  }, [data]);
+
+  const catCounts = useMemo(() => {
+    const counts = {};
+    for (const d of data) counts[d.category] = (counts[d.category] ?? 0) + 1;
     return counts;
   }, [data]);
 
@@ -101,6 +118,12 @@ export default function MobileDictionary() {
       <main className="mv-dict">
         <h1 className="mv-dict__title">전체 기술 목록</h1>
 
+        <p className="mv-dict__lead">
+          채용공고 태그 추출에 쓰는 사전 전체입니다. 표제어{" "}
+          {indexMeta?.totalSkills ?? "—"}개 중 <strong>{indexMeta?.detailedSkills ?? 27}개</strong>만
+          생태계 지표까지 있고, 나머지는 공고에서 확인된 사실만 싣습니다.
+        </p>
+
         <div className="mv-dict-search">
           <svg className="mv-dict-search__icon" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16">
             <circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" strokeWidth="1.5" />
@@ -109,7 +132,7 @@ export default function MobileDictionary() {
           <input
             type="search"
             className="mv-dict-search__input"
-            placeholder="기술 이름, 분류, 함께 쓰는 스택으로 찾기"
+            placeholder="이름, 별칭(K8s·Golang), 분류로 찾기"
             aria-label="기술 검색"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
@@ -126,6 +149,30 @@ export default function MobileDictionary() {
               </svg>
             </button>
           )}
+        </div>
+
+        <div className="mv-dict-filters" role="group" aria-label="분류로 거르기">
+          <button
+            type="button"
+            className="mv-dict-chip"
+            data-selected={catFilter === "all"}
+            onClick={() => setCatFilter("all")}
+          >
+            전체 분류
+            <span className="mv-dict-chip__count">{data.length}</span>
+          </button>
+          {(indexMeta?.categories ?? []).map((c) => (
+            <button
+              key={c}
+              type="button"
+              className="mv-dict-chip"
+              data-selected={catFilter === c}
+              onClick={() => setCatFilter(c)}
+            >
+              {c}
+              <span className="mv-dict-chip__count">{catCounts[c] ?? 0}</span>
+            </button>
+          ))}
         </div>
 
         <div className="mv-dict-filters" role="group" aria-label="사분면으로 거르기">
@@ -211,6 +258,7 @@ export default function MobileDictionary() {
                   onClick={() => {
                     setQuery("");
                     setQuadFilter("all");
+                    setCatFilter("all");
                   }}
                 >
                   조건 초기화
@@ -231,120 +279,22 @@ export default function MobileDictionary() {
                     </h2>
                   )}
 
-                  {group.items.map((tech) => {
-                    const meta = getQuadrantMeta(tech.quadrant);
-                    const open = openTech === tech.tech;
-                    const color = `var(--quad-${meta.slug})`;
-
-                    return (
-                      <article key={tech.tech} className="mv-dict-entry" data-open={open}>
-                        <button
-                          type="button"
-                          className="mv-dict-entry__head"
-                          aria-expanded={open}
-                          aria-controls={`mv-entry-${tech.tech}`}
-                          onClick={() => setOpenTech(open ? null : tech.tech)}
-                        >
-                          <span className="mv-dict-entry__title-row">
-                            <span className="mv-dict-entry__name">{tech.tech}</span>
-                            <span className="mv-dict-entry__kind">{tech.kind}</span>
-                            <span className="mv-dict-entry__quad">
-                              <span className={`mv-legend-swatch mv-legend-swatch--${meta.slug}`} />
-                              {meta.label}
-                            </span>
-                          </span>
-
-                          <span className="mv-dict-entry__summary">{tech.summary}</span>
-
-                          <span className="mv-dict-entry__scores">
-                            <span className="mv-dict-score">
-                              생태계 <span className="mv-dict-score__value">{tech.ecosystemScore}</span>
-                            </span>
-                            <span className="mv-dict-score">
-                              채용 수요 <span className="mv-dict-score__value">{tech.demand}</span>
-                            </span>
-                            {!onMap.has(tech.skillCode) && (
-                              <span className="mv-dict-score__offmap">지도 미표시</span>
-                            )}
-                          </span>
-
-                          <span className="mv-dict-entry__chevron" aria-hidden="true">
-                            <svg viewBox="0 0 16 16" width="14" height="14">
-                              <path
-                                d="M4 6.4 8 10.4 12 6.4"
-                                fill="none"
-                                stroke="currentColor"
-                                strokeWidth="1.5"
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                              />
-                            </svg>
-                          </span>
-                        </button>
-
-                        {open && (
-                          <div className="mv-dict-entry__panel" id={`mv-entry-${tech.tech}`}>
-                            <div>
-                              <div className="mv-dict-entry__sub">생태계 지표</div>
-                              <div className="mv-dict-entry__metrics">
-                                {ecosystemBars(tech).map((bar) => (
-                                  <div key={bar.key}>
-                                    <div className="mv-dict-entry__metric-row">
-                                      <span>{bar.label}</span>
-                                      <span className="mv-dict-entry__metric-value">
-                                        {bar.score}
-                                        <span className="mv-dict-entry__metric-raw">
-                                          {bar.rawText}
-                                        </span>
-                                      </span>
-                                    </div>
-                                    <div className="mv-dict-entry__metric-track">
-                                      <div
-                                        className="mv-dict-entry__metric-fill"
-                                        style={{ width: `${bar.score}%`, background: color }}
-                                      />
-                                    </div>
-                                  </div>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div>
-                              <div className="mv-dict-entry__sub">이 자리에 있는 이유</div>
-                              <div className="mv-dict-entry__signals">
-                                {(tech.signals ?? []).map((s) => (
-                                  <div className="mv-dict-entry__signal" key={s.meta}>
-                                    <span className="mv-dict-entry__signal-dot" style={{ background: color }} />
-                                    <span className="mv-dict-entry__signal-meta">{s.meta}</span>
-                                    <span className="mv-dict-entry__signal-title">{s.title}</span>
-                                  </div>
-                                ))}
-                              </div>
-
-                              <div className="mv-dict-entry__sub">함께 요구되는 기술</div>
-                              <div className="mv-dict-entry__stack">
-                                {(tech.stack ?? []).map((s) => (
-                                  <button
-                                    type="button"
-                                    className="mv-dict-entry__chip"
-                                    key={s}
-                                    onClick={() => setQuery(s)}
-                                  >
-                                    {s}
-                                  </button>
-                                ))}
-                              </div>
-                            </div>
-
-                            <div className="mv-dict-entry__verdict" style={{ background: meta.tint }}>
-                              <div className="mv-dict-entry__sub">지금 배운다면</div>
-                              <p className="mv-dict-entry__verdict-text">{tech.verdict}</p>
-                            </div>
-                          </div>
-                        )}
-                      </article>
-                    );
-                  })}
+                  {group.items.map((tech) =>
+                    tech.detailed ? (
+                      <MobileDetailedEntry
+                        key={tech.skillCode}
+                        tech={tech}
+                        open={openTech === tech.skillCode}
+                        onToggle={() =>
+                          setOpenTech(openTech === tech.skillCode ? null : tech.skillCode)
+                        }
+                        offMap={!onMap.has(tech.skillCode)}
+                        onPickStack={setQuery}
+                      />
+                    ) : (
+                      <MobileBriefEntry key={tech.skillCode} tech={tech} />
+                    )
+                  )}
                 </section>
               ))
             )}
@@ -354,11 +304,163 @@ export default function MobileDictionary() {
 
       <footer className="mv-footer">
         <span className="mv-footer__brand">DevCompass</span>
-        표제어는 tech_stack_pipeline이 채용공고에서 추출한 태그를 기준으로 수집했습니다. 경쟁
-        강도 등 일부 지표는 예시 값입니다.
+        표제어는 tech_stack_pipeline이 채용공고에서 추출한 태그를 기준으로 수집했습니다. 채용
+        수요는 그 태그 빈도의 백분위 순위입니다.
       </footer>
 
       <MobileTabBar />
     </div>
+  );
+}
+
+/** 생태계 지표까지 수집된 27개. 펼치면 근거와 학습 조언까지 보여준다. */
+function MobileDetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
+  const meta = getQuadrantMeta(tech.quadrant);
+  const color = `var(--quad-${meta.slug})`;
+
+  return (
+    <article className="mv-dict-entry" data-open={open}>
+      <button
+        type="button"
+        className="mv-dict-entry__head"
+        aria-expanded={open}
+        aria-controls={`mv-entry-${tech.skillCode}`}
+        onClick={onToggle}
+      >
+        <span className="mv-dict-entry__title-row">
+          <span className="mv-dict-entry__name">{tech.tech}</span>
+          <span className="mv-dict-entry__kind">{tech.kind ?? tech.category}</span>
+          <span className="mv-dict-entry__quad">
+            <span className={`mv-legend-swatch mv-legend-swatch--${meta.slug}`} />
+            {meta.label}
+          </span>
+        </span>
+
+        <span className="mv-dict-entry__summary">{tech.summary}</span>
+
+        <span className="mv-dict-entry__scores">
+          <span className="mv-dict-score">
+            생태계 <span className="mv-dict-score__value">{tech.ecosystemScore}</span>
+          </span>
+          <span className="mv-dict-score">
+            채용 수요 <span className="mv-dict-score__value">{tech.demand}</span>
+          </span>
+          {offMap && <span className="mv-dict-score__offmap">지도 미표시</span>}
+        </span>
+
+        <span className="mv-dict-entry__chevron" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="14" height="14">
+            <path
+              d="M4 6.4 8 10.4 12 6.4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+      </button>
+
+      {open && (
+        <div className="mv-dict-entry__panel" id={`mv-entry-${tech.skillCode}`}>
+          <div>
+            <div className="mv-dict-entry__sub">생태계 지표</div>
+            <div className="mv-dict-entry__metrics">
+              {ecosystemBars(tech).map((bar) => (
+                <div key={bar.key}>
+                  <div className="mv-dict-entry__metric-row">
+                    <span>{bar.label}</span>
+                    <span className="mv-dict-entry__metric-value">
+                      {bar.score}
+                      <span className="mv-dict-entry__metric-raw">{bar.rawText}</span>
+                    </span>
+                  </div>
+                  <div className="mv-dict-entry__metric-track">
+                    <div
+                      className="mv-dict-entry__metric-fill"
+                      style={{ width: `${bar.score}%`, background: color }}
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div>
+            <div className="mv-dict-entry__sub">이 자리에 있는 이유</div>
+            <div className="mv-dict-entry__signals">
+              {(tech.signals ?? []).map((s) => (
+                <div className="mv-dict-entry__signal" key={s.meta}>
+                  <span className="mv-dict-entry__signal-dot" style={{ background: color }} />
+                  <span className="mv-dict-entry__signal-meta">{s.meta}</span>
+                  <span className="mv-dict-entry__signal-title">{s.title}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="mv-dict-entry__sub">함께 요구되는 기술</div>
+            <div className="mv-dict-entry__stack">
+              {(tech.stack ?? []).map((s) => (
+                <button
+                  type="button"
+                  className="mv-dict-entry__chip"
+                  key={s}
+                  onClick={() => onPickStack(s)}
+                >
+                  {s}
+                </button>
+              ))}
+            </div>
+          </div>
+
+          <div className="mv-dict-entry__verdict" style={{ background: meta.tint }}>
+            <div className="mv-dict-entry__sub">지금 배운다면</div>
+            <p className="mv-dict-entry__verdict-text">{tech.verdict}</p>
+          </div>
+        </div>
+      )}
+    </article>
+  );
+}
+
+/**
+ * 생태계 지표가 없는 나머지 표제어. 서술 문구를 지어내지 않고, 채용공고에서
+ * 실제로 세어진 값(공고 건수·순위·직군)과 사전에 등록된 별칭만 보여준다.
+ */
+function MobileBriefEntry({ tech }) {
+  const untagged = tech.postings === 0;
+
+  return (
+    <article className="mv-dict-entry mv-dict-entry--brief">
+      <div className="mv-dict-entry__head mv-dict-entry__head--static">
+        <span className="mv-dict-entry__title-row">
+          <span className="mv-dict-entry__name">{tech.tech}</span>
+          <span className="mv-dict-entry__kind">{tech.category}</span>
+        </span>
+
+        <span className="mv-dict-entry__summary">
+          {untagged ? (
+            <>수집된 공고 어디에서도 아직 발견되지 않았습니다. 사전에는 등록돼 있습니다.</>
+          ) : (
+            <>
+              공고 {tech.postings.toLocaleString("ko-KR")}건({tech.postingsShare}%)에서 요구돼 사전
+              전체 {tech.rank}위입니다.
+              {tech.aliases.length > 0 && ` 별칭 — ${tech.aliases.join(", ")}.`}
+            </>
+          )}
+        </span>
+
+        <span className="mv-dict-entry__scores">
+          <span className="mv-dict-score">
+            공고 <span className="mv-dict-score__value">{tech.postings.toLocaleString("ko-KR")}</span>
+          </span>
+          {(tech.roles ?? []).length > 0 && (
+            <span className="mv-dict-score">{tech.roles.join(" · ")}</span>
+          )}
+          <span className="mv-dict-score__offmap">생태계 미수집</span>
+        </span>
+      </div>
+    </article>
   );
 }

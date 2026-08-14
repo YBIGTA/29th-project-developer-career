@@ -177,7 +177,11 @@ export default function MobileDetailSheet({ tech, onClose }) {
                   <span className="mv-sheet__badge-dot" style={{ background: color }} />
                   {meta.label}
                 </span>
-                {tech.role && <span className="mv-sheet__badge">{tech.role}</span>}
+                {(tech.roles ?? []).map((r) => (
+                  <span key={r} className="mv-sheet__badge">
+                    {r}
+                  </span>
+                ))}
               </div>
 
               <div className="mv-sheet__tabs" role="tablist" aria-label="상세 정보 보기">
@@ -212,6 +216,14 @@ export default function MobileDetailSheet({ tech, onClose }) {
                         {tech.postings.toLocaleString("ko-KR")}건
                       </div>
                       <div className="mv-sheet__stat-note">{tech.postingsNote}</div>
+                    </div>
+                    <div className="mv-sheet__stat">
+                      <div className="mv-sheet__stat-label">채용 수요</div>
+                      <div className="mv-sheet__stat-value">{tech.demand}</div>
+                      <div className="mv-sheet__stat-note">
+                        공고 언급 빈도의 백분위 순위
+                        {tech.demandRank ? ` · 27개 중 ${tech.demandRank}위` : ""}
+                      </div>
                     </div>
                     <div className="mv-sheet__stat">
                       <div className="mv-sheet__stat-label">생태계 종합</div>
@@ -290,8 +302,8 @@ export default function MobileDetailSheet({ tech, onClose }) {
                   </div>
 
                   <p className="mv-sheet__footnote">
-                    생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 API
-                    연결 전 예시 값입니다.
+                    생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는
+                    수집된 공고에서 추출한 기술 태그 빈도의 백분위 순위입니다.
                   </p>
                 </>
               ) : (

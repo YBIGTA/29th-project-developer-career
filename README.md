@@ -119,11 +119,11 @@ pytest
 
 ```
 GET {NEXT_PUBLIC_API_URL}/api/v1/gapmap?role=
-  → { meta: { fromDate, toDate, totalTechs, mappedTechs, totalPostings, mapLimit },
+  → { meta: { fromDate, toDate, totalTechs, mappedTechs, totalPostings, mapLimit, roles: [] },
       items: [{
-        tech, skillCode, kind, role,
-        demand, ecosystemScore, quadrant,
-        postings, postingsNote,
+        tech, skillCode, kind, roles: [],        // 직군 그룹, 기술당 최대 2개
+        demand, demandRank, ecosystemScore, quadrant,
+        postings, postingsShare, postingsNote,
         ecosystem: {                      // 각 { score: 0~100, raw: 정수 }
           githubRepo, githubActivity, stackoverflow
         },
@@ -138,7 +138,12 @@ GET {NEXT_PUBLIC_API_URL}/api/v1/tech/{skillCode}/postings?limit=5
 산출 규칙:
 
 - **`ecosystemScore`** = `github_repo_score`, `github_activity_score`, `ecosystem_heat_score_log`(각각 0~100 정규화)의 **단순 평균**, 소수 1자리 반올림.
+- **`demand`** = 기술을 요구하는 **공고 건수의 백분위 순위**(대상 집합 안에서 오름차순 순위 ÷ (N−1) × 100). 원시 건수(`postings`)와 전체 대비 비율(`postingsShare`), 순위(`demandRank`)는 별도 필드로 함께 내려준다.
+  Min-Max를 쓰지 않는 이유: 공고 건수 분포가 Python 919건 대 Cloudflare 2건으로 극단적으로 치우쳐 있어서, 선형 Min-Max는 Python을 뺀 26개를 전부 하단에 몰아넣고 log1p Min-Max는 27개 중 23개를 50 이상으로 밀어 올려 **`선점 후보` 사분면이 비어 버린다.** 백분위는 중앙값이 정확히 50이라 차트가 그리는 50% 십자선과 일치하고, 네 사분면이 모두 채워진다.
+- **`roles`** — 채용공고의 원본 직군 14종을 6개 그룹(`일반 SWE`, `매니지먼트 · 솔루션`, `AI · 리서치`, `인프라 · 보안`, `웹 · 모바일`, `데이터`)으로 통합한 뒤, 그룹 내 요구 비율(해당 기술 언급 건수 ÷ 그룹 공고 수) 상위 2개를 담는다. 그룹 크기로 나누는 이유는 원시 건수로 뽑으면 가장 큰 그룹(`일반 SWE`, 767건)이 27개 중 21개에서 1위가 돼 필터로 쓸 수 없기 때문이다. 표본이 3건 미만인 그룹은 제외하므로 `roles`가 빈 배열일 수 있다.
+- **`meta.roles`** — 필터 UI에 노출할 직군 그룹 목록이자 표시 순서(공고 수 내림차순). 비어 있으면 프론트가 직군 필터를 자동으로 감춘다.
 - **`quadrant`** = 두 축을 **50** 기준으로 4분류한 한글 문자열 (`필수` / `선점 후보` / `희소가치` / `저관심`). **서버가 계산해서 내려준다** — 프론트는 색상·라벨에 매핑만 하고 좌표로부터 재계산하지 않는다 (`frontend/lib/quadrants.js`).
+- **점수 표기**: `ecosystemScore`와 `ecosystem.*.score`는 모두 **소수 1자리로 반올림**해서 내려준다. 화면이 세 지표와 종합 점수를 같이 보여주므로, 자릿수가 다르면 합이 안 맞는 것처럼 보인다.
 - **`ecosystem.*.raw`**는 화면에 항상 함께 표시된다. 세 점수 모두 대상 기술 집합 안에서의 Min-Max 정규화라 최하위가 0점으로 눌리는데, raw가 없으면 "안 쓰인다"로 오독되기 때문이다.
 - **`mapLimit`**: 지도에는 `demand` 상위 이 개수까지만 점을 찍고, 나머지는 기술 사전으로 넘긴다 (기본 30).
 - 공고 목록은 `JOB_POSTING`의 `is_active = true`만, 회사명은 `ATS_BOARD.company_name`에서 조인해 채운다.
@@ -147,6 +152,18 @@ GET {NEXT_PUBLIC_API_URL}/api/v1/tech/{skillCode}/postings?limit=5
 > - 경로: `app/api/routes.py`는 `/gap`, `/tech/{name}`이고 둘 다 `NotImplementedError`다. 위 계약은 `/api/v1/gapmap`, `/api/v1/tech/{skillCode}/postings`를 쓴다.
 > - 필드명: `app/api/schemas.py`의 `TechGap`은 `technology`/`demand_score`/`ecosystem_score`/`gap_score`로, 프론트가 쓰는 `tech`/`demand`/`ecosystemScore`와 다르다. `gap_score`는 프론트에서 쓰지 않는다.
 > - `app/db/models.py`는 "임의의 코드임" 주석이 달린 플레이스홀더로, `devcompass-dw-erd.html`의 DW ERD(12테이블)와 무관하다.
+
+### 채용 데이터 파이프라인에서 확인된 한계
+
+`tech_stack_pipeline.ipynb`가 만든 `skills_counts.csv` / `skills_by_job_role.csv`를 화면에 붙이면서 확인한 것들. 지금 수치를 읽을 때 감안해야 한다.
+
+- **회사 자기언급 필터가 벤더 기업의 수요를 지운다.** `tag_dataframe`은 태그가 채용 회사명을 포함하면 자기언급으로 보고 제거하는데, 이 데이터셋에는 Cloudflare·MongoDB·Datadog처럼 자기 제품명이 곧 기술명인 회사가 채용 기업으로 들어 있다. 그 결과 Cloudflare는 전체 2건으로 27개 중 최하위가 됐다. 실제 수요가 아니라 필터의 부작용이다.
+- **`GPT / OpenAI` 이름이 양쪽에서 다르다.** 생태계 CSV는 `GPT / OpenAI` 하나로 두는데 사전은 `GPT`(114건)와 `OpenAI`(19건)를 별도 canonical로 뽑는다. 프론트는 둘을 합산해 133건으로 쓴다. 스키마에 `SKILL_ALIAS`가 있으니 이 매핑은 DB 쪽으로 옮기는 게 맞다.
+- **`Claude`(172건)가 생태계 수집 대상에 없다.** 공고 언급으로는 `GPT`(114건)보다 많은데 27개 목록에 빠져 있어 지도에 안 뜬다. 다음 수집 때 추가 후보.
+- **`share_%`는 직군 간 비교에 쓰면 안 된다.** `Frontend` 직군은 공고가 9건뿐이라 React 6건이 66.7%로 잡힌다. 그래서 위 `roles` 산출은 원본 14직군이 아니라 통합 그룹 기준으로 계산한다.
+- **0단계 중복 제거 셀이 두 번 돌면 원본 백업을 덮어쓴다.** `dev_role_jobs_raw_backup.csv`에 현재 `dev_role_jobs.csv`를 먼저 복사하는데, 이미 중복 제거된 파일을 다시 돌리면 백업도 중복 제거본으로 바뀌어 원본을 잃는다. 백업이 이미 있으면 건너뛰는 가드가 필요하다.
+- **`Node.js`의 alias에 `Node`가 있다.** Kubernetes를 요구하는 공고가 많은데(418건) "Kubernetes node" 같은 표현이 `Node.js`로 잡힐 수 있다. 부록 B 회귀 테스트에 케이스를 추가해 확인해볼 값어치가 있다.
+- **데이터가 국내 공고가 아니다.** 수집원이 Anthropic·Cloudflare·Palantir 등 영어권 ATS라, 화면 문구에서 "국내 수요"라고 쓰면 틀린 말이 된다. 기존 서술 문구에 있던 국내 언급은 이번에 전부 걷어냈다.
 
 ### 다루지 않는 것
 

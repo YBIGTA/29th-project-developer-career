@@ -166,7 +166,6 @@
   height: 5px;
   border-radius: 50%;
   background: var(--accent);
-  animation: mvBreathe 2.6s ease-in-out infinite;
 }
 
 .mv-hero__wordmark {
@@ -391,7 +390,7 @@
 .mv-quad-card--early-mover {
   --cell-color: var(--quad-early-mover);
   --cell-bg: var(--quad-early-mover-bg);
-  border-color: rgba(47, 191, 146, 0.28);
+  border-color: rgba(91, 192, 190, 0.28);
 }
 .mv-quad-card--niche {
   --cell-color: var(--quad-niche);
@@ -792,7 +791,7 @@
   padding: 4px 8px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(11, 11, 12, 0.66);
+  background: rgba(6, 12, 28, 0.66);
   font-size: 0.62rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -1068,7 +1067,7 @@
   border: 1px solid var(--line-strong);
   border-bottom: none;
   background: var(--ink-900);
-  box-shadow: 0 -24px 60px -20px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 -8px 24px -12px rgba(0, 0, 0, 0.6);
   transform: translateY(100%);
   transition: transform 320ms var(--ease-out);
 }
@@ -1974,18 +1973,6 @@
 }
 
 /* ---------- shared keyframes ---------- */
-
-@keyframes mvBreathe {
-  0%,
-  100% {
-    opacity: 0.55;
-    transform: scale(0.9);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
 
 @keyframes mvShimmer {
   0% {

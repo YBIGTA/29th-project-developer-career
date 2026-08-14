@@ -14,3 +14,21 @@ export function pickMapPoints(items, limit = MAP_LIMIT) {
 export function mapCodeSet(items, limit = MAP_LIMIT) {
   return new Set(pickMapPoints(items, limit).map((d) => d.skillCode));
 }
+
+// 점을 0%/100% 자리에 그대로 찍으면 원의 절반이 판 밖으로 잘린다
+// (.gap-map__plane / .mv-map__plane 이 overflow: hidden). 그래서 0~100 점수를
+// 판 안쪽 PLOT_PAD~(100-PLOT_PAD) 구간에 대응시킨다.
+//
+// 좌우 대칭이라 50점은 그대로 50%에 남는다 — 배경 사분면과 십자선이 그리는
+// 50% 경계선과 어긋나지 않는 것이 중요하다.
+export const PLOT_PAD = 4;
+
+export function plot(value, pad = PLOT_PAD) {
+  const v = Math.min(100, Math.max(0, value ?? 0));
+  return pad + (v * (100 - 2 * pad)) / 100;
+}
+
+// 판 바닥에 가까운 점은 이름표를 위로 뒤집는다. 아래로 두면 이름이 잘린다.
+export function labelFlipsUp(demand) {
+  return (demand ?? 0) < 12;
+}

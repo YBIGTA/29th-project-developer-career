@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
+import { plot, labelFlipsUp } from "@/lib/mapPoints";
 
 const LEGEND = [
   { slug: "early-mover", label: "선점 후보", note: "채운 원 · 생태계 높고 채용 낮음" },
@@ -19,8 +20,10 @@ function GapMapTooltip({ tech }) {
     <div
       className="gap-map__tooltip"
       style={{
-        left: `${tech.ecosystemScore}%`,
-        bottom: low ? `calc(${tech.demand}% + 28px)` : `calc(${tech.demand}% - 104px)`,
+        left: `${plot(tech.ecosystemScore)}%`,
+        bottom: low
+          ? `calc(${plot(tech.demand)}% + 28px)`
+          : `calc(${plot(tech.demand)}% - 104px)`,
       }}
     >
       <div className="tooltip__row">
@@ -126,8 +129,8 @@ export default function GapMap({ data, selectedTech, onSelectPoint, loading, err
             <span
               className="gap-map__ring"
               style={{
-                left: `${selectedTech.ecosystemScore}%`,
-                bottom: `${selectedTech.demand}%`,
+                left: `${plot(selectedTech.ecosystemScore)}%`,
+                bottom: `${plot(selectedTech.demand)}%`,
               }}
             />
           )}
@@ -145,8 +148,8 @@ export default function GapMap({ data, selectedTech, onSelectPoint, loading, err
                   isSelected ? " gap-map__dot--selected" : ""
                 }`}
                 style={{
-                  left: `${d.ecosystemScore}%`,
-                  bottom: `${d.demand}%`,
+                  left: `${plot(d.ecosystemScore)}%`,
+                  bottom: `${plot(d.demand)}%`,
                   "--reveal-delay": `${780 + i * 55}ms`,
                 }}
                 onClick={() => onSelectPoint?.(d)}
@@ -162,9 +165,10 @@ export default function GapMap({ data, selectedTech, onSelectPoint, loading, err
             <span
               key={d.tech}
               className={`gap-map__dot-label gap-map__dot-label--${getQuadrantMeta(d.quadrant).slug}`}
+              data-flip={labelFlipsUp(d.demand) ? "up" : undefined}
               style={{
-                left: `${d.ecosystemScore}%`,
-                bottom: `${d.demand}%`,
+                left: `${plot(d.ecosystemScore)}%`,
+                bottom: `${plot(d.demand)}%`,
                 "--reveal-delay": `${840 + i * 55}ms`,
               }}
             >

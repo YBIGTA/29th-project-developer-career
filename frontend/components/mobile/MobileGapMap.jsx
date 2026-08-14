@@ -1,6 +1,7 @@
 "use client";
 
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
+import { plot } from "@/lib/mapPoints";
 
 const LEGEND = [
   { slug: "early-mover", label: "선점 후보", note: "채운 원 · 생태계 높고 채용 낮음" },
@@ -79,7 +80,10 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
           {selectedTech && (
             <span
               className="mv-map__ring"
-              style={{ left: `${selectedTech.ecosystemScore}%`, bottom: `${selectedTech.demand}%` }}
+              style={{
+                left: `${plot(selectedTech.ecosystemScore)}%`,
+                bottom: `${plot(selectedTech.demand)}%`,
+              }}
             />
           )}
 
@@ -93,7 +97,7 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
                 className="mv-map__hit"
                 aria-label={`${d.tech} — ${meta.label}, 생태계 ${d.ecosystemScore}, 수요 ${d.demand}`}
                 aria-pressed={isSelected}
-                style={{ left: `${d.ecosystemScore}%`, bottom: `${d.demand}%` }}
+                style={{ left: `${plot(d.ecosystemScore)}%`, bottom: `${plot(d.demand)}%` }}
                 onClick={() => onSelectPoint?.(d)}
               >
                 <span

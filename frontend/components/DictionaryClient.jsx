@@ -7,10 +7,11 @@ import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
 import { ecosystemBars } from "@/lib/ecosystem";
 import { mapCodeSet } from "@/lib/mapPoints";
 import { getGapMapData } from "@/lib/api";
+import { getSkillIndex, mergeSkills, skillHaystack } from "@/lib/skills";
 
 const SORTS = [
   { key: "dict", label: "사전순" },
-  { key: "demand", label: "채용 수요순" },
+  { key: "postings", label: "공고 언급순" },
   { key: "ecosystem", label: "생태계순" },
 ];
 
@@ -20,23 +21,22 @@ function initialOf(name) {
   return first >= "A" && first <= "Z" ? first : "#";
 }
 
-function matches(tech, query) {
+function matches(skill, query) {
   const q = query.trim().toLowerCase();
   if (!q) return true;
-  const haystack = [tech.tech, tech.kind, tech.role, tech.summary, ...tech.stack]
-    .filter(Boolean)
-    .join(" ")
-    .toLowerCase();
-  return haystack.includes(q);
+  return skillHaystack(skill).includes(q);
 }
 
 export default function DictionaryClient() {
-  const [data, setData] = useState([]);
+  const [skills, setSkills] = useState([]);
   const [dataMeta, setDataMeta] = useState(null);
+  const [indexMeta, setIndexMeta] = useState(null);
+  const [mapItems, setMapItems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
   const [query, setQuery] = useState("");
   const [quadFilter, setQuadFilter] = useState("all");
+  const [catFilter, setCatFilter] = useState("all");
   const [sort, setSort] = useState("dict");
   const [openTech, setOpenTech] = useState(null);
 
@@ -47,10 +47,13 @@ export default function DictionaryClient() {
       setLoading(true);
       setError(null);
       try {
-        const result = await getGapMapData();
+        // 사전 전체와 상세 27개는 별개 소스라 함께 받아 합친다.
+        const [index, gapmap] = await Promise.all([getSkillIndex(), getGapMapData()]);
         if (!cancelled) {
-          setData(result.items);
-          setDataMeta(result.meta);
+          setSkills(mergeSkills(index.items, gapmap.items));
+          setIndexMeta(index.meta);
+          setDataMeta(gapmap.meta);
+          setMapItems(gapmap.items);
         }
       } catch (err) {
         if (!cancelled) setError(err);
@@ -66,14 +69,19 @@ export default function DictionaryClient() {
   }, []);
 
   const filtered = useMemo(() => {
-    const rows = data.filter(
-      (d) => matches(d, query) && (quadFilter === "all" || d.quadrant === quadFilter)
+    const rows = skills.filter(
+      (d) =>
+        matches(d, query) &&
+        (quadFilter === "all" || d.quadrant === quadFilter) &&
+        (catFilter === "all" || d.category === catFilter)
     );
 
-    if (sort === "demand") return rows.sort((a, b) => b.demand - a.demand);
-    if (sort === "ecosystem") return rows.sort((a, b) => b.ecosystemScore - a.ecosystemScore);
+    if (sort === "postings") return rows.sort((a, b) => b.postings - a.postings);
+    // 생태계 점수는 상세 27개에만 있다. 점수가 없는 항목은 뒤로 민다.
+    if (sort === "ecosystem")
+      return rows.sort((a, b) => (b.ecosystemScore ?? -1) - (a.ecosystemScore ?? -1));
     return rows.sort((a, b) => a.tech.localeCompare(b.tech, "en"));
-  }, [data, query, quadFilter, sort]);
+  }, [skills, query, quadFilter, catFilter, sort]);
 
   // 사전순일 때만 표제어를 첫 글자로 묶는다. 점수순 정렬에서는 묶음이 의미가 없다.
   const groups = useMemo(() => {
@@ -89,13 +97,25 @@ export default function DictionaryClient() {
 
   // 지도는 수요 상위 N개까지만 찍는다. 사전에는 전부 실리므로, 지도에서
   // 잘린 항목임을 여기서 알려준다.
-  const onMap = useMemo(() => mapCodeSet(data, dataMeta?.mapLimit), [data, dataMeta?.mapLimit]);
+  const onMap = useMemo(() => mapCodeSet(mapItems, dataMeta?.mapLimit), [mapItems, dataMeta?.mapLimit]);
 
   const quadCounts = useMemo(() => {
     const counts = {};
-    for (const d of data) counts[d.quadrant] = (counts[d.quadrant] ?? 0) + 1;
+    for (const d of skills) if (d.quadrant) counts[d.quadrant] = (counts[d.quadrant] ?? 0) + 1;
     return counts;
-  }, [data]);
+  }, [skills]);
+
+  const catCounts = useMemo(() => {
+    const counts = {};
+    for (const d of skills) counts[d.category] = (counts[d.category] ?? 0) + 1;
+    return counts;
+  }, [skills]);
+
+  const resetFilters = () => {
+    setQuery("");
+    setQuadFilter("all");
+    setCatFilter("all");
+  };
 
   return (
     <div className="page">
@@ -115,6 +135,13 @@ export default function DictionaryClient() {
           </Link>
         </header>
 
+        <p className="dict__lead">
+          채용공고에서 기술 태그를 뽑을 때 쓰는 사전 전체입니다.
+          {indexMeta ? ` 표제어 ${indexMeta.totalSkills}개 가운데 ` : " 이 가운데 "}
+          <strong>{indexMeta?.detailedSkills ?? 27}개</strong>는 생태계 지표까지 수집돼 지도에
+          찍히고, 나머지는 채용공고에서 확인된 사실만 싣습니다.
+        </p>
+
         <div className="dict-toolbar">
           <div className="dict-search">
             <svg className="dict-search__icon" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16">
@@ -130,7 +157,7 @@ export default function DictionaryClient() {
             <input
               type="search"
               className="dict-search__input"
-              placeholder="기술 이름, 분류, 함께 쓰는 스택으로 찾기"
+              placeholder="기술 이름, 별칭(K8s·Golang), 분류로 찾기"
               aria-label="기술 검색"
               value={query}
               onChange={(e) => setQuery(e.target.value)}
@@ -155,6 +182,30 @@ export default function DictionaryClient() {
             )}
           </div>
 
+          <div className="dict-filters dict-filters--cat" role="group" aria-label="분류로 거르기">
+            <button
+              type="button"
+              className="dict-chip"
+              data-selected={catFilter === "all"}
+              onClick={() => setCatFilter("all")}
+            >
+              전체 분류
+              <span className="dict-chip__count">{skills.length}</span>
+            </button>
+            {(indexMeta?.categories ?? []).map((c) => (
+              <button
+                key={c}
+                type="button"
+                className="dict-chip"
+                data-selected={catFilter === c}
+                onClick={() => setCatFilter(c)}
+              >
+                {c}
+                <span className="dict-chip__count">{catCounts[c] ?? 0}</span>
+              </button>
+            ))}
+          </div>
+
           <div className="dict-toolbar__row">
             <div className="dict-filters" role="group" aria-label="사분면으로 거르기">
               <button
@@ -164,7 +215,7 @@ export default function DictionaryClient() {
                 onClick={() => setQuadFilter("all")}
               >
                 전체
-                <span className="dict-chip__count">{data.length}</span>
+                <span className="dict-chip__count">{skills.length}</span>
               </button>
               {QUADRANTS.map((q) => (
                 <button
@@ -225,16 +276,9 @@ export default function DictionaryClient() {
               <div className="dict-status dict-status--empty">
                 <div className="dict-status__title">찾는 기술이 없습니다</div>
                 <p className="dict-status__text">
-                  다른 이름으로 검색하거나, 사분면 필터를 전체로 되돌려보세요.
+                  다른 이름으로 검색하거나, 필터를 전체로 되돌려보세요.
                 </p>
-                <button
-                  type="button"
-                  className="dict-status__btn"
-                  onClick={() => {
-                    setQuery("");
-                    setQuadFilter("all");
-                  }}
-                >
+                <button type="button" className="dict-status__btn" onClick={resetFilters}>
                   조건 초기화
                 </button>
               </div>
@@ -265,138 +309,22 @@ export default function DictionaryClient() {
                         </h2>
                       )}
 
-                      {group.items.map((tech) => {
-                        const meta = getQuadrantMeta(tech.quadrant);
-                        const open = openTech === tech.tech;
-                        const color = `var(--quad-${meta.slug})`;
-
-                        return (
-                          <article
-                            key={tech.tech}
-                            className={`dict-entry dict-entry--${meta.slug}`}
-                            data-open={open}
-                          >
-                            <button
-                              type="button"
-                              className="dict-entry__head"
-                              aria-expanded={open}
-                              aria-controls={`entry-${tech.tech}`}
-                              onClick={() => setOpenTech(open ? null : tech.tech)}
-                            >
-                              <span className="dict-entry__title-row">
-                                <span className="dict-entry__name">{tech.tech}</span>
-                                <span className="dict-entry__kind">{tech.kind}</span>
-                                <span className="dict-entry__quad">
-                                  <span className={`legend-swatch legend-swatch--${meta.slug}`} />
-                                  {meta.label}
-                                </span>
-                                {tech.role && <span className="dict-entry__role">{tech.role}</span>}
-                              </span>
-
-                              <span className="dict-entry__summary">{tech.summary}</span>
-
-                              <span className="dict-entry__scores">
-                                <span className="dict-score">
-                                  <span className="dict-score__label">생태계</span>
-                                  <span className="dict-score__value">{tech.ecosystemScore}</span>
-                                </span>
-                                <span className="dict-score">
-                                  <span className="dict-score__label">채용 수요</span>
-                                  <span className="dict-score__value">{tech.demand}</span>
-                                </span>
-                                <span className="dict-score">
-                                  <span className="dict-score__label">공고 언급</span>
-                                  <span className="dict-score__value">
-                                    {tech.postings.toLocaleString("ko-KR")}
-                                  </span>
-                                </span>
-                                {!onMap.has(tech.skillCode) && (
-                                  <span className="dict-score__offmap">지도 미표시</span>
-                                )}
-                              </span>
-
-                              <span className="dict-entry__chevron" aria-hidden="true">
-                                <svg viewBox="0 0 16 16" width="14" height="14">
-                                  <path
-                                    d="M4 6.4 8 10.4 12 6.4"
-                                    fill="none"
-                                    stroke="currentColor"
-                                    strokeWidth="1.5"
-                                    strokeLinecap="round"
-                                    strokeLinejoin="round"
-                                  />
-                                </svg>
-                              </span>
-                            </button>
-
-                            {open && (
-                              <div className="dict-entry__panel" id={`entry-${tech.tech}`}>
-                                <div className="dict-entry__cols">
-                                  <div>
-                                    <div className="dict-entry__sub">생태계 지표</div>
-                                    <div className="dict-entry__metrics">
-                                      {ecosystemBars(tech).map((bar) => (
-                                        <div key={bar.key}>
-                                          <div className="dict-entry__metric-row">
-                                            <span>{bar.label}</span>
-                                            <span className="dict-entry__metric-value">
-                                              {bar.score}
-                                              <span className="dict-entry__metric-raw">
-                                                {bar.rawText}
-                                              </span>
-                                            </span>
-                                          </div>
-                                          <div className="dict-entry__metric-track">
-                                            <div
-                                              className="dict-entry__metric-fill"
-                                              style={{ width: `${bar.score}%`, background: color }}
-                                            />
-                                          </div>
-                                        </div>
-                                      ))}
-                                    </div>
-                                  </div>
-
-                                  <div>
-                                    <div className="dict-entry__sub">이 자리에 있는 이유</div>
-                                    <div className="dict-entry__signals">
-                                      {(tech.signals ?? []).map((s) => (
-                                        <div className="dict-entry__signal" key={s.meta}>
-                                          <span
-                                            className="dict-entry__signal-dot"
-                                            style={{ background: color }}
-                                          />
-                                          <span className="dict-entry__signal-meta">{s.meta}</span>
-                                          <span className="dict-entry__signal-title">{s.title}</span>
-                                        </div>
-                                      ))}
-                                    </div>
-
-                                    <div className="dict-entry__sub">함께 요구되는 기술</div>
-                                    <div className="dict-entry__stack">
-                                      {(tech.stack ?? []).map((s) => (
-                                        <button
-                                          type="button"
-                                          className="dict-entry__chip"
-                                          key={s}
-                                          onClick={() => setQuery(s)}
-                                        >
-                                          {s}
-                                        </button>
-                                      ))}
-                                    </div>
-                                  </div>
-                                </div>
-
-                                <div className="dict-entry__verdict" style={{ background: meta.tint }}>
-                                  <div className="dict-entry__sub">지금 배운다면</div>
-                                  <p className="dict-entry__verdict-text">{tech.verdict}</p>
-                                </div>
-                              </div>
-                            )}
-                          </article>
-                        );
-                      })}
+                      {group.items.map((tech) =>
+                        tech.detailed ? (
+                          <DetailedEntry
+                            key={tech.skillCode}
+                            tech={tech}
+                            open={openTech === tech.skillCode}
+                            onToggle={() =>
+                              setOpenTech(openTech === tech.skillCode ? null : tech.skillCode)
+                            }
+                            offMap={!onMap.has(tech.skillCode)}
+                            onPickStack={setQuery}
+                          />
+                        ) : (
+                          <BriefEntry key={tech.skillCode} tech={tech} />
+                        )
+                      )}
                     </section>
                   ))}
                 </div>
@@ -409,10 +337,183 @@ export default function DictionaryClient() {
       <footer className="page__footer">
         <span className="page__footer-brand">DevCompass</span>
         <span>
-          생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값입니다. 채용 수요와 공고 건수는
-          채용 API 연결 전 예시 값입니다.
+          생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된 공고{" "}
+          {dataMeta?.totalPostings ? `${dataMeta.totalPostings.toLocaleString("ko-KR")}건` : ""}에서
+          tech_stack_pipeline이 추출한 기술 태그 기준입니다. 개별 공고 목록만 아직 예시입니다.
         </span>
       </footer>
     </div>
+  );
+}
+
+/** 생태계 지표까지 수집된 27개. 펼치면 근거와 학습 조언까지 보여준다. */
+function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
+  const meta = getQuadrantMeta(tech.quadrant);
+  const color = `var(--quad-${meta.slug})`;
+
+  return (
+    <article className={`dict-entry dict-entry--${meta.slug}`} data-open={open}>
+      <button
+        type="button"
+        className="dict-entry__head"
+        aria-expanded={open}
+        aria-controls={`entry-${tech.skillCode}`}
+        onClick={onToggle}
+      >
+        <span className="dict-entry__title-row">
+          <span className="dict-entry__name">{tech.tech}</span>
+          <span className="dict-entry__kind">{tech.kind ?? tech.category}</span>
+          <span className="dict-entry__quad">
+            <span className={`legend-swatch legend-swatch--${meta.slug}`} />
+            {meta.label}
+          </span>
+          {(tech.roles ?? []).map((r) => (
+            <span key={r} className="dict-entry__role">
+              {r}
+            </span>
+          ))}
+        </span>
+
+        <span className="dict-entry__summary">{tech.summary}</span>
+
+        <span className="dict-entry__scores">
+          <span className="dict-score">
+            <span className="dict-score__label">생태계</span>
+            <span className="dict-score__value">{tech.ecosystemScore}</span>
+          </span>
+          <span className="dict-score">
+            <span className="dict-score__label">채용 수요</span>
+            <span className="dict-score__value">{tech.demand}</span>
+          </span>
+          <span className="dict-score">
+            <span className="dict-score__label">공고 언급</span>
+            <span className="dict-score__value">{tech.postings.toLocaleString("ko-KR")}</span>
+          </span>
+          {offMap && <span className="dict-score__offmap">지도 미표시</span>}
+        </span>
+
+        <span className="dict-entry__chevron" aria-hidden="true">
+          <svg viewBox="0 0 16 16" width="14" height="14">
+            <path
+              d="M4 6.4 8 10.4 12 6.4"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </span>
+      </button>
+
+      {open && (
+        <div className="dict-entry__panel" id={`entry-${tech.skillCode}`}>
+          <div className="dict-entry__cols">
+            <div>
+              <div className="dict-entry__sub">생태계 지표</div>
+              <div className="dict-entry__metrics">
+                {ecosystemBars(tech).map((bar) => (
+                  <div key={bar.key}>
+                    <div className="dict-entry__metric-row">
+                      <span>{bar.label}</span>
+                      <span className="dict-entry__metric-value">
+                        {bar.score}
+                        <span className="dict-entry__metric-raw">{bar.rawText}</span>
+                      </span>
+                    </div>
+                    <div className="dict-entry__metric-track">
+                      <div
+                        className="dict-entry__metric-fill"
+                        style={{ width: `${bar.score}%`, background: color }}
+                      />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div>
+              <div className="dict-entry__sub">이 자리에 있는 이유</div>
+              <div className="dict-entry__signals">
+                {(tech.signals ?? []).map((s) => (
+                  <div className="dict-entry__signal" key={s.meta}>
+                    <span className="dict-entry__signal-dot" style={{ background: color }} />
+                    <span className="dict-entry__signal-meta">{s.meta}</span>
+                    <span className="dict-entry__signal-title">{s.title}</span>
+                  </div>
+                ))}
+              </div>
+
+              <div className="dict-entry__sub">함께 요구되는 기술</div>
+              <div className="dict-entry__stack">
+                {(tech.stack ?? []).map((s) => (
+                  <button
+                    type="button"
+                    className="dict-entry__chip"
+                    key={s}
+                    onClick={() => onPickStack(s)}
+                  >
+                    {s}
+                  </button>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          <div className="dict-entry__verdict" style={{ background: meta.tint }}>
+            <div className="dict-entry__sub">지금 배운다면</div>
+            <p className="dict-entry__verdict-text">{tech.verdict}</p>
+          </div>
+        </div>
+      )}
+    </article>
+  );
+}
+
+/**
+ * 생태계 지표가 없는 나머지 표제어. 서술 문구를 지어내지 않고, 채용공고에서
+ * 실제로 세어진 값(공고 건수·순위·직군)과 사전에 등록된 별칭만 보여준다.
+ */
+function BriefEntry({ tech }) {
+  const untagged = tech.postings === 0;
+
+  return (
+    <article className="dict-entry dict-entry--brief">
+      <div className="dict-entry__head dict-entry__head--static">
+        <span className="dict-entry__title-row">
+          <span className="dict-entry__name">{tech.tech}</span>
+          <span className="dict-entry__kind">{tech.category}</span>
+          {(tech.roles ?? []).map((r) => (
+            <span key={r} className="dict-entry__role">
+              {r}
+            </span>
+          ))}
+        </span>
+
+        <span className="dict-entry__summary">
+          {untagged ? (
+            <>수집된 공고 어디에서도 아직 발견되지 않았습니다. 사전에는 등록돼 있습니다.</>
+          ) : (
+            <>
+              공고 {tech.postings.toLocaleString("ko-KR")}건({tech.postingsShare}%)에서 요구돼 사전
+              전체 {tech.rank}위입니다.
+              {tech.aliases.length > 0 && ` 별칭 — ${tech.aliases.join(", ")}.`}
+            </>
+          )}
+        </span>
+
+        <span className="dict-entry__scores">
+          <span className="dict-score">
+            <span className="dict-score__label">공고 언급</span>
+            <span className="dict-score__value">{tech.postings.toLocaleString("ko-KR")}</span>
+          </span>
+          <span className="dict-score">
+            <span className="dict-score__label">사전 순위</span>
+            <span className="dict-score__value">{untagged ? "—" : tech.rank}</span>
+          </span>
+          <span className="dict-score__offmap">생태계 미수집</span>
+        </span>
+      </div>
+    </article>
   );
 }

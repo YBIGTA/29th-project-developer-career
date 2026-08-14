@@ -166,7 +166,6 @@
   height: 5px;
   border-radius: 50%;
   background: var(--accent);
-  animation: mvBreathe 2.6s ease-in-out infinite;
 }
 
 .mv-hero__wordmark {
@@ -391,7 +390,7 @@
 .mv-quad-card--early-mover {
   --cell-color: var(--quad-early-mover);
   --cell-bg: var(--quad-early-mover-bg);
-  border-color: rgba(47, 191, 146, 0.28);
+  border-color: rgba(91, 192, 190, 0.28);
 }
 .mv-quad-card--niche {
   --cell-color: var(--quad-niche);
@@ -784,14 +783,15 @@
 
 .mv-map__corner {
   position: absolute;
-  z-index: 3;
+  /* 사분면 이름표는 장식이라 모서리에 찍힌 점을 가리면 안 된다. 데이터보다 아래에 깐다. */
+  z-index: 0;
   display: inline-flex;
   align-items: center;
   gap: 5px;
   padding: 4px 8px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(11, 11, 12, 0.66);
+  background: rgba(6, 12, 28, 0.66);
   font-size: 0.62rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -1067,7 +1067,7 @@
   border: 1px solid var(--line-strong);
   border-bottom: none;
   background: var(--ink-900);
-  box-shadow: 0 -24px 60px -20px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 -8px 24px -12px rgba(0, 0, 0, 0.6);
   transform: translateY(100%);
   transition: transform 320ms var(--ease-out);
 }
@@ -1820,6 +1820,33 @@
   color: var(--text-muted);
 }
 
+.mv-dict__lead {
+  margin: 10px 0 0;
+  color: var(--text-muted);
+  font-size: 0.84rem;
+  line-height: 1.6;
+}
+
+.mv-dict__lead strong {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* 생태계 지표가 없는 표제어는 펼칠 내용이 없어 정적 블록으로 둔다. */
+.mv-dict-entry--brief {
+  background: transparent;
+  border-style: dashed;
+}
+
+.mv-dict-entry__head--static {
+  padding-right: 14px;
+  cursor: default;
+}
+
+.mv-dict-entry--brief .mv-dict-entry__summary {
+  color: var(--text-muted);
+}
+
 .mv-dict-entry__chevron {
   align-self: flex-end;
   color: var(--text-muted);
@@ -1946,18 +1973,6 @@
 }
 
 /* ---------- shared keyframes ---------- */
-
-@keyframes mvBreathe {
-  0%,
-  100% {
-    opacity: 0.55;
-    transform: scale(0.9);
-  }
-  50% {
-    opacity: 1;
-    transform: scale(1.15);
-  }
-}
 
 @keyframes mvShimmer {
   0% {

@@ -1,7 +1,8 @@
 "use client";
 
+import { useMemo } from "react";
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
-import { plot } from "@/lib/mapPoints";
+import { plot, makeAxisScale } from "@/lib/mapPoints";
 
 const LEGEND = [
   { slug: "early-mover", label: "선점 후보", note: "채운 원 · 생태계 높고 채용 낮음" },
@@ -15,6 +16,10 @@ const LEGEND = [
  * onSelectPoint를 호출해 상세 바텀시트를 연다 (툴팁 중간 단계 없음).
  */
 export default function MobileGapMap({ data, selectedTech, onSelectPoint, loading, error, revealed }) {
+  // 데스크톱과 같은 표시용 스케일. 지금 찍는 점들만 놓고 축을 다시 편다.
+  const scaleX = useMemo(() => makeAxisScale(data.map((d) => d.ecosystemScore)), [data]);
+  const scaleY = useMemo(() => makeAxisScale(data.map((d) => d.demand)), [data]);
+
   if (loading) {
     return (
       <div className="mv-map__skeleton" role="status" aria-live="polite">
@@ -81,8 +86,8 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
             <span
               className="mv-map__ring"
               style={{
-                left: `${plot(selectedTech.ecosystemScore)}%`,
-                bottom: `${plot(selectedTech.demand)}%`,
+                left: `${plot(scaleX(selectedTech.ecosystemScore))}%`,
+                bottom: `${plot(scaleY(selectedTech.demand))}%`,
               }}
             />
           )}
@@ -97,7 +102,7 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
                 className="mv-map__hit"
                 aria-label={`${d.tech} — ${meta.label}, 생태계 ${d.ecosystemScore}, 수요 ${d.demand}`}
                 aria-pressed={isSelected}
-                style={{ left: `${plot(d.ecosystemScore)}%`, bottom: `${plot(d.demand)}%` }}
+                style={{ left: `${plot(scaleX(d.ecosystemScore))}%`, bottom: `${plot(scaleY(d.demand))}%` }}
                 onClick={() => onSelectPoint?.(d)}
               >
                 <span

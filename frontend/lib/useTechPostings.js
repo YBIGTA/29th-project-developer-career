@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { getTechPostings } from "@/lib/api";
 
 /**
- * 공고 탭이 실제로 열렸을 때만 공고를 가져온다. 지도 첫 로드에 27개 기술의
+ * 공고 탭이 실제로 열렸을 때만 공고를 가져온다. 지도 첫 로드에 모든 기술의
  * 공고를 전부 딸려 받는 낭비를 피하기 위한 것으로, 데스크톱 상세 패널과
  * 모바일 바텀시트가 함께 쓴다.
  *

@@ -9,12 +9,23 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  * 괴리맵(수요-생태계) 데이터를 가져온다.
  *
  * 반환 형태:
- *   meta  { fromDate, toDate, totalTechs, mappedTechs, totalPostings, mapLimit, roles }
- *   items { tech, skillCode, kind, roles: string[](최대 2개),
+ *   meta  { fromDate, toDate, totalTechs, mappedTechs, totalPostings, mapLimit,
+ *           detailedTechs(해설 문장이 있는 기술 수), roles: string[](14개, 공고 수 내림차순) }
+ *   items { tech, skillCode, kind, category, aliases,
+ *           roles: string[](요구가 많은 순 최대 2개),
+ *           roleBreakdown: { role, count, demand, rank, quadrant }[]
+ *             — 그 기술이 등장한 직군 전부. demand/rank/quadrant는 해당 직군
+ *               안에서만 다시 매긴 값이라 아래 전체 기준 값과 다르다,
  *           demand(공고 언급 빈도의 백분위 순위 0~100), demandRank,
  *           ecosystemScore, quadrant, postings, postingsShare, postingsNote,
  *           ecosystem: { githubRepo, githubActivity, stackoverflow } — 각 { score, raw },
- *           sampleRepositories, summary, signals, stack, verdict }[]
+ *           sampleRepositories, signals,
+ *           summary, verdict, stack — 해설이 작성된 기술에만 있다 }[]
+ *
+ * 정규화: 두 축 모두 **백분위 순위**다. 데이터 웨어하우스가 내려주는
+ * demand_score(선형 최대값 환산)는 쓰지 않는다 — 1위만 100점이고 나머지가
+ * 바닥에 깔려 "선점 후보" 사분면이 비기 때문이다. 원시 건수를 받아 프론트
+ * 데이터 생성 단계(scripts/build_gapmap_data.py)에서 다시 매긴다.
  *
  * quadrant는 서버가 계산해서 내려주는 값이다. 프론트는 색상/라벨에 매핑만 하고
  * 좌표로부터 재계산하지 않는다 (lib/quadrants.js 참고).

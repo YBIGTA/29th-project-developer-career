@@ -1,2938 +1,3118 @@
 {
- "meta": {
-  "totalSkills": 217,
-  "detailedSkills": 27,
-  "taggedSkills": 199,
-  "totalPostings": 2412,
-  "categories": [
-   "언어",
-   "프론트엔드",
-   "백엔드",
-   "데이터베이스",
-   "클라우드 · DevOps",
-   "데이터 · ML",
-   "모바일",
-   "메시징 · 인프라",
-   "도구",
-   "AI 플랫폼",
-   "테스트"
+  "meta": {
+    "totalSkills": 217,
+    "detailedSkills": 200,
+    "taggedSkills": 200,
+    "totalPostings": 2412,
+    "categories": [
+      "클라우드 · DevOps",
+      "데이터 · ML",
+      "언어",
+      "프론트엔드",
+      "데이터베이스",
+      "백엔드",
+      "도구",
+      "모바일",
+      "AI 플랫폼",
+      "테스트",
+      "메시징 · 인프라"
+    ]
+  },
+  "items": [
+    {
+      "tech": ".NET",
+      "skillCode": "net",
+      "category": "백엔드",
+      "aliases": [
+        "ASP.NET",
+        "dotnet"
+      ],
+      "postings": 9,
+      "postingsShare": 0.4,
+      "rank": 118,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Airflow",
+      "skillCode": "airflow",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Apache Airflow"
+      ],
+      "postings": 68,
+      "postingsShare": 2.8,
+      "rank": 26,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Amazon EC2",
+      "skillCode": "amazon-ec2",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "EC2"
+      ],
+      "postings": 6,
+      "postingsShare": 0.2,
+      "rank": 134,
+      "roles": [
+        "Infra / Platform / DevOps / SRE",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Amazon EKS",
+      "skillCode": "amazon-eks",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "EKS"
+      ],
+      "postings": 18,
+      "postingsShare": 0.7,
+      "rank": 75,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Amazon S3",
+      "skillCode": "amazon-s3",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "S3"
+      ],
+      "postings": 19,
+      "postingsShare": 0.8,
+      "rank": 71,
+      "roles": [
+        "General Software Engineer",
+        "Data Engineer / Data Platform"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Android",
+      "skillCode": "android",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 50,
+      "postingsShare": 2.1,
+      "rank": 33,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Angular",
+      "skillCode": "angular",
+      "category": "프론트엔드",
+      "aliases": [
+        "Angular.js",
+        "AngularJS"
+      ],
+      "postings": 6,
+      "postingsShare": 0.2,
+      "rank": 134,
+      "roles": [
+        "Frontend",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Ansible",
+      "skillCode": "ansible",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 25,
+      "postingsShare": 1.0,
+      "rank": 59,
+      "roles": [
+        "Infra / Platform / DevOps / SRE",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Anthropic",
+      "skillCode": "anthropic",
+      "category": "AI 플랫폼",
+      "aliases": [],
+      "postings": 46,
+      "postingsShare": 1.9,
+      "rank": 38,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Apache Flink",
+      "skillCode": "apache-flink",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Flink"
+      ],
+      "postings": 40,
+      "postingsShare": 1.7,
+      "rank": 43,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Apache Iceberg",
+      "skillCode": "apache-iceberg",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Iceberg"
+      ],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Apache Kafka",
+      "skillCode": "apache-kafka",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Kafka"
+      ],
+      "postings": 97,
+      "postingsShare": 4.0,
+      "rank": 22,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Apache Pulsar",
+      "skillCode": "apache-pulsar",
+      "category": "메시징 · 인프라",
+      "aliases": [
+        "Pulsar"
+      ],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Apache Spark",
+      "skillCode": "apache-spark",
+      "category": "데이터 · ML",
+      "aliases": [
+        "PySpark",
+        "Spark"
+      ],
+      "postings": 105,
+      "postingsShare": 4.4,
+      "rank": 21,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "ArgoCD",
+      "skillCode": "argocd",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "Argo CD"
+      ],
+      "postings": 10,
+      "postingsShare": 0.4,
+      "rank": 112,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Assembly",
+      "skillCode": "assembly",
+      "category": "언어",
+      "aliases": [],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "AWS",
+      "skillCode": "aws",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "Amazon Web Services"
+      ],
+      "postings": 428,
+      "postingsShare": 17.7,
+      "rank": 2,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "AWS CloudFormation",
+      "skillCode": "aws-cloudformation",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "CloudFormation"
+      ],
+      "postings": 12,
+      "postingsShare": 0.5,
+      "rank": 99,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Azure",
+      "skillCode": "azure",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "Microsoft Azure"
+      ],
+      "postings": 310,
+      "postingsShare": 12.9,
+      "rank": 8,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Babel",
+      "skillCode": "babel",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Frontend"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Backbone.js",
+      "skillCode": "backbonejs",
+      "category": "프론트엔드",
+      "aliases": [
+        "BackboneJS"
+      ],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Bash",
+      "skillCode": "bash",
+      "category": "언어",
+      "aliases": [
+        "Bash scripting",
+        "Shell",
+        "Shell scripting"
+      ],
+      "postings": 49,
+      "postingsShare": 2.0,
+      "rank": 34,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Bazel",
+      "skillCode": "bazel",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "General Software Engineer",
+        "Mobile"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Bicep",
+      "skillCode": "bicep",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Engineering Management",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "BigQuery",
+      "skillCode": "bigquery",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 35,
+      "postingsShare": 1.5,
+      "rank": 50,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Buildkite",
+      "skillCode": "buildkite",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 16,
+      "postingsShare": 0.7,
+      "rank": 87,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "C",
+      "skillCode": "c",
+      "category": "언어",
+      "aliases": [],
+      "postings": 27,
+      "postingsShare": 1.1,
+      "rank": 56,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "C#",
+      "skillCode": "csharp",
+      "category": "언어",
+      "aliases": [],
+      "postings": 64,
+      "postingsShare": 2.7,
+      "rank": 29,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "C++",
+      "skillCode": "cpp",
+      "category": "언어",
+      "aliases": [],
+      "postings": 252,
+      "postingsShare": 10.4,
+      "rank": 10,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Cassandra",
+      "skillCode": "cassandra",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "CircleCI",
+      "skillCode": "circleci",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 6,
+      "postingsShare": 0.2,
+      "rank": 134,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Claude",
+      "skillCode": "claude",
+      "category": "AI 플랫폼",
+      "aliases": [],
+      "postings": 172,
+      "postingsShare": 7.1,
+      "rank": 14,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "ClickHouse",
+      "skillCode": "clickhouse",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 27,
+      "postingsShare": 1.1,
+      "rank": 56,
+      "roles": [
+        "General Software Engineer",
+        "Systems / Low-level"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Cloudflare",
+      "skillCode": "cloudflare",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 14,
+      "postingsShare": 0.6,
+      "rank": 93,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Cloudflare Workers",
+      "skillCode": "cloudflare-workers",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 19,
+      "postingsShare": 0.8,
+      "rank": 71,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "CockroachDB",
+      "skillCode": "cockroachdb",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 12,
+      "postingsShare": 0.5,
+      "rank": 99,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Confluence",
+      "skillCode": "confluence",
+      "category": "도구",
+      "aliases": [],
+      "postings": 8,
+      "postingsShare": 0.3,
+      "rank": 122,
+      "roles": [
+        "Security Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "CSS",
+      "skillCode": "css",
+      "category": "프론트엔드",
+      "aliases": [
+        "CSS3"
+      ],
+      "postings": 23,
+      "postingsShare": 1.0,
+      "rank": 63,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "CUDA",
+      "skillCode": "cuda",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 33,
+      "postingsShare": 1.4,
+      "rank": 51,
+      "roles": [
+        "General Software Engineer",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Cypher",
+      "skillCode": "cypher",
+      "category": "언어",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Cypress",
+      "skillCode": "cypress",
+      "category": "테스트",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Engineering Management",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "D",
+      "skillCode": "d",
+      "category": "언어",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "D3.js",
+      "skillCode": "d3js",
+      "category": "프론트엔드",
+      "aliases": [
+        "D3JS"
+      ],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Dagster",
+      "skillCode": "dagster",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 15,
+      "postingsShare": 0.6,
+      "rank": 91,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Dart",
+      "skillCode": "dart",
+      "category": "언어",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Databricks",
+      "skillCode": "databricks",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 21,
+      "postingsShare": 0.9,
+      "rank": 66,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Datadog",
+      "skillCode": "datadog",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 39,
+      "postingsShare": 1.6,
+      "rank": 45,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "dbt",
+      "skillCode": "dbt",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 36,
+      "postingsShare": 1.5,
+      "rank": 49,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Deno",
+      "skillCode": "deno",
+      "category": "백엔드",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Dependabot",
+      "skillCode": "dependabot",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 8,
+      "postingsShare": 0.3,
+      "rank": 122,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Django",
+      "skillCode": "django",
+      "category": "백엔드",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Docker",
+      "skillCode": "docker",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 115,
+      "postingsShare": 4.8,
+      "rank": 20,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "DynamoDB",
+      "skillCode": "dynamodb",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 11,
+      "postingsShare": 0.5,
+      "rank": 106,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Elasticsearch",
+      "skillCode": "elasticsearch",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 20,
+      "postingsShare": 0.8,
+      "rank": 69,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Elixir",
+      "skillCode": "elixir",
+      "category": "언어",
+      "aliases": [],
+      "postings": 5,
+      "postingsShare": 0.2,
+      "rank": 141,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Ember.js",
+      "skillCode": "emberjs",
+      "category": "프론트엔드",
+      "aliases": [
+        "EmberJS"
+      ],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Envoy",
+      "skillCode": "envoy",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 14,
+      "postingsShare": 0.6,
+      "rank": 93,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Erlang",
+      "skillCode": "erlang",
+      "category": "언어",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "ESLint",
+      "skillCode": "eslint",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Frontend",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Express",
+      "skillCode": "express",
+      "category": "백엔드",
+      "aliases": [
+        "Express.js",
+        "ExpressJS"
+      ],
+      "postings": 10,
+      "postingsShare": 0.4,
+      "rank": 112,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "FastAPI",
+      "skillCode": "fastapi",
+      "category": "백엔드",
+      "aliases": [],
+      "postings": 12,
+      "postingsShare": 0.5,
+      "rank": 99,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Figma",
+      "skillCode": "figma",
+      "category": "도구",
+      "aliases": [],
+      "postings": 24,
+      "postingsShare": 1.0,
+      "rank": 61,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Firestore",
+      "skillCode": "firestore",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Flask",
+      "skillCode": "flask",
+      "category": "백엔드",
+      "aliases": [],
+      "postings": 10,
+      "postingsShare": 0.4,
+      "rank": 112,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Flutter",
+      "skillCode": "flutter",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Fly.io",
+      "skillCode": "flyio",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Gatsby",
+      "skillCode": "gatsby",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Systems / Low-level"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GCP",
+      "skillCode": "gcp",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "Google Cloud",
+        "Google Cloud Platform"
+      ],
+      "postings": 354,
+      "postingsShare": 14.7,
+      "rank": 5,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GDB",
+      "skillCode": "gdb",
+      "category": "도구",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Gemini",
+      "skillCode": "gemini",
+      "category": "AI 플랫폼",
+      "aliases": [],
+      "postings": 7,
+      "postingsShare": 0.3,
+      "rank": 128,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Git",
+      "skillCode": "git",
+      "category": "도구",
+      "aliases": [],
+      "postings": 48,
+      "postingsShare": 2.0,
+      "rank": 35,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GitHub",
+      "skillCode": "github",
+      "category": "도구",
+      "aliases": [],
+      "postings": 68,
+      "postingsShare": 2.8,
+      "rank": 26,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GitHub Actions",
+      "skillCode": "github-actions",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 19,
+      "postingsShare": 0.8,
+      "rank": 71,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GitHub Copilot",
+      "skillCode": "github-copilot",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Copilot"
+      ],
+      "postings": 31,
+      "postingsShare": 1.3,
+      "rank": 53,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GitLab",
+      "skillCode": "gitlab",
+      "category": "도구",
+      "aliases": [],
+      "postings": 11,
+      "postingsShare": 0.5,
+      "rank": 106,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "Data Analyst"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GitLab CI",
+      "skillCode": "gitlab-ci",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "GitLab CI/CD"
+      ],
+      "postings": 6,
+      "postingsShare": 0.2,
+      "rank": 134,
+      "roles": [
+        "Systems / Low-level",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GLSL",
+      "skillCode": "glsl",
+      "category": "언어",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Go",
+      "skillCode": "go",
+      "category": "언어",
+      "aliases": [
+        "Golang"
+      ],
+      "postings": 409,
+      "postingsShare": 17.0,
+      "rank": 4,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Google GKE",
+      "skillCode": "google-gke",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "GKE",
+        "Google Kubernetes Engine"
+      ],
+      "postings": 11,
+      "postingsShare": 0.5,
+      "rank": 106,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GPT",
+      "skillCode": "gpt",
+      "category": "AI 플랫폼",
+      "aliases": [],
+      "postings": 145,
+      "postingsShare": 6.0,
+      "rank": 17,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Gradle",
+      "skillCode": "gradle",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Grafana",
+      "skillCode": "grafana",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 55,
+      "postingsShare": 2.3,
+      "rank": 31,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "GraphQL",
+      "skillCode": "graphql",
+      "category": "백엔드",
+      "aliases": [],
+      "postings": 39,
+      "postingsShare": 1.6,
+      "rank": 45,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Groovy",
+      "skillCode": "groovy",
+      "category": "언어",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "General Software Engineer",
+        "Systems / Low-level"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "gRPC",
+      "skillCode": "grpc",
+      "category": "백엔드",
+      "aliases": [],
+      "postings": 24,
+      "postingsShare": 1.0,
+      "rank": 61,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Hadoop",
+      "skillCode": "hadoop",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 18,
+      "postingsShare": 0.7,
+      "rank": 75,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Haskell",
+      "skillCode": "haskell",
+      "category": "언어",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Helm",
+      "skillCode": "helm",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 21,
+      "postingsShare": 0.9,
+      "rank": 66,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Heroku",
+      "skillCode": "heroku",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 3,
+      "postingsShare": 0.1,
+      "rank": 155,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "HTML",
+      "skillCode": "html",
+      "category": "프론트엔드",
+      "aliases": [
+        "HTML5"
+      ],
+      "postings": 19,
+      "postingsShare": 0.8,
+      "rank": 71,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "HubSpot",
+      "skillCode": "hubspot",
+      "category": "도구",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "Systems / Low-level",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Hugging Face",
+      "skillCode": "hugging-face",
+      "category": "데이터 · ML",
+      "aliases": [
+        "HuggingFace"
+      ],
+      "postings": 9,
+      "postingsShare": 0.4,
+      "rank": 118,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "IIS",
+      "skillCode": "iis",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "iOS",
+      "skillCode": "ios",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 47,
+      "postingsShare": 1.9,
+      "rank": 36,
+      "roles": [
+        "General Software Engineer",
+        "Mobile"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Istio",
+      "skillCode": "istio",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 8,
+      "postingsShare": 0.3,
+      "rank": 122,
+      "roles": [
+        "Infra / Platform / DevOps / SRE",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Java",
+      "skillCode": "java",
+      "category": "언어",
+      "aliases": [],
+      "postings": 264,
+      "postingsShare": 10.9,
+      "rank": 9,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "JavaScript",
+      "skillCode": "javascript",
+      "category": "언어",
+      "aliases": [
+        "JS"
+      ],
+      "postings": 242,
+      "postingsShare": 10.0,
+      "rank": 11,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "JAX",
+      "skillCode": "jax",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 38,
+      "postingsShare": 1.6,
+      "rank": 48,
+      "roles": [
+        "Research Engineer / Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Jenkins",
+      "skillCode": "jenkins",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 16,
+      "postingsShare": 0.7,
+      "rank": 87,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Jest",
+      "skillCode": "jest",
+      "category": "테스트",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Jetpack Compose",
+      "skillCode": "jetpack-compose",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Jira",
+      "skillCode": "jira",
+      "category": "도구",
+      "aliases": [],
+      "postings": 21,
+      "postingsShare": 0.9,
+      "rank": 66,
+      "roles": [
+        "Security Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "jQuery",
+      "skillCode": "jquery",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Julia",
+      "skillCode": "julia",
+      "category": "언어",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Engineering Management",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "JUnit",
+      "skillCode": "junit",
+      "category": "테스트",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Jupyter",
+      "skillCode": "jupyter",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Jupyter Notebook"
+      ],
+      "postings": 6,
+      "postingsShare": 0.2,
+      "rank": 134,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Keras",
+      "skillCode": "keras",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Kibana",
+      "skillCode": "kibana",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "General Software Engineer",
+        "Systems / Low-level"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Kotlin",
+      "skillCode": "kotlin",
+      "category": "언어",
+      "aliases": [],
+      "postings": 33,
+      "postingsShare": 1.4,
+      "rank": 51,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Kubernetes",
+      "skillCode": "kubernetes",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "K8s"
+      ],
+      "postings": 418,
+      "postingsShare": 17.3,
+      "rank": 3,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "LangChain",
+      "skillCode": "langchain",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 22,
+      "postingsShare": 0.9,
+      "rank": 65,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Laravel",
+      "skillCode": "laravel",
+      "category": "백엔드",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "LightGBM",
+      "skillCode": "lightgbm",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Linux",
+      "skillCode": "linux",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 149,
+      "postingsShare": 6.2,
+      "rank": 16,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Llama",
+      "skillCode": "llama",
+      "category": "AI 플랫폼",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Looker",
+      "skillCode": "looker",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 14,
+      "postingsShare": 0.6,
+      "rank": 93,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "Data Analyst"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Lua",
+      "skillCode": "lua",
+      "category": "언어",
+      "aliases": [],
+      "postings": 20,
+      "postingsShare": 0.8,
+      "rank": 69,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Lucene",
+      "skillCode": "lucene",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Apache Lucene"
+      ],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "MariaDB",
+      "skillCode": "mariadb",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Material UI",
+      "skillCode": "material-ui",
+      "category": "프론트엔드",
+      "aliases": [
+        "MUI"
+      ],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "MATLAB",
+      "skillCode": "matlab",
+      "category": "언어",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "MCP",
+      "skillCode": "mcp",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Model Context Protocol"
+      ],
+      "postings": 60,
+      "postingsShare": 2.5,
+      "rank": 30,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "MLflow",
+      "skillCode": "mlflow",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "MobX",
+      "skillCode": "mobx",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Engineering Management",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Mojo",
+      "skillCode": "mojo",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "MongoDB",
+      "skillCode": "mongodb",
+      "category": "데이터베이스",
+      "aliases": [
+        "Mongo"
+      ],
+      "postings": 25,
+      "postingsShare": 1.0,
+      "rank": 59,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "MongoDB Atlas",
+      "skillCode": "mongodb-atlas",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 71,
+      "postingsShare": 2.9,
+      "rank": 25,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "MySQL",
+      "skillCode": "mysql",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 45,
+      "postingsShare": 1.9,
+      "rank": 39,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "NCCL",
+      "skillCode": "nccl",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 8,
+      "postingsShare": 0.3,
+      "rank": 122,
+      "roles": [
+        "General Software Engineer",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Neo4j",
+      "skillCode": "neo4j",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Data Analyst",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "NestJS",
+      "skillCode": "nestjs",
+      "category": "백엔드",
+      "aliases": [
+        "Nest.js"
+      ],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "NetSuite",
+      "skillCode": "netsuite",
+      "category": "도구",
+      "aliases": [],
+      "postings": 12,
+      "postingsShare": 0.5,
+      "rank": 99,
+      "roles": [
+        "Data Analyst",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Next.js",
+      "skillCode": "nextjs",
+      "category": "프론트엔드",
+      "aliases": [
+        "NextJS"
+      ],
+      "postings": 23,
+      "postingsShare": 1.0,
+      "rank": 63,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Nginx",
+      "skillCode": "nginx",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "Systems / Low-level",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Nix",
+      "skillCode": "nix",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 6,
+      "postingsShare": 0.2,
+      "rank": 134,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Node.js",
+      "skillCode": "nodejs",
+      "category": "백엔드",
+      "aliases": [
+        "Node",
+        "NodeJS"
+      ],
+      "postings": 130,
+      "postingsShare": 5.4,
+      "rank": 18,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "NumPy",
+      "skillCode": "numpy",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 7,
+      "postingsShare": 0.3,
+      "rank": 128,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Nuxt.js",
+      "skillCode": "nuxtjs",
+      "category": "프론트엔드",
+      "aliases": [
+        "NuxtJS"
+      ],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Objective-C",
+      "skillCode": "objective-c",
+      "category": "언어",
+      "aliases": [
+        "ObjC",
+        "Objective C"
+      ],
+      "postings": 11,
+      "postingsShare": 0.5,
+      "rank": 106,
+      "roles": [
+        "General Software Engineer",
+        "Mobile"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Okta",
+      "skillCode": "okta",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "OpenAI Codex",
+      "skillCode": "openai-codex",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Codex"
+      ],
+      "postings": 75,
+      "postingsShare": 3.1,
+      "rank": 24,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "OpenCV",
+      "skillCode": "opencv",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "OpenShift",
+      "skillCode": "openshift",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 8,
+      "postingsShare": 0.3,
+      "rank": 122,
+      "roles": [
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "OpenTelemetry",
+      "skillCode": "opentelemetry",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 14,
+      "postingsShare": 0.6,
+      "rank": 93,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Oracle DB",
+      "skillCode": "oracle-db",
+      "category": "데이터베이스",
+      "aliases": [
+        "Oracle Database"
+      ],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "Pandas",
+      "skillCode": "pandas",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Perl",
+      "skillCode": "perl",
+      "category": "언어",
+      "aliases": [],
+      "postings": 7,
+      "postingsShare": 0.3,
+      "rank": 128,
+      "roles": [
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "PHP",
+      "skillCode": "php",
+      "category": "언어",
+      "aliases": [],
+      "postings": 12,
+      "postingsShare": 0.5,
+      "rank": 99,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Plotly",
+      "skillCode": "plotly",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Systems / Low-level"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "PostgreSQL",
+      "skillCode": "postgresql",
+      "category": "데이터베이스",
+      "aliases": [
+        "Postgres"
+      ],
+      "postings": 126,
+      "postingsShare": 5.2,
+      "rank": 19,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Postman",
+      "skillCode": "postman",
+      "category": "도구",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Power BI",
+      "skillCode": "power-bi",
+      "category": "데이터 · ML",
+      "aliases": [
+        "PowerBI"
+      ],
+      "postings": 3,
+      "postingsShare": 0.1,
+      "rank": 155,
+      "roles": [
+        "Data Analyst"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Prometheus",
+      "skillCode": "prometheus",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 47,
+      "postingsShare": 1.9,
+      "rank": 36,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Pulumi",
+      "skillCode": "pulumi",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 16,
+      "postingsShare": 0.7,
+      "rank": 87,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Puppet",
+      "skillCode": "puppet",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 12,
+      "postingsShare": 0.5,
+      "rank": 99,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "PyTest",
+      "skillCode": "pytest",
+      "category": "테스트",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Python",
+      "skillCode": "python",
+      "category": "언어",
+      "aliases": [],
+      "postings": 919,
+      "postingsShare": 38.1,
+      "rank": 1,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "PyTorch",
+      "skillCode": "pytorch",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 96,
+      "postingsShare": 4.0,
+      "rank": 23,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "R",
+      "skillCode": "r",
+      "category": "언어",
+      "aliases": [],
+      "postings": 28,
+      "postingsShare": 1.2,
+      "rank": 55,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "Data Analyst"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "RabbitMQ",
+      "skillCode": "rabbitmq",
+      "category": "메시징 · 인프라",
+      "aliases": [],
+      "postings": 11,
+      "postingsShare": 0.5,
+      "rank": 106,
+      "roles": [
+        "Backend / Server",
+        "Full-stack"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "React",
+      "skillCode": "react",
+      "category": "프론트엔드",
+      "aliases": [
+        "React.js",
+        "ReactJS"
+      ],
+      "postings": 205,
+      "postingsShare": 8.5,
+      "rank": 13,
+      "roles": [
+        "General Software Engineer",
+        "Full-stack"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "React Native",
+      "skillCode": "react-native",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 10,
+      "postingsShare": 0.4,
+      "rank": 112,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Redis",
+      "skillCode": "redis",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 42,
+      "postingsShare": 1.7,
+      "rank": 40,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Redshift",
+      "skillCode": "redshift",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 5,
+      "postingsShare": 0.2,
+      "rank": 141,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Redux",
+      "skillCode": "redux",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 15,
+      "postingsShare": 0.6,
+      "rank": 91,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "REST",
+      "skillCode": "rest",
+      "category": "백엔드",
+      "aliases": [
+        "REST API",
+        "RESTful"
+      ],
+      "postings": 31,
+      "postingsShare": 1.3,
+      "rank": 53,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Ruby",
+      "skillCode": "ruby",
+      "category": "언어",
+      "aliases": [],
+      "postings": 68,
+      "postingsShare": 2.8,
+      "rank": 26,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Ruby on Rails",
+      "skillCode": "ruby-on-rails",
+      "category": "백엔드",
+      "aliases": [
+        "Rails"
+      ],
+      "postings": 14,
+      "postingsShare": 0.6,
+      "rank": 93,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Rust",
+      "skillCode": "rust",
+      "category": "언어",
+      "aliases": [],
+      "postings": 225,
+      "postingsShare": 9.3,
+      "rank": 12,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Salesforce",
+      "skillCode": "salesforce",
+      "category": "도구",
+      "aliases": [
+        "SFDC",
+        "Salesforce.com"
+      ],
+      "postings": 41,
+      "postingsShare": 1.7,
+      "rank": 41,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "SAS",
+      "skillCode": "sas",
+      "category": "언어",
+      "aliases": [],
+      "postings": 8,
+      "postingsShare": 0.3,
+      "rank": 122,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Sass",
+      "skillCode": "sass",
+      "category": "프론트엔드",
+      "aliases": [
+        "SCSS"
+      ],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Frontend",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Scala",
+      "skillCode": "scala",
+      "category": "언어",
+      "aliases": [],
+      "postings": 39,
+      "postingsShare": 1.6,
+      "rank": 45,
+      "roles": [
+        "General Software Engineer",
+        "Data Engineer / Data Platform"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "scikit-learn",
+      "skillCode": "scikit-learn",
+      "category": "데이터 · ML",
+      "aliases": [
+        "sklearn"
+      ],
+      "postings": 7,
+      "postingsShare": 0.3,
+      "rank": 128,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Selenium",
+      "skillCode": "selenium",
+      "category": "테스트",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Slurm",
+      "skillCode": "slurm",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 7,
+      "postingsShare": 0.3,
+      "rank": 128,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Snowflake",
+      "skillCode": "snowflake",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 40,
+      "postingsShare": 1.7,
+      "rank": 43,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Snyk",
+      "skillCode": "snyk",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 9,
+      "postingsShare": 0.4,
+      "rank": 118,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Solidity",
+      "skillCode": "solidity",
+      "category": "언어",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "SolidJS",
+      "skillCode": "solidjs",
+      "category": "프론트엔드",
+      "aliases": [
+        "Solid.js"
+      ],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Splunk",
+      "skillCode": "splunk",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 17,
+      "postingsShare": 0.7,
+      "rank": 79,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Spring",
+      "skillCode": "spring",
+      "category": "백엔드",
+      "aliases": [
+        "Spring Boot",
+        "Spring Framework",
+        "SpringBoot"
+      ],
+      "postings": 11,
+      "postingsShare": 0.5,
+      "rank": 106,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "SQL",
+      "skillCode": "sql",
+      "category": "언어",
+      "aliases": [],
+      "postings": 326,
+      "postingsShare": 13.5,
+      "rank": 6,
+      "roles": [
+        "ML / AI Engineer / Data Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "SQLite",
+      "skillCode": "sqlite",
+      "category": "데이터베이스",
+      "aliases": [],
+      "postings": 5,
+      "postingsShare": 0.2,
+      "rank": 141,
+      "roles": [
+        "Backend / Server",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Starlark",
+      "skillCode": "starlark",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Storybook",
+      "skillCode": "storybook",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Streamlit",
+      "skillCode": "streamlit",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 3,
+      "postingsShare": 0.1,
+      "rank": 155,
+      "roles": [
+        "Systems / Low-level",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "styled-components",
+      "skillCode": "styled-components",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Svelte",
+      "skillCode": "svelte",
+      "category": "프론트엔드",
+      "aliases": [
+        "SvelteKit"
+      ],
+      "postings": 3,
+      "postingsShare": 0.1,
+      "rank": 155,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Swift",
+      "skillCode": "swift",
+      "category": "언어",
+      "aliases": [],
+      "postings": 41,
+      "postingsShare": 1.7,
+      "rank": 41,
+      "roles": [
+        "General Software Engineer",
+        "Mobile"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "SwiftUI",
+      "skillCode": "swiftui",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 12,
+      "postingsShare": 0.5,
+      "rank": 99,
+      "roles": [
+        "Mobile",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "SystemVerilog",
+      "skillCode": "systemverilog",
+      "category": "언어",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Backend / Server",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Tableau",
+      "skillCode": "tableau",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 18,
+      "postingsShare": 0.7,
+      "rank": 75,
+      "roles": [
+        "Data Analyst",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Tailwind CSS",
+      "skillCode": "tailwind-css",
+      "category": "프론트엔드",
+      "aliases": [
+        "Tailwind",
+        "TailwindCSS"
+      ],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "TanStack",
+      "skillCode": "tanstack",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "TeamCity",
+      "skillCode": "teamcity",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "TensorFlow",
+      "skillCode": "tensorflow",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 54,
+      "postingsShare": 2.2,
+      "rank": 32,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Terraform",
+      "skillCode": "terraform",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 159,
+      "postingsShare": 6.6,
+      "rank": 15,
+      "roles": [
+        "General Software Engineer",
+        "Solutions / Forward Deployed"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Transformers",
+      "skillCode": "transformers",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 26,
+      "postingsShare": 1.1,
+      "rank": 58,
+      "roles": [
+        "Research Engineer / Scientist",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Trino",
+      "skillCode": "trino",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 16,
+      "postingsShare": 0.7,
+      "rank": 87,
+      "roles": [
+        "General Software Engineer",
+        "Data Engineer / Data Platform"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Triton Inference Server",
+      "skillCode": "triton-inference-server",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Triton"
+      ],
+      "postings": 13,
+      "postingsShare": 0.5,
+      "rank": 98,
+      "roles": [
+        "General Software Engineer",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "TypeScript",
+      "skillCode": "typescript",
+      "category": "언어",
+      "aliases": [
+        "TS"
+      ],
+      "postings": 324,
+      "postingsShare": 13.4,
+      "rank": 7,
+      "roles": [
+        "General Software Engineer",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "UIKit",
+      "skillCode": "uikit",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 7,
+      "postingsShare": 0.3,
+      "rank": 128,
+      "roles": [
+        "Mobile",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Vanta",
+      "skillCode": "vanta",
+      "category": "도구",
+      "aliases": [],
+      "postings": 3,
+      "postingsShare": 0.1,
+      "rank": 155,
+      "roles": [
+        "Engineering Management",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Vault",
+      "skillCode": "vault",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "HashiCorp Vault"
+      ],
+      "postings": 10,
+      "postingsShare": 0.4,
+      "rank": 112,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "VBA",
+      "skillCode": "vba",
+      "category": "언어",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "Data Analyst",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Vercel",
+      "skillCode": "vercel",
+      "category": "클라우드 · DevOps",
+      "aliases": [],
+      "postings": 3,
+      "postingsShare": 0.1,
+      "rank": 155,
+      "roles": [
+        "Backend / Server",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Vertex AI",
+      "skillCode": "vertex-ai",
+      "category": "데이터 · ML",
+      "aliases": [
+        "Vertex"
+      ],
+      "postings": 6,
+      "postingsShare": 0.2,
+      "rank": 134,
+      "roles": [
+        "Solutions / Forward Deployed",
+        "ML / AI Engineer / Data Scientist"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Vite",
+      "skillCode": "vite",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 4,
+      "postingsShare": 0.2,
+      "rank": 145,
+      "roles": [
+        "General Software Engineer",
+        "Backend / Server"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Vue.js",
+      "skillCode": "vuejs",
+      "category": "프론트엔드",
+      "aliases": [
+        "Vue",
+        "VueJS"
+      ],
+      "postings": 10,
+      "postingsShare": 0.4,
+      "rank": 112,
+      "roles": [
+        "Full-stack",
+        "General Software Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "WebAssembly",
+      "skillCode": "webassembly",
+      "category": "클라우드 · DevOps",
+      "aliases": [
+        "Wasm"
+      ],
+      "postings": 9,
+      "postingsShare": 0.4,
+      "rank": 118,
+      "roles": [
+        "General Software Engineer",
+        "Engineering Management"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Webpack",
+      "skillCode": "webpack",
+      "category": "프론트엔드",
+      "aliases": [],
+      "postings": 5,
+      "postingsShare": 0.2,
+      "rank": 141,
+      "roles": [
+        "General Software Engineer",
+        "Frontend"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Xamarin",
+      "skillCode": "xamarin",
+      "category": "모바일",
+      "aliases": [],
+      "postings": 0,
+      "postingsShare": 0.0,
+      "rank": 70,
+      "roles": [],
+      "detailed": false
+    },
+    {
+      "tech": "XGBoost",
+      "skillCode": "xgboost",
+      "category": "데이터 · ML",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "General Software Engineer",
+        "Infra / Platform / DevOps / SRE"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Zendesk",
+      "skillCode": "zendesk",
+      "category": "도구",
+      "aliases": [],
+      "postings": 18,
+      "postingsShare": 0.7,
+      "rank": 75,
+      "roles": [
+        "General Software Engineer",
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Zig",
+      "skillCode": "zig",
+      "category": "언어",
+      "aliases": [],
+      "postings": 1,
+      "postingsShare": 0.0,
+      "rank": 181,
+      "roles": [
+        "Security Engineer"
+      ],
+      "detailed": true
+    },
+    {
+      "tech": "Zookeeper",
+      "skillCode": "zookeeper",
+      "category": "메시징 · 인프라",
+      "aliases": [],
+      "postings": 2,
+      "postingsShare": 0.1,
+      "rank": 161,
+      "roles": [
+        "General Software Engineer",
+        "Research Engineer / Scientist"
+      ],
+      "detailed": true
+    }
   ]
- },
- "items": [
-  {
-   "tech": ".NET",
-   "skillCode": "net",
-   "category": "백엔드",
-   "aliases": [
-    "ASP.NET",
-    "dotnet"
-   ],
-   "postings": 9,
-   "postingsShare": 0.4,
-   "rank": 61,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Airflow",
-   "skillCode": "airflow",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Apache Airflow"
-   ],
-   "postings": 68,
-   "postingsShare": 2.8,
-   "rank": 24,
-   "roles": [
-    "데이터",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Amazon EC2",
-   "skillCode": "amazon-ec2",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "EC2"
-   ],
-   "postings": 6,
-   "postingsShare": 0.2,
-   "rank": 64,
-   "roles": [
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Amazon EKS",
-   "skillCode": "amazon-eks",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "EKS"
-   ],
-   "postings": 18,
-   "postingsShare": 0.7,
-   "rank": 52,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Amazon S3",
-   "skillCode": "amazon-s3",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "S3"
-   ],
-   "postings": 19,
-   "postingsShare": 0.8,
-   "rank": 51,
-   "roles": [
-    "데이터",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Android",
-   "skillCode": "android",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 50,
-   "postingsShare": 2.1,
-   "rank": 29,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Angular",
-   "skillCode": "angular",
-   "category": "프론트엔드",
-   "aliases": [
-    "Angular.js",
-    "AngularJS"
-   ],
-   "postings": 6,
-   "postingsShare": 0.2,
-   "rank": 64,
-   "roles": [
-    "웹 · 모바일"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Ansible",
-   "skillCode": "ansible",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 25,
-   "postingsShare": 1.0,
-   "rank": 46,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Anthropic",
-   "skillCode": "anthropic",
-   "category": "AI 플랫폼",
-   "aliases": [],
-   "postings": 7,
-   "postingsShare": 0.3,
-   "rank": 63,
-   "roles": [
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Apache Flink",
-   "skillCode": "apache-flink",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Flink"
-   ],
-   "postings": 40,
-   "postingsShare": 1.7,
-   "rank": 36,
-   "roles": [
-    "데이터",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Apache Iceberg",
-   "skillCode": "apache-iceberg",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Iceberg"
-   ],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "일반 SWE",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Apache Kafka",
-   "skillCode": "apache-kafka",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Kafka"
-   ],
-   "postings": 97,
-   "postingsShare": 4.0,
-   "rank": 22,
-   "roles": [
-    "데이터",
-    "웹 · 모바일"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Apache Pulsar",
-   "skillCode": "apache-pulsar",
-   "category": "메시징 · 인프라",
-   "aliases": [
-    "Pulsar"
-   ],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Apache Spark",
-   "skillCode": "apache-spark",
-   "category": "데이터 · ML",
-   "aliases": [
-    "PySpark",
-    "Spark"
-   ],
-   "postings": 105,
-   "postingsShare": 4.4,
-   "rank": 21,
-   "roles": [
-    "데이터",
-    "AI · 리서치"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "ArgoCD",
-   "skillCode": "argocd",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "Argo CD"
-   ],
-   "postings": 10,
-   "postingsShare": 0.4,
-   "rank": 60,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Assembly",
-   "skillCode": "assembly",
-   "category": "언어",
-   "aliases": [],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "웹 · 모바일",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "AWS",
-   "skillCode": "aws",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "Amazon Web Services"
-   ],
-   "postings": 428,
-   "postingsShare": 17.7,
-   "rank": 2,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "AWS CloudFormation",
-   "skillCode": "aws-cloudformation",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "CloudFormation"
-   ],
-   "postings": 12,
-   "postingsShare": 0.5,
-   "rank": 58,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Azure",
-   "skillCode": "azure",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "Microsoft Azure"
-   ],
-   "postings": 310,
-   "postingsShare": 12.9,
-   "rank": 8,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "인프라 · 보안"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Babel",
-   "skillCode": "babel",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Backbone.js",
-   "skillCode": "backbonejs",
-   "category": "프론트엔드",
-   "aliases": [
-    "BackboneJS"
-   ],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Bash",
-   "skillCode": "bash",
-   "category": "언어",
-   "aliases": [
-    "Bash scripting",
-    "Shell",
-    "Shell scripting"
-   ],
-   "postings": 49,
-   "postingsShare": 2.0,
-   "rank": 30,
-   "roles": [
-    "인프라 · 보안",
-    "데이터"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Bazel",
-   "skillCode": "bazel",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Bicep",
-   "skillCode": "bicep",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "BigQuery",
-   "skillCode": "bigquery",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 35,
-   "postingsShare": 1.5,
-   "rank": 40,
-   "roles": [
-    "데이터",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Buildkite",
-   "skillCode": "buildkite",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 16,
-   "postingsShare": 0.7,
-   "rank": 54,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "C",
-   "skillCode": "c",
-   "category": "언어",
-   "aliases": [],
-   "postings": 27,
-   "postingsShare": 1.1,
-   "rank": 44,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "C#",
-   "skillCode": "csharp",
-   "category": "언어",
-   "aliases": [],
-   "postings": 64,
-   "postingsShare": 2.7,
-   "rank": 25,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "C++",
-   "skillCode": "cpp",
-   "category": "언어",
-   "aliases": [],
-   "postings": 252,
-   "postingsShare": 10.4,
-   "rank": 10,
-   "roles": [
-    "일반 SWE",
-    "인프라 · 보안"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Cassandra",
-   "skillCode": "cassandra",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "CircleCI",
-   "skillCode": "circleci",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 6,
-   "postingsShare": 0.2,
-   "rank": 64,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Claude",
-   "skillCode": "claude",
-   "category": "AI 플랫폼",
-   "aliases": [],
-   "postings": 172,
-   "postingsShare": 7.1,
-   "rank": 14,
-   "roles": [
-    "AI · 리서치",
-    "웹 · 모바일"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "ClickHouse",
-   "skillCode": "clickhouse",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 27,
-   "postingsShare": 1.1,
-   "rank": 44,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Cloudflare",
-   "skillCode": "cloudflare",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": true
-  },
-  {
-   "tech": "Cloudflare Workers",
-   "skillCode": "cloudflare-workers",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "CockroachDB",
-   "skillCode": "cockroachdb",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Confluence",
-   "skillCode": "confluence",
-   "category": "도구",
-   "aliases": [],
-   "postings": 8,
-   "postingsShare": 0.3,
-   "rank": 62,
-   "roles": [
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "CSS",
-   "skillCode": "css",
-   "category": "프론트엔드",
-   "aliases": [
-    "CSS3"
-   ],
-   "postings": 23,
-   "postingsShare": 1.0,
-   "rank": 48,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "CUDA",
-   "skillCode": "cuda",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 33,
-   "postingsShare": 1.4,
-   "rank": 41,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Cypher",
-   "skillCode": "cypher",
-   "category": "언어",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Cypress",
-   "skillCode": "cypress",
-   "category": "테스트",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "D",
-   "skillCode": "d",
-   "category": "언어",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "D3.js",
-   "skillCode": "d3js",
-   "category": "프론트엔드",
-   "aliases": [
-    "D3JS"
-   ],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Dagster",
-   "skillCode": "dagster",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 15,
-   "postingsShare": 0.6,
-   "rank": 55,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Dart",
-   "skillCode": "dart",
-   "category": "언어",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Databricks",
-   "skillCode": "databricks",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 21,
-   "postingsShare": 0.9,
-   "rank": 49,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Datadog",
-   "skillCode": "datadog",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 24,
-   "postingsShare": 1.0,
-   "rank": 47,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "dbt",
-   "skillCode": "dbt",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 36,
-   "postingsShare": 1.5,
-   "rank": 39,
-   "roles": [
-    "데이터",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Deno",
-   "skillCode": "deno",
-   "category": "백엔드",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Dependabot",
-   "skillCode": "dependabot",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 8,
-   "postingsShare": 0.3,
-   "rank": 62,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Django",
-   "skillCode": "django",
-   "category": "백엔드",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Docker",
-   "skillCode": "docker",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 115,
-   "postingsShare": 4.8,
-   "rank": 20,
-   "roles": [
-    "웹 · 모바일",
-    "인프라 · 보안"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "DynamoDB",
-   "skillCode": "dynamodb",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 11,
-   "postingsShare": 0.5,
-   "rank": 59,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Elasticsearch",
-   "skillCode": "elasticsearch",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 20,
-   "postingsShare": 0.8,
-   "rank": 50,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Elixir",
-   "skillCode": "elixir",
-   "category": "언어",
-   "aliases": [],
-   "postings": 5,
-   "postingsShare": 0.2,
-   "rank": 65,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Ember.js",
-   "skillCode": "emberjs",
-   "category": "프론트엔드",
-   "aliases": [
-    "EmberJS"
-   ],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Envoy",
-   "skillCode": "envoy",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 14,
-   "postingsShare": 0.6,
-   "rank": 56,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Erlang",
-   "skillCode": "erlang",
-   "category": "언어",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "ESLint",
-   "skillCode": "eslint",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Express",
-   "skillCode": "express",
-   "category": "백엔드",
-   "aliases": [
-    "Express.js",
-    "ExpressJS"
-   ],
-   "postings": 10,
-   "postingsShare": 0.4,
-   "rank": 60,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "FastAPI",
-   "skillCode": "fastapi",
-   "category": "백엔드",
-   "aliases": [],
-   "postings": 12,
-   "postingsShare": 0.5,
-   "rank": 58,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Figma",
-   "skillCode": "figma",
-   "category": "도구",
-   "aliases": [],
-   "postings": 13,
-   "postingsShare": 0.5,
-   "rank": 57,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Firestore",
-   "skillCode": "firestore",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Flask",
-   "skillCode": "flask",
-   "category": "백엔드",
-   "aliases": [],
-   "postings": 10,
-   "postingsShare": 0.4,
-   "rank": 60,
-   "roles": [
-    "웹 · 모바일",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Flutter",
-   "skillCode": "flutter",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Fly.io",
-   "skillCode": "flyio",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Gatsby",
-   "skillCode": "gatsby",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "GCP",
-   "skillCode": "gcp",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "Google Cloud",
-    "Google Cloud Platform"
-   ],
-   "postings": 354,
-   "postingsShare": 14.7,
-   "rank": 5,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "GDB",
-   "skillCode": "gdb",
-   "category": "도구",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Gemini",
-   "skillCode": "gemini",
-   "category": "AI 플랫폼",
-   "aliases": [],
-   "postings": 7,
-   "postingsShare": 0.3,
-   "rank": 63,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Git",
-   "skillCode": "git",
-   "category": "도구",
-   "aliases": [],
-   "postings": 48,
-   "postingsShare": 2.0,
-   "rank": 31,
-   "roles": [
-    "인프라 · 보안",
-    "웹 · 모바일"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GitHub",
-   "skillCode": "github",
-   "category": "도구",
-   "aliases": [],
-   "postings": 68,
-   "postingsShare": 2.8,
-   "rank": 24,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GitHub Actions",
-   "skillCode": "github-actions",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 19,
-   "postingsShare": 0.8,
-   "rank": 51,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GitHub Copilot",
-   "skillCode": "github-copilot",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Copilot"
-   ],
-   "postings": 31,
-   "postingsShare": 1.3,
-   "rank": 42,
-   "roles": [
-    "웹 · 모바일",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GitLab",
-   "skillCode": "gitlab",
-   "category": "도구",
-   "aliases": [],
-   "postings": 11,
-   "postingsShare": 0.5,
-   "rank": 59,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GitLab CI",
-   "skillCode": "gitlab-ci",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "GitLab CI/CD"
-   ],
-   "postings": 6,
-   "postingsShare": 0.2,
-   "rank": 64,
-   "roles": [
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GLSL",
-   "skillCode": "glsl",
-   "category": "언어",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Go",
-   "skillCode": "go",
-   "category": "언어",
-   "aliases": [
-    "Golang"
-   ],
-   "postings": 409,
-   "postingsShare": 17.0,
-   "rank": 4,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Google GKE",
-   "skillCode": "google-gke",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "GKE",
-    "Google Kubernetes Engine"
-   ],
-   "postings": 11,
-   "postingsShare": 0.5,
-   "rank": 59,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GPT / OpenAI",
-   "skillCode": "openai",
-   "category": "AI 플랫폼",
-   "aliases": [
-    "ChatGPT",
-    "GPT",
-    "GPT-4",
-    "OpenAI"
-   ],
-   "postings": 133,
-   "postingsShare": 5.5,
-   "rank": 17,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Gradle",
-   "skillCode": "gradle",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "일반 SWE",
-    "웹 · 모바일"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Grafana",
-   "skillCode": "grafana",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 55,
-   "postingsShare": 2.3,
-   "rank": 27,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "GraphQL",
-   "skillCode": "graphql",
-   "category": "백엔드",
-   "aliases": [],
-   "postings": 39,
-   "postingsShare": 1.6,
-   "rank": 37,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Groovy",
-   "skillCode": "groovy",
-   "category": "언어",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "gRPC",
-   "skillCode": "grpc",
-   "category": "백엔드",
-   "aliases": [],
-   "postings": 24,
-   "postingsShare": 1.0,
-   "rank": 47,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Hadoop",
-   "skillCode": "hadoop",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 18,
-   "postingsShare": 0.7,
-   "rank": 52,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Haskell",
-   "skillCode": "haskell",
-   "category": "언어",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Helm",
-   "skillCode": "helm",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 21,
-   "postingsShare": 0.9,
-   "rank": 49,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Heroku",
-   "skillCode": "heroku",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 3,
-   "postingsShare": 0.1,
-   "rank": 67,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "HTML",
-   "skillCode": "html",
-   "category": "프론트엔드",
-   "aliases": [
-    "HTML5"
-   ],
-   "postings": 19,
-   "postingsShare": 0.8,
-   "rank": 51,
-   "roles": [
-    "웹 · 모바일",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "HubSpot",
-   "skillCode": "hubspot",
-   "category": "도구",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Hugging Face",
-   "skillCode": "hugging-face",
-   "category": "데이터 · ML",
-   "aliases": [
-    "HuggingFace"
-   ],
-   "postings": 9,
-   "postingsShare": 0.4,
-   "rank": 61,
-   "roles": [
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "IIS",
-   "skillCode": "iis",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "iOS",
-   "skillCode": "ios",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 47,
-   "postingsShare": 1.9,
-   "rank": 32,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Istio",
-   "skillCode": "istio",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 8,
-   "postingsShare": 0.3,
-   "rank": 62,
-   "roles": [
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Java",
-   "skillCode": "java",
-   "category": "언어",
-   "aliases": [],
-   "postings": 264,
-   "postingsShare": 10.9,
-   "rank": 9,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "JavaScript",
-   "skillCode": "javascript",
-   "category": "언어",
-   "aliases": [
-    "JS"
-   ],
-   "postings": 242,
-   "postingsShare": 10.0,
-   "rank": 11,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "웹 · 모바일"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "JAX",
-   "skillCode": "jax",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 38,
-   "postingsShare": 1.6,
-   "rank": 38,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Jenkins",
-   "skillCode": "jenkins",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 16,
-   "postingsShare": 0.7,
-   "rank": 54,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Jest",
-   "skillCode": "jest",
-   "category": "테스트",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Jetpack Compose",
-   "skillCode": "jetpack-compose",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Jira",
-   "skillCode": "jira",
-   "category": "도구",
-   "aliases": [],
-   "postings": 21,
-   "postingsShare": 0.9,
-   "rank": 49,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "jQuery",
-   "skillCode": "jquery",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Julia",
-   "skillCode": "julia",
-   "category": "언어",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "JUnit",
-   "skillCode": "junit",
-   "category": "테스트",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Jupyter",
-   "skillCode": "jupyter",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Jupyter Notebook"
-   ],
-   "postings": 6,
-   "postingsShare": 0.2,
-   "rank": 64,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Keras",
-   "skillCode": "keras",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Kibana",
-   "skillCode": "kibana",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Kotlin",
-   "skillCode": "kotlin",
-   "category": "언어",
-   "aliases": [],
-   "postings": 33,
-   "postingsShare": 1.4,
-   "rank": 41,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Kubernetes",
-   "skillCode": "kubernetes",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "K8s"
-   ],
-   "postings": 418,
-   "postingsShare": 17.3,
-   "rank": 3,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "LangChain",
-   "skillCode": "langchain",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 20,
-   "postingsShare": 0.8,
-   "rank": 50,
-   "roles": [
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Laravel",
-   "skillCode": "laravel",
-   "category": "백엔드",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "LightGBM",
-   "skillCode": "lightgbm",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Linux",
-   "skillCode": "linux",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 149,
-   "postingsShare": 6.2,
-   "rank": 16,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Llama",
-   "skillCode": "llama",
-   "category": "AI 플랫폼",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Looker",
-   "skillCode": "looker",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 14,
-   "postingsShare": 0.6,
-   "rank": 56,
-   "roles": [
-    "데이터",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Lua",
-   "skillCode": "lua",
-   "category": "언어",
-   "aliases": [],
-   "postings": 20,
-   "postingsShare": 0.8,
-   "rank": 50,
-   "roles": [
-    "일반 SWE",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Lucene",
-   "skillCode": "lucene",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Apache Lucene"
-   ],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "MariaDB",
-   "skillCode": "mariadb",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Material UI",
-   "skillCode": "material-ui",
-   "category": "프론트엔드",
-   "aliases": [
-    "MUI"
-   ],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "MATLAB",
-   "skillCode": "matlab",
-   "category": "언어",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "MCP",
-   "skillCode": "mcp",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Model Context Protocol"
-   ],
-   "postings": 60,
-   "postingsShare": 2.5,
-   "rank": 26,
-   "roles": [
-    "AI · 리서치",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "MLflow",
-   "skillCode": "mlflow",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "MobX",
-   "skillCode": "mobx",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Mojo",
-   "skillCode": "mojo",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "MongoDB",
-   "skillCode": "mongodb",
-   "category": "데이터베이스",
-   "aliases": [
-    "Mongo"
-   ],
-   "postings": 15,
-   "postingsShare": 0.6,
-   "rank": 55,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "MongoDB Atlas",
-   "skillCode": "mongodb-atlas",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "MySQL",
-   "skillCode": "mysql",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 45,
-   "postingsShare": 1.9,
-   "rank": 33,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "NCCL",
-   "skillCode": "nccl",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 8,
-   "postingsShare": 0.3,
-   "rank": 62,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Neo4j",
-   "skillCode": "neo4j",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "NestJS",
-   "skillCode": "nestjs",
-   "category": "백엔드",
-   "aliases": [
-    "Nest.js"
-   ],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "NetSuite",
-   "skillCode": "netsuite",
-   "category": "도구",
-   "aliases": [],
-   "postings": 12,
-   "postingsShare": 0.5,
-   "rank": 58,
-   "roles": [
-    "데이터",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Next.js",
-   "skillCode": "nextjs",
-   "category": "프론트엔드",
-   "aliases": [
-    "NextJS"
-   ],
-   "postings": 23,
-   "postingsShare": 1.0,
-   "rank": 48,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Nginx",
-   "skillCode": "nginx",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Nix",
-   "skillCode": "nix",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 6,
-   "postingsShare": 0.2,
-   "rank": 64,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Node.js",
-   "skillCode": "nodejs",
-   "category": "백엔드",
-   "aliases": [
-    "Node",
-    "NodeJS"
-   ],
-   "postings": 130,
-   "postingsShare": 5.4,
-   "rank": 18,
-   "roles": [
-    "웹 · 모바일",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "NumPy",
-   "skillCode": "numpy",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 7,
-   "postingsShare": 0.3,
-   "rank": 63,
-   "roles": [
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Nuxt.js",
-   "skillCode": "nuxtjs",
-   "category": "프론트엔드",
-   "aliases": [
-    "NuxtJS"
-   ],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Objective-C",
-   "skillCode": "objective-c",
-   "category": "언어",
-   "aliases": [
-    "ObjC",
-    "Objective C"
-   ],
-   "postings": 11,
-   "postingsShare": 0.5,
-   "rank": 59,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Okta",
-   "skillCode": "okta",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "OpenAI Codex",
-   "skillCode": "openai-codex",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Codex"
-   ],
-   "postings": 10,
-   "postingsShare": 0.4,
-   "rank": 60,
-   "roles": [
-    "웹 · 모바일",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "OpenCV",
-   "skillCode": "opencv",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "OpenShift",
-   "skillCode": "openshift",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 8,
-   "postingsShare": 0.3,
-   "rank": 62,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "OpenTelemetry",
-   "skillCode": "opentelemetry",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 14,
-   "postingsShare": 0.6,
-   "rank": 56,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Oracle DB",
-   "skillCode": "oracle-db",
-   "category": "데이터베이스",
-   "aliases": [
-    "Oracle Database"
-   ],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Pandas",
-   "skillCode": "pandas",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Perl",
-   "skillCode": "perl",
-   "category": "언어",
-   "aliases": [],
-   "postings": 7,
-   "postingsShare": 0.3,
-   "rank": 63,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "PHP",
-   "skillCode": "php",
-   "category": "언어",
-   "aliases": [],
-   "postings": 12,
-   "postingsShare": 0.5,
-   "rank": 58,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Plotly",
-   "skillCode": "plotly",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "PostgreSQL",
-   "skillCode": "postgresql",
-   "category": "데이터베이스",
-   "aliases": [
-    "Postgres"
-   ],
-   "postings": 126,
-   "postingsShare": 5.2,
-   "rank": 19,
-   "roles": [
-    "일반 SWE",
-    "인프라 · 보안"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Postman",
-   "skillCode": "postman",
-   "category": "도구",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Power BI",
-   "skillCode": "power-bi",
-   "category": "데이터 · ML",
-   "aliases": [
-    "PowerBI"
-   ],
-   "postings": 3,
-   "postingsShare": 0.1,
-   "rank": 67,
-   "roles": [
-    "데이터"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Prometheus",
-   "skillCode": "prometheus",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 47,
-   "postingsShare": 1.9,
-   "rank": 32,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Pulumi",
-   "skillCode": "pulumi",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 16,
-   "postingsShare": 0.7,
-   "rank": 54,
-   "roles": [
-    "인프라 · 보안",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Puppet",
-   "skillCode": "puppet",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 12,
-   "postingsShare": 0.5,
-   "rank": 58,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "PyTest",
-   "skillCode": "pytest",
-   "category": "테스트",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Python",
-   "skillCode": "python",
-   "category": "언어",
-   "aliases": [],
-   "postings": 919,
-   "postingsShare": 38.1,
-   "rank": 1,
-   "roles": [
-    "AI · 리서치",
-    "데이터"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "PyTorch",
-   "skillCode": "pytorch",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 96,
-   "postingsShare": 4.0,
-   "rank": 23,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "R",
-   "skillCode": "r",
-   "category": "언어",
-   "aliases": [],
-   "postings": 28,
-   "postingsShare": 1.2,
-   "rank": 43,
-   "roles": [
-    "데이터",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "RabbitMQ",
-   "skillCode": "rabbitmq",
-   "category": "메시징 · 인프라",
-   "aliases": [],
-   "postings": 11,
-   "postingsShare": 0.5,
-   "rank": 59,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "React",
-   "skillCode": "react",
-   "category": "프론트엔드",
-   "aliases": [
-    "React.js",
-    "ReactJS"
-   ],
-   "postings": 205,
-   "postingsShare": 8.5,
-   "rank": 13,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "React Native",
-   "skillCode": "react-native",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 10,
-   "postingsShare": 0.4,
-   "rank": 60,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Redis",
-   "skillCode": "redis",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 42,
-   "postingsShare": 1.7,
-   "rank": 34,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Redshift",
-   "skillCode": "redshift",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 5,
-   "postingsShare": 0.2,
-   "rank": 65,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Redux",
-   "skillCode": "redux",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 15,
-   "postingsShare": 0.6,
-   "rank": 55,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "REST",
-   "skillCode": "rest",
-   "category": "백엔드",
-   "aliases": [
-    "REST API",
-    "RESTful"
-   ],
-   "postings": 31,
-   "postingsShare": 1.3,
-   "rank": 42,
-   "roles": [
-    "웹 · 모바일",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Ruby",
-   "skillCode": "ruby",
-   "category": "언어",
-   "aliases": [],
-   "postings": 68,
-   "postingsShare": 2.8,
-   "rank": 24,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Ruby on Rails",
-   "skillCode": "ruby-on-rails",
-   "category": "백엔드",
-   "aliases": [
-    "Rails"
-   ],
-   "postings": 14,
-   "postingsShare": 0.6,
-   "rank": 56,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Rust",
-   "skillCode": "rust",
-   "category": "언어",
-   "aliases": [],
-   "postings": 225,
-   "postingsShare": 9.3,
-   "rank": 12,
-   "roles": [
-    "일반 SWE",
-    "인프라 · 보안"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Salesforce",
-   "skillCode": "salesforce",
-   "category": "도구",
-   "aliases": [
-    "SFDC",
-    "Salesforce.com"
-   ],
-   "postings": 41,
-   "postingsShare": 1.7,
-   "rank": 35,
-   "roles": [
-    "AI · 리서치",
-    "인프라 · 보안"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "SAS",
-   "skillCode": "sas",
-   "category": "언어",
-   "aliases": [],
-   "postings": 8,
-   "postingsShare": 0.3,
-   "rank": 62,
-   "roles": [
-    "AI · 리서치",
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Sass",
-   "skillCode": "sass",
-   "category": "프론트엔드",
-   "aliases": [
-    "SCSS"
-   ],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Scala",
-   "skillCode": "scala",
-   "category": "언어",
-   "aliases": [],
-   "postings": 39,
-   "postingsShare": 1.6,
-   "rank": 37,
-   "roles": [
-    "데이터",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "scikit-learn",
-   "skillCode": "scikit-learn",
-   "category": "데이터 · ML",
-   "aliases": [
-    "sklearn"
-   ],
-   "postings": 7,
-   "postingsShare": 0.3,
-   "rank": 63,
-   "roles": [
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Selenium",
-   "skillCode": "selenium",
-   "category": "테스트",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Slurm",
-   "skillCode": "slurm",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 7,
-   "postingsShare": 0.3,
-   "rank": 63,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Snowflake",
-   "skillCode": "snowflake",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 40,
-   "postingsShare": 1.7,
-   "rank": 36,
-   "roles": [
-    "일반 SWE",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Snyk",
-   "skillCode": "snyk",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 9,
-   "postingsShare": 0.4,
-   "rank": 61,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Solidity",
-   "skillCode": "solidity",
-   "category": "언어",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "SolidJS",
-   "skillCode": "solidjs",
-   "category": "프론트엔드",
-   "aliases": [
-    "Solid.js"
-   ],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Splunk",
-   "skillCode": "splunk",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 17,
-   "postingsShare": 0.7,
-   "rank": 53,
-   "roles": [
-    "매니지먼트 · 솔루션",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Spring",
-   "skillCode": "spring",
-   "category": "백엔드",
-   "aliases": [
-    "Spring Boot",
-    "Spring Framework",
-    "SpringBoot"
-   ],
-   "postings": 11,
-   "postingsShare": 0.5,
-   "rank": 59,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "SQL",
-   "skillCode": "sql",
-   "category": "언어",
-   "aliases": [],
-   "postings": 326,
-   "postingsShare": 13.5,
-   "rank": 6,
-   "roles": [
-    "데이터",
-    "AI · 리서치"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "SQLite",
-   "skillCode": "sqlite",
-   "category": "데이터베이스",
-   "aliases": [],
-   "postings": 5,
-   "postingsShare": 0.2,
-   "rank": 65,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Starlark",
-   "skillCode": "starlark",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Storybook",
-   "skillCode": "storybook",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Streamlit",
-   "skillCode": "streamlit",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 3,
-   "postingsShare": 0.1,
-   "rank": 67,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "styled-components",
-   "skillCode": "styled-components",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Svelte",
-   "skillCode": "svelte",
-   "category": "프론트엔드",
-   "aliases": [
-    "SvelteKit"
-   ],
-   "postings": 3,
-   "postingsShare": 0.1,
-   "rank": 67,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Swift",
-   "skillCode": "swift",
-   "category": "언어",
-   "aliases": [],
-   "postings": 41,
-   "postingsShare": 1.7,
-   "rank": 35,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "SwiftUI",
-   "skillCode": "swiftui",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 12,
-   "postingsShare": 0.5,
-   "rank": 58,
-   "roles": [
-    "웹 · 모바일"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "SystemVerilog",
-   "skillCode": "systemverilog",
-   "category": "언어",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Tableau",
-   "skillCode": "tableau",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 18,
-   "postingsShare": 0.7,
-   "rank": 52,
-   "roles": [
-    "데이터",
-    "인프라 · 보안"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Tailwind CSS",
-   "skillCode": "tailwind-css",
-   "category": "프론트엔드",
-   "aliases": [
-    "Tailwind",
-    "TailwindCSS"
-   ],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "TanStack",
-   "skillCode": "tanstack",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "TeamCity",
-   "skillCode": "teamcity",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "TensorFlow",
-   "skillCode": "tensorflow",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 54,
-   "postingsShare": 2.2,
-   "rank": 28,
-   "roles": [
-    "AI · 리서치",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Terraform",
-   "skillCode": "terraform",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 159,
-   "postingsShare": 6.6,
-   "rank": 15,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "Transformers",
-   "skillCode": "transformers",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 26,
-   "postingsShare": 1.1,
-   "rank": 45,
-   "roles": [
-    "AI · 리서치",
-    "인프라 · 보안"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Trino",
-   "skillCode": "trino",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 16,
-   "postingsShare": 0.7,
-   "rank": 54,
-   "roles": [
-    "데이터",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Triton Inference Server",
-   "skillCode": "triton-inference-server",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Triton"
-   ],
-   "postings": 13,
-   "postingsShare": 0.5,
-   "rank": 57,
-   "roles": [
-    "일반 SWE",
-    "AI · 리서치"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "TypeScript",
-   "skillCode": "typescript",
-   "category": "언어",
-   "aliases": [
-    "TS"
-   ],
-   "postings": 324,
-   "postingsShare": 13.4,
-   "rank": 7,
-   "roles": [
-    "일반 SWE",
-    "웹 · 모바일"
-   ],
-   "detailed": true
-  },
-  {
-   "tech": "UIKit",
-   "skillCode": "uikit",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 7,
-   "postingsShare": 0.3,
-   "rank": 63,
-   "roles": [
-    "웹 · 모바일"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Vanta",
-   "skillCode": "vanta",
-   "category": "도구",
-   "aliases": [],
-   "postings": 3,
-   "postingsShare": 0.1,
-   "rank": 67,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Vault",
-   "skillCode": "vault",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "HashiCorp Vault"
-   ],
-   "postings": 10,
-   "postingsShare": 0.4,
-   "rank": 60,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "VBA",
-   "skillCode": "vba",
-   "category": "언어",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Vercel",
-   "skillCode": "vercel",
-   "category": "클라우드 · DevOps",
-   "aliases": [],
-   "postings": 3,
-   "postingsShare": 0.1,
-   "rank": 67,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Vertex AI",
-   "skillCode": "vertex-ai",
-   "category": "데이터 · ML",
-   "aliases": [
-    "Vertex"
-   ],
-   "postings": 6,
-   "postingsShare": 0.2,
-   "rank": 64,
-   "roles": [
-    "매니지먼트 · 솔루션"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Vite",
-   "skillCode": "vite",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 4,
-   "postingsShare": 0.2,
-   "rank": 66,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Vue.js",
-   "skillCode": "vuejs",
-   "category": "프론트엔드",
-   "aliases": [
-    "Vue",
-    "VueJS"
-   ],
-   "postings": 10,
-   "postingsShare": 0.4,
-   "rank": 60,
-   "roles": [
-    "웹 · 모바일",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "WebAssembly",
-   "skillCode": "webassembly",
-   "category": "클라우드 · DevOps",
-   "aliases": [
-    "Wasm"
-   ],
-   "postings": 9,
-   "postingsShare": 0.4,
-   "rank": 61,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Webpack",
-   "skillCode": "webpack",
-   "category": "프론트엔드",
-   "aliases": [],
-   "postings": 5,
-   "postingsShare": 0.2,
-   "rank": 65,
-   "roles": [
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Xamarin",
-   "skillCode": "xamarin",
-   "category": "모바일",
-   "aliases": [],
-   "postings": 0,
-   "postingsShare": 0.0,
-   "rank": 70,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "XGBoost",
-   "skillCode": "xgboost",
-   "category": "데이터 · ML",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Zendesk",
-   "skillCode": "zendesk",
-   "category": "도구",
-   "aliases": [],
-   "postings": 18,
-   "postingsShare": 0.7,
-   "rank": 52,
-   "roles": [
-    "인프라 · 보안",
-    "일반 SWE"
-   ],
-   "detailed": false
-  },
-  {
-   "tech": "Zig",
-   "skillCode": "zig",
-   "category": "언어",
-   "aliases": [],
-   "postings": 1,
-   "postingsShare": 0.0,
-   "rank": 69,
-   "roles": [],
-   "detailed": false
-  },
-  {
-   "tech": "Zookeeper",
-   "skillCode": "zookeeper",
-   "category": "메시징 · 인프라",
-   "aliases": [],
-   "postings": 2,
-   "postingsShare": 0.1,
-   "rank": 68,
-   "roles": [],
-   "detailed": false
-  }
- ]
 }

@@ -9,7 +9,8 @@ import Hero from "@/components/Hero";
 import QuadrantIntro from "@/components/QuadrantIntro";
 import TopBar from "@/components/TopBar";
 import { getGapMapData } from "@/lib/api";
-import { pickMapPoints } from "@/lib/mapPoints";
+import { pickMapPoints, MAP_LIMIT, MAP_LIMIT_STEPS } from "@/lib/mapPoints";
+import { ALL_ROLES, projectByRole } from "@/lib/roles";
 import { useInView } from "@/lib/useInView";
 
 export default function DashboardClient() {
@@ -17,7 +18,7 @@ export default function DashboardClient() {
   const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedRole, setSelectedRole] = useState("all");
+  const [selectedRole, setSelectedRole] = useState(ALL_ROLES);
   const [selectedTech, setSelectedTech] = useState(null);
 
   const [mapRef, mapInView] = useInView({ threshold: 0.3 });
@@ -53,24 +54,32 @@ export default function DashboardClient() {
     };
   }, []);
 
-  // roles는 채용공고에서 뽑은 직군 그룹 6종이고, 한 기술이 두 개까지 가질 수 있다.
-  // 순서는 meta.roles(공고 수 내림차순)를 따르고, 없으면 데이터에서 직접 모은다.
+  // roles는 채용공고 원본 직군 14종이다. 순서는 meta.roles(공고 수 내림차순)를
+  // 따르고, 없으면 데이터에서 직접 모은다.
   const roles = useMemo(() => {
     if (meta?.roles?.length) return meta.roles;
-    return Array.from(new Set(data.flatMap((d) => d.roles ?? []))).sort();
+    return Array.from(
+      new Set(data.flatMap((d) => (d.roleBreakdown ?? []).map((b) => b.role)))
+    ).sort();
   }, [data, meta?.roles]);
   const hasRoleData = roles.length > 0;
 
-  const filteredData = useMemo(() => {
-    if (!hasRoleData || selectedRole === "all") return data;
-    return data.filter((d) => d.roles?.includes(selectedRole));
-  }, [data, hasRoleData, selectedRole]);
+  // 직군을 고르면 그 직군에 등장한 기술만 남기고, y축을 그 직군 안에서의
+  // 백분위로 갈아끼운다 (lib/roles.js).
+  const filteredData = useMemo(
+    () => (hasRoleData ? projectByRole(data, selectedRole) : data),
+    [data, hasRoleData, selectedRole]
+  );
 
-  // 점이 겹쳐 읽히지 않는 것을 막으려고 수요 상위 N개만 찍는다. 잘린 기술은
-  // 아래 기술 사전 안내로 넘긴다.
+  // 점이 겹쳐 읽히지 않는 것을 막으려고 N개만 찍는다. 수요 상위 N개가 아니라
+  // 사분면별로 고르게 뽑는다 (lib/mapPoints.js). 잘린 기술은 아래 기술 사전
+  // 안내로 넘긴다. N은 화면에서 바꿀 수 있고, 사용자가 손대기 전까지는
+  // meta.mapLimit을 따른다.
+  const [limitOverride, setLimitOverride] = useState(null);
+  const mapLimit = limitOverride ?? meta?.mapLimit ?? MAP_LIMIT;
   const mapData = useMemo(
-    () => pickMapPoints(filteredData, meta?.mapLimit),
-    [filteredData, meta?.mapLimit]
+    () => pickMapPoints(filteredData, mapLimit),
+    [filteredData, mapLimit]
   );
   const hiddenCount = filteredData.length - mapData.length;
 
@@ -84,6 +93,13 @@ export default function DashboardClient() {
   }, [selectedTech]);
 
   // 사분면 소개에서 한 칸을 누르면 해당 구역의 대표 기술을 골라 괴리맵으로 데려간다.
+  // 직군을 바꾸면 y축 기준이 바뀌므로, 열려 있던 상세는 이전 기준의 값을
+  // 그대로 들고 있게 된다. 선택을 비워 섞이지 않게 한다.
+  const changeRole = useCallback((role) => {
+    setSelectedRole(role);
+    setSelectedTech(null);
+  }, []);
+
   const pickFromQuadrant = useCallback((tech) => {
     if (!tech) return;
     setSelectedTech(tech);
@@ -121,7 +137,7 @@ export default function DashboardClient() {
           <FilterBar
             roles={roles}
             selectedRole={selectedRole}
-            onRoleChange={setSelectedRole}
+            onRoleChange={changeRole}
             hasRoleData={hasRoleData}
             resultCount={filteredData.length}
             totalCount={data.length}
@@ -131,10 +147,21 @@ export default function DashboardClient() {
             <div className="chart-panel">
               <div className="chart-panel__head">
                 <div className="chart-panel__title">생태계 × 채용 수요</div>
-                <div className="chart-panel__hint">
-                  {hiddenCount > 0
-                    ? `수요 상위 ${mapData.length}개만 표시 · 점을 클릭해 상세 보기`
-                    : "점을 클릭해 상세 정보 보기"}
+                <div className="chart-panel__limits" role="group" aria-label="지도에 표시할 기술 수">
+                  {MAP_LIMIT_STEPS.map((step) => {
+                    const value = Number.isFinite(step) ? step : filteredData.length;
+                    return (
+                      <button
+                        key={String(step)}
+                        type="button"
+                        className="chart-panel__limit"
+                        aria-pressed={mapLimit === value}
+                        onClick={() => setLimitOverride(value)}
+                      >
+                        {Number.isFinite(step) ? `${step}개` : "전체"}
+                      </button>
+                    );
+                  })}
                 </div>
               </div>
               <GapMap
@@ -148,7 +175,11 @@ export default function DashboardClient() {
             </div>
 
             <aside>
-              <DetailPanel tech={selectedTech} onClose={() => setSelectedTech(null)} />
+              <DetailPanel
+                tech={selectedTech}
+                totalTechs={meta?.totalTechs ?? data.length}
+                onClose={() => setSelectedTech(null)}
+              />
             </aside>
           </div>
 
@@ -159,7 +190,7 @@ export default function DashboardClient() {
               <span className="next-step__title">전체 기술 목록</span>
               <span className="next-step__text">
                 {hiddenCount > 0
-                  ? `지도에는 수요 상위 ${mapData.length}개만 찍혀 있습니다. 나머지 ${hiddenCount}개를 포함한 전체 목록을 여기서 볼 수 있습니다.`
+                  ? `지도에는 사분면마다 고르게 뽑은 ${mapData.length}개만 찍혀 있습니다. 나머지 ${hiddenCount}개를 포함한 전체 목록을 여기서 볼 수 있습니다.`
                   : "지도에 찍힌 기술을 이름순으로 정리했습니다. 각 기술이 무엇인지, 어떤 기술과 함께 쓰이는지 한 항목에서 볼 수 있습니다."}
               </span>
             </span>

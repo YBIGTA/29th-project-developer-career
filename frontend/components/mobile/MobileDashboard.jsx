@@ -11,6 +11,7 @@ import MobileTopBar from "@/components/mobile/MobileTopBar";
 import MobileTabBar from "@/components/mobile/MobileTabBar";
 import { getGapMapData } from "@/lib/api";
 import { pickMapPoints } from "@/lib/mapPoints";
+import { ALL_ROLES, projectByRole } from "@/lib/roles";
 import { useInView } from "@/lib/useInView";
 
 export default function MobileDashboard() {
@@ -18,7 +19,7 @@ export default function MobileDashboard() {
   const [meta, setMeta] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [selectedRole, setSelectedRole] = useState("all");
+  const [selectedRole, setSelectedRole] = useState(ALL_ROLES);
   const [selectedTech, setSelectedTech] = useState(null);
 
   const [mapRef, mapInView] = useInView({ threshold: 0.2 });
@@ -48,26 +49,38 @@ export default function MobileDashboard() {
     };
   }, []);
 
-  // roles는 채용공고에서 뽑은 직군 그룹 6종이고, 한 기술이 두 개까지 가질 수 있다.
-  // 순서는 meta.roles(공고 수 내림차순)를 따르고, 없으면 데이터에서 직접 모은다.
+  // roles는 채용공고 원본 직군 14종이다. 순서는 meta.roles(공고 수 내림차순)를
+  // 따르고, 없으면 데이터에서 직접 모은다.
   const roles = useMemo(() => {
     if (meta?.roles?.length) return meta.roles;
-    return Array.from(new Set(data.flatMap((d) => d.roles ?? []))).sort();
+    return Array.from(
+      new Set(data.flatMap((d) => (d.roleBreakdown ?? []).map((b) => b.role)))
+    ).sort();
   }, [data, meta?.roles]);
   const hasRoleData = roles.length > 0;
 
-  const filteredData = useMemo(() => {
-    if (!hasRoleData || selectedRole === "all") return data;
-    return data.filter((d) => d.roles?.includes(selectedRole));
-  }, [data, hasRoleData, selectedRole]);
+  // 직군을 고르면 그 직군에 등장한 기술만 남기고, y축을 그 직군 안에서의
+  // 백분위로 갈아끼운다 (lib/roles.js).
+  const filteredData = useMemo(
+    () => (hasRoleData ? projectByRole(data, selectedRole) : data),
+    [data, hasRoleData, selectedRole]
+  );
 
-  // 좁은 화면일수록 점이 더 잘 겹치므로 수요 상위 N개만 찍고, 잘린 기술은
-  // 아래 기술 사전 안내로 넘긴다.
+  // 좁은 화면일수록 점이 더 잘 겹치므로 N개만 찍는다. 수요 상위 N개가 아니라
+  // 사분면별로 고르게 뽑는다 (lib/mapPoints.js). 잘린 기술은 아래 기술 사전
+  // 안내로 넘긴다.
   const mapData = useMemo(
     () => pickMapPoints(filteredData, meta?.mapLimit),
     [filteredData, meta?.mapLimit]
   );
   const hiddenCount = filteredData.length - mapData.length;
+
+  // 직군을 바꾸면 y축 기준이 바뀌므로, 열려 있던 상세는 이전 기준의 값을
+  // 그대로 들고 있게 된다. 선택을 비워 섞이지 않게 한다.
+  const changeRole = useCallback((role) => {
+    setSelectedRole(role);
+    setSelectedTech(null);
+  }, []);
 
   const pickFromQuadrant = useCallback((tech) => {
     if (!tech) return;
@@ -99,7 +112,7 @@ export default function MobileDashboard() {
           <MobileFilterBar
             roles={roles}
             selectedRole={selectedRole}
-            onRoleChange={setSelectedRole}
+            onRoleChange={changeRole}
             hasRoleData={hasRoleData}
             resultCount={filteredData.length}
             totalCount={data.length}
@@ -110,7 +123,7 @@ export default function MobileDashboard() {
               <div className="mv-chart__title">생태계 × 채용 수요</div>
               <div className="mv-chart__hint">
                 {hiddenCount > 0
-                  ? `수요 상위 ${mapData.length}개만 표시 · 점을 탭해 상세 보기`
+                  ? `사분면마다 고르게 ${mapData.length}개 표시 · 점을 탭해 상세 보기`
                   : "점을 탭해 상세 정보 보기"}
               </div>
             </div>
@@ -129,7 +142,7 @@ export default function MobileDashboard() {
               <div className="mv-next__title">전체 기술 목록</div>
               <p className="mv-next__text">
                 {hiddenCount > 0
-                  ? `지도에는 수요 상위 ${mapData.length}개만 찍혀 있습니다. 나머지 ${hiddenCount}개를 포함한 전체 목록을 여기서 볼 수 있습니다.`
+                  ? `지도에는 사분면마다 고르게 뽑은 ${mapData.length}개만 찍혀 있습니다. 나머지 ${hiddenCount}개를 포함한 전체 목록을 여기서 볼 수 있습니다.`
                   : "지도에 찍힌 기술을 이름순으로 정리했습니다. 각 기술이 무엇인지, 어떤 기술과 함께 쓰이는지 한 항목에서 볼 수 있습니다."}
               </p>
             </div>
@@ -157,7 +170,11 @@ export default function MobileDashboard() {
         기술 태그 기준입니다. 개별 공고 목록만 아직 예시입니다.
       </footer>
 
-      <MobileDetailSheet tech={selectedTech} onClose={() => setSelectedTech(null)} />
+      <MobileDetailSheet
+        tech={selectedTech}
+        totalTechs={meta?.totalTechs ?? data.length}
+        onClose={() => setSelectedTech(null)}
+      />
 
       <MobileTabBar />
     </div>

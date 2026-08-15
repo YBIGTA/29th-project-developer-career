@@ -53,8 +53,7 @@ function PostingList({ postings, loading, techName }) {
   );
 }
 
-export default function DetailPanel({ tech, onClose }) {
-  const [favs, setFavs] = useState({});
+export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
   const [tab, setTab] = useState("overview");
 
   // 다른 기술을 고르면 개요 탭으로 되돌린다. effect 대신 렌더링 중 조정하는
@@ -91,7 +90,6 @@ export default function DetailPanel({ tech, onClose }) {
 
   const meta = getQuadrantMeta(tech.quadrant);
   const color = `var(--quad-${meta.slug})`;
-  const isFav = Boolean(favs[tech.tech]);
   const bars = ecosystemBars(tech);
 
   return (
@@ -156,11 +154,18 @@ export default function DetailPanel({ tech, onClose }) {
                 <div className="detail-panel__stat-note">{tech.postingsNote}</div>
               </div>
               <div className="detail-panel__stat">
-                <div className="detail-panel__stat-label">채용 수요</div>
+                <div className="detail-panel__stat-label">
+                  채용 수요{tech.roleContext ? " (직군 기준)" : ""}
+                </div>
                 <div className="detail-panel__stat-value">{tech.demand}</div>
                 <div className="detail-panel__stat-note">
-                  공고 언급 빈도의 백분위 순위
-                  {tech.demandRank ? ` · 27개 중 ${tech.demandRank}위` : ""}
+                  {tech.roleContext
+                    ? `${tech.roleContext.role} 공고 ${tech.roleContext.count.toLocaleString(
+                        "ko-KR"
+                      )}건 · 이 직군 안에서 ${tech.roleContext.rank}위`
+                    : `공고 언급 빈도의 백분위 순위${
+                        tech.demandRank ? ` · ${totalTechs}개 중 ${tech.demandRank}위` : ""
+                      }`}
                 </div>
               </div>
               <div className="detail-panel__stat">
@@ -226,20 +231,6 @@ export default function DetailPanel({ tech, onClose }) {
                 <div className="detail-panel__verdict-text">{tech.verdict}</div>
               </div>
             )}
-
-            <div className="detail-panel__actions">
-              <button
-                type="button"
-                className="detail-panel__btn"
-                style={{ background: isFav ? meta.tint : "transparent" }}
-                onClick={() => setFavs((f) => ({ ...f, [tech.tech]: !f[tech.tech] }))}
-              >
-                {isFav ? "★ 담아둔 기술" : "☆ 관심 기술로 담기"}
-              </button>
-              <button type="button" className="detail-panel__btn detail-panel__btn--ghost">
-                학습 경로 보기
-              </button>
-            </div>
 
             <p className="detail-panel__footnote">
               생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된

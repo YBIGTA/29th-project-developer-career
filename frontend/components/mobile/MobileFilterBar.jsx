@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ALL_ROLES } from "@/lib/roles";
 
 export default function MobileFilterBar({
   roles,
@@ -29,7 +30,7 @@ export default function MobileFilterBar({
     };
   }, [open]);
 
-  const options = [{ value: "all", label: "전체" }, ...roles.map((role) => ({ value: role, label: role }))];
+  const options = [{ value: ALL_ROLES, label: "전체" }, ...roles.map((role) => ({ value: role, label: role }))];
   const currentLabel = options.find((o) => o.value === selectedRole)?.label ?? "전체";
 
   return (

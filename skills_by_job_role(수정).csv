@@ -1,0 +1,1026 @@
+job_role,skills,count
+Backend / Server,Python,27
+Backend / Server,Java,20
+Backend / Server,Go,19
+Backend / Server,AWS,16
+Backend / Server,TypeScript,15
+Backend / Server,Kubernetes,13
+Backend / Server,Android,12
+Backend / Server,JavaScript,12
+Backend / Server,Rust,12
+Backend / Server,PostgreSQL,11
+Backend / Server,React,11
+Backend / Server,SQL,11
+Backend / Server,C++,10
+Backend / Server,Docker,9
+Backend / Server,Linux,9
+Backend / Server,gRPC,9
+Backend / Server,Node.js,8
+Backend / Server,Redis,8
+Backend / Server,Apache Kafka,7
+Backend / Server,Assembly,7
+Backend / Server,CSS,7
+Backend / Server,Claude,7
+Backend / Server,GraphQL,7
+Backend / Server,HTML,6
+Backend / Server,Kotlin,6
+Backend / Server,iOS,6
+Backend / Server,Figma,5
+Backend / Server,GCP,5
+Backend / Server,MySQL,5
+Backend / Server,Azure,4
+Backend / Server,Bash,4
+Backend / Server,GPT,4
+Backend / Server,GitHub,4
+Backend / Server,MCP,4
+Backend / Server,Next.js,4
+Backend / Server,Spring,4
+Backend / Server,Terraform,4
+Backend / Server,Apache Spark,3
+Backend / Server,Buildkite,3
+Backend / Server,Git,3
+Backend / Server,Gradle,3
+Backend / Server,REST,3
+Backend / Server,RabbitMQ,3
+Backend / Server,Airflow,2
+Backend / Server,LangChain,2
+Backend / Server,NestJS,2
+Backend / Server,Postman,2
+Backend / Server,PyTorch,2
+Backend / Server,Ruby,2
+Backend / Server,Salesforce,2
+Backend / Server,Scala,2
+Backend / Server,Swift,2
+Backend / Server,TensorFlow,2
+Backend / Server,Ansible,1
+Backend / Server,Bazel,1
+Backend / Server,C,1
+Backend / Server,CircleCI,1
+Backend / Server,Cloudflare Workers,1
+Backend / Server,Confluence,1
+Backend / Server,Datadog,1
+Backend / Server,Elasticsearch,1
+Backend / Server,Express,1
+Backend / Server,Flask,1
+Backend / Server,Flutter,1
+Backend / Server,GDB,1
+Backend / Server,Gemini,1
+Backend / Server,GitHub Actions,1
+Backend / Server,GitHub Copilot,1
+Backend / Server,Grafana,1
+Backend / Server,Hadoop,1
+Backend / Server,Haskell,1
+Backend / Server,HubSpot,1
+Backend / Server,JAX,1
+Backend / Server,Jetpack Compose,1
+Backend / Server,Jira,1
+Backend / Server,Lua,1
+Backend / Server,Material UI,1
+Backend / Server,Objective-C,1
+Backend / Server,Okta,1
+Backend / Server,OpenAI Codex,1
+Backend / Server,PHP,1
+Backend / Server,Prometheus,1
+Backend / Server,Pulumi,1
+Backend / Server,PyTest,1
+Backend / Server,React Native,1
+Backend / Server,SQLite,1
+Backend / Server,Selenium,1
+Backend / Server,SolidJS,1
+Backend / Server,Splunk,1
+Backend / Server,Starlark,1
+Backend / Server,Storybook,1
+Backend / Server,SystemVerilog,1
+Backend / Server,Tailwind CSS,1
+Backend / Server,TanStack,1
+Backend / Server,Transformers,1
+Backend / Server,Trino,1
+Backend / Server,Vercel,1
+Backend / Server,Vite,1
+Backend / Server,Zendesk,1
+Backend / Server,dbt,1
+Data Analyst,SQL,35
+Data Analyst,Python,23
+Data Analyst,Tableau,8
+Data Analyst,R,6
+Data Analyst,Airflow,4
+Data Analyst,Apache Spark,4
+Data Analyst,Looker,3
+Data Analyst,NetSuite,3
+Data Analyst,Power BI,3
+Data Analyst,dbt,3
+Data Analyst,AWS,2
+Data Analyst,Azure,2
+Data Analyst,Bash,2
+Data Analyst,GCP,2
+Data Analyst,GitHub,2
+Data Analyst,Go,2
+Data Analyst,Linux,2
+Data Analyst,React,2
+Data Analyst,Apache Flink,1
+Data Analyst,BigQuery,1
+Data Analyst,C++,1
+Data Analyst,Claude,1
+Data Analyst,Cloudflare,1
+Data Analyst,Figma,1
+Data Analyst,Git,1
+Data Analyst,GitLab,1
+Data Analyst,GraphQL,1
+Data Analyst,Java,1
+Data Analyst,JavaScript,1
+Data Analyst,Neo4j,1
+Data Analyst,SAS,1
+Data Analyst,Scala,1
+Data Analyst,Splunk,1
+Data Analyst,Swift,1
+Data Analyst,VBA,1
+Data Analyst,Vertex AI,1
+Data Engineer / Data Platform,Apache Spark,10
+Data Engineer / Data Platform,Python,10
+Data Engineer / Data Platform,Go,8
+Data Engineer / Data Platform,Kubernetes,7
+Data Engineer / Data Platform,Airflow,6
+Data Engineer / Data Platform,GCP,6
+Data Engineer / Data Platform,Java,6
+Data Engineer / Data Platform,SQL,6
+Data Engineer / Data Platform,Scala,6
+Data Engineer / Data Platform,Apache Flink,5
+Data Engineer / Data Platform,Apache Kafka,5
+Data Engineer / Data Platform,dbt,5
+Data Engineer / Data Platform,AWS,4
+Data Engineer / Data Platform,Amazon S3,3
+Data Engineer / Data Platform,BigQuery,3
+Data Engineer / Data Platform,Docker,3
+Data Engineer / Data Platform,Trino,3
+Data Engineer / Data Platform,Apache Iceberg,2
+Data Engineer / Data Platform,C++,2
+Data Engineer / Data Platform,ClickHouse,2
+Data Engineer / Data Platform,MCP,2
+Data Engineer / Data Platform,MySQL,2
+Data Engineer / Data Platform,PostgreSQL,2
+Data Engineer / Data Platform,Rust,2
+Data Engineer / Data Platform,Terraform,2
+Data Engineer / Data Platform,TypeScript,2
+Data Engineer / Data Platform,Azure,1
+Data Engineer / Data Platform,Bash,1
+Data Engineer / Data Platform,C#,1
+Data Engineer / Data Platform,Dagster,1
+Data Engineer / Data Platform,Linux,1
+Data Engineer / Data Platform,Looker,1
+Data Engineer / Data Platform,Pulumi,1
+Data Engineer / Data Platform,PyTorch,1
+Data Engineer / Data Platform,Snowflake,1
+Data Engineer / Data Platform,Tableau,1
+Data Engineer / Data Platform,TensorFlow,1
+Engineering Management,Python,40
+Engineering Management,AWS,36
+Engineering Management,GCP,29
+Engineering Management,Go,29
+Engineering Management,Azure,28
+Engineering Management,Java,23
+Engineering Management,Kubernetes,22
+Engineering Management,TypeScript,21
+Engineering Management,Rust,19
+Engineering Management,SQL,19
+Engineering Management,MongoDB Atlas,16
+Engineering Management,React,16
+Engineering Management,Claude,15
+Engineering Management,C++,14
+Engineering Management,JavaScript,12
+Engineering Management,Terraform,11
+Engineering Management,Linux,10
+Engineering Management,GPT,8
+Engineering Management,MCP,8
+Engineering Management,PostgreSQL,8
+Engineering Management,Node.js,7
+Engineering Management,OpenAI Codex,7
+Engineering Management,Android,6
+Engineering Management,C#,6
+Engineering Management,Ruby,6
+Engineering Management,Salesforce,5
+Engineering Management,iOS,5
+Engineering Management,Apache Iceberg,4
+Engineering Management,Apache Spark,4
+Engineering Management,C,4
+Engineering Management,ClickHouse,4
+Engineering Management,Datadog,4
+Engineering Management,Docker,4
+Engineering Management,GitHub,4
+Engineering Management,Grafana,4
+Engineering Management,OpenTelemetry,4
+Engineering Management,REST,4
+Engineering Management,Transformers,4
+Engineering Management,Airflow,3
+Engineering Management,Anthropic,3
+Engineering Management,Apache Kafka,3
+Engineering Management,Bash,3
+Engineering Management,Bazel,3
+Engineering Management,GitHub Actions,3
+Engineering Management,GraphQL,3
+Engineering Management,Helm,3
+Engineering Management,Kotlin,3
+Engineering Management,MySQL,3
+Engineering Management,Prometheus,3
+Engineering Management,.NET,2
+Engineering Management,Ansible,2
+Engineering Management,ArgoCD,2
+Engineering Management,Buildkite,2
+Engineering Management,CSS,2
+Engineering Management,Cloudflare Workers,2
+Engineering Management,CockroachDB,2
+Engineering Management,Figma,2
+Engineering Management,Git,2
+Engineering Management,MongoDB,2
+Engineering Management,Next.js,2
+Engineering Management,PyTorch,2
+Engineering Management,R,2
+Engineering Management,Redis,2
+Engineering Management,Scala,2
+Engineering Management,Swift,2
+Engineering Management,AWS CloudFormation,1
+Engineering Management,Amazon EKS,1
+Engineering Management,Amazon S3,1
+Engineering Management,Bicep,1
+Engineering Management,BigQuery,1
+Engineering Management,CUDA,1
+Engineering Management,Cassandra,1
+Engineering Management,Cloudflare,1
+Engineering Management,Cypress,1
+Engineering Management,Databricks,1
+Engineering Management,Elasticsearch,1
+Engineering Management,Envoy,1
+Engineering Management,Express,1
+Engineering Management,GitHub Copilot,1
+Engineering Management,Hadoop,1
+Engineering Management,Hugging Face,1
+Engineering Management,JAX,1
+Engineering Management,Jenkins,1
+Engineering Management,Jira,1
+Engineering Management,Julia,1
+Engineering Management,LangChain,1
+Engineering Management,Looker,1
+Engineering Management,Lua,1
+Engineering Management,MATLAB,1
+Engineering Management,MobX,1
+Engineering Management,NetSuite,1
+Engineering Management,Nix,1
+Engineering Management,Objective-C,1
+Engineering Management,Okta,1
+Engineering Management,PHP,1
+Engineering Management,React Native,1
+Engineering Management,Redux,1
+Engineering Management,SQLite,1
+Engineering Management,Snowflake,1
+Engineering Management,Svelte,1
+Engineering Management,SystemVerilog,1
+Engineering Management,Tableau,1
+Engineering Management,TensorFlow,1
+Engineering Management,UIKit,1
+Engineering Management,VBA,1
+Engineering Management,Vanta,1
+Engineering Management,Vault,1
+Engineering Management,Vue.js,1
+Engineering Management,WebAssembly,1
+Engineering Management,dbt,1
+Engineering Management,gRPC,1
+Frontend,React,6
+Frontend,TypeScript,4
+Frontend,Android,2
+Frontend,Angular,2
+Frontend,CSS,2
+Frontend,HTML,2
+Frontend,JavaScript,2
+Frontend,Node.js,2
+Frontend,Vue.js,2
+Frontend,Webpack,2
+Frontend,iOS,2
+Frontend,Babel,1
+Frontend,Claude,1
+Frontend,ESLint,1
+Frontend,GPT,1
+Frontend,Java,1
+Frontend,React Native,1
+Frontend,Redux,1
+Frontend,Sass,1
+Full-stack,React,19
+Full-stack,TypeScript,13
+Full-stack,Node.js,11
+Full-stack,Python,11
+Full-stack,GitHub,9
+Full-stack,Go,8
+Full-stack,Java,8
+Full-stack,Claude,7
+Full-stack,GraphQL,7
+Full-stack,GitHub Copilot,6
+Full-stack,Kubernetes,6
+Full-stack,Android,5
+Full-stack,Apache Kafka,5
+Full-stack,Docker,5
+Full-stack,iOS,5
+Full-stack,AWS,4
+Full-stack,REST,4
+Full-stack,Ruby,4
+Full-stack,SQL,4
+Full-stack,GPT,3
+Full-stack,RabbitMQ,3
+Full-stack,Vue.js,3
+Full-stack,gRPC,3
+Full-stack,Airflow,2
+Full-stack,Azure,2
+Full-stack,GCP,2
+Full-stack,Git,2
+Full-stack,JavaScript,2
+Full-stack,Next.js,2
+Full-stack,Angular,1
+Full-stack,Anthropic,1
+Full-stack,CSS,1
+Full-stack,ClickHouse,1
+Full-stack,Cloudflare Workers,1
+Full-stack,Dagster,1
+Full-stack,HTML,1
+Full-stack,Kotlin,1
+Full-stack,MongoDB,1
+Full-stack,Nix,1
+Full-stack,Objective-C,1
+Full-stack,OpenAI Codex,1
+Full-stack,Rust,1
+Full-stack,Spring,1
+Full-stack,Swift,1
+Full-stack,SwiftUI,1
+General Software Engineer,Python,282
+General Software Engineer,Go,199
+General Software Engineer,TypeScript,172
+General Software Engineer,Kubernetes,167
+General Software Engineer,AWS,142
+General Software Engineer,C++,132
+General Software Engineer,Rust,126
+General Software Engineer,Java,113
+General Software Engineer,GCP,111
+General Software Engineer,React,106
+General Software Engineer,Azure,94
+General Software Engineer,SQL,78
+General Software Engineer,PostgreSQL,66
+General Software Engineer,JavaScript,58
+General Software Engineer,Linux,56
+General Software Engineer,Terraform,56
+General Software Engineer,GPT,52
+General Software Engineer,Claude,51
+General Software Engineer,Node.js,45
+General Software Engineer,Apache Spark,43
+General Software Engineer,Apache Kafka,36
+General Software Engineer,Docker,31
+General Software Engineer,OpenAI Codex,29
+General Software Engineer,Airflow,27
+General Software Engineer,Ruby,27
+General Software Engineer,C#,26
+General Software Engineer,GitHub,25
+General Software Engineer,PyTorch,25
+General Software Engineer,Grafana,23
+General Software Engineer,Apache Flink,22
+General Software Engineer,MongoDB Atlas,22
+General Software Engineer,MySQL,21
+General Software Engineer,Redis,21
+General Software Engineer,Snowflake,21
+General Software Engineer,Prometheus,19
+General Software Engineer,Scala,19
+General Software Engineer,Anthropic,18
+General Software Engineer,Kotlin,17
+General Software Engineer,TensorFlow,17
+General Software Engineer,MCP,16
+General Software Engineer,Android,15
+General Software Engineer,Elasticsearch,15
+General Software Engineer,GraphQL,15
+General Software Engineer,MongoDB,15
+General Software Engineer,CUDA,14
+General Software Engineer,Cassandra,14
+General Software Engineer,Gradle,14
+General Software Engineer,JAX,14
+General Software Engineer,Lua,14
+General Software Engineer,BigQuery,13
+General Software Engineer,Redux,13
+General Software Engineer,Swift,13
+General Software Engineer,C,12
+General Software Engineer,Ruby on Rails,12
+General Software Engineer,Trino,12
+General Software Engineer,iOS,12
+General Software Engineer,Apache Iceberg,11
+General Software Engineer,FastAPI,10
+General Software Engineer,Next.js,10
+General Software Engineer,CockroachDB,9
+General Software Engineer,Datadog,9
+General Software Engineer,DynamoDB,9
+General Software Engineer,Salesforce,9
+General Software Engineer,Bazel,8
+General Software Engineer,Buildkite,8
+General Software Engineer,CSS,8
+General Software Engineer,ClickHouse,8
+General Software Engineer,Databricks,8
+General Software Engineer,Dependabot,8
+General Software Engineer,Envoy,8
+General Software Engineer,Git,8
+General Software Engineer,GitHub Actions,8
+General Software Engineer,Okta,8
+General Software Engineer,Snyk,8
+General Software Engineer,Triton Inference Server,8
+General Software Engineer,WebAssembly,8
+General Software Engineer,Zendesk,8
+General Software Engineer,gRPC,8
+General Software Engineer,Dagster,7
+General Software Engineer,Figma,7
+General Software Engineer,GitHub Copilot,7
+General Software Engineer,Pandas,7
+General Software Engineer,dbt,7
+General Software Engineer,Amazon S3,6
+General Software Engineer,Assembly,6
+General Software Engineer,Cloudflare Workers,6
+General Software Engineer,Express,6
+General Software Engineer,NCCL,6
+General Software Engineer,REST,6
+General Software Engineer,.NET,5
+General Software Engineer,Amazon EKS,5
+General Software Engineer,Bash,5
+General Software Engineer,CircleCI,5
+General Software Engineer,Hadoop,5
+General Software Engineer,OpenTelemetry,5
+General Software Engineer,Pulumi,5
+General Software Engineer,React Native,5
+General Software Engineer,Slurm,5
+General Software Engineer,Transformers,5
+General Software Engineer,Vault,5
+General Software Engineer,ArgoCD,4
+General Software Engineer,Elixir,4
+General Software Engineer,Flask,4
+General Software Engineer,Objective-C,4
+General Software Engineer,Spring,4
+General Software Engineer,AWS CloudFormation,3
+General Software Engineer,HTML,3
+General Software Engineer,Jenkins,3
+General Software Engineer,Jetpack Compose,3
+General Software Engineer,RabbitMQ,3
+General Software Engineer,Vite,3
+General Software Engineer,Vue.js,3
+General Software Engineer,Webpack,3
+General Software Engineer,Angular,2
+General Software Engineer,Ansible,2
+General Software Engineer,Cloudflare,2
+General Software Engineer,Cypher,2
+General Software Engineer,Django,2
+General Software Engineer,Firestore,2
+General Software Engineer,GDB,2
+General Software Engineer,GitLab CI,2
+General Software Engineer,Google GKE,2
+General Software Engineer,Helm,2
+General Software Engineer,Heroku,2
+General Software Engineer,Istio,2
+General Software Engineer,Jupyter,2
+General Software Engineer,Kibana,2
+General Software Engineer,NestJS,2
+General Software Engineer,NetSuite,2
+General Software Engineer,Nix,2
+General Software Engineer,Redshift,2
+General Software Engineer,Splunk,2
+General Software Engineer,Svelte,2
+General Software Engineer,SwiftUI,2
+General Software Engineer,scikit-learn,2
+General Software Engineer,Amazon EC2,1
+General Software Engineer,Apache Pulsar,1
+General Software Engineer,Deno,1
+General Software Engineer,ESLint,1
+General Software Engineer,GLSL,1
+General Software Engineer,Gemini,1
+General Software Engineer,GitLab,1
+General Software Engineer,Groovy,1
+General Software Engineer,Jira,1
+General Software Engineer,LangChain,1
+General Software Engineer,Laravel,1
+General Software Engineer,Llama,1
+General Software Engineer,Looker,1
+General Software Engineer,Lucene,1
+General Software Engineer,Neo4j,1
+General Software Engineer,PHP,1
+General Software Engineer,PyTest,1
+General Software Engineer,SAS,1
+General Software Engineer,SQLite,1
+General Software Engineer,Sass,1
+General Software Engineer,Solidity,1
+General Software Engineer,Starlark,1
+General Software Engineer,Tailwind CSS,1
+General Software Engineer,TeamCity,1
+General Software Engineer,UIKit,1
+General Software Engineer,Vercel,1
+General Software Engineer,XGBoost,1
+General Software Engineer,Zookeeper,1
+Infra / Platform / DevOps / SRE,Kubernetes,36
+Infra / Platform / DevOps / SRE,Python,33
+Infra / Platform / DevOps / SRE,AWS,32
+Infra / Platform / DevOps / SRE,Go,28
+Infra / Platform / DevOps / SRE,GCP,27
+Infra / Platform / DevOps / SRE,Linux,25
+Infra / Platform / DevOps / SRE,Azure,22
+Infra / Platform / DevOps / SRE,Terraform,21
+Infra / Platform / DevOps / SRE,C++,11
+Infra / Platform / DevOps / SRE,Rust,11
+Infra / Platform / DevOps / SRE,SQL,11
+Infra / Platform / DevOps / SRE,Ansible,9
+Infra / Platform / DevOps / SRE,Docker,9
+Infra / Platform / DevOps / SRE,Grafana,8
+Infra / Platform / DevOps / SRE,PostgreSQL,8
+Infra / Platform / DevOps / SRE,Prometheus,8
+Infra / Platform / DevOps / SRE,Node.js,7
+Infra / Platform / DevOps / SRE,MongoDB Atlas,6
+Infra / Platform / DevOps / SRE,Claude,5
+Infra / Platform / DevOps / SRE,Git,5
+Infra / Platform / DevOps / SRE,Java,5
+Infra / Platform / DevOps / SRE,PyTorch,5
+Infra / Platform / DevOps / SRE,Transformers,5
+Infra / Platform / DevOps / SRE,TypeScript,5
+Infra / Platform / DevOps / SRE,ArgoCD,4
+Infra / Platform / DevOps / SRE,Bash,4
+Infra / Platform / DevOps / SRE,Datadog,4
+Infra / Platform / DevOps / SRE,Istio,4
+Infra / Platform / DevOps / SRE,MCP,4
+Infra / Platform / DevOps / SRE,OpenTelemetry,4
+Infra / Platform / DevOps / SRE,Pulumi,4
+Infra / Platform / DevOps / SRE,Amazon EKS,3
+Infra / Platform / DevOps / SRE,Apache Spark,3
+Infra / Platform / DevOps / SRE,GPT,3
+Infra / Platform / DevOps / SRE,GitHub Actions,3
+Infra / Platform / DevOps / SRE,Helm,3
+Infra / Platform / DevOps / SRE,JavaScript,3
+Infra / Platform / DevOps / SRE,Ruby,3
+Infra / Platform / DevOps / SRE,TensorFlow,3
+Infra / Platform / DevOps / SRE,AWS CloudFormation,2
+Infra / Platform / DevOps / SRE,Airflow,2
+Infra / Platform / DevOps / SRE,Amazon EC2,2
+Infra / Platform / DevOps / SRE,Assembly,2
+Infra / Platform / DevOps / SRE,C,2
+Infra / Platform / DevOps / SRE,CUDA,2
+Infra / Platform / DevOps / SRE,Cassandra,2
+Infra / Platform / DevOps / SRE,ClickHouse,2
+Infra / Platform / DevOps / SRE,Envoy,2
+Infra / Platform / DevOps / SRE,Hadoop,2
+Infra / Platform / DevOps / SRE,Jira,2
+Infra / Platform / DevOps / SRE,MongoDB,2
+Infra / Platform / DevOps / SRE,MySQL,2
+Infra / Platform / DevOps / SRE,Puppet,2
+Infra / Platform / DevOps / SRE,Amazon S3,1
+Infra / Platform / DevOps / SRE,Android,1
+Infra / Platform / DevOps / SRE,Apache Flink,1
+Infra / Platform / DevOps / SRE,Apache Kafka,1
+Infra / Platform / DevOps / SRE,Buildkite,1
+Infra / Platform / DevOps / SRE,C#,1
+Infra / Platform / DevOps / SRE,Cloudflare,1
+Infra / Platform / DevOps / SRE,Confluence,1
+Infra / Platform / DevOps / SRE,Cypress,1
+Infra / Platform / DevOps / SRE,Figma,1
+Infra / Platform / DevOps / SRE,GitHub,1
+Infra / Platform / DevOps / SRE,GitHub Copilot,1
+Infra / Platform / DevOps / SRE,Jenkins,1
+Infra / Platform / DevOps / SRE,Kotlin,1
+Infra / Platform / DevOps / SRE,Nginx,1
+Infra / Platform / DevOps / SRE,Nix,1
+Infra / Platform / DevOps / SRE,Okta,1
+Infra / Platform / DevOps / SRE,OpenAI Codex,1
+Infra / Platform / DevOps / SRE,Pandas,1
+Infra / Platform / DevOps / SRE,React,1
+Infra / Platform / DevOps / SRE,Redis,1
+Infra / Platform / DevOps / SRE,Splunk,1
+Infra / Platform / DevOps / SRE,Triton Inference Server,1
+Infra / Platform / DevOps / SRE,Vault,1
+Infra / Platform / DevOps / SRE,XGBoost,1
+Infra / Platform / DevOps / SRE,gRPC,1
+Infra / Platform / DevOps / SRE,iOS,1
+ML / AI Engineer / Data Scientist,Python,187
+ML / AI Engineer / Data Scientist,SQL,87
+ML / AI Engineer / Data Scientist,GPT,46
+ML / AI Engineer / Data Scientist,Claude,42
+ML / AI Engineer / Data Scientist,TypeScript,36
+ML / AI Engineer / Data Scientist,AWS,32
+ML / AI Engineer / Data Scientist,GCP,32
+ML / AI Engineer / Data Scientist,PyTorch,31
+ML / AI Engineer / Data Scientist,JavaScript,29
+ML / AI Engineer / Data Scientist,Apache Spark,27
+ML / AI Engineer / Data Scientist,OpenAI Codex,25
+ML / AI Engineer / Data Scientist,Azure,23
+ML / AI Engineer / Data Scientist,Go,19
+ML / AI Engineer / Data Scientist,MCP,19
+ML / AI Engineer / Data Scientist,Kubernetes,18
+ML / AI Engineer / Data Scientist,Airflow,17
+ML / AI Engineer / Data Scientist,Java,17
+ML / AI Engineer / Data Scientist,Anthropic,16
+ML / AI Engineer / Data Scientist,React,16
+ML / AI Engineer / Data Scientist,TensorFlow,16
+ML / AI Engineer / Data Scientist,PostgreSQL,15
+ML / AI Engineer / Data Scientist,R,14
+ML / AI Engineer / Data Scientist,C++,13
+ML / AI Engineer / Data Scientist,dbt,13
+ML / AI Engineer / Data Scientist,LangChain,12
+ML / AI Engineer / Data Scientist,Salesforce,12
+ML / AI Engineer / Data Scientist,Git,11
+ML / AI Engineer / Data Scientist,GitHub Copilot,11
+ML / AI Engineer / Data Scientist,Snowflake,11
+ML / AI Engineer / Data Scientist,BigQuery,10
+ML / AI Engineer / Data Scientist,Databricks,10
+ML / AI Engineer / Data Scientist,GitHub,10
+ML / AI Engineer / Data Scientist,Hadoop,9
+ML / AI Engineer / Data Scientist,Rust,9
+ML / AI Engineer / Data Scientist,Linux,8
+ML / AI Engineer / Data Scientist,Node.js,8
+ML / AI Engineer / Data Scientist,CUDA,7
+ML / AI Engineer / Data Scientist,Hugging Face,7
+ML / AI Engineer / Data Scientist,JAX,7
+ML / AI Engineer / Data Scientist,Apache Flink,6
+ML / AI Engineer / Data Scientist,Apache Kafka,6
+ML / AI Engineer / Data Scientist,Docker,6
+ML / AI Engineer / Data Scientist,Pandas,6
+ML / AI Engineer / Data Scientist,Redis,6
+ML / AI Engineer / Data Scientist,Scala,6
+ML / AI Engineer / Data Scientist,Dagster,5
+ML / AI Engineer / Data Scientist,Figma,5
+ML / AI Engineer / Data Scientist,Looker,5
+ML / AI Engineer / Data Scientist,NumPy,5
+ML / AI Engineer / Data Scientist,Ruby,5
+ML / AI Engineer / Data Scientist,scikit-learn,5
+ML / AI Engineer / Data Scientist,Grafana,4
+ML / AI Engineer / Data Scientist,Prometheus,4
+ML / AI Engineer / Data Scientist,Tableau,4
+ML / AI Engineer / Data Scientist,Terraform,4
+ML / AI Engineer / Data Scientist,Transformers,4
+ML / AI Engineer / Data Scientist,Amazon S3,3
+ML / AI Engineer / Data Scientist,ClickHouse,3
+ML / AI Engineer / Data Scientist,HTML,3
+ML / AI Engineer / Data Scientist,Llama,3
+ML / AI Engineer / Data Scientist,MySQL,3
+ML / AI Engineer / Data Scientist,Next.js,3
+ML / AI Engineer / Data Scientist,SAS,3
+ML / AI Engineer / Data Scientist,Android,2
+ML / AI Engineer / Data Scientist,Bash,2
+ML / AI Engineer / Data Scientist,C#,2
+ML / AI Engineer / Data Scientist,Datadog,2
+ML / AI Engineer / Data Scientist,Express,2
+ML / AI Engineer / Data Scientist,FastAPI,2
+ML / AI Engineer / Data Scientist,GraphQL,2
+ML / AI Engineer / Data Scientist,Kotlin,2
+ML / AI Engineer / Data Scientist,MongoDB Atlas,2
+ML / AI Engineer / Data Scientist,Redshift,2
+ML / AI Engineer / Data Scientist,Slurm,2
+ML / AI Engineer / Data Scientist,Swift,2
+ML / AI Engineer / Data Scientist,Vertex AI,2
+ML / AI Engineer / Data Scientist,iOS,2
+ML / AI Engineer / Data Scientist,Ansible,1
+ML / AI Engineer / Data Scientist,C,1
+ML / AI Engineer / Data Scientist,CSS,1
+ML / AI Engineer / Data Scientist,Cloudflare Workers,1
+ML / AI Engineer / Data Scientist,DynamoDB,1
+ML / AI Engineer / Data Scientist,Elasticsearch,1
+ML / AI Engineer / Data Scientist,Gemini,1
+ML / AI Engineer / Data Scientist,Helm,1
+ML / AI Engineer / Data Scientist,HubSpot,1
+ML / AI Engineer / Data Scientist,Julia,1
+ML / AI Engineer / Data Scientist,Jupyter,1
+ML / AI Engineer / Data Scientist,MATLAB,1
+ML / AI Engineer / Data Scientist,MobX,1
+ML / AI Engineer / Data Scientist,MongoDB,1
+ML / AI Engineer / Data Scientist,NetSuite,1
+ML / AI Engineer / Data Scientist,REST,1
+ML / AI Engineer / Data Scientist,RabbitMQ,1
+ML / AI Engineer / Data Scientist,React Native,1
+ML / AI Engineer / Data Scientist,Ruby on Rails,1
+ML / AI Engineer / Data Scientist,SQLite,1
+ML / AI Engineer / Data Scientist,Streamlit,1
+ML / AI Engineer / Data Scientist,SwiftUI,1
+ML / AI Engineer / Data Scientist,Tailwind CSS,1
+ML / AI Engineer / Data Scientist,Triton Inference Server,1
+ML / AI Engineer / Data Scientist,UIKit,1
+ML / AI Engineer / Data Scientist,Zendesk,1
+ML / AI Engineer / Data Scientist,styled-components,1
+Mobile,Swift,12
+Mobile,iOS,11
+Mobile,Python,9
+Mobile,SwiftUI,8
+Mobile,Java,6
+Mobile,Bash,4
+Mobile,Bazel,4
+Mobile,Go,4
+Mobile,MySQL,4
+Mobile,SQL,4
+Mobile,UIKit,4
+Mobile,Claude,3
+Mobile,Kubernetes,3
+Mobile,React,3
+Mobile,Terraform,3
+Mobile,AWS,2
+Mobile,Buildkite,2
+Mobile,Docker,2
+Mobile,Figma,2
+Mobile,Flask,2
+Mobile,GPT,2
+Mobile,Git,2
+Mobile,GitHub,2
+Mobile,JavaScript,2
+Mobile,LangChain,2
+Mobile,Linux,2
+Mobile,Objective-C,2
+Mobile,OpenAI Codex,2
+Mobile,TypeScript,2
+Mobile,Android,1
+Mobile,Apache Kafka,1
+Mobile,C++,1
+Mobile,Confluence,1
+Mobile,Elasticsearch,1
+Mobile,Gemini,1
+Mobile,Jenkins,1
+Mobile,Jira,1
+Mobile,Kotlin,1
+Mobile,Node.js,1
+Mobile,Spring,1
+Mobile,Tailwind CSS,1
+Research Engineer / Scientist,Python,52
+Research Engineer / Scientist,PyTorch,30
+Research Engineer / Scientist,Claude,22
+Research Engineer / Scientist,Kubernetes,22
+Research Engineer / Scientist,GPT,15
+Research Engineer / Scientist,JAX,15
+Research Engineer / Scientist,Docker,14
+Research Engineer / Scientist,TensorFlow,14
+Research Engineer / Scientist,C++,13
+Research Engineer / Scientist,AWS,12
+Research Engineer / Scientist,Java,9
+Research Engineer / Scientist,CUDA,8
+Research Engineer / Scientist,GCP,8
+Research Engineer / Scientist,Rust,8
+Research Engineer / Scientist,SQL,7
+Research Engineer / Scientist,Transformers,7
+Research Engineer / Scientist,Anthropic,6
+Research Engineer / Scientist,Apache Spark,4
+Research Engineer / Scientist,Azure,4
+Research Engineer / Scientist,LangChain,4
+Research Engineer / Scientist,Airflow,3
+Research Engineer / Scientist,Apache Kafka,3
+Research Engineer / Scientist,BigQuery,3
+Research Engineer / Scientist,Go,3
+Research Engineer / Scientist,JavaScript,3
+Research Engineer / Scientist,Linux,3
+Research Engineer / Scientist,OpenAI Codex,3
+Research Engineer / Scientist,R,3
+Research Engineer / Scientist,Scala,3
+Research Engineer / Scientist,Swift,3
+Research Engineer / Scientist,Triton Inference Server,3
+Research Engineer / Scientist,C,2
+Research Engineer / Scientist,GitHub,2
+Research Engineer / Scientist,GitHub Copilot,2
+Research Engineer / Scientist,NCCL,2
+Research Engineer / Scientist,Node.js,2
+Research Engineer / Scientist,NumPy,2
+Research Engineer / Scientist,Pandas,2
+Research Engineer / Scientist,Amazon S3,1
+Research Engineer / Scientist,Bicep,1
+Research Engineer / Scientist,GitLab,1
+Research Engineer / Scientist,Hugging Face,1
+Research Engineer / Scientist,Lua,1
+Research Engineer / Scientist,MCP,1
+Research Engineer / Scientist,MLflow,1
+Research Engineer / Scientist,MySQL,1
+Research Engineer / Scientist,RabbitMQ,1
+Research Engineer / Scientist,Redis,1
+Research Engineer / Scientist,Spring,1
+Research Engineer / Scientist,Terraform,1
+Research Engineer / Scientist,Zookeeper,1
+Security Engineer,Python,55
+Security Engineer,AWS,47
+Security Engineer,Kubernetes,42
+Security Engineer,GCP,37
+Security Engineer,Azure,36
+Security Engineer,Go,35
+Security Engineer,Linux,19
+Security Engineer,Rust,19
+Security Engineer,Terraform,19
+Security Engineer,C++,15
+Security Engineer,TypeScript,11
+Security Engineer,Java,9
+Security Engineer,JavaScript,8
+Security Engineer,Bash,7
+Security Engineer,Jira,7
+Security Engineer,Node.js,6
+Security Engineer,Claude,5
+Security Engineer,Confluence,5
+Security Engineer,Docker,5
+Security Engineer,Git,5
+Security Engineer,GitHub,5
+Security Engineer,React,5
+Security Engineer,SQL,5
+Security Engineer,C,4
+Security Engineer,C#,4
+Security Engineer,AWS CloudFormation,3
+Security Engineer,Amazon S3,3
+Security Engineer,Datadog,3
+Security Engineer,Flask,3
+Security Engineer,Okta,3
+Security Engineer,OpenAI Codex,3
+Security Engineer,Ruby,3
+Security Engineer,Vault,3
+Security Engineer,Zendesk,3
+Security Engineer,Amazon EC2,2
+Security Engineer,Amazon EKS,2
+Security Engineer,Assembly,2
+Security Engineer,Envoy,2
+Security Engineer,GitHub Actions,2
+Security Engineer,Google GKE,2
+Security Engineer,Grafana,2
+Security Engineer,Istio,2
+Security Engineer,MongoDB Atlas,2
+Security Engineer,PostgreSQL,2
+Security Engineer,Splunk,2
+Security Engineer,Swift,2
+Security Engineer,Android,1
+Security Engineer,Anthropic,1
+Security Engineer,Apache Flink,1
+Security Engineer,Apache Kafka,1
+Security Engineer,Apache Spark,1
+Security Engineer,Bazel,1
+Security Engineer,BigQuery,1
+Security Engineer,Elasticsearch,1
+Security Engineer,Elixir,1
+Security Engineer,GPT,1
+Security Engineer,GitLab CI,1
+Security Engineer,HTML,1
+Security Engineer,IIS,1
+Security Engineer,Jenkins,1
+Security Engineer,MCP,1
+Security Engineer,MySQL,1
+Security Engineer,Nginx,1
+Security Engineer,Nix,1
+Security Engineer,Objective-C,1
+Security Engineer,Pandas,1
+Security Engineer,Pulumi,1
+Security Engineer,REST,1
+Security Engineer,Ruby on Rails,1
+Security Engineer,Snyk,1
+Security Engineer,Solidity,1
+Security Engineer,Vanta,1
+Security Engineer,Zig,1
+Security Engineer,iOS,1
+Solutions / Forward Deployed,Python,169
+Solutions / Forward Deployed,JavaScript,102
+Solutions / Forward Deployed,AWS,97
+Solutions / Forward Deployed,Azure,93
+Solutions / Forward Deployed,GCP,91
+Solutions / Forward Deployed,Kubernetes,68
+Solutions / Forward Deployed,Java,42
+Solutions / Forward Deployed,SQL,38
+Solutions / Forward Deployed,Go,37
+Solutions / Forward Deployed,TypeScript,32
+Solutions / Forward Deployed,Node.js,31
+Solutions / Forward Deployed,Terraform,28
+Solutions / Forward Deployed,C++,26
+Solutions / Forward Deployed,C#,24
+Solutions / Forward Deployed,MongoDB Atlas,23
+Solutions / Forward Deployed,Apache Kafka,22
+Solutions / Forward Deployed,Ruby,18
+Solutions / Forward Deployed,Docker,17
+Solutions / Forward Deployed,React,16
+Solutions / Forward Deployed,Datadog,15
+Solutions / Forward Deployed,Bash,13
+Solutions / Forward Deployed,Helm,12
+Solutions / Forward Deployed,Ansible,9
+Solutions / Forward Deployed,Jenkins,9
+Solutions / Forward Deployed,PHP,9
+Solutions / Forward Deployed,Puppet,9
+Solutions / Forward Deployed,REST,9
+Solutions / Forward Deployed,Splunk,9
+Solutions / Forward Deployed,GitLab,8
+Solutions / Forward Deployed,OpenShift,8
+Solutions / Forward Deployed,Amazon EKS,7
+Solutions / Forward Deployed,Cloudflare,7
+Solutions / Forward Deployed,Cloudflare Workers,7
+Solutions / Forward Deployed,GPT,7
+Solutions / Forward Deployed,Git,7
+Solutions / Forward Deployed,Google GKE,7
+Solutions / Forward Deployed,Grafana,7
+Solutions / Forward Deployed,Perl,7
+Solutions / Forward Deployed,Prometheus,7
+Solutions / Forward Deployed,Claude,6
+Solutions / Forward Deployed,PostgreSQL,6
+Solutions / Forward Deployed,Salesforce,6
+Solutions / Forward Deployed,Apache Spark,4
+Solutions / Forward Deployed,Jira,4
+Solutions / Forward Deployed,MCP,4
+Solutions / Forward Deployed,MongoDB,4
+Solutions / Forward Deployed,Pulumi,4
+Solutions / Forward Deployed,Rust,4
+Solutions / Forward Deployed,AWS CloudFormation,3
+Solutions / Forward Deployed,Gemini,3
+Solutions / Forward Deployed,GitHub,3
+Solutions / Forward Deployed,HTML,3
+Solutions / Forward Deployed,Jupyter,3
+Solutions / Forward Deployed,Linux,3
+Solutions / Forward Deployed,Lua,3
+Solutions / Forward Deployed,NetSuite,3
+Solutions / Forward Deployed,SAS,3
+Solutions / Forward Deployed,Vertex AI,3
+Solutions / Forward Deployed,.NET,2
+Solutions / Forward Deployed,Android,2
+Solutions / Forward Deployed,CSS,2
+Solutions / Forward Deployed,GitHub Actions,2
+Solutions / Forward Deployed,GraphQL,2
+Solutions / Forward Deployed,MATLAB,2
+Solutions / Forward Deployed,Next.js,2
+Solutions / Forward Deployed,R,2
+Solutions / Forward Deployed,Swift,2
+Solutions / Forward Deployed,Zendesk,2
+Solutions / Forward Deployed,Amazon EC2,1
+Solutions / Forward Deployed,Angular,1
+Solutions / Forward Deployed,Anthropic,1
+Solutions / Forward Deployed,CockroachDB,1
+Solutions / Forward Deployed,Databricks,1
+Solutions / Forward Deployed,DynamoDB,1
+Solutions / Forward Deployed,Fly.io,1
+Solutions / Forward Deployed,GitHub Copilot,1
+Solutions / Forward Deployed,Heroku,1
+Solutions / Forward Deployed,Kotlin,1
+Solutions / Forward Deployed,Objective-C,1
+Solutions / Forward Deployed,OpenTelemetry,1
+Solutions / Forward Deployed,React Native,1
+Solutions / Forward Deployed,Redis,1
+Solutions / Forward Deployed,SQLite,1
+Solutions / Forward Deployed,Snowflake,1
+Solutions / Forward Deployed,Vanta,1
+Solutions / Forward Deployed,Vercel,1
+Solutions / Forward Deployed,Vue.js,1
+Solutions / Forward Deployed,iOS,1
+Systems / Low-level,Python,21
+Systems / Low-level,SQL,21
+Systems / Low-level,Go,18
+Systems / Low-level,C++,14
+Systems / Low-level,Kubernetes,14
+Systems / Low-level,Rust,14
+Systems / Low-level,Linux,11
+Systems / Low-level,TypeScript,11
+Systems / Low-level,Docker,10
+Systems / Low-level,Terraform,10
+Systems / Low-level,JavaScript,8
+Systems / Low-level,PostgreSQL,8
+Systems / Low-level,Apache Kafka,7
+Systems / Low-level,Claude,7
+Systems / Low-level,ClickHouse,7
+Systems / Low-level,Salesforce,7
+Systems / Low-level,Grafana,6
+Systems / Low-level,dbt,6
+Systems / Low-level,Prometheus,5
+Systems / Low-level,Snowflake,5
+Systems / Low-level,Apache Flink,4
+Systems / Low-level,Bash,4
+Systems / Low-level,GCP,4
+Systems / Low-level,Java,4
+Systems / Low-level,Jira,4
+Systems / Low-level,React,4
+Systems / Low-level,Tableau,4
+Systems / Low-level,Android,3
+Systems / Low-level,BigQuery,3
+Systems / Low-level,GPT,3
+Systems / Low-level,GitLab CI,3
+Systems / Low-level,Looker,3
+Systems / Low-level,MySQL,3
+Systems / Low-level,Okta,3
+Systems / Low-level,OpenAI Codex,3
+Systems / Low-level,REST,3
+Systems / Low-level,Zendesk,3
+Systems / Low-level,AWS,2
+Systems / Low-level,Airflow,2
+Systems / Low-level,Apache Spark,2
+Systems / Low-level,Cloudflare,2
+Systems / Low-level,Git,2
+Systems / Low-level,GraphQL,2
+Systems / Low-level,HubSpot,2
+Systems / Low-level,Kibana,2
+Systems / Low-level,NetSuite,2
+Systems / Low-level,Nginx,2
+Systems / Low-level,Node.js,2
+Systems / Low-level,Plotly,2
+Systems / Low-level,Redis,2
+Systems / Low-level,Streamlit,2
+Systems / Low-level,gRPC,2
+Systems / Low-level,Amazon S3,1
+Systems / Low-level,Ansible,1
+Systems / Low-level,Azure,1
+Systems / Low-level,C,1
+Systems / Low-level,CUDA,1
+Systems / Low-level,Cloudflare Workers,1
+Systems / Low-level,Dagster,1
+Systems / Low-level,Databricks,1
+Systems / Low-level,Datadog,1
+Systems / Low-level,Envoy,1
+Systems / Low-level,Figma,1
+Systems / Low-level,GDB,1
+Systems / Low-level,Gatsby,1
+Systems / Low-level,GitHub,1
+Systems / Low-level,GitHub Copilot,1
+Systems / Low-level,Groovy,1
+Systems / Low-level,Kotlin,1
+Systems / Low-level,MCP,1
+Systems / Low-level,Puppet,1
+Systems / Low-level,R,1
+Systems / Low-level,Redshift,1
+Systems / Low-level,Splunk,1
+Systems / Low-level,Swift,1
+Systems / Low-level,iOS,1

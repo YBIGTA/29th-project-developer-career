@@ -1,0 +1,297 @@
+{
+  "AWS": {
+    "kind": "클라우드 플랫폼",
+    "stack": [
+      "Docker",
+      "Terraform",
+      "Kubernetes",
+      "Linux"
+    ],
+    "summary": "공고 428건(17.7%)으로 클라우드 3사 중 1위이자 전체 2위입니다. Security Engineer 직군에서는 요구 2위(47건)라 보안 포지션에서 특히 자주 걸립니다.",
+    "verdict": "세 클라우드를 다 볼 필요는 없습니다. 점유가 가장 넓은 AWS 하나를 골라 IAM·VPC·관리형 서비스까지 실제로 만져보는 편이 낫습니다."
+  },
+  "Apache Kafka": {
+    "kind": "메시지 스트리밍",
+    "stack": [
+      "Java",
+      "Apache Spark",
+      "Docker",
+      "PostgreSQL"
+    ],
+    "summary": "공고 97건(4.0%), 생태계 점수 60.0입니다. Solutions / Forward Deployed(22건)와 Backend / Server(7건)에 고루 걸쳐 있어 특정 직군에 묶이지 않습니다.",
+    "verdict": "대규모 트래픽을 다루는 조직에 한정된 요건입니다. 신입·주니어 단계에서 우선순위를 높게 둘 항목은 아닙니다."
+  },
+  "Apache Spark": {
+    "kind": "분산 처리 엔진",
+    "stack": [
+      "Python",
+      "SQL",
+      "Apache Kafka",
+      "AWS"
+    ],
+    "summary": "공고 105건(4.4%)인데 생태계 점수는 44.2로, 특히 GitHub 이슈·PR 활동이 24.6점으로 낮습니다. Data Engineer / Data Platform 직군에서는 요구 1위(10건)로 수요가 한 직군에 몰려 있습니다.",
+    "verdict": "데이터 직군을 볼 때만 의미가 있습니다. 그 안에서는 대용량 배치를 다뤄봤다는 증거로 여전히 유효합니다."
+  },
+  "Azure": {
+    "kind": "클라우드 플랫폼",
+    "stack": [
+      "Docker",
+      "Terraform",
+      "Java",
+      "Kubernetes"
+    ],
+    "summary": "공고 310건(12.9%)으로 클라우드 3위입니다. Solutions / Forward Deployed 직군에서는 93건으로 4위라 고객사 환경을 다루는 포지션에 몰려 있습니다.",
+    "verdict": "세 클라우드 중 마지막 순위입니다. 다만 엔터프라이즈·공공 고객을 상대하는 포지션을 노린다면 AWS보다 먼저 볼 수도 있습니다."
+  },
+  "C": {
+    "kind": "시스템 언어",
+    "stack": [
+      "Linux",
+      "C++",
+      "Rust",
+      "Make"
+    ],
+    "summary": "공고 27건(1.1%)으로 56위인데, Stack Overflow 질문은 180일간 421개(97.0점)로 매우 많습니다. 학습·교육 수요는 큰데 채용 수요는 좁은 구간입니다. C++(252건)과는 규모가 열 배 가까이 차이 납니다.",
+    "verdict": "커널·임베디드처럼 목적이 분명할 때만 고릅니다. 범용 목적이라면 C++나 Rust 쪽 수요가 훨씬 넓습니다."
+  },
+  "C++": {
+    "kind": "시스템 언어",
+    "stack": [
+      "CMake",
+      "Linux",
+      "C",
+      "Unreal Engine"
+    ],
+    "summary": "생태계 점수 97.0으로 Python 다음가는 2위인데 공고는 252건(10.4%)에 그칩니다. Stack Overflow 질문 790개도 200개 중 2위입니다.",
+    "verdict": "수요가 몰린 분야가 뚜렷합니다. 게임·시스템·고성능 서버 중 목표를 먼저 정해야 학습 시간이 회수됩니다."
+  },
+  "Cloudflare": {
+    "kind": "엣지 인프라",
+    "stack": [
+      "TypeScript",
+      "Node.js",
+      "React",
+      "AWS"
+    ],
+    "summary": "공고 14건(0.6%)으로 93위입니다. 다만 이 수치는 신뢰하기 어렵습니다 — 추출 파이프라인이 회사 자기언급을 걸러내는데, Cloudflare는 이 데이터셋의 주요 채용 기업이라 자사 공고에서 태그가 통째로 제거됩니다.",
+    "verdict": "지금 수치로 판단하지 마세요. 자기언급 필터 보정 전까지는 채용 수요를 판단할 근거가 없는 상태입니다."
+  },
+  "Docker": {
+    "kind": "컨테이너 런타임",
+    "stack": [
+      "Kubernetes",
+      "Linux",
+      "AWS",
+      "Terraform"
+    ],
+    "summary": "생태계 점수 90.5는 상위권인데 공고는 115건(4.8%)입니다. Kubernetes(418건)를 요구하는 공고가 컨테이너를 당연한 전제로 두고 따로 적지 않기 때문으로 보입니다.",
+    "verdict": "학습 비용 대비 회수가 가장 빠른 축입니다. 개인 프로젝트를 이미지로 말아 올리는 것만으로 요건 상당수를 채웁니다."
+  },
+  "GCP": {
+    "kind": "클라우드 플랫폼",
+    "stack": [
+      "Kubernetes",
+      "Terraform",
+      "Python",
+      "SQL"
+    ],
+    "summary": "공고 354건(14.7%)으로 Azure(310건)를 앞선 클라우드 2위입니다. 생태계 점수 65.8은 AWS(83.2)·Azure(79.2)보다 낮아 수요에 비해 커뮤니티 노출이 적은 쪽입니다.",
+    "verdict": "AWS를 먼저 잡은 뒤 두 번째로 볼 선택지입니다. 데이터·ML 스택(BigQuery, Vertex AI)을 쓰는 조직이라면 우선순위가 올라갑니다."
+  },
+  "GPT": {
+    "kind": "AI 플랫폼",
+    "stack": [
+      "Python",
+      "PyTorch",
+      "FastAPI",
+      "PostgreSQL"
+    ],
+    "summary": "공고 145건(6.0%)으로 200개 중 17위이고, ML / AI Engineer / Data Scientist 직군에서는 요구 3위(46건)입니다. 참고로 이 데이터셋에서는 Claude가 172건으로 더 많이 언급됩니다.",
+    "verdict": "모델 이름 자체보다 API를 붙여 실제로 돌아가는 것을 만들어본 경험이 요건에 가깝습니다. 특정 벤더에 고정하지 마세요."
+  },
+  "Go": {
+    "kind": "시스템 언어",
+    "stack": [
+      "Kubernetes",
+      "Docker",
+      "PostgreSQL",
+      "Terraform"
+    ],
+    "summary": "공고 409건(17.0%)으로 수요 4위이고 General Software Engineer 직군에서는 Python 다음가는 2위(199건)입니다. 생태계 점수 70.2는 저장소 수(59.3점)가 낮아 눌린 값입니다.",
+    "verdict": "문법이 작아 진입이 빠른 편입니다. 언어 자체보다 Kubernetes·Terraform 같은 생태계 도구와 묶어 익히는 쪽이 공고 요건과 맞습니다."
+  },
+  "Java": {
+    "kind": "범용 언어",
+    "stack": [
+      "Spring",
+      "PostgreSQL",
+      "Apache Kafka",
+      "Docker"
+    ],
+    "summary": "공고 264건(10.9%)이고 생태계 점수 93.8로 양쪽 모두 상위권입니다. Stack Overflow 질문은 180일간 751개로 200개 기술 중 3위입니다.",
+    "verdict": "Spring과 묶어야 의미가 있습니다. 언어만 익히고 프레임워크를 비워두면 공고 요건을 채우기 어렵습니다."
+  },
+  "JavaScript": {
+    "kind": "범용 언어",
+    "stack": [
+      "React",
+      "Node.js",
+      "TypeScript",
+      "Webpack"
+    ],
+    "summary": "공고 242건(10.0%)으로 TypeScript에 자리를 내줬습니다. Solutions / Forward Deployed 직군에서는 102건으로 2위라 고객 대면 통합 업무에서는 여전히 자주 등장합니다.",
+    "verdict": "이미 TypeScript로 무게중심이 옮겨갔습니다. 새로 배운다면 TypeScript를 목표로 두고 그 아래 기반으로만 다루세요."
+  },
+  "Kubernetes": {
+    "kind": "컨테이너 오케스트레이션",
+    "stack": [
+      "Docker",
+      "Terraform",
+      "Go",
+      "Linux"
+    ],
+    "summary": "공고 418건(17.3%)으로 수요 3위입니다. 생태계 점수 70.7 안에서 저장소 수(68.3점)보다 이슈·PR 활동(78.9점)이 높아, 새로 만들어지기보다 이미 굴러가는 것을 고치는 단계에 있습니다.",
+    "verdict": "학습 환경을 갖추기가 어려워 진입 장벽이 유지됩니다. 관리형 클러스터라도 직접 띄워 배포·롤백까지 해본 경험이 그대로 차별화가 됩니다."
+  },
+  "Linux": {
+    "kind": "운영체제",
+    "stack": [
+      "Docker",
+      "AWS",
+      "Kubernetes",
+      "C"
+    ],
+    "summary": "생태계 점수 89.6은 상위권인데 공고는 149건(6.2%)입니다. 명시적으로 적히지 않아도 전제되는 경우가 많아 실제 필요보다 적게 잡힙니다. Infra / Platform / DevOps / SRE 직군에서는 6위(25건)입니다.",
+    "verdict": "단독으로 내세울 항목은 아니지만 없으면 다른 인프라 요건을 못 채웁니다. 셸·프로세스·네트워크 진단까지는 손에 익혀두세요."
+  },
+  "Node.js": {
+    "kind": "서버 런타임",
+    "stack": [
+      "TypeScript",
+      "PostgreSQL",
+      "Docker",
+      "AWS"
+    ],
+    "summary": "생태계 점수 93.3으로 상위권인데 공고는 130건(5.4%)에 그칩니다. Full-stack 직군에서는 3위(11건)로 비중이 올라갑니다.",
+    "verdict": "프론트엔드 경험을 서버로 확장하는 통로로는 여전히 가장 짧은 경로입니다. 다만 이것만으로 백엔드 포지션을 노리기엔 수요가 얇습니다."
+  },
+  "PostgreSQL": {
+    "kind": "관계형 데이터베이스",
+    "stack": [
+      "SQL",
+      "Java",
+      "Node.js",
+      "Docker"
+    ],
+    "summary": "생태계 점수 87.6에 비해 공고는 126건(5.2%)으로 적습니다. 특정 DB를 명시하지 않고 SQL로만 적는 공고가 많아 과소 집계되는 쪽입니다. MySQL(45건)보다는 세 배 가까이 많습니다.",
+    "verdict": "MySQL과 고민된다면 이쪽이 최근 흐름에 맞습니다. 트랜잭션 격리 수준까지는 설명할 수 있어야 합니다."
+  },
+  "PyTorch": {
+    "kind": "머신러닝 프레임워크",
+    "stack": [
+      "Python",
+      "GPT",
+      "Apache Spark",
+      "Docker"
+    ],
+    "summary": "공고 96건(4.0%)으로 전체에서는 23위지만, Research Engineer / Scientist 직군만 보면 요구 2위(30건)라 해당 직군 안에서는 비중이 큽니다.",
+    "verdict": "AI 직군을 목표로 할 때만 담으세요. 전체 공고 수로 판단하면 실제 필요보다 낮게 보입니다."
+  },
+  "Python": {
+    "kind": "범용 언어",
+    "stack": [
+      "FastAPI",
+      "Pandas",
+      "PyTorch",
+      "Airflow"
+    ],
+    "summary": "공고 919건(38.1%)으로 200개 기술 중 1위이고 생태계 점수도 98.5로 최상위입니다. General Software Engineer · ML / AI Engineer / Data Scientist · Solutions / Forward Deployed 세 직군 모두에서 요구 1위입니다.",
+    "verdict": "선택이 아니라 기본기입니다. 다만 그만큼 변별력이 없으니 AI·리서치나 데이터 중 도메인 하나를 함께 정해야 공고에서 걸러지지 않습니다."
+  },
+  "React": {
+    "kind": "UI 라이브러리",
+    "stack": [
+      "TypeScript",
+      "Next.js",
+      "Node.js",
+      "Vite"
+    ],
+    "summary": "생태계 점수 93.8이고 공고는 205건(8.5%)입니다. Full-stack 직군에서는 요구 1위(19건)라 해당 직군 안에서는 사실상 기본 요건입니다.",
+    "verdict": "차별화 요소라기보다 출발선입니다. React를 쓴다는 사실보다 상태 관리와 렌더링 비용을 설명할 수 있는지가 갈립니다."
+  },
+  "Ruby": {
+    "kind": "범용 언어",
+    "stack": [
+      "Rails",
+      "PostgreSQL",
+      "Docker",
+      "Linux"
+    ],
+    "summary": "공고 68건(2.8%), 생태계 점수 71.2입니다. 저장소 수(78.4점)에 비해 Stack Overflow 질문(23개, 60.8점)이 적어 새 질문이 줄어드는 단계로 보입니다.",
+    "verdict": "지금 새로 시작할 이유는 약합니다. 이미 Rails 코드베이스를 맡고 있는 경우가 아니라면 우선순위를 낮게 두세요."
+  },
+  "Rust": {
+    "kind": "시스템 언어",
+    "stack": [
+      "Cargo",
+      "WebAssembly",
+      "Linux",
+      "Go"
+    ],
+    "summary": "공고 225건(9.3%), 생태계 점수 83.3으로 둘 다 상위권입니다. 저장소 수(72.4점)보다 이슈·PR 활동(86.9점)이 높아 실사용 단계에 들어섰습니다.",
+    "verdict": "\"뜨는 언어\" 단계는 지났습니다. 다만 신규 서비스보다 인프라·툴링 재작성 쪽에 수요가 있으니 그 영역의 프로젝트로 접근하세요."
+  },
+  "SQL": {
+    "kind": "질의 언어",
+    "stack": [
+      "PostgreSQL",
+      "Python",
+      "Apache Spark",
+      "Tableau"
+    ],
+    "summary": "공고 326건(13.5%)이고 ML / AI Engineer / Data Scientist 직군에서 요구 2위(87건)입니다. 생태계 점수 90.1로 수요·생태계가 모두 상위권입니다.",
+    "verdict": "저장소가 무엇이든 결국 거쳐 갑니다. 문법보다 실행 계획과 조인 비용을 설명할 수 있는지가 실제 면접에서 갈리는 지점입니다."
+  },
+  "Salesforce": {
+    "kind": "업무 SaaS 플랫폼",
+    "stack": [
+      "SQL",
+      "JavaScript",
+      "Java"
+    ],
+    "summary": "공고 41건(1.7%), 생태계 점수 38.7로 둘 다 하위권입니다. 개발 도구가 아니라 사내 업무 시스템 쪽에서 소비됩니다.",
+    "verdict": "개발 커리어의 축으로 삼기에는 수요가 얇습니다. 특정 산업군의 사내 시스템 포지션을 노릴 때만 의미가 있습니다."
+  },
+  "Tableau": {
+    "kind": "BI 도구",
+    "stack": [
+      "SQL",
+      "PostgreSQL",
+      "Python"
+    ],
+    "summary": "공고 18건(0.7%)이고 Stack Overflow 질문은 180일간 1건에 그쳐 생태계 점수가 29.3까지 내려갑니다. 개발자 커뮤니티가 아니라 현업 분석가 쪽에서 소비되는 도구라 이 지표로는 과소평가됩니다. Data Analyst 직군에서는 요구 3위(8건)입니다.",
+    "verdict": "개발 직군 공고에서는 거의 안 보입니다. 데이터 분석 직군을 노릴 때만 보조 항목으로 담으세요."
+  },
+  "Terraform": {
+    "kind": "인프라 자동화",
+    "stack": [
+      "AWS",
+      "Kubernetes",
+      "Docker",
+      "Go"
+    ],
+    "summary": "공고 159건(6.6%)인데 생태계 점수는 62.7로 상대적으로 낮습니다. Stack Overflow 질문이 180일간 15개(52.3점)뿐이라 도구 특성상 Q&A가 적게 잡힙니다.",
+    "verdict": "생태계 점수만 보고 넘기면 안 되는 항목입니다. 인프라 직군을 볼 거라면 사실상 고정 요건에 가깝습니다."
+  },
+  "TypeScript": {
+    "kind": "정적 타입 언어",
+    "stack": [
+      "React",
+      "Node.js",
+      "Next.js",
+      "ESLint"
+    ],
+    "summary": "공고 324건(13.4%)으로 JavaScript(242건)를 이미 앞질렀습니다. 생태계 점수 93.3도 상위권이라 양쪽이 함께 올라온 몇 안 되는 기술입니다.",
+    "verdict": "새로 시작한다면 JavaScript를 거치지 말고 바로 여기서 출발해도 됩니다. 타입 정의를 직접 써보는 데까지 가야 요건을 채웁니다."
+  }
+}

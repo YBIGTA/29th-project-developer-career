@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { ALL_ROLES } from "@/lib/roles";
 
 export default function FilterBar({
   roles,
@@ -30,7 +31,7 @@ export default function FilterBar({
     };
   }, [open]);
 
-  const options = [{ value: "all", label: "전체" }, ...roles.map((role) => ({ value: role, label: role }))];
+  const options = [{ value: ALL_ROLES, label: "전체" }, ...roles.map((role) => ({ value: role, label: role }))];
   const currentLabel = options.find((o) => o.value === selectedRole)?.label ?? "전체";
 
   return (
@@ -79,9 +80,9 @@ export default function FilterBar({
               </ul>
             )}
           </div>
-          {/* role 필드는 아직 데이터팀 스펙에 없는 임시 필드다.
-              실제 API 응답에 role이 없으면 hasRoleData가 false가 되어
-              드롭다운은 남되 자동으로 비활성화된다 — UI를 지울 필요가 없다. */}
+          {/* 직군은 채용공고에서 뽑은 원본 14종이다. 응답에 roleBreakdown이
+              없으면 hasRoleData가 false가 되어 드롭다운은 남되 자동으로
+              비활성화된다 — UI를 지울 필요가 없다. */}
           {!hasRoleData && <span className="filter-bar__hint">직군 데이터 없음</span>}
         </div>
       </div>

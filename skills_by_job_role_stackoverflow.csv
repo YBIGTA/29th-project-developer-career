@@ -1,0 +1,1026 @@
+﻿row_rank,role_rank,job_role,skills,count,stackoverflow_question_count_180d
+1,1,Backend / Server,Python,27,1630
+2,2,Backend / Server,Java,20,751
+3,3,Backend / Server,Go,19,44
+4,4,Backend / Server,AWS,16,82
+5,5,Backend / Server,TypeScript,15,223
+6,6,Backend / Server,Kubernetes,13,27
+7,7,Backend / Server,JavaScript,12,734
+8,8,Backend / Server,Android,12,489
+9,9,Backend / Server,Rust,12,173
+10,10,Backend / Server,SQL,11,237
+11,11,Backend / Server,PostgreSQL,11,185
+12,12,Backend / Server,React,11,141
+13,13,Backend / Server,C++,10,790
+14,14,Backend / Server,Linux,9,127
+15,15,Backend / Server,Docker,9,109
+16,16,Backend / Server,gRPC,9,13
+17,17,Backend / Server,Node.js,8,219
+18,18,Backend / Server,Redis,8,29
+19,19,Backend / Server,CSS,7,310
+20,20,Backend / Server,Assembly,7,77
+21,21,Backend / Server,Apache Kafka,7,33
+22,22,Backend / Server,Claude,7,25
+23,23,Backend / Server,GraphQL,7,11
+24,24,Backend / Server,HTML,6,399
+25,25,Backend / Server,iOS,6,300
+26,26,Backend / Server,Kotlin,6,172
+27,27,Backend / Server,MySQL,5,70
+28,28,Backend / Server,GCP,5,52
+29,29,Backend / Server,Figma,5,2
+30,30,Backend / Server,Spring,4,138
+31,31,Backend / Server,Next.js,4,124
+32,32,Backend / Server,Azure,4,113
+33,33,Backend / Server,Bash,4,76
+34,34,Backend / Server,GitHub,4,67
+35,35,Backend / Server,MCP,4,25
+36,36,Backend / Server,GPT,4,16
+37,37,Backend / Server,Terraform,4,15
+38,38,Backend / Server,Git,3,126
+39,39,Backend / Server,REST,3,72
+40,40,Backend / Server,Gradle,3,51
+41,41,Backend / Server,Apache Spark,3,30
+42,42,Backend / Server,RabbitMQ,3,14
+43,43,Backend / Server,Buildkite,3,0
+44,44,Backend / Server,Swift,2,217
+45,45,Backend / Server,PyTorch,2,53
+46,46,Backend / Server,TensorFlow,2,32
+47,47,Backend / Server,LangChain,2,24
+48,48,Backend / Server,Ruby,2,23
+49,49,Backend / Server,Scala,2,22
+50,50,Backend / Server,NestJS,2,20
+51,51,Backend / Server,Airflow,2,18
+52,52,Backend / Server,Salesforce,2,12
+53,53,Backend / Server,Postman,2,8
+54,54,Backend / Server,C,1,421
+55,55,Backend / Server,Flutter,1,264
+56,56,Backend / Server,PHP,1,252
+57,57,Backend / Server,React Native,1,122
+58,58,Backend / Server,Jetpack Compose,1,69
+59,59,Backend / Server,Express,1,46
+60,60,Backend / Server,SQLite,1,43
+61,61,Backend / Server,Selenium,1,37
+62,62,Backend / Server,GitHub Actions,1,35
+63,63,Backend / Server,Vite,1,29
+64,64,Backend / Server,Flask,1,28
+65,65,Backend / Server,GitHub Copilot,1,27
+66,66,Backend / Server,Haskell,1,27
+67,67,Backend / Server,Lua,1,25
+68,68,Backend / Server,Tailwind CSS,1,23
+69,69,Backend / Server,Objective-C,1,17
+70,70,Backend / Server,SystemVerilog,1,17
+71,71,Backend / Server,Gemini,1,15
+72,72,Backend / Server,PyTest,1,15
+73,73,Backend / Server,GDB,1,12
+74,74,Backend / Server,JAX,1,12
+75,75,Backend / Server,Transformers,1,12
+76,76,Backend / Server,Grafana,1,11
+77,77,Backend / Server,dbt,1,11
+78,78,Backend / Server,Elasticsearch,1,10
+79,79,Backend / Server,Vercel,1,9
+80,80,Backend / Server,Ansible,1,8
+81,81,Backend / Server,Prometheus,1,8
+82,82,Backend / Server,Bazel,1,7
+83,83,Backend / Server,Jira,1,7
+84,84,Backend / Server,OpenAI Codex,1,7
+85,85,Backend / Server,Cloudflare Workers,1,6
+86,86,Backend / Server,Trino,1,5
+87,87,Backend / Server,Datadog,1,3
+88,88,Backend / Server,Hadoop,1,3
+89,89,Backend / Server,Material UI,1,3
+90,90,Backend / Server,Okta,1,3
+91,91,Backend / Server,Splunk,1,1
+92,92,Backend / Server,Storybook,1,1
+93,93,Backend / Server,CircleCI,1,0
+94,94,Backend / Server,Confluence,1,0
+95,95,Backend / Server,HubSpot,1,0
+96,96,Backend / Server,Pulumi,1,0
+97,97,Backend / Server,SolidJS,1,0
+98,98,Backend / Server,Starlark,1,0
+99,99,Backend / Server,TanStack,1,0
+100,100,Backend / Server,Zendesk,1,0
+101,1,Data Analyst,SQL,35,237
+102,2,Data Analyst,Python,23,1630
+103,3,Data Analyst,Tableau,8,1
+104,4,Data Analyst,R,6,373
+105,5,Data Analyst,Apache Spark,4,30
+106,6,Data Analyst,Airflow,4,18
+107,7,Data Analyst,Power BI,3,47
+108,8,Data Analyst,dbt,3,11
+109,9,Data Analyst,NetSuite,3,3
+110,10,Data Analyst,Looker,3,0
+111,11,Data Analyst,React,2,141
+112,12,Data Analyst,Linux,2,127
+113,13,Data Analyst,Azure,2,113
+114,14,Data Analyst,AWS,2,82
+115,15,Data Analyst,Bash,2,76
+116,16,Data Analyst,GitHub,2,67
+117,17,Data Analyst,GCP,2,52
+118,18,Data Analyst,Go,2,44
+119,19,Data Analyst,C++,1,790
+120,20,Data Analyst,Java,1,751
+121,21,Data Analyst,JavaScript,1,734
+122,22,Data Analyst,Swift,1,217
+123,23,Data Analyst,Git,1,126
+124,24,Data Analyst,VBA,1,108
+125,25,Data Analyst,BigQuery,1,35
+126,26,Data Analyst,GitLab,1,27
+127,27,Data Analyst,Claude,1,25
+128,28,Data Analyst,Scala,1,22
+129,29,Data Analyst,Cloudflare,1,16
+130,30,Data Analyst,GraphQL,1,11
+131,31,Data Analyst,SAS,1,11
+132,32,Data Analyst,Vertex AI,1,8
+133,33,Data Analyst,Apache Flink,1,7
+134,34,Data Analyst,Neo4j,1,3
+135,35,Data Analyst,Figma,1,2
+136,36,Data Analyst,Splunk,1,1
+137,1,Data Engineer / Data Platform,Python,10,1630
+138,2,Data Engineer / Data Platform,Apache Spark,10,30
+139,3,Data Engineer / Data Platform,Go,8,44
+140,4,Data Engineer / Data Platform,Kubernetes,7,27
+141,5,Data Engineer / Data Platform,Java,6,751
+142,6,Data Engineer / Data Platform,SQL,6,237
+143,7,Data Engineer / Data Platform,GCP,6,52
+144,8,Data Engineer / Data Platform,Scala,6,22
+145,9,Data Engineer / Data Platform,Airflow,6,18
+146,10,Data Engineer / Data Platform,Apache Kafka,5,33
+147,11,Data Engineer / Data Platform,dbt,5,11
+148,12,Data Engineer / Data Platform,Apache Flink,5,7
+149,13,Data Engineer / Data Platform,AWS,4,82
+150,14,Data Engineer / Data Platform,Docker,3,109
+151,15,Data Engineer / Data Platform,BigQuery,3,35
+152,16,Data Engineer / Data Platform,Amazon S3,3,33
+153,17,Data Engineer / Data Platform,Trino,3,5
+154,18,Data Engineer / Data Platform,C++,2,790
+155,19,Data Engineer / Data Platform,TypeScript,2,223
+156,20,Data Engineer / Data Platform,PostgreSQL,2,185
+157,21,Data Engineer / Data Platform,Rust,2,173
+158,22,Data Engineer / Data Platform,MySQL,2,70
+159,23,Data Engineer / Data Platform,MCP,2,25
+160,24,Data Engineer / Data Platform,Terraform,2,15
+161,25,Data Engineer / Data Platform,Apache Iceberg,2,6
+162,26,Data Engineer / Data Platform,ClickHouse,2,6
+163,27,Data Engineer / Data Platform,C#,1,690
+164,28,Data Engineer / Data Platform,Linux,1,127
+165,29,Data Engineer / Data Platform,Azure,1,113
+166,30,Data Engineer / Data Platform,Bash,1,76
+167,31,Data Engineer / Data Platform,PyTorch,1,53
+168,32,Data Engineer / Data Platform,TensorFlow,1,32
+169,33,Data Engineer / Data Platform,Snowflake,1,26
+170,34,Data Engineer / Data Platform,Tableau,1,1
+171,35,Data Engineer / Data Platform,Dagster,1,0
+172,36,Data Engineer / Data Platform,Looker,1,0
+173,37,Data Engineer / Data Platform,Pulumi,1,0
+174,1,Engineering Management,Python,40,1630
+175,2,Engineering Management,AWS,36,82
+176,3,Engineering Management,GCP,29,52
+177,4,Engineering Management,Go,29,44
+178,5,Engineering Management,Azure,28,113
+179,6,Engineering Management,Java,23,751
+180,7,Engineering Management,Kubernetes,22,27
+181,8,Engineering Management,TypeScript,21,223
+182,9,Engineering Management,SQL,19,237
+183,10,Engineering Management,Rust,19,173
+184,11,Engineering Management,React,16,141
+185,12,Engineering Management,MongoDB Atlas,16,6
+186,13,Engineering Management,Claude,15,25
+187,14,Engineering Management,C++,14,790
+188,15,Engineering Management,JavaScript,12,734
+189,16,Engineering Management,Terraform,11,15
+190,17,Engineering Management,Linux,10,127
+191,18,Engineering Management,PostgreSQL,8,185
+192,19,Engineering Management,MCP,8,25
+193,20,Engineering Management,GPT,8,16
+194,21,Engineering Management,Node.js,7,219
+195,22,Engineering Management,OpenAI Codex,7,7
+196,23,Engineering Management,C#,6,690
+197,24,Engineering Management,Android,6,489
+198,25,Engineering Management,Ruby,6,23
+199,26,Engineering Management,iOS,5,300
+200,27,Engineering Management,Salesforce,5,12
+201,28,Engineering Management,C,4,421
+202,29,Engineering Management,Docker,4,109
+203,30,Engineering Management,REST,4,72
+204,31,Engineering Management,GitHub,4,67
+205,32,Engineering Management,Apache Spark,4,30
+206,33,Engineering Management,Transformers,4,12
+207,34,Engineering Management,Grafana,4,11
+208,35,Engineering Management,OpenTelemetry,4,10
+209,36,Engineering Management,Apache Iceberg,4,6
+210,37,Engineering Management,ClickHouse,4,6
+211,38,Engineering Management,Datadog,4,3
+212,39,Engineering Management,Kotlin,3,172
+213,40,Engineering Management,Bash,3,76
+214,41,Engineering Management,MySQL,3,70
+215,42,Engineering Management,GitHub Actions,3,35
+216,43,Engineering Management,Apache Kafka,3,33
+217,44,Engineering Management,Airflow,3,18
+218,45,Engineering Management,GraphQL,3,11
+219,46,Engineering Management,Prometheus,3,8
+220,47,Engineering Management,Bazel,3,7
+221,48,Engineering Management,Helm,3,6
+222,49,Engineering Management,Anthropic,3,3
+223,50,Engineering Management,R,2,373
+224,51,Engineering Management,CSS,2,310
+225,52,Engineering Management,Swift,2,217
+226,53,Engineering Management,.NET,2,174
+227,54,Engineering Management,Git,2,126
+228,55,Engineering Management,Next.js,2,124
+229,56,Engineering Management,MongoDB,2,67
+230,57,Engineering Management,PyTorch,2,53
+231,58,Engineering Management,Redis,2,29
+232,59,Engineering Management,Scala,2,22
+233,60,Engineering Management,Ansible,2,8
+234,61,Engineering Management,Cloudflare Workers,2,6
+235,62,Engineering Management,ArgoCD,2,2
+236,63,Engineering Management,Figma,2,2
+237,64,Engineering Management,Buildkite,2,0
+238,65,Engineering Management,CockroachDB,2,0
+239,66,Engineering Management,PHP,1,252
+240,67,Engineering Management,React Native,1,122
+241,68,Engineering Management,VBA,1,108
+242,69,Engineering Management,Express,1,46
+243,70,Engineering Management,SQLite,1,43
+244,71,Engineering Management,CUDA,1,38
+245,72,Engineering Management,BigQuery,1,35
+246,73,Engineering Management,Amazon S3,1,33
+247,74,Engineering Management,TensorFlow,1,32
+248,75,Engineering Management,Vue.js,1,30
+249,76,Engineering Management,GitHub Copilot,1,27
+250,77,Engineering Management,Snowflake,1,26
+251,78,Engineering Management,Lua,1,25
+252,79,Engineering Management,Databricks,1,24
+253,80,Engineering Management,LangChain,1,24
+254,81,Engineering Management,UIKit,1,20
+255,82,Engineering Management,Objective-C,1,17
+256,83,Engineering Management,SystemVerilog,1,17
+257,84,Engineering Management,Cloudflare,1,16
+258,85,Engineering Management,MATLAB,1,16
+259,86,Engineering Management,Jenkins,1,15
+260,87,Engineering Management,WebAssembly,1,14
+261,88,Engineering Management,gRPC,1,13
+262,89,Engineering Management,JAX,1,12
+263,90,Engineering Management,Svelte,1,12
+264,91,Engineering Management,dbt,1,11
+265,92,Engineering Management,Elasticsearch,1,10
+266,93,Engineering Management,Julia,1,10
+267,94,Engineering Management,Cassandra,1,7
+268,95,Engineering Management,Jira,1,7
+269,96,Engineering Management,Hugging Face,1,5
+270,97,Engineering Management,Vault,1,5
+271,98,Engineering Management,AWS CloudFormation,1,4
+272,99,Engineering Management,Nix,1,4
+273,100,Engineering Management,Amazon EKS,1,3
+274,101,Engineering Management,Bicep,1,3
+275,102,Engineering Management,Hadoop,1,3
+276,103,Engineering Management,NetSuite,1,3
+277,104,Engineering Management,Okta,1,3
+278,105,Engineering Management,Redux,1,2
+279,106,Engineering Management,Cypress,1,1
+280,107,Engineering Management,Tableau,1,1
+281,108,Engineering Management,Envoy,1,0
+282,109,Engineering Management,Looker,1,0
+283,110,Engineering Management,MobX,1,0
+284,111,Engineering Management,Vanta,1,0
+285,1,Frontend,React,6,141
+286,2,Frontend,TypeScript,4,223
+287,3,Frontend,JavaScript,2,734
+288,4,Frontend,Android,2,489
+289,5,Frontend,HTML,2,399
+290,6,Frontend,CSS,2,310
+291,7,Frontend,iOS,2,300
+292,8,Frontend,Node.js,2,219
+293,9,Frontend,Angular,2,156
+294,10,Frontend,Vue.js,2,30
+295,11,Frontend,Webpack,2,7
+296,12,Frontend,Java,1,751
+297,13,Frontend,React Native,1,122
+298,14,Frontend,Claude,1,25
+299,15,Frontend,GPT,1,16
+300,16,Frontend,Sass,1,11
+301,17,Frontend,ESLint,1,3
+302,18,Frontend,Redux,1,2
+303,19,Frontend,Babel,1,1
+304,1,Full-stack,React,19,141
+305,2,Full-stack,TypeScript,13,223
+306,3,Full-stack,Python,11,1630
+307,4,Full-stack,Node.js,11,219
+308,5,Full-stack,GitHub,9,67
+309,6,Full-stack,Java,8,751
+310,7,Full-stack,Go,8,44
+311,8,Full-stack,Claude,7,25
+312,9,Full-stack,GraphQL,7,11
+313,10,Full-stack,GitHub Copilot,6,27
+314,11,Full-stack,Kubernetes,6,27
+315,12,Full-stack,Android,5,489
+316,13,Full-stack,iOS,5,300
+317,14,Full-stack,Docker,5,109
+318,15,Full-stack,Apache Kafka,5,33
+319,16,Full-stack,SQL,4,237
+320,17,Full-stack,AWS,4,82
+321,18,Full-stack,REST,4,72
+322,19,Full-stack,Ruby,4,23
+323,20,Full-stack,Vue.js,3,30
+324,21,Full-stack,GPT,3,16
+325,22,Full-stack,RabbitMQ,3,14
+326,23,Full-stack,gRPC,3,13
+327,24,Full-stack,JavaScript,2,734
+328,25,Full-stack,Git,2,126
+329,26,Full-stack,Next.js,2,124
+330,27,Full-stack,Azure,2,113
+331,28,Full-stack,GCP,2,52
+332,29,Full-stack,Airflow,2,18
+333,30,Full-stack,HTML,1,399
+334,31,Full-stack,CSS,1,310
+335,32,Full-stack,Swift,1,217
+336,33,Full-stack,Rust,1,173
+337,34,Full-stack,Kotlin,1,172
+338,35,Full-stack,SwiftUI,1,169
+339,36,Full-stack,Angular,1,156
+340,37,Full-stack,Spring,1,138
+341,38,Full-stack,MongoDB,1,67
+342,39,Full-stack,Objective-C,1,17
+343,40,Full-stack,OpenAI Codex,1,7
+344,41,Full-stack,ClickHouse,1,6
+345,42,Full-stack,Cloudflare Workers,1,6
+346,43,Full-stack,Nix,1,4
+347,44,Full-stack,Anthropic,1,3
+348,45,Full-stack,Dagster,1,0
+349,1,General Software Engineer,Python,282,1630
+350,2,General Software Engineer,Go,199,44
+351,3,General Software Engineer,TypeScript,172,223
+352,4,General Software Engineer,Kubernetes,167,27
+353,5,General Software Engineer,AWS,142,82
+354,6,General Software Engineer,C++,132,790
+355,7,General Software Engineer,Rust,126,173
+356,8,General Software Engineer,Java,113,751
+357,9,General Software Engineer,GCP,111,52
+358,10,General Software Engineer,React,106,141
+359,11,General Software Engineer,Azure,94,113
+360,12,General Software Engineer,SQL,78,237
+361,13,General Software Engineer,PostgreSQL,66,185
+362,14,General Software Engineer,JavaScript,58,734
+363,15,General Software Engineer,Linux,56,127
+364,16,General Software Engineer,Terraform,56,15
+365,17,General Software Engineer,GPT,52,16
+366,18,General Software Engineer,Claude,51,25
+367,19,General Software Engineer,Node.js,45,219
+368,20,General Software Engineer,Apache Spark,43,30
+369,21,General Software Engineer,Apache Kafka,36,33
+370,22,General Software Engineer,Docker,31,109
+371,23,General Software Engineer,OpenAI Codex,29,7
+372,24,General Software Engineer,Ruby,27,23
+373,25,General Software Engineer,Airflow,27,18
+374,26,General Software Engineer,C#,26,690
+375,27,General Software Engineer,GitHub,25,67
+376,28,General Software Engineer,PyTorch,25,53
+377,29,General Software Engineer,Grafana,23,11
+378,30,General Software Engineer,Apache Flink,22,7
+379,31,General Software Engineer,MongoDB Atlas,22,6
+380,32,General Software Engineer,MySQL,21,70
+381,33,General Software Engineer,Redis,21,29
+382,34,General Software Engineer,Snowflake,21,26
+383,35,General Software Engineer,Scala,19,22
+384,36,General Software Engineer,Prometheus,19,8
+385,37,General Software Engineer,Anthropic,18,3
+386,38,General Software Engineer,Kotlin,17,172
+387,39,General Software Engineer,TensorFlow,17,32
+388,40,General Software Engineer,MCP,16,25
+389,41,General Software Engineer,Android,15,489
+390,42,General Software Engineer,MongoDB,15,67
+391,43,General Software Engineer,GraphQL,15,11
+392,44,General Software Engineer,Elasticsearch,15,10
+393,45,General Software Engineer,Gradle,14,51
+394,46,General Software Engineer,CUDA,14,38
+395,47,General Software Engineer,Lua,14,25
+396,48,General Software Engineer,JAX,14,12
+397,49,General Software Engineer,Cassandra,14,7
+398,50,General Software Engineer,Swift,13,217
+399,51,General Software Engineer,BigQuery,13,35
+400,52,General Software Engineer,Redux,13,2
+401,53,General Software Engineer,C,12,421
+402,54,General Software Engineer,iOS,12,300
+403,55,General Software Engineer,Ruby on Rails,12,27
+404,56,General Software Engineer,Trino,12,5
+405,57,General Software Engineer,Apache Iceberg,11,6
+406,58,General Software Engineer,Next.js,10,124
+407,59,General Software Engineer,FastAPI,10,39
+408,60,General Software Engineer,Salesforce,9,12
+409,61,General Software Engineer,DynamoDB,9,5
+410,62,General Software Engineer,Datadog,9,3
+411,63,General Software Engineer,CockroachDB,9,0
+412,64,General Software Engineer,CSS,8,310
+413,65,General Software Engineer,Git,8,126
+414,66,General Software Engineer,GitHub Actions,8,35
+415,67,General Software Engineer,Databricks,8,24
+416,68,General Software Engineer,WebAssembly,8,14
+417,69,General Software Engineer,gRPC,8,13
+418,70,General Software Engineer,Bazel,8,7
+419,71,General Software Engineer,ClickHouse,8,6
+420,72,General Software Engineer,Okta,8,3
+421,73,General Software Engineer,Dependabot,8,2
+422,74,General Software Engineer,Buildkite,8,0
+423,75,General Software Engineer,Envoy,8,0
+424,76,General Software Engineer,Snyk,8,0
+425,77,General Software Engineer,Triton Inference Server,8,0
+426,78,General Software Engineer,Zendesk,8,0
+427,79,General Software Engineer,Pandas,7,106
+428,80,General Software Engineer,GitHub Copilot,7,27
+429,81,General Software Engineer,dbt,7,11
+430,82,General Software Engineer,Figma,7,2
+431,83,General Software Engineer,Dagster,7,0
+432,84,General Software Engineer,Assembly,6,77
+433,85,General Software Engineer,REST,6,72
+434,86,General Software Engineer,Express,6,46
+435,87,General Software Engineer,Amazon S3,6,33
+436,88,General Software Engineer,Cloudflare Workers,6,6
+437,89,General Software Engineer,NCCL,6,1
+438,90,General Software Engineer,.NET,5,174
+439,91,General Software Engineer,React Native,5,122
+440,92,General Software Engineer,Bash,5,76
+441,93,General Software Engineer,Transformers,5,12
+442,94,General Software Engineer,OpenTelemetry,5,10
+443,95,General Software Engineer,Slurm,5,7
+444,96,General Software Engineer,Vault,5,5
+445,97,General Software Engineer,Amazon EKS,5,3
+446,98,General Software Engineer,Hadoop,5,3
+447,99,General Software Engineer,CircleCI,5,0
+448,100,General Software Engineer,Pulumi,5,0
+449,101,General Software Engineer,Spring,4,138
+450,102,General Software Engineer,Flask,4,28
+451,103,General Software Engineer,Objective-C,4,17
+452,104,General Software Engineer,Elixir,4,4
+453,105,General Software Engineer,ArgoCD,4,2
+454,106,General Software Engineer,HTML,3,399
+455,107,General Software Engineer,Jetpack Compose,3,69
+456,108,General Software Engineer,Vue.js,3,30
+457,109,General Software Engineer,Vite,3,29
+458,110,General Software Engineer,Jenkins,3,15
+459,111,General Software Engineer,RabbitMQ,3,14
+460,112,General Software Engineer,Webpack,3,7
+461,113,General Software Engineer,AWS CloudFormation,3,4
+462,114,General Software Engineer,SwiftUI,2,169
+463,115,General Software Engineer,Angular,2,156
+464,116,General Software Engineer,Django,2,76
+465,117,General Software Engineer,GitLab CI,2,21
+466,118,General Software Engineer,scikit-learn,2,21
+467,119,General Software Engineer,NestJS,2,20
+468,120,General Software Engineer,Jupyter,2,19
+469,121,General Software Engineer,Cloudflare,2,16
+470,122,General Software Engineer,GDB,2,12
+471,123,General Software Engineer,Svelte,2,12
+472,124,General Software Engineer,Ansible,2,8
+473,125,General Software Engineer,Firestore,2,6
+474,126,General Software Engineer,Helm,2,6
+475,127,General Software Engineer,Redshift,2,5
+476,128,General Software Engineer,Heroku,2,4
+477,129,General Software Engineer,Nix,2,4
+478,130,General Software Engineer,Kibana,2,3
+479,131,General Software Engineer,NetSuite,2,3
+480,132,General Software Engineer,Cypher,2,1
+481,133,General Software Engineer,Google GKE,2,1
+482,134,General Software Engineer,Istio,2,1
+483,135,General Software Engineer,Splunk,2,1
+484,136,General Software Engineer,PHP,1,252
+485,137,General Software Engineer,Laravel,1,97
+486,138,General Software Engineer,SQLite,1,43
+487,139,General Software Engineer,GitLab,1,27
+488,140,General Software Engineer,LangChain,1,24
+489,141,General Software Engineer,Tailwind CSS,1,23
+490,142,General Software Engineer,UIKit,1,20
+491,143,General Software Engineer,Gemini,1,15
+492,144,General Software Engineer,PyTest,1,15
+493,145,General Software Engineer,SAS,1,11
+494,146,General Software Engineer,Sass,1,11
+495,147,General Software Engineer,Vercel,1,9
+496,148,General Software Engineer,Amazon EC2,1,7
+497,149,General Software Engineer,GLSL,1,7
+498,150,General Software Engineer,Jira,1,7
+499,151,General Software Engineer,Deno,1,4
+500,152,General Software Engineer,TeamCity,1,4
+501,153,General Software Engineer,ESLint,1,3
+502,154,General Software Engineer,Llama,1,3
+503,155,General Software Engineer,Neo4j,1,3
+504,156,General Software Engineer,XGBoost,1,3
+505,157,General Software Engineer,Solidity,1,2
+506,158,General Software Engineer,Apache Pulsar,1,0
+507,159,General Software Engineer,Groovy,1,0
+508,160,General Software Engineer,Looker,1,0
+509,161,General Software Engineer,Lucene,1,0
+510,162,General Software Engineer,Starlark,1,0
+511,163,General Software Engineer,Zookeeper,1,0
+512,1,Infra / Platform / DevOps / SRE,Kubernetes,36,27
+513,2,Infra / Platform / DevOps / SRE,Python,33,1630
+514,3,Infra / Platform / DevOps / SRE,AWS,32,82
+515,4,Infra / Platform / DevOps / SRE,Go,28,44
+516,5,Infra / Platform / DevOps / SRE,GCP,27,52
+517,6,Infra / Platform / DevOps / SRE,Linux,25,127
+518,7,Infra / Platform / DevOps / SRE,Azure,22,113
+519,8,Infra / Platform / DevOps / SRE,Terraform,21,15
+520,9,Infra / Platform / DevOps / SRE,C++,11,790
+521,10,Infra / Platform / DevOps / SRE,SQL,11,237
+522,11,Infra / Platform / DevOps / SRE,Rust,11,173
+523,12,Infra / Platform / DevOps / SRE,Docker,9,109
+524,13,Infra / Platform / DevOps / SRE,Ansible,9,8
+525,14,Infra / Platform / DevOps / SRE,PostgreSQL,8,185
+526,15,Infra / Platform / DevOps / SRE,Grafana,8,11
+527,16,Infra / Platform / DevOps / SRE,Prometheus,8,8
+528,17,Infra / Platform / DevOps / SRE,Node.js,7,219
+529,18,Infra / Platform / DevOps / SRE,MongoDB Atlas,6,6
+530,19,Infra / Platform / DevOps / SRE,Java,5,751
+531,20,Infra / Platform / DevOps / SRE,TypeScript,5,223
+532,21,Infra / Platform / DevOps / SRE,Git,5,126
+533,22,Infra / Platform / DevOps / SRE,PyTorch,5,53
+534,23,Infra / Platform / DevOps / SRE,Claude,5,25
+535,24,Infra / Platform / DevOps / SRE,Transformers,5,12
+536,25,Infra / Platform / DevOps / SRE,Bash,4,76
+537,26,Infra / Platform / DevOps / SRE,MCP,4,25
+538,27,Infra / Platform / DevOps / SRE,OpenTelemetry,4,10
+539,28,Infra / Platform / DevOps / SRE,Datadog,4,3
+540,29,Infra / Platform / DevOps / SRE,ArgoCD,4,2
+541,30,Infra / Platform / DevOps / SRE,Istio,4,1
+542,31,Infra / Platform / DevOps / SRE,Pulumi,4,0
+543,32,Infra / Platform / DevOps / SRE,JavaScript,3,734
+544,33,Infra / Platform / DevOps / SRE,GitHub Actions,3,35
+545,34,Infra / Platform / DevOps / SRE,TensorFlow,3,32
+546,35,Infra / Platform / DevOps / SRE,Apache Spark,3,30
+547,36,Infra / Platform / DevOps / SRE,Ruby,3,23
+548,37,Infra / Platform / DevOps / SRE,GPT,3,16
+549,38,Infra / Platform / DevOps / SRE,Helm,3,6
+550,39,Infra / Platform / DevOps / SRE,Amazon EKS,3,3
+551,40,Infra / Platform / DevOps / SRE,C,2,421
+552,41,Infra / Platform / DevOps / SRE,Assembly,2,77
+553,42,Infra / Platform / DevOps / SRE,MySQL,2,70
+554,43,Infra / Platform / DevOps / SRE,MongoDB,2,67
+555,44,Infra / Platform / DevOps / SRE,CUDA,2,38
+556,45,Infra / Platform / DevOps / SRE,Airflow,2,18
+557,46,Infra / Platform / DevOps / SRE,Amazon EC2,2,7
+558,47,Infra / Platform / DevOps / SRE,Cassandra,2,7
+559,48,Infra / Platform / DevOps / SRE,Jira,2,7
+560,49,Infra / Platform / DevOps / SRE,ClickHouse,2,6
+561,50,Infra / Platform / DevOps / SRE,AWS CloudFormation,2,4
+562,51,Infra / Platform / DevOps / SRE,Hadoop,2,3
+563,52,Infra / Platform / DevOps / SRE,Envoy,2,0
+564,53,Infra / Platform / DevOps / SRE,Puppet,2,0
+565,54,Infra / Platform / DevOps / SRE,C#,1,690
+566,55,Infra / Platform / DevOps / SRE,Android,1,489
+567,56,Infra / Platform / DevOps / SRE,iOS,1,300
+568,57,Infra / Platform / DevOps / SRE,Kotlin,1,172
+569,58,Infra / Platform / DevOps / SRE,React,1,141
+570,59,Infra / Platform / DevOps / SRE,Pandas,1,106
+571,60,Infra / Platform / DevOps / SRE,GitHub,1,67
+572,61,Infra / Platform / DevOps / SRE,Amazon S3,1,33
+573,62,Infra / Platform / DevOps / SRE,Apache Kafka,1,33
+574,63,Infra / Platform / DevOps / SRE,Redis,1,29
+575,64,Infra / Platform / DevOps / SRE,GitHub Copilot,1,27
+576,65,Infra / Platform / DevOps / SRE,Nginx,1,27
+577,66,Infra / Platform / DevOps / SRE,Cloudflare,1,16
+578,67,Infra / Platform / DevOps / SRE,Jenkins,1,15
+579,68,Infra / Platform / DevOps / SRE,gRPC,1,13
+580,69,Infra / Platform / DevOps / SRE,Apache Flink,1,7
+581,70,Infra / Platform / DevOps / SRE,OpenAI Codex,1,7
+582,71,Infra / Platform / DevOps / SRE,Vault,1,5
+583,72,Infra / Platform / DevOps / SRE,Nix,1,4
+584,73,Infra / Platform / DevOps / SRE,Okta,1,3
+585,74,Infra / Platform / DevOps / SRE,XGBoost,1,3
+586,75,Infra / Platform / DevOps / SRE,Figma,1,2
+587,76,Infra / Platform / DevOps / SRE,Cypress,1,1
+588,77,Infra / Platform / DevOps / SRE,Splunk,1,1
+589,78,Infra / Platform / DevOps / SRE,Buildkite,1,0
+590,79,Infra / Platform / DevOps / SRE,Confluence,1,0
+591,80,Infra / Platform / DevOps / SRE,Triton Inference Server,1,0
+592,1,ML / AI Engineer / Data Scientist,Python,187,1630
+593,2,ML / AI Engineer / Data Scientist,SQL,87,237
+594,3,ML / AI Engineer / Data Scientist,GPT,46,16
+595,4,ML / AI Engineer / Data Scientist,Claude,42,25
+596,5,ML / AI Engineer / Data Scientist,TypeScript,36,223
+597,6,ML / AI Engineer / Data Scientist,AWS,32,82
+598,7,ML / AI Engineer / Data Scientist,GCP,32,52
+599,8,ML / AI Engineer / Data Scientist,PyTorch,31,53
+600,9,ML / AI Engineer / Data Scientist,JavaScript,29,734
+601,10,ML / AI Engineer / Data Scientist,Apache Spark,27,30
+602,11,ML / AI Engineer / Data Scientist,OpenAI Codex,25,7
+603,12,ML / AI Engineer / Data Scientist,Azure,23,113
+604,13,ML / AI Engineer / Data Scientist,Go,19,44
+605,14,ML / AI Engineer / Data Scientist,MCP,19,25
+606,15,ML / AI Engineer / Data Scientist,Kubernetes,18,27
+607,16,ML / AI Engineer / Data Scientist,Java,17,751
+608,17,ML / AI Engineer / Data Scientist,Airflow,17,18
+609,18,ML / AI Engineer / Data Scientist,React,16,141
+610,19,ML / AI Engineer / Data Scientist,TensorFlow,16,32
+611,20,ML / AI Engineer / Data Scientist,Anthropic,16,3
+612,21,ML / AI Engineer / Data Scientist,PostgreSQL,15,185
+613,22,ML / AI Engineer / Data Scientist,R,14,373
+614,23,ML / AI Engineer / Data Scientist,C++,13,790
+615,24,ML / AI Engineer / Data Scientist,dbt,13,11
+616,25,ML / AI Engineer / Data Scientist,LangChain,12,24
+617,26,ML / AI Engineer / Data Scientist,Salesforce,12,12
+618,27,ML / AI Engineer / Data Scientist,Git,11,126
+619,28,ML / AI Engineer / Data Scientist,GitHub Copilot,11,27
+620,29,ML / AI Engineer / Data Scientist,Snowflake,11,26
+621,30,ML / AI Engineer / Data Scientist,GitHub,10,67
+622,31,ML / AI Engineer / Data Scientist,BigQuery,10,35
+623,32,ML / AI Engineer / Data Scientist,Databricks,10,24
+624,33,ML / AI Engineer / Data Scientist,Rust,9,173
+625,34,ML / AI Engineer / Data Scientist,Hadoop,9,3
+626,35,ML / AI Engineer / Data Scientist,Node.js,8,219
+627,36,ML / AI Engineer / Data Scientist,Linux,8,127
+628,37,ML / AI Engineer / Data Scientist,CUDA,7,38
+629,38,ML / AI Engineer / Data Scientist,JAX,7,12
+630,39,ML / AI Engineer / Data Scientist,Hugging Face,7,5
+631,40,ML / AI Engineer / Data Scientist,Docker,6,109
+632,41,ML / AI Engineer / Data Scientist,Pandas,6,106
+633,42,ML / AI Engineer / Data Scientist,Apache Kafka,6,33
+634,43,ML / AI Engineer / Data Scientist,Redis,6,29
+635,44,ML / AI Engineer / Data Scientist,Scala,6,22
+636,45,ML / AI Engineer / Data Scientist,Apache Flink,6,7
+637,46,ML / AI Engineer / Data Scientist,NumPy,5,58
+638,47,ML / AI Engineer / Data Scientist,Ruby,5,23
+639,48,ML / AI Engineer / Data Scientist,scikit-learn,5,21
+640,49,ML / AI Engineer / Data Scientist,Figma,5,2
+641,50,ML / AI Engineer / Data Scientist,Dagster,5,0
+642,51,ML / AI Engineer / Data Scientist,Looker,5,0
+643,52,ML / AI Engineer / Data Scientist,Terraform,4,15
+644,53,ML / AI Engineer / Data Scientist,Transformers,4,12
+645,54,ML / AI Engineer / Data Scientist,Grafana,4,11
+646,55,ML / AI Engineer / Data Scientist,Prometheus,4,8
+647,56,ML / AI Engineer / Data Scientist,Tableau,4,1
+648,57,ML / AI Engineer / Data Scientist,HTML,3,399
+649,58,ML / AI Engineer / Data Scientist,Next.js,3,124
+650,59,ML / AI Engineer / Data Scientist,MySQL,3,70
+651,60,ML / AI Engineer / Data Scientist,Amazon S3,3,33
+652,61,ML / AI Engineer / Data Scientist,SAS,3,11
+653,62,ML / AI Engineer / Data Scientist,ClickHouse,3,6
+654,63,ML / AI Engineer / Data Scientist,Llama,3,3
+655,64,ML / AI Engineer / Data Scientist,C#,2,690
+656,65,ML / AI Engineer / Data Scientist,Android,2,489
+657,66,ML / AI Engineer / Data Scientist,iOS,2,300
+658,67,ML / AI Engineer / Data Scientist,Swift,2,217
+659,68,ML / AI Engineer / Data Scientist,Kotlin,2,172
+660,69,ML / AI Engineer / Data Scientist,Bash,2,76
+661,70,ML / AI Engineer / Data Scientist,Express,2,46
+662,71,ML / AI Engineer / Data Scientist,FastAPI,2,39
+663,72,ML / AI Engineer / Data Scientist,GraphQL,2,11
+664,73,ML / AI Engineer / Data Scientist,Vertex AI,2,8
+665,74,ML / AI Engineer / Data Scientist,Slurm,2,7
+666,75,ML / AI Engineer / Data Scientist,MongoDB Atlas,2,6
+667,76,ML / AI Engineer / Data Scientist,Redshift,2,5
+668,77,ML / AI Engineer / Data Scientist,Datadog,2,3
+669,78,ML / AI Engineer / Data Scientist,C,1,421
+670,79,ML / AI Engineer / Data Scientist,CSS,1,310
+671,80,ML / AI Engineer / Data Scientist,SwiftUI,1,169
+672,81,ML / AI Engineer / Data Scientist,React Native,1,122
+673,82,ML / AI Engineer / Data Scientist,REST,1,72
+674,83,ML / AI Engineer / Data Scientist,MongoDB,1,67
+675,84,ML / AI Engineer / Data Scientist,SQLite,1,43
+676,85,ML / AI Engineer / Data Scientist,Ruby on Rails,1,27
+677,86,ML / AI Engineer / Data Scientist,Tailwind CSS,1,23
+678,87,ML / AI Engineer / Data Scientist,UIKit,1,20
+679,88,ML / AI Engineer / Data Scientist,Jupyter,1,19
+680,89,ML / AI Engineer / Data Scientist,MATLAB,1,16
+681,90,ML / AI Engineer / Data Scientist,Gemini,1,15
+682,91,ML / AI Engineer / Data Scientist,RabbitMQ,1,14
+683,92,ML / AI Engineer / Data Scientist,Elasticsearch,1,10
+684,93,ML / AI Engineer / Data Scientist,Julia,1,10
+685,94,ML / AI Engineer / Data Scientist,Streamlit,1,10
+686,95,ML / AI Engineer / Data Scientist,Ansible,1,8
+687,96,ML / AI Engineer / Data Scientist,Cloudflare Workers,1,6
+688,97,ML / AI Engineer / Data Scientist,Helm,1,6
+689,98,ML / AI Engineer / Data Scientist,DynamoDB,1,5
+690,99,ML / AI Engineer / Data Scientist,NetSuite,1,3
+691,100,ML / AI Engineer / Data Scientist,styled-components,1,3
+692,101,ML / AI Engineer / Data Scientist,HubSpot,1,0
+693,102,ML / AI Engineer / Data Scientist,MobX,1,0
+694,103,ML / AI Engineer / Data Scientist,Triton Inference Server,1,0
+695,104,ML / AI Engineer / Data Scientist,Zendesk,1,0
+696,1,Mobile,Swift,12,217
+697,2,Mobile,iOS,11,300
+698,3,Mobile,Python,9,1630
+699,4,Mobile,SwiftUI,8,169
+700,5,Mobile,Java,6,751
+701,6,Mobile,SQL,4,237
+702,7,Mobile,Bash,4,76
+703,8,Mobile,MySQL,4,70
+704,9,Mobile,Go,4,44
+705,10,Mobile,UIKit,4,20
+706,11,Mobile,Bazel,4,7
+707,12,Mobile,React,3,141
+708,13,Mobile,Kubernetes,3,27
+709,14,Mobile,Claude,3,25
+710,15,Mobile,Terraform,3,15
+711,16,Mobile,JavaScript,2,734
+712,17,Mobile,TypeScript,2,223
+713,18,Mobile,Linux,2,127
+714,19,Mobile,Git,2,126
+715,20,Mobile,Docker,2,109
+716,21,Mobile,AWS,2,82
+717,22,Mobile,GitHub,2,67
+718,23,Mobile,Flask,2,28
+719,24,Mobile,LangChain,2,24
+720,25,Mobile,Objective-C,2,17
+721,26,Mobile,GPT,2,16
+722,27,Mobile,OpenAI Codex,2,7
+723,28,Mobile,Figma,2,2
+724,29,Mobile,Buildkite,2,0
+725,30,Mobile,C++,1,790
+726,31,Mobile,Android,1,489
+727,32,Mobile,Node.js,1,219
+728,33,Mobile,Kotlin,1,172
+729,34,Mobile,Spring,1,138
+730,35,Mobile,Apache Kafka,1,33
+731,36,Mobile,Tailwind CSS,1,23
+732,37,Mobile,Gemini,1,15
+733,38,Mobile,Jenkins,1,15
+734,39,Mobile,Elasticsearch,1,10
+735,40,Mobile,Jira,1,7
+736,41,Mobile,Confluence,1,0
+737,1,Research Engineer / Scientist,Python,52,1630
+738,2,Research Engineer / Scientist,PyTorch,30,53
+739,3,Research Engineer / Scientist,Kubernetes,22,27
+740,4,Research Engineer / Scientist,Claude,22,25
+741,5,Research Engineer / Scientist,GPT,15,16
+742,6,Research Engineer / Scientist,JAX,15,12
+743,7,Research Engineer / Scientist,Docker,14,109
+744,8,Research Engineer / Scientist,TensorFlow,14,32
+745,9,Research Engineer / Scientist,C++,13,790
+746,10,Research Engineer / Scientist,AWS,12,82
+747,11,Research Engineer / Scientist,Java,9,751
+748,12,Research Engineer / Scientist,Rust,8,173
+749,13,Research Engineer / Scientist,GCP,8,52
+750,14,Research Engineer / Scientist,CUDA,8,38
+751,15,Research Engineer / Scientist,SQL,7,237
+752,16,Research Engineer / Scientist,Transformers,7,12
+753,17,Research Engineer / Scientist,Anthropic,6,3
+754,18,Research Engineer / Scientist,Azure,4,113
+755,19,Research Engineer / Scientist,Apache Spark,4,30
+756,20,Research Engineer / Scientist,LangChain,4,24
+757,21,Research Engineer / Scientist,JavaScript,3,734
+758,22,Research Engineer / Scientist,R,3,373
+759,23,Research Engineer / Scientist,Swift,3,217
+760,24,Research Engineer / Scientist,Linux,3,127
+761,25,Research Engineer / Scientist,Go,3,44
+762,26,Research Engineer / Scientist,BigQuery,3,35
+763,27,Research Engineer / Scientist,Apache Kafka,3,33
+764,28,Research Engineer / Scientist,Scala,3,22
+765,29,Research Engineer / Scientist,Airflow,3,18
+766,30,Research Engineer / Scientist,OpenAI Codex,3,7
+767,31,Research Engineer / Scientist,Triton Inference Server,3,0
+768,32,Research Engineer / Scientist,C,2,421
+769,33,Research Engineer / Scientist,Node.js,2,219
+770,34,Research Engineer / Scientist,Pandas,2,106
+771,35,Research Engineer / Scientist,GitHub,2,67
+772,36,Research Engineer / Scientist,NumPy,2,58
+773,37,Research Engineer / Scientist,GitHub Copilot,2,27
+774,38,Research Engineer / Scientist,NCCL,2,1
+775,39,Research Engineer / Scientist,Spring,1,138
+776,40,Research Engineer / Scientist,MySQL,1,70
+777,41,Research Engineer / Scientist,Amazon S3,1,33
+778,42,Research Engineer / Scientist,Redis,1,29
+779,43,Research Engineer / Scientist,GitLab,1,27
+780,44,Research Engineer / Scientist,Lua,1,25
+781,45,Research Engineer / Scientist,MCP,1,25
+782,46,Research Engineer / Scientist,Terraform,1,15
+783,47,Research Engineer / Scientist,RabbitMQ,1,14
+784,48,Research Engineer / Scientist,Hugging Face,1,5
+785,49,Research Engineer / Scientist,Bicep,1,3
+786,50,Research Engineer / Scientist,MLflow,1,2
+787,51,Research Engineer / Scientist,Zookeeper,1,0
+788,1,Security Engineer,Python,55,1630
+789,2,Security Engineer,AWS,47,82
+790,3,Security Engineer,Kubernetes,42,27
+791,4,Security Engineer,GCP,37,52
+792,5,Security Engineer,Azure,36,113
+793,6,Security Engineer,Go,35,44
+794,7,Security Engineer,Rust,19,173
+795,8,Security Engineer,Linux,19,127
+796,9,Security Engineer,Terraform,19,15
+797,10,Security Engineer,C++,15,790
+798,11,Security Engineer,TypeScript,11,223
+799,12,Security Engineer,Java,9,751
+800,13,Security Engineer,JavaScript,8,734
+801,14,Security Engineer,Bash,7,76
+802,15,Security Engineer,Jira,7,7
+803,16,Security Engineer,Node.js,6,219
+804,17,Security Engineer,SQL,5,237
+805,18,Security Engineer,React,5,141
+806,19,Security Engineer,Git,5,126
+807,20,Security Engineer,Docker,5,109
+808,21,Security Engineer,GitHub,5,67
+809,22,Security Engineer,Claude,5,25
+810,23,Security Engineer,Confluence,5,0
+811,24,Security Engineer,C#,4,690
+812,25,Security Engineer,C,4,421
+813,26,Security Engineer,Amazon S3,3,33
+814,27,Security Engineer,Flask,3,28
+815,28,Security Engineer,Ruby,3,23
+816,29,Security Engineer,OpenAI Codex,3,7
+817,30,Security Engineer,Vault,3,5
+818,31,Security Engineer,AWS CloudFormation,3,4
+819,32,Security Engineer,Datadog,3,3
+820,33,Security Engineer,Okta,3,3
+821,34,Security Engineer,Zendesk,3,0
+822,35,Security Engineer,Swift,2,217
+823,36,Security Engineer,PostgreSQL,2,185
+824,37,Security Engineer,Assembly,2,77
+825,38,Security Engineer,GitHub Actions,2,35
+826,39,Security Engineer,Grafana,2,11
+827,40,Security Engineer,Amazon EC2,2,7
+828,41,Security Engineer,MongoDB Atlas,2,6
+829,42,Security Engineer,Amazon EKS,2,3
+830,43,Security Engineer,Google GKE,2,1
+831,44,Security Engineer,Istio,2,1
+832,45,Security Engineer,Splunk,2,1
+833,46,Security Engineer,Envoy,2,0
+834,47,Security Engineer,Android,1,489
+835,48,Security Engineer,HTML,1,399
+836,49,Security Engineer,iOS,1,300
+837,50,Security Engineer,Pandas,1,106
+838,51,Security Engineer,REST,1,72
+839,52,Security Engineer,MySQL,1,70
+840,53,Security Engineer,BigQuery,1,35
+841,54,Security Engineer,Apache Kafka,1,33
+842,55,Security Engineer,Apache Spark,1,30
+843,56,Security Engineer,Nginx,1,27
+844,57,Security Engineer,Ruby on Rails,1,27
+845,58,Security Engineer,MCP,1,25
+846,59,Security Engineer,GitLab CI,1,21
+847,60,Security Engineer,Objective-C,1,17
+848,61,Security Engineer,GPT,1,16
+849,62,Security Engineer,Jenkins,1,15
+850,63,Security Engineer,Elasticsearch,1,10
+851,64,Security Engineer,IIS,1,10
+852,65,Security Engineer,Apache Flink,1,7
+853,66,Security Engineer,Bazel,1,7
+854,67,Security Engineer,Elixir,1,4
+855,68,Security Engineer,Nix,1,4
+856,69,Security Engineer,Zig,1,4
+857,70,Security Engineer,Anthropic,1,3
+858,71,Security Engineer,Solidity,1,2
+859,72,Security Engineer,Pulumi,1,0
+860,73,Security Engineer,Snyk,1,0
+861,74,Security Engineer,Vanta,1,0
+862,1,Solutions / Forward Deployed,Python,169,1630
+863,2,Solutions / Forward Deployed,JavaScript,102,734
+864,3,Solutions / Forward Deployed,AWS,97,82
+865,4,Solutions / Forward Deployed,Azure,93,113
+866,5,Solutions / Forward Deployed,GCP,91,52
+867,6,Solutions / Forward Deployed,Kubernetes,68,27
+868,7,Solutions / Forward Deployed,Java,42,751
+869,8,Solutions / Forward Deployed,SQL,38,237
+870,9,Solutions / Forward Deployed,Go,37,44
+871,10,Solutions / Forward Deployed,TypeScript,32,223
+872,11,Solutions / Forward Deployed,Node.js,31,219
+873,12,Solutions / Forward Deployed,Terraform,28,15
+874,13,Solutions / Forward Deployed,C++,26,790
+875,14,Solutions / Forward Deployed,C#,24,690
+876,15,Solutions / Forward Deployed,MongoDB Atlas,23,6
+877,16,Solutions / Forward Deployed,Apache Kafka,22,33
+878,17,Solutions / Forward Deployed,Ruby,18,23
+879,18,Solutions / Forward Deployed,Docker,17,109
+880,19,Solutions / Forward Deployed,React,16,141
+881,20,Solutions / Forward Deployed,Datadog,15,3
+882,21,Solutions / Forward Deployed,Bash,13,76
+883,22,Solutions / Forward Deployed,Helm,12,6
+884,23,Solutions / Forward Deployed,PHP,9,252
+885,24,Solutions / Forward Deployed,REST,9,72
+886,25,Solutions / Forward Deployed,Jenkins,9,15
+887,26,Solutions / Forward Deployed,Ansible,9,8
+888,27,Solutions / Forward Deployed,Splunk,9,1
+889,28,Solutions / Forward Deployed,Puppet,9,0
+890,29,Solutions / Forward Deployed,GitLab,8,27
+891,30,Solutions / Forward Deployed,OpenShift,8,3
+892,31,Solutions / Forward Deployed,Git,7,126
+893,32,Solutions / Forward Deployed,Perl,7,40
+894,33,Solutions / Forward Deployed,Cloudflare,7,16
+895,34,Solutions / Forward Deployed,GPT,7,16
+896,35,Solutions / Forward Deployed,Grafana,7,11
+897,36,Solutions / Forward Deployed,Prometheus,7,8
+898,37,Solutions / Forward Deployed,Cloudflare Workers,7,6
+899,38,Solutions / Forward Deployed,Amazon EKS,7,3
+900,39,Solutions / Forward Deployed,Google GKE,7,1
+901,40,Solutions / Forward Deployed,PostgreSQL,6,185
+902,41,Solutions / Forward Deployed,Claude,6,25
+903,42,Solutions / Forward Deployed,Salesforce,6,12
+904,43,Solutions / Forward Deployed,Rust,4,173
+905,44,Solutions / Forward Deployed,MongoDB,4,67
+906,45,Solutions / Forward Deployed,Apache Spark,4,30
+907,46,Solutions / Forward Deployed,MCP,4,25
+908,47,Solutions / Forward Deployed,Jira,4,7
+909,48,Solutions / Forward Deployed,Pulumi,4,0
+910,49,Solutions / Forward Deployed,HTML,3,399
+911,50,Solutions / Forward Deployed,Linux,3,127
+912,51,Solutions / Forward Deployed,GitHub,3,67
+913,52,Solutions / Forward Deployed,Lua,3,25
+914,53,Solutions / Forward Deployed,Jupyter,3,19
+915,54,Solutions / Forward Deployed,Gemini,3,15
+916,55,Solutions / Forward Deployed,SAS,3,11
+917,56,Solutions / Forward Deployed,Vertex AI,3,8
+918,57,Solutions / Forward Deployed,AWS CloudFormation,3,4
+919,58,Solutions / Forward Deployed,NetSuite,3,3
+920,59,Solutions / Forward Deployed,Android,2,489
+921,60,Solutions / Forward Deployed,R,2,373
+922,61,Solutions / Forward Deployed,CSS,2,310
+923,62,Solutions / Forward Deployed,Swift,2,217
+924,63,Solutions / Forward Deployed,.NET,2,174
+925,64,Solutions / Forward Deployed,Next.js,2,124
+926,65,Solutions / Forward Deployed,GitHub Actions,2,35
+927,66,Solutions / Forward Deployed,MATLAB,2,16
+928,67,Solutions / Forward Deployed,GraphQL,2,11
+929,68,Solutions / Forward Deployed,Zendesk,2,0
+930,69,Solutions / Forward Deployed,iOS,1,300
+931,70,Solutions / Forward Deployed,Kotlin,1,172
+932,71,Solutions / Forward Deployed,Angular,1,156
+933,72,Solutions / Forward Deployed,React Native,1,122
+934,73,Solutions / Forward Deployed,SQLite,1,43
+935,74,Solutions / Forward Deployed,Vue.js,1,30
+936,75,Solutions / Forward Deployed,Redis,1,29
+937,76,Solutions / Forward Deployed,GitHub Copilot,1,27
+938,77,Solutions / Forward Deployed,Snowflake,1,26
+939,78,Solutions / Forward Deployed,Databricks,1,24
+940,79,Solutions / Forward Deployed,Objective-C,1,17
+941,80,Solutions / Forward Deployed,OpenTelemetry,1,10
+942,81,Solutions / Forward Deployed,Vercel,1,9
+943,82,Solutions / Forward Deployed,Amazon EC2,1,7
+944,83,Solutions / Forward Deployed,DynamoDB,1,5
+945,84,Solutions / Forward Deployed,Heroku,1,4
+946,85,Solutions / Forward Deployed,Anthropic,1,3
+947,86,Solutions / Forward Deployed,CockroachDB,1,0
+948,87,Solutions / Forward Deployed,Fly.io,1,0
+949,88,Solutions / Forward Deployed,Vanta,1,0
+950,1,Systems / Low-level,Python,21,1630
+951,2,Systems / Low-level,SQL,21,237
+952,3,Systems / Low-level,Go,18,44
+953,4,Systems / Low-level,C++,14,790
+954,5,Systems / Low-level,Rust,14,173
+955,6,Systems / Low-level,Kubernetes,14,27
+956,7,Systems / Low-level,TypeScript,11,223
+957,8,Systems / Low-level,Linux,11,127
+958,9,Systems / Low-level,Docker,10,109
+959,10,Systems / Low-level,Terraform,10,15
+960,11,Systems / Low-level,JavaScript,8,734
+961,12,Systems / Low-level,PostgreSQL,8,185
+962,13,Systems / Low-level,Apache Kafka,7,33
+963,14,Systems / Low-level,Claude,7,25
+964,15,Systems / Low-level,Salesforce,7,12
+965,16,Systems / Low-level,ClickHouse,7,6
+966,17,Systems / Low-level,Grafana,6,11
+967,18,Systems / Low-level,dbt,6,11
+968,19,Systems / Low-level,Snowflake,5,26
+969,20,Systems / Low-level,Prometheus,5,8
+970,21,Systems / Low-level,Java,4,751
+971,22,Systems / Low-level,React,4,141
+972,23,Systems / Low-level,Bash,4,76
+973,24,Systems / Low-level,GCP,4,52
+974,25,Systems / Low-level,Apache Flink,4,7
+975,26,Systems / Low-level,Jira,4,7
+976,27,Systems / Low-level,Tableau,4,1
+977,28,Systems / Low-level,Android,3,489
+978,29,Systems / Low-level,REST,3,72
+979,30,Systems / Low-level,MySQL,3,70
+980,31,Systems / Low-level,BigQuery,3,35
+981,32,Systems / Low-level,GitLab CI,3,21
+982,33,Systems / Low-level,GPT,3,16
+983,34,Systems / Low-level,OpenAI Codex,3,7
+984,35,Systems / Low-level,Okta,3,3
+985,36,Systems / Low-level,Looker,3,0
+986,37,Systems / Low-level,Zendesk,3,0
+987,38,Systems / Low-level,Node.js,2,219
+988,39,Systems / Low-level,Git,2,126
+989,40,Systems / Low-level,AWS,2,82
+990,41,Systems / Low-level,Apache Spark,2,30
+991,42,Systems / Low-level,Redis,2,29
+992,43,Systems / Low-level,Nginx,2,27
+993,44,Systems / Low-level,Airflow,2,18
+994,45,Systems / Low-level,Plotly,2,18
+995,46,Systems / Low-level,Cloudflare,2,16
+996,47,Systems / Low-level,gRPC,2,13
+997,48,Systems / Low-level,GraphQL,2,11
+998,49,Systems / Low-level,Streamlit,2,10
+999,50,Systems / Low-level,Kibana,2,3
+1000,51,Systems / Low-level,NetSuite,2,3
+1001,52,Systems / Low-level,HubSpot,2,0
+1002,53,Systems / Low-level,C,1,421
+1003,54,Systems / Low-level,R,1,373
+1004,55,Systems / Low-level,iOS,1,300
+1005,56,Systems / Low-level,Swift,1,217
+1006,57,Systems / Low-level,Kotlin,1,172
+1007,58,Systems / Low-level,Azure,1,113
+1008,59,Systems / Low-level,GitHub,1,67
+1009,60,Systems / Low-level,CUDA,1,38
+1010,61,Systems / Low-level,Amazon S3,1,33
+1011,62,Systems / Low-level,GitHub Copilot,1,27
+1012,63,Systems / Low-level,MCP,1,25
+1013,64,Systems / Low-level,Databricks,1,24
+1014,65,Systems / Low-level,GDB,1,12
+1015,66,Systems / Low-level,Ansible,1,8
+1016,67,Systems / Low-level,Cloudflare Workers,1,6
+1017,68,Systems / Low-level,Redshift,1,5
+1018,69,Systems / Low-level,Datadog,1,3
+1019,70,Systems / Low-level,Figma,1,2
+1020,71,Systems / Low-level,Splunk,1,1
+1021,72,Systems / Low-level,Dagster,1,0
+1022,73,Systems / Low-level,Envoy,1,0
+1023,74,Systems / Low-level,Gatsby,1,0
+1024,75,Systems / Low-level,Groovy,1,0
+1025,76,Systems / Low-level,Puppet,1,0

@@ -883,16 +883,56 @@ a {
   animation: shimmer 1.5s linear infinite;
 }
 
+/* 좁은 화면에서도 2x2를 유지한다. 세로로 4개를 세우면 "두 축이 기술을 네
+   자리로 나눈다"는 이 섹션의 설명 자체가 화면과 어긋난다 (/m의
+   .mv-quad-grid도 같은 이유로 2열을 지킨다). 대신 칸 안쪽 치수를 줄인다. */
 @media (max-width: 720px) {
   .quadrants__frame {
     grid-template-columns: 24px minmax(0, 1fr);
   }
   .quadrants__grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, auto);
+    gap: 8px;
   }
-  .quadrants__crosshair {
-    display: none;
+  .quadrant-cell {
+    padding: 13px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+  /* 칸이 좁아지면 이름과 개수가 한 줄에 다 안 들어간다. 줄바꿈을 허용해
+     개수가 넘쳐 잘리는 대신 아래로 내려가게 한다. */
+  .quadrant-cell__top {
+    flex-wrap: wrap;
+    gap: 6px 8px;
+  }
+  .quadrant-cell__marker {
+    width: 7px;
+    height: 7px;
+  }
+  .quadrant-cell__label {
+    font-size: 0.82rem;
+  }
+  .quadrant-cell__count {
+    font-size: 0.68rem;
+  }
+  .quadrant-cell__desc {
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+  .quadrant-cell__samples {
+    gap: 5px;
+  }
+  .quadrant-cell__tag {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.64rem;
+  }
+  .quadrant-cell__empty {
+    font-size: 0.68rem;
+  }
+  .quadrant-cell__skeleton {
+    width: 50px;
+    height: 22px;
+    border-radius: 6px;
   }
 }
 

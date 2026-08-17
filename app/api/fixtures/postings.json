@@ -1,0 +1,704 @@
+{
+  "python": [
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "데이터 엔지니어 (Python)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "데이터 엔지니어 (Python)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "데이터 엔지니어 (Python)",
+      "location": "경기 성남시",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "java": [
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "백엔드 엔지니어 (Java)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (Java)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (Java)",
+      "location": "서울 마포구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "react": [
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "프론트엔드 엔지니어 (React)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "프론트엔드 엔지니어 (React)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "프론트엔드 엔지니어 (React)",
+      "location": "서울 강남구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "sql": [
+    {
+      "company": "(예시) 블루하버",
+      "title": "데이터 엔지니어 (SQL)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "데이터 엔지니어 (SQL)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "데이터 엔지니어 (SQL)",
+      "location": "서울 성동구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "docker": [
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "플랫폼 엔지니어 (Docker)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "플랫폼 엔지니어 (Docker)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "플랫폼 엔지니어 (Docker)",
+      "location": "경기 성남시",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "aws": [
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "플랫폼 엔지니어 (AWS)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "플랫폼 엔지니어 (AWS)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "플랫폼 엔지니어 (AWS)",
+      "location": "서울 마포구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "kubernetes": [
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "플랫폼 엔지니어 (Kubernetes)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "플랫폼 엔지니어 (Kubernetes)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "플랫폼 엔지니어 (Kubernetes)",
+      "location": "서울 강남구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "javascript": [
+    {
+      "company": "(예시) 블루하버",
+      "title": "프론트엔드 엔지니어 (JavaScript)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "프론트엔드 엔지니어 (JavaScript)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "프론트엔드 엔지니어 (JavaScript)",
+      "location": "서울 성동구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "apache-kafka": [
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "백엔드 엔지니어 (Apache Kafka)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "백엔드 엔지니어 (Apache Kafka)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (Apache Kafka)",
+      "location": "경기 성남시",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "nodejs": [
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "백엔드 엔지니어 (Node.js)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (Node.js)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (Node.js)",
+      "location": "서울 마포구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "postgresql": [
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (PostgreSQL)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (PostgreSQL)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "백엔드 엔지니어 (PostgreSQL)",
+      "location": "서울 강남구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "linux": [
+    {
+      "company": "(예시) 블루하버",
+      "title": "플랫폼 엔지니어 (Linux)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "플랫폼 엔지니어 (Linux)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "플랫폼 엔지니어 (Linux)",
+      "location": "서울 성동구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "typescript": [
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "프론트엔드 엔지니어 (TypeScript)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "프론트엔드 엔지니어 (TypeScript)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "프론트엔드 엔지니어 (TypeScript)",
+      "location": "경기 성남시",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "apache-spark": [
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "데이터 엔지니어 (Apache Spark)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "데이터 엔지니어 (Apache Spark)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "데이터 엔지니어 (Apache Spark)",
+      "location": "서울 마포구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "go": [
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (Go)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (Go)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "백엔드 엔지니어 (Go)",
+      "location": "서울 강남구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "terraform": [
+    {
+      "company": "(예시) 블루하버",
+      "title": "플랫폼 엔지니어 (Terraform)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "플랫폼 엔지니어 (Terraform)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "플랫폼 엔지니어 (Terraform)",
+      "location": "서울 성동구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "pytorch": [
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "데이터 엔지니어 (PyTorch)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "데이터 엔지니어 (PyTorch)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "데이터 엔지니어 (PyTorch)",
+      "location": "경기 성남시",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "openai": [
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "데이터 엔지니어 (GPT / OpenAI)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "데이터 엔지니어 (GPT / OpenAI)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "데이터 엔지니어 (GPT / OpenAI)",
+      "location": "서울 마포구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "azure": [
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "플랫폼 엔지니어 (Azure)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "플랫폼 엔지니어 (Azure)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "플랫폼 엔지니어 (Azure)",
+      "location": "서울 강남구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "gcp": [
+    {
+      "company": "(예시) 블루하버",
+      "title": "플랫폼 엔지니어 (GCP)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "플랫폼 엔지니어 (GCP)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "플랫폼 엔지니어 (GCP)",
+      "location": "서울 성동구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "cpp": [
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "백엔드 엔지니어 (C++)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "백엔드 엔지니어 (C++)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (C++)",
+      "location": "경기 성남시",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "tableau": [
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "데이터 엔지니어 (Tableau)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "데이터 엔지니어 (Tableau)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "데이터 엔지니어 (Tableau)",
+      "location": "서울 마포구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "c": [
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (C)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (C)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "백엔드 엔지니어 (C)",
+      "location": "서울 강남구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "rust": [
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (Rust)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "백엔드 엔지니어 (Rust)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "백엔드 엔지니어 (Rust)",
+      "location": "서울 성동구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "cloudflare": [
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "플랫폼 엔지니어 (Cloudflare)",
+      "location": "서울 강남구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "플랫폼 엔지니어 (Cloudflare)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "플랫폼 엔지니어 (Cloudflare)",
+      "location": "경기 성남시",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "ruby": [
+    {
+      "company": "(예시) 오르빗랩스",
+      "title": "백엔드 엔지니어 (Ruby)",
+      "location": "서울 성동구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (Ruby)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (Ruby)",
+      "location": "서울 마포구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ],
+  "salesforce": [
+    {
+      "company": "(예시) 세로원소프트",
+      "title": "백엔드 엔지니어 (Salesforce)",
+      "location": "경기 성남시",
+      "employmentType": "정규직",
+      "publishedAt": "2026-08-05",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 블루하버",
+      "title": "백엔드 엔지니어 (Salesforce)",
+      "location": "서울 마포구",
+      "employmentType": "정규직",
+      "publishedAt": "2026-07-28",
+      "applyUrl": null
+    },
+    {
+      "company": "(예시) 그린라인테크",
+      "title": "백엔드 엔지니어 (Salesforce)",
+      "location": "서울 강남구",
+      "employmentType": "계약직",
+      "publishedAt": "2026-07-14",
+      "applyUrl": null
+    }
+  ]
+}

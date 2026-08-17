@@ -1,0 +1,1554 @@
+{
+  "meta": {
+    "fromDate": "2026-02-13",
+    "toDate": "2026-08-12",
+    "totalTechs": 27,
+    "mappedTechs": 27,
+    "totalPostings": 2412,
+    "mapLimit": 30,
+    "roles": [
+      "일반 SWE",
+      "매니지먼트 · 솔루션",
+      "AI · 리서치",
+      "인프라 · 보안",
+      "웹 · 모바일",
+      "데이터"
+    ]
+  },
+  "items": [
+    {
+      "tech": "Python",
+      "skillCode": "python",
+      "kind": "범용 언어",
+      "roles": [
+        "AI · 리서치",
+        "데이터"
+      ],
+      "demand": 100.0,
+      "demandRank": 1,
+      "ecosystemScore": 100.0,
+      "quadrant": "필수",
+      "postings": 919,
+      "postingsShare": 38.1,
+      "postingsNote": "채용공고 2,412건 중 919건(38.1%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 100.0,
+          "raw": 22869713
+        },
+        "githubActivity": {
+          "score": 100.0,
+          "raw": 6717204
+        },
+        "stackoverflow": {
+          "score": 100.0,
+          "raw": 1635
+        }
+      },
+      "sampleRepositories": [
+        "TheAlgorithms/Python",
+        "geekcomputers/Python",
+        "walter201230/Python"
+      ],
+      "summary": "공고 919건(38.1%)에 등장해 27개 기술 중 압도적 1위이고, 생태계 세 지표도 모두 만점입니다. AI·리서치 직군 공고의 47%가 요구합니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "919건(38.1%)에서 요구돼 27개 기술 중 1위입니다. 직군별 요구 비율 — AI · 리서치 47.0%(239건), 데이터 45.8%(33건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 22,869,713개, 최근 180일 이슈·PR 6,717,204건이 집계돼 저장소 점수 100점 · 활동 점수 100점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`python` 태그로 최근 180일 질문 1,635개가 올라와 열기 점수 100점입니다."
+        }
+      ],
+      "stack": [
+        "FastAPI",
+        "Pandas",
+        "PyTorch",
+        "Airflow"
+      ],
+      "verdict": "선택이 아니라 기본기입니다. 다만 그만큼 변별력이 없으니 AI·리서치나 데이터 중 도메인 하나를 함께 정해야 공고에서 걸러지지 않습니다."
+    },
+    {
+      "tech": "AWS",
+      "skillCode": "aws",
+      "kind": "클라우드 플랫폼",
+      "roles": [
+        "인프라 · 보안",
+        "매니지먼트 · 솔루션"
+      ],
+      "demand": 96.2,
+      "demandRank": 2,
+      "ecosystemScore": 61.6,
+      "quadrant": "필수",
+      "postings": 428,
+      "postingsShare": 17.7,
+      "postingsNote": "채용공고 2,412건 중 428건(17.7%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 59.1,
+          "raw": 3043703
+        },
+        "githubActivity": {
+          "score": 69.9,
+          "raw": 1526062
+        },
+        "stackoverflow": {
+          "score": 55.7,
+          "raw": 83
+        }
+      },
+      "sampleRepositories": [
+        "boto/boto3",
+        "floci-io/floci",
+        "boto/botocore"
+      ],
+      "summary": "공고 428건(17.7%)으로 클라우드 3사 중 1위이자 전체 2위입니다. 인프라·보안 공고의 27%, 매니지먼트·솔루션 공고의 24%가 요구합니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "428건(17.7%)에서 요구돼 27개 기술 중 2위입니다. 직군별 요구 비율 — 인프라 · 보안 26.8%(81건), 매니지먼트 · 솔루션 23.6%(133건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 3,043,703개, 최근 180일 이슈·PR 1,526,062건이 집계돼 저장소 점수 59.1점 · 활동 점수 69.9점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`amazon-web-services` 태그로 최근 180일 질문 83개가 올라와 열기 점수 55.7점입니다."
+        }
+      ],
+      "stack": [
+        "Docker",
+        "Terraform",
+        "Kubernetes",
+        "Linux"
+      ],
+      "verdict": "세 클라우드를 다 볼 필요는 없습니다. 점유가 가장 넓은 AWS 하나를 골라 IAM·VPC·관리형 서비스까지 실제로 만져보는 편이 낫습니다."
+    },
+    {
+      "tech": "Kubernetes",
+      "skillCode": "kubernetes",
+      "kind": "컨테이너 오케스트레이션",
+      "roles": [
+        "인프라 · 보안",
+        "일반 SWE"
+      ],
+      "demand": 92.3,
+      "demandRank": 3,
+      "ecosystemScore": 47.2,
+      "quadrant": "희소가치",
+      "postings": 418,
+      "postingsShare": 17.3,
+      "postingsNote": "채용공고 2,412건 중 418건(17.3%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 39.5,
+          "raw": 1156260
+        },
+        "githubActivity": {
+          "score": 62.8,
+          "raw": 1078619
+        },
+        "stackoverflow": {
+          "score": 39.3,
+          "raw": 27
+        }
+      },
+      "sampleRepositories": [
+        "kubernetes/kubernetes",
+        "justmeandopensource/kubernetes",
+        "DeekshithSN/kubernetes"
+      ],
+      "summary": "공고 418건(17.3%)으로 수요는 3위인데 생태계 점수는 47.2로 중위권입니다. 저장소·질문 수로는 안 잡히지만 인프라·보안 공고의 30%가 요구하는 전형적인 희소가치 구간입니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "418건(17.3%)에서 요구돼 27개 기술 중 3위입니다. 직군별 요구 비율 — 인프라 · 보안 30.5%(92건), 일반 SWE 21.8%(167건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 1,156,260개, 최근 180일 이슈·PR 1,078,619건이 집계돼 저장소 점수 39.5점 · 활동 점수 62.8점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`kubernetes` 태그로 최근 180일 질문 27개가 올라와 열기 점수 39.3점입니다."
+        }
+      ],
+      "stack": [
+        "Docker",
+        "Terraform",
+        "Go",
+        "Linux"
+      ],
+      "verdict": "학습 환경 만들기가 어려워 희소성이 유지됩니다. 관리형 클러스터라도 직접 띄워 배포·롤백까지 해본 경험이 그대로 차별화가 됩니다."
+    },
+    {
+      "tech": "Go",
+      "skillCode": "go",
+      "kind": "시스템 언어",
+      "roles": [
+        "인프라 · 보안",
+        "일반 SWE"
+      ],
+      "demand": 88.5,
+      "demandRank": 4,
+      "ecosystemScore": 44.1,
+      "quadrant": "희소가치",
+      "postings": 409,
+      "postingsShare": 17.0,
+      "postingsNote": "채용공고 2,412건 중 409건(17.0%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 28.4,
+          "raw": 668577
+        },
+        "githubActivity": {
+          "score": 56.7,
+          "raw": 799264
+        },
+        "stackoverflow": {
+          "score": 47.1,
+          "raw": 46
+        }
+      },
+      "sampleRepositories": [
+        "aceld/golang",
+        "docker-library/golang",
+        "cncamp/golang"
+      ],
+      "summary": "공고 409건(17.0%)으로 수요 4위지만 생태계 점수는 44.1에 그칩니다. 인프라·보안 공고의 27%가 요구해 클라우드 네이티브 도구 계열에 수요가 몰려 있습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "409건(17.0%)에서 요구돼 27개 기술 중 4위입니다. 직군별 요구 비율 — 인프라 · 보안 26.8%(81건), 일반 SWE 25.9%(199건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 668,577개, 최근 180일 이슈·PR 799,264건이 집계돼 저장소 점수 28.4점 · 활동 점수 56.7점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`go` 태그로 최근 180일 질문 46개가 올라와 열기 점수 47.1점입니다."
+        }
+      ],
+      "stack": [
+        "Kubernetes",
+        "Docker",
+        "PostgreSQL",
+        "Terraform"
+      ],
+      "verdict": "문법이 작아 진입이 빠른 편입니다. 언어 자체보다 Kubernetes·Terraform 같은 생태계 도구와 묶어 익히는 쪽이 공고 요건과 맞습니다."
+    },
+    {
+      "tech": "GCP",
+      "skillCode": "gcp",
+      "kind": "클라우드 플랫폼",
+      "roles": [
+        "인프라 · 보안",
+        "매니지먼트 · 솔루션"
+      ],
+      "demand": 84.6,
+      "demandRank": 5,
+      "ecosystemScore": 39.4,
+      "quadrant": "희소가치",
+      "postings": 354,
+      "postingsShare": 14.7,
+      "postingsNote": "채용공고 2,412건 중 354건(14.7%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 30.5,
+          "raw": 739443
+        },
+        "githubActivity": {
+          "score": 38.9,
+          "raw": 333440
+        },
+        "stackoverflow": {
+          "score": 48.9,
+          "raw": 52
+        }
+      },
+      "sampleRepositories": [
+        "cs231n/gcloud",
+        "googleapis/google-cloud-go",
+        "GoogleCloudPlatform/microservices-demo"
+      ],
+      "summary": "공고 354건(14.7%)으로 Azure(310건)보다 많은 클라우드 2위입니다. 생태계 점수 39.4는 27개 중 하위권이라 수요 대비 커뮤니티 노출이 적습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "354건(14.7%)에서 요구돼 27개 기술 중 5위입니다. 직군별 요구 비율 — 인프라 · 보안 22.5%(68건), 매니지먼트 · 솔루션 21.3%(120건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 739,443개, 최근 180일 이슈·PR 333,440건이 집계돼 저장소 점수 30.5점 · 활동 점수 38.9점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`google-cloud-platform` 태그로 최근 180일 질문 52개가 올라와 열기 점수 48.9점입니다."
+        }
+      ],
+      "stack": [
+        "Kubernetes",
+        "Terraform",
+        "Python",
+        "SQL"
+      ],
+      "verdict": "AWS를 먼저 잡은 뒤 두 번째로 볼 선택지입니다. 데이터·ML 스택(BigQuery, Vertex AI)을 쓰는 조직이라면 우선순위가 올라갑니다."
+    },
+    {
+      "tech": "SQL",
+      "skillCode": "sql",
+      "kind": "질의 언어",
+      "roles": [
+        "데이터",
+        "AI · 리서치"
+      ],
+      "demand": 80.8,
+      "demandRank": 6,
+      "ecosystemScore": 74.4,
+      "quadrant": "필수",
+      "postings": 326,
+      "postingsShare": 13.5,
+      "postingsNote": "채용공고 2,412건 중 326건(13.5%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 71.0,
+          "raw": 5454443
+        },
+        "githubActivity": {
+          "score": 80.8,
+          "raw": 2607530
+        },
+        "stackoverflow": {
+          "score": 71.4,
+          "raw": 240
+        }
+      },
+      "sampleRepositories": [
+        "UofT-DSI/sql",
+        "opendistro-for-elasticsearch/sql",
+        "opensearch-project/sql"
+      ],
+      "summary": "공고 326건(13.5%)이고 데이터 직군 공고의 57%가 요구해 직군 집중도가 27개 중 가장 뚜렷합니다. AI·리서치 공고에서도 19%가 요구합니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "326건(13.5%)에서 요구돼 27개 기술 중 6위입니다. 직군별 요구 비율 — 데이터 56.9%(41건), AI · 리서치 18.5%(94건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 5,454,443개, 최근 180일 이슈·PR 2,607,530건이 집계돼 저장소 점수 71점 · 활동 점수 80.8점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`sql` 태그로 최근 180일 질문 240개가 올라와 열기 점수 71.4점입니다."
+        }
+      ],
+      "stack": [
+        "PostgreSQL",
+        "Python",
+        "Apache Spark",
+        "Tableau"
+      ],
+      "verdict": "저장소가 무엇이든 결국 거쳐 갑니다. 문법보다 실행 계획과 조인 비용을 설명할 수 있는지가 실제 면접에서 갈리는 지점입니다."
+    },
+    {
+      "tech": "TypeScript",
+      "skillCode": "typescript",
+      "kind": "정적 타입 언어",
+      "roles": [
+        "일반 SWE",
+        "웹 · 모바일"
+      ],
+      "demand": 76.9,
+      "demandRank": 7,
+      "ecosystemScore": 80.5,
+      "quadrant": "필수",
+      "postings": 324,
+      "postingsShare": 13.4,
+      "postingsNote": "채용공고 2,412건 중 324건(13.4%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 79.9,
+          "raw": 8487301
+        },
+        "githubActivity": {
+          "score": 91.3,
+          "raw": 4370609
+        },
+        "stackoverflow": {
+          "score": 70.4,
+          "raw": 223
+        }
+      },
+      "sampleRepositories": [
+        "microsoft/TypeScript",
+        "zhongsp/TypeScript",
+        "TheAlgorithms/TypeScript"
+      ],
+      "summary": "공고 324건(13.4%)으로 JavaScript(242건)를 이미 앞질렀습니다. 생태계 점수 80.5도 상위권이라 양쪽이 함께 올라온 몇 안 되는 기술입니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "324건(13.4%)에서 요구돼 27개 기술 중 7위입니다. 직군별 요구 비율 — 일반 SWE 22.4%(172건), 웹 · 모바일 17.1%(34건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 8,487,301개, 최근 180일 이슈·PR 4,370,609건이 집계돼 저장소 점수 79.9점 · 활동 점수 91.3점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`typescript` 태그로 최근 180일 질문 223개가 올라와 열기 점수 70.4점입니다."
+        }
+      ],
+      "stack": [
+        "React",
+        "Node.js",
+        "Next.js",
+        "ESLint"
+      ],
+      "verdict": "새로 시작한다면 JavaScript를 거치지 말고 바로 여기서 출발해도 됩니다. 타입 정의를 직접 써보는 데까지 가야 요건을 채웁니다."
+    },
+    {
+      "tech": "Azure",
+      "skillCode": "azure",
+      "kind": "클라우드 플랫폼",
+      "roles": [
+        "매니지먼트 · 솔루션",
+        "인프라 · 보안"
+      ],
+      "demand": 73.1,
+      "demandRank": 8,
+      "ecosystemScore": 56.2,
+      "quadrant": "필수",
+      "postings": 310,
+      "postingsShare": 12.9,
+      "postingsNote": "채용공고 2,412건 중 310건(12.9%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 47.0,
+          "raw": 1674341
+        },
+        "githubActivity": {
+          "score": 61.0,
+          "raw": 986673
+        },
+        "stackoverflow": {
+          "score": 60.5,
+          "raw": 115
+        }
+      },
+      "sampleRepositories": [
+        "hashicorp/terraform-provider-azurerm",
+        "bridgecrewio/terragoat",
+        "Azure/terraform-azurerm-caf-enterprise-scale"
+      ],
+      "summary": "공고 310건(12.9%)으로 클라우드 3위입니다. 매니지먼트·솔루션 공고의 21%가 요구해 고객사 환경을 다루는 직군에 몰려 있습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "310건(12.9%)에서 요구돼 27개 기술 중 8위입니다. 직군별 요구 비율 — 매니지먼트 · 솔루션 21.5%(121건), 인프라 · 보안 19.5%(59건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 1,674,341개, 최근 180일 이슈·PR 986,673건이 집계돼 저장소 점수 47점 · 활동 점수 61점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`azure` 태그로 최근 180일 질문 115개가 올라와 열기 점수 60.5점입니다."
+        }
+      ],
+      "stack": [
+        "Docker",
+        "Terraform",
+        "Java",
+        "Kubernetes"
+      ],
+      "verdict": "세 클라우드 중 마지막 순위입니다. 다만 엔터프라이즈·공공 고객을 상대하는 포지션을 노린다면 AWS보다 먼저 볼 수도 있습니다."
+    },
+    {
+      "tech": "Java",
+      "skillCode": "java",
+      "kind": "범용 언어",
+      "roles": [
+        "웹 · 모바일",
+        "일반 SWE"
+      ],
+      "demand": 69.2,
+      "demandRank": 9,
+      "ecosystemScore": 82.4,
+      "quadrant": "필수",
+      "postings": 264,
+      "postingsShare": 10.9,
+      "postingsNote": "채용공고 2,412건 중 264건(10.9%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 82.8,
+          "raw": 9763371
+        },
+        "githubActivity": {
+          "score": 75.9,
+          "raw": 2055516
+        },
+        "stackoverflow": {
+          "score": 88.4,
+          "raw": 748
+        }
+      },
+      "sampleRepositories": [
+        "TheAlgorithms/Java",
+        "DuGuQiuBai/Java",
+        "singgel/JAVA"
+      ],
+      "summary": "공고 264건(10.9%)이고 생태계 점수 82.4으로 양쪽 모두 상위권입니다. 웹·모바일 공고의 18%가 요구합니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "264건(10.9%)에서 요구돼 27개 기술 중 9위입니다. 직군별 요구 비율 — 웹 · 모바일 17.6%(35건), 일반 SWE 14.7%(113건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 9,763,371개, 최근 180일 이슈·PR 2,055,516건이 집계돼 저장소 점수 82.8점 · 활동 점수 75.9점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`java` 태그로 최근 180일 질문 748개가 올라와 열기 점수 88.4점입니다."
+        }
+      ],
+      "stack": [
+        "Spring",
+        "PostgreSQL",
+        "Apache Kafka",
+        "Docker"
+      ],
+      "verdict": "Spring과 묶어야 의미가 있습니다. 언어만 익히고 프레임워크를 비워두면 공고 요건을 채우기 어렵습니다."
+    },
+    {
+      "tech": "C++",
+      "skillCode": "cpp",
+      "kind": "시스템 언어",
+      "roles": [
+        "일반 SWE",
+        "인프라 · 보안"
+      ],
+      "demand": 65.4,
+      "demandRank": 10,
+      "ecosystemScore": 92.1,
+      "quadrant": "필수",
+      "postings": 252,
+      "postingsShare": 10.4,
+      "postingsNote": "채용공고 2,412건 중 252건(10.4%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 88.4,
+          "raw": 12869819
+        },
+        "githubActivity": {
+          "score": 98.5,
+          "raw": 6241596
+        },
+        "stackoverflow": {
+          "score": 89.4,
+          "raw": 802
+        }
+      },
+      "sampleRepositories": [
+        "Light-City/CPlusPlusThings",
+        "forhappy/Cplusplus-Concurrency-In-Practice",
+        "AccumulateMore/CPlusPlus"
+      ],
+      "summary": "생태계 점수 92.1로 27개 중 2위인데 공고는 252건(10.4%)에 그칩니다. 일반 SWE 공고의 17%가 요구하되 시스템·저수준 영역에 집중돼 있습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "252건(10.4%)에서 요구돼 27개 기술 중 10위입니다. 직군별 요구 비율 — 일반 SWE 17.2%(132건), 인프라 · 보안 13.2%(40건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 12,869,819개, 최근 180일 이슈·PR 6,241,596건이 집계돼 저장소 점수 88.4점 · 활동 점수 98.5점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`c++` 태그로 최근 180일 질문 802개가 올라와 열기 점수 89.4점입니다."
+        }
+      ],
+      "stack": [
+        "CMake",
+        "Linux",
+        "C",
+        "Unreal Engine"
+      ],
+      "verdict": "수요가 몰린 분야가 뚜렷합니다. 게임·시스템·고성능 서버 중 목표를 먼저 정해야 학습 시간이 회수됩니다."
+    },
+    {
+      "tech": "JavaScript",
+      "skillCode": "javascript",
+      "kind": "범용 언어",
+      "roles": [
+        "매니지먼트 · 솔루션",
+        "웹 · 모바일"
+      ],
+      "demand": 61.5,
+      "demandRank": 11,
+      "ecosystemScore": 83.5,
+      "quadrant": "필수",
+      "postings": 242,
+      "postingsShare": 10.0,
+      "postingsNote": "채용공고 2,412건 중 242건(10.0%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 88.0,
+          "raw": 12663077
+        },
+        "githubActivity": {
+          "score": 74.4,
+          "raw": 1907314
+        },
+        "stackoverflow": {
+          "score": 88.1,
+          "raw": 736
+        }
+      },
+      "sampleRepositories": [
+        "airbnb/javascript",
+        "TheAlgorithms/JavaScript",
+        "GitbookIO/javascript"
+      ],
+      "summary": "공고 242건(10.0%)으로 TypeScript에 1위 자리를 내줬습니다. 매니지먼트·솔루션 공고의 20%가 요구해 고객 대면 통합 업무에서 여전히 자주 등장합니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "242건(10.0%)에서 요구돼 27개 기술 중 11위입니다. 직군별 요구 비율 — 매니지먼트 · 솔루션 20.2%(114건), 웹 · 모바일 9.0%(18건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 12,663,077개, 최근 180일 이슈·PR 1,907,314건이 집계돼 저장소 점수 88점 · 활동 점수 74.4점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`javascript` 태그로 최근 180일 질문 736개가 올라와 열기 점수 88.1점입니다."
+        }
+      ],
+      "stack": [
+        "React",
+        "Node.js",
+        "TypeScript",
+        "Webpack"
+      ],
+      "verdict": "이미 TypeScript로 무게중심이 옮겨갔습니다. 새로 배운다면 TypeScript를 목표로 두고 그 아래 기반으로만 다루세요."
+    },
+    {
+      "tech": "Rust",
+      "skillCode": "rust",
+      "kind": "시스템 언어",
+      "roles": [
+        "일반 SWE",
+        "인프라 · 보안"
+      ],
+      "demand": 57.7,
+      "demandRank": 12,
+      "ecosystemScore": 62.1,
+      "quadrant": "필수",
+      "postings": 225,
+      "postingsShare": 9.3,
+      "postingsNote": "채용공고 2,412건 중 225건(9.3%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 43.9,
+          "raw": 1436125
+        },
+        "githubActivity": {
+          "score": 75.6,
+          "raw": 2021480
+        },
+        "stackoverflow": {
+          "score": 66.8,
+          "raw": 175
+        }
+      },
+      "sampleRepositories": [
+        "rust-lang/rust",
+        "TheAlgorithms/Rust",
+        "tensorflow/rust"
+      ],
+      "summary": "공고 225건(9.3%), 생태계 점수 62.1로 둘 다 중상위권입니다. 일반 SWE 공고의 16%가 요구할 만큼 실사용이 넓어졌습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "225건(9.3%)에서 요구돼 27개 기술 중 12위입니다. 직군별 요구 비율 — 일반 SWE 16.4%(126건), 인프라 · 보안 14.6%(44건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 1,436,125개, 최근 180일 이슈·PR 2,021,480건이 집계돼 저장소 점수 43.9점 · 활동 점수 75.6점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`rust` 태그로 최근 180일 질문 175개가 올라와 열기 점수 66.8점입니다."
+        }
+      ],
+      "stack": [
+        "Cargo",
+        "WebAssembly",
+        "Linux",
+        "Go"
+      ],
+      "verdict": "\"뜨는 언어\" 단계는 지났습니다. 다만 신규 서비스보다 인프라·툴링 재작성 쪽에 수요가 있으니 그 영역의 프로젝트로 접근하세요."
+    },
+    {
+      "tech": "React",
+      "skillCode": "react",
+      "kind": "UI 라이브러리",
+      "roles": [
+        "웹 · 모바일",
+        "일반 SWE"
+      ],
+      "demand": 53.8,
+      "demandRank": 13,
+      "ecosystemScore": 87.0,
+      "quadrant": "필수",
+      "postings": 205,
+      "postingsShare": 8.5,
+      "postingsNote": "채용공고 2,412건 중 205건(8.5%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 99.5,
+          "raw": 22313624
+        },
+        "githubActivity": {
+          "score": 97.9,
+          "raw": 6064635
+        },
+        "stackoverflow": {
+          "score": 63.7,
+          "raw": 142
+        }
+      },
+      "sampleRepositories": [
+        "react/react",
+        "typescript-cheatsheets/react",
+        "duxianwei520/react"
+      ],
+      "summary": "생태계 점수 87으로 상위권이고 공고는 205건(8.5%)입니다. 웹·모바일 공고의 20%가 요구해 해당 직군 안에서는 사실상 기본 요건입니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "205건(8.5%)에서 요구돼 27개 기술 중 13위입니다. 직군별 요구 비율 — 웹 · 모바일 19.6%(39건), 일반 SWE 13.8%(106건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 22,313,624개, 최근 180일 이슈·PR 6,064,635건이 집계돼 저장소 점수 99.5점 · 활동 점수 97.9점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`reactjs` 태그로 최근 180일 질문 142개가 올라와 열기 점수 63.7점입니다."
+        }
+      ],
+      "stack": [
+        "TypeScript",
+        "Next.js",
+        "Node.js",
+        "Vite"
+      ],
+      "verdict": "차별화 요소라기보다 출발선입니다. React를 쓴다는 사실보다 상태 관리와 렌더링 비용을 설명할 수 있는지가 갈립니다."
+    },
+    {
+      "tech": "Terraform",
+      "skillCode": "terraform",
+      "kind": "인프라 자동화",
+      "roles": [
+        "인프라 · 보안",
+        "일반 SWE"
+      ],
+      "demand": 50.0,
+      "demandRank": 14,
+      "ecosystemScore": 38.3,
+      "quadrant": "희소가치",
+      "postings": 159,
+      "postingsShare": 6.6,
+      "postingsNote": "채용공고 2,412건 중 159건(6.6%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 34.1,
+          "raw": 884111
+        },
+        "githubActivity": {
+          "score": 49.8,
+          "raw": 567838
+        },
+        "stackoverflow": {
+          "score": 31.0,
+          "raw": 15
+        }
+      },
+      "sampleRepositories": [
+        "hashicorp/terraform",
+        "Azure/terraform",
+        "collabnix/terraform"
+      ],
+      "summary": "공고 159건(6.6%)에 인프라·보안 공고의 17%가 요구하는데, 생태계 점수는 38.3으로 낮습니다. 도구 특성상 공개 저장소와 Q&A가 적게 잡히는 전형적인 희소가치 사례입니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "159건(6.6%)에서 요구돼 27개 기술 중 14위입니다. 직군별 요구 비율 — 인프라 · 보안 16.6%(50건), 일반 SWE 7.3%(56건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 884,111개, 최근 180일 이슈·PR 567,838건이 집계돼 저장소 점수 34.1점 · 활동 점수 49.8점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`terraform` 태그로 최근 180일 질문 15개가 올라와 열기 점수 31점입니다."
+        }
+      ],
+      "stack": [
+        "AWS",
+        "Kubernetes",
+        "Docker",
+        "Go"
+      ],
+      "verdict": "생태계 점수가 낮다고 넘기면 안 되는 항목입니다. 인프라 직군을 볼 거라면 사실상 고정 요건에 가깝습니다."
+    },
+    {
+      "tech": "Linux",
+      "skillCode": "linux",
+      "kind": "운영체제",
+      "roles": [
+        "인프라 · 보안",
+        "일반 SWE"
+      ],
+      "demand": 46.2,
+      "demandRank": 15,
+      "ecosystemScore": 73.6,
+      "quadrant": "선점 후보",
+      "postings": 149,
+      "postingsShare": 6.2,
+      "postingsNote": "채용공고 2,412건 중 149건(6.2%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 75.1,
+          "raw": 6706245
+        },
+        "githubActivity": {
+          "score": 83.6,
+          "raw": 2993520
+        },
+        "stackoverflow": {
+          "score": 62.0,
+          "raw": 127
+        }
+      },
+      "sampleRepositories": [
+        "torvalds/linux",
+        "raspberrypi/linux",
+        "analogdevicesinc/linux"
+      ],
+      "summary": "생태계 점수 73.6은 상위권인데 공고는 149건(6.2%)입니다. 명시적으로 적히지 않아도 전제되는 경우가 많아 공고 수가 실제 필요보다 적게 잡힙니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "149건(6.2%)에서 요구돼 27개 기술 중 15위입니다. 직군별 요구 비율 — 인프라 · 보안 18.2%(55건), 일반 SWE 7.3%(56건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 6,706,245개, 최근 180일 이슈·PR 2,993,520건이 집계돼 저장소 점수 75.1점 · 활동 점수 83.6점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`linux` 태그로 최근 180일 질문 127개가 올라와 열기 점수 62점입니다."
+        }
+      ],
+      "stack": [
+        "Docker",
+        "AWS",
+        "Kubernetes",
+        "C"
+      ],
+      "verdict": "단독으로 내세울 항목은 아니지만 없으면 다른 인프라 요건을 못 채웁니다. 셸·프로세스·네트워크 진단까지는 손에 익혀두세요."
+    },
+    {
+      "tech": "GPT / OpenAI",
+      "skillCode": "openai",
+      "kind": "AI 플랫폼",
+      "roles": [
+        "AI · 리서치",
+        "일반 SWE"
+      ],
+      "demand": 42.3,
+      "demandRank": 16,
+      "ecosystemScore": 54.0,
+      "quadrant": "선점 후보",
+      "postings": 133,
+      "postingsShare": 5.5,
+      "postingsNote": "채용공고 2,412건 중 133건(5.5%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 57.2,
+          "raw": 2767870
+        },
+        "githubActivity": {
+          "score": 72.9,
+          "raw": 1775709
+        },
+        "stackoverflow": {
+          "score": 31.9,
+          "raw": 16
+        }
+      },
+      "sampleRepositories": [
+        "ChatGPTNextWeb/NextChat",
+        "Chanzhaoyu/chatgpt-web",
+        "openai/openai-cookbook"
+      ],
+      "summary": "생태계 점수 54에 공고 133건(5.5%)입니다. AI·리서치 공고의 11%가 요구합니다. 참고로 이 데이터셋에서 Claude는 172건으로 더 많이 언급되지만 생태계 지표 수집 대상에는 아직 없습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "133건(5.5%)에서 요구돼 27개 기술 중 16위입니다. 직군별 요구 비율 — AI · 리서치 11.0%(56건), 일반 SWE 6.4%(49건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 2,767,870개, 최근 180일 이슈·PR 1,775,709건이 집계돼 저장소 점수 57.2점 · 활동 점수 72.9점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`openai-api` 태그로 최근 180일 질문 16개가 올라와 열기 점수 31.9점입니다."
+        }
+      ],
+      "stack": [
+        "Python",
+        "PyTorch",
+        "FastAPI",
+        "PostgreSQL"
+      ],
+      "verdict": "모델 이름 자체보다 API를 붙여 실제로 돌아가는 것을 만들어본 경험이 요건에 가깝습니다. 특정 벤더에 고정하지 마세요."
+    },
+    {
+      "tech": "Node.js",
+      "skillCode": "nodejs",
+      "kind": "서버 런타임",
+      "roles": [
+        "웹 · 모바일",
+        "매니지먼트 · 솔루션"
+      ],
+      "demand": 38.5,
+      "demandRank": 17,
+      "ecosystemScore": 81.8,
+      "quadrant": "선점 후보",
+      "postings": 130,
+      "postingsShare": 5.4,
+      "postingsNote": "채용공고 2,412건 중 130건(5.4%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 89.8,
+          "raw": 13809108
+        },
+        "githubActivity": {
+          "score": 85.4,
+          "raw": 3276738
+        },
+        "stackoverflow": {
+          "score": 70.2,
+          "raw": 220
+        }
+      },
+      "sampleRepositories": [
+        "nodejs/node",
+        "wchaowu/nodejs",
+        "nodejs/nodejs.org"
+      ],
+      "summary": "생태계 점수 81.8로 상위권인데 공고는 130건(5.4%)에 그칩니다. 웹·모바일 공고의 11%가 요구합니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "130건(5.4%)에서 요구돼 27개 기술 중 17위입니다. 직군별 요구 비율 — 웹 · 모바일 11.1%(22건), 매니지먼트 · 솔루션 6.7%(38건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 13,809,108개, 최근 180일 이슈·PR 3,276,738건이 집계돼 저장소 점수 89.8점 · 활동 점수 85.4점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`node.js` 태그로 최근 180일 질문 220개가 올라와 열기 점수 70.2점입니다."
+        }
+      ],
+      "stack": [
+        "TypeScript",
+        "PostgreSQL",
+        "Docker",
+        "AWS"
+      ],
+      "verdict": "프론트엔드 경험을 서버로 확장하는 통로로는 여전히 가장 짧은 경로입니다. 다만 이것만으로 백엔드 포지션을 노리기엔 수요가 얇습니다."
+    },
+    {
+      "tech": "PostgreSQL",
+      "skillCode": "postgresql",
+      "kind": "관계형 데이터베이스",
+      "roles": [
+        "일반 SWE",
+        "인프라 · 보안"
+      ],
+      "demand": 34.6,
+      "demandRank": 18,
+      "ecosystemScore": 68.9,
+      "quadrant": "선점 후보",
+      "postings": 126,
+      "postingsShare": 5.2,
+      "postingsNote": "채용공고 2,412건 중 126건(5.2%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 67.3,
+          "raw": 4562141
+        },
+        "githubActivity": {
+          "score": 72.0,
+          "raw": 1694304
+        },
+        "stackoverflow": {
+          "score": 67.5,
+          "raw": 184
+        }
+      },
+      "sampleRepositories": [
+        "postgres/postgres",
+        "ANXS/postgresql",
+        "sous-chefs/postgresql"
+      ],
+      "summary": "생태계 점수 68.9에 비해 공고는 126건(5.2%)으로 적습니다. 특정 DB를 명시하지 않고 SQL로만 적는 공고가 많아 과소 집계되는 쪽입니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "126건(5.2%)에서 요구돼 27개 기술 중 18위입니다. 직군별 요구 비율 — 일반 SWE 8.6%(66건), 인프라 · 보안 6.0%(18건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 4,562,141개, 최근 180일 이슈·PR 1,694,304건이 집계돼 저장소 점수 67.3점 · 활동 점수 72점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`postgresql` 태그로 최근 180일 질문 184개가 올라와 열기 점수 67.5점입니다."
+        }
+      ],
+      "stack": [
+        "SQL",
+        "Java",
+        "Node.js",
+        "Docker"
+      ],
+      "verdict": "MySQL과 고민된다면 이쪽이 최근 흐름에 맞습니다. 트랜잭션 격리 수준까지는 설명할 수 있어야 합니다."
+    },
+    {
+      "tech": "Docker",
+      "skillCode": "docker",
+      "kind": "컨테이너 런타임",
+      "roles": [
+        "웹 · 모바일",
+        "인프라 · 보안"
+      ],
+      "demand": 30.8,
+      "demandRank": 19,
+      "ecosystemScore": 76.8,
+      "quadrant": "선점 후보",
+      "postings": 115,
+      "postingsShare": 4.8,
+      "postingsNote": "채용공고 2,412건 중 115건(4.8%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 78.9,
+          "raw": 8091561
+        },
+        "githubActivity": {
+          "score": 91.3,
+          "raw": 4375652
+        },
+        "stackoverflow": {
+          "score": 60.2,
+          "raw": 112
+        }
+      },
+      "sampleRepositories": [
+        "jenkinsci/docker",
+        "nextcloud/docker",
+        "odoo/docker"
+      ],
+      "summary": "생태계 점수 76.8은 상위권인데 공고는 115건(4.8%)입니다. Kubernetes(418건)를 요구하는 공고가 컨테이너를 당연한 전제로 두고 따로 적지 않기 때문으로 보입니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "115건(4.8%)에서 요구돼 27개 기술 중 19위입니다. 직군별 요구 비율 — 웹 · 모바일 8.0%(16건), 인프라 · 보안 7.9%(24건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 8,091,561개, 최근 180일 이슈·PR 4,375,652건이 집계돼 저장소 점수 78.9점 · 활동 점수 91.3점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`docker` 태그로 최근 180일 질문 112개가 올라와 열기 점수 60.2점입니다."
+        }
+      ],
+      "stack": [
+        "Kubernetes",
+        "Linux",
+        "AWS",
+        "Terraform"
+      ],
+      "verdict": "학습 비용 대비 회수가 가장 빠른 축입니다. 개인 프로젝트를 이미지로 말아 올리는 것만으로 요건 상당수를 채웁니다."
+    },
+    {
+      "tech": "Apache Spark",
+      "skillCode": "apache-spark",
+      "kind": "분산 처리 엔진",
+      "roles": [
+        "데이터",
+        "AI · 리서치"
+      ],
+      "demand": 26.9,
+      "demandRank": 20,
+      "ecosystemScore": 15.8,
+      "quadrant": "저관심",
+      "postings": 105,
+      "postingsShare": 4.4,
+      "postingsNote": "채용공고 2,412건 중 105건(4.4%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 6.5,
+          "raw": 226614
+        },
+        "githubActivity": {
+          "score": 0.0,
+          "raw": 49162
+        },
+        "stackoverflow": {
+          "score": 40.9,
+          "raw": 30
+        }
+      },
+      "sampleRepositories": [
+        "apache/spark",
+        "microsoft/SynapseML",
+        "gettyimages/docker-spark"
+      ],
+      "summary": "공고 105건(4.4%)이고 데이터 공고의 19%가 요구합니다. GitHub 활동 점수가 27개 중 최하위(0.0)인 것은 신규 저장소가 적다는 뜻이지 안 쓴다는 뜻이 아닙니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "105건(4.4%)에서 요구돼 27개 기술 중 20위입니다. 직군별 요구 비율 — 데이터 19.4%(14건), AI · 리서치 6.1%(31건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 226,614개, 최근 180일 이슈·PR 49,162건이 집계돼 저장소 점수 6.5점 · 활동 점수 0점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`apache-spark` 태그로 최근 180일 질문 30개가 올라와 열기 점수 40.9점입니다."
+        }
+      ],
+      "stack": [
+        "Python",
+        "SQL",
+        "Apache Kafka",
+        "AWS"
+      ],
+      "verdict": "데이터 직군을 볼 때만 의미가 있습니다. 그 안에서는 대용량 배치를 다뤄봤다는 증거로 여전히 유효합니다."
+    },
+    {
+      "tech": "Apache Kafka",
+      "skillCode": "apache-kafka",
+      "kind": "메시지 스트리밍",
+      "roles": [
+        "데이터",
+        "웹 · 모바일"
+      ],
+      "demand": 23.1,
+      "demandRank": 21,
+      "ecosystemScore": 32.5,
+      "quadrant": "저관심",
+      "postings": 97,
+      "postingsShare": 4.0,
+      "postingsNote": "채용공고 2,412건 중 97건(4.0%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 22.6,
+          "raw": 500946
+        },
+        "githubActivity": {
+          "score": 32.3,
+          "raw": 240696
+        },
+        "stackoverflow": {
+          "score": 42.7,
+          "raw": 34
+        }
+      },
+      "sampleRepositories": [
+        "apache/kafka",
+        "wurstmeister/kafka-docker",
+        "provectus/kafka-ui"
+      ],
+      "summary": "공고 97건(4.0%), 생태계 점수 32.5입니다. 데이터와 웹·모바일 공고에 고루 걸쳐 있어 특정 직군에 묶이지 않습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "97건(4.0%)에서 요구돼 27개 기술 중 21위입니다. 직군별 요구 비율 — 데이터 6.9%(5건), 웹 · 모바일 6.5%(13건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 500,946개, 최근 180일 이슈·PR 240,696건이 집계돼 저장소 점수 22.6점 · 활동 점수 32.3점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`apache-kafka` 태그로 최근 180일 질문 34개가 올라와 열기 점수 42.7점입니다."
+        }
+      ],
+      "stack": [
+        "Java",
+        "Apache Spark",
+        "Docker",
+        "PostgreSQL"
+      ],
+      "verdict": "대규모 트래픽을 다루는 조직에 한정된 요건입니다. 신입·주니어 단계에서 우선순위를 높게 둘 항목은 아닙니다."
+    },
+    {
+      "tech": "PyTorch",
+      "skillCode": "pytorch",
+      "kind": "머신러닝 프레임워크",
+      "roles": [
+        "AI · 리서치",
+        "일반 SWE"
+      ],
+      "demand": 19.2,
+      "demandRank": 22,
+      "ecosystemScore": 41.3,
+      "quadrant": "저관심",
+      "postings": 96,
+      "postingsShare": 4.0,
+      "postingsNote": "채용공고 2,412건 중 96건(4.0%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 41.0,
+          "raw": 1244195
+        },
+        "githubActivity": {
+          "score": 33.6,
+          "raw": 257132
+        },
+        "stackoverflow": {
+          "score": 49.4,
+          "raw": 54
+        }
+      },
+      "sampleRepositories": [
+        "pytorch/pytorch",
+        "deeplearningzerotoall/PyTorch",
+        "Ascend/pytorch"
+      ],
+      "summary": "공고 96건(4.0%)으로 전체에서는 하위권이지만, AI·리서치 공고만 보면 12%가 요구해 해당 직군 안에서는 비중이 큽니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "96건(4.0%)에서 요구돼 27개 기술 중 22위입니다. 직군별 요구 비율 — AI · 리서치 12.0%(61건), 일반 SWE 3.3%(25건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 1,244,195개, 최근 180일 이슈·PR 257,132건이 집계돼 저장소 점수 41점 · 활동 점수 33.6점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`pytorch` 태그로 최근 180일 질문 54개가 올라와 열기 점수 49.4점입니다."
+        }
+      ],
+      "stack": [
+        "Python",
+        "GPT / OpenAI",
+        "Apache Spark",
+        "Docker"
+      ],
+      "verdict": "AI 직군을 목표로 할 때만 담으세요. 전체 공고 수로 판단하면 실제 필요보다 낮게 보입니다."
+    },
+    {
+      "tech": "Ruby",
+      "skillCode": "ruby",
+      "kind": "범용 언어",
+      "roles": [
+        "매니지먼트 · 솔루션",
+        "일반 SWE"
+      ],
+      "demand": 15.4,
+      "demandRank": 23,
+      "ecosystemScore": 48.9,
+      "quadrant": "저관심",
+      "postings": 68,
+      "postingsShare": 2.8,
+      "postingsNote": "채용공고 2,412건 중 68건(2.8%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 54.2,
+          "raw": 2389364
+        },
+        "githubActivity": {
+          "score": 55.3,
+          "raw": 747200
+        },
+        "stackoverflow": {
+          "score": 37.1,
+          "raw": 23
+        }
+      },
+      "sampleRepositories": [
+        "ruby/ruby",
+        "airbnb/ruby",
+        "exercism/ruby"
+      ],
+      "summary": "공고 68건(2.8%), 생태계 점수 48.9로 양쪽 모두 내려온 구간입니다. 남은 수요는 기존 Rails 서비스를 운영하는 조직에 몰려 있습니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "68건(2.8%)에서 요구돼 27개 기술 중 23위입니다. 직군별 요구 비율 — 매니지먼트 · 솔루션 4.3%(24건), 일반 SWE 3.5%(27건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 2,389,364개, 최근 180일 이슈·PR 747,200건이 집계돼 저장소 점수 54.2점 · 활동 점수 55.3점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`ruby` 태그로 최근 180일 질문 23개가 올라와 열기 점수 37.1점입니다."
+        }
+      ],
+      "stack": [
+        "Rails",
+        "PostgreSQL",
+        "Docker",
+        "Linux"
+      ],
+      "verdict": "지금 새로 시작할 이유는 약합니다. 이미 Rails 코드베이스를 맡고 있는 경우가 아니라면 우선순위를 낮게 두세요."
+    },
+    {
+      "tech": "Salesforce",
+      "skillCode": "salesforce",
+      "kind": "업무 SaaS 플랫폼",
+      "roles": [
+        "AI · 리서치",
+        "인프라 · 보안"
+      ],
+      "demand": 11.5,
+      "demandRank": 24,
+      "ecosystemScore": 22.2,
+      "quadrant": "저관심",
+      "postings": 41,
+      "postingsShare": 1.7,
+      "postingsNote": "채용공고 2,412건 중 41건(1.7%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 16.0,
+          "raw": 362485
+        },
+        "githubActivity": {
+          "score": 22.8,
+          "raw": 151137
+        },
+        "stackoverflow": {
+          "score": 27.9,
+          "raw": 12
+        }
+      },
+      "sampleRepositories": [
+        "NVIDIA/apex",
+        "forcedotcom/salesforcedx-vscode",
+        "trailheadapps/apex-recipes"
+      ],
+      "summary": "공고 41건(1.7%), 생태계 점수 22.2으로 둘 다 하위권입니다. 개발 도구가 아니라 사내 업무 시스템 쪽에서 소비됩니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "41건(1.7%)에서 요구돼 27개 기술 중 24위입니다. 직군별 요구 비율 — AI · 리서치 2.4%(12건), 인프라 · 보안 2.3%(7건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 362,485개, 최근 180일 이슈·PR 151,137건이 집계돼 저장소 점수 16점 · 활동 점수 22.8점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`salesforce` 태그로 최근 180일 질문 12개가 올라와 열기 점수 27.9점입니다."
+        }
+      ],
+      "stack": [
+        "SQL",
+        "JavaScript",
+        "Java"
+      ],
+      "verdict": "개발 커리어의 축으로 삼기에는 수요가 얇습니다. 특정 산업군의 사내 시스템 포지션을 노릴 때만 의미가 있습니다."
+    },
+    {
+      "tech": "C",
+      "skillCode": "c",
+      "kind": "시스템 언어",
+      "roles": [
+        "인프라 · 보안",
+        "일반 SWE"
+      ],
+      "demand": 7.7,
+      "demandRank": 25,
+      "ecosystemScore": 29.9,
+      "quadrant": "저관심",
+      "postings": 27,
+      "postingsShare": 1.1,
+      "postingsNote": "채용공고 2,412건 중 27건(1.1%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 0.0,
+          "raw": 164416
+        },
+        "githubActivity": {
+          "score": 9.7,
+          "raw": 79332
+        },
+        "stackoverflow": {
+          "score": 79.9,
+          "raw": 423
+        }
+      },
+      "sampleRepositories": [
+        "AnthonyCalandra/modern-cpp-features",
+        "hubojing/C-Language-Games",
+        "dimpeshmalviya/C-Language-Programs"
+      ],
+      "summary": "공고 27건(1.1%)으로 하위권입니다. 인프라·보안과 시스템 저수준 영역에 남아 있고, C++(252건)과는 수요 규모가 10배 가까이 차이 납니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "27건(1.1%)에서 요구돼 27개 기술 중 25위입니다. 직군별 요구 비율 — 인프라 · 보안 2.3%(7건), 일반 SWE 1.6%(12건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 164,416개, 최근 180일 이슈·PR 79,332건이 집계돼 저장소 점수 0점 · 활동 점수 9.7점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`c` 태그로 최근 180일 질문 423개가 올라와 열기 점수 79.9점입니다."
+        }
+      ],
+      "stack": [
+        "Linux",
+        "C++",
+        "Rust",
+        "Make"
+      ],
+      "verdict": "커널·임베디드처럼 목적이 분명할 때만 고릅니다. 범용 목적이라면 C++나 Rust 쪽 수요가 훨씬 넓습니다."
+    },
+    {
+      "tech": "Tableau",
+      "skillCode": "tableau",
+      "kind": "BI 도구",
+      "roles": [
+        "데이터",
+        "인프라 · 보안"
+      ],
+      "demand": 3.8,
+      "demandRank": 26,
+      "ecosystemScore": 6.8,
+      "quadrant": "저관심",
+      "postings": 18,
+      "postingsShare": 0.7,
+      "postingsNote": "채용공고 2,412건 중 18건(0.7%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 20.0,
+          "raw": 441754
+        },
+        "githubActivity": {
+          "score": 0.5,
+          "raw": 50352
+        },
+        "stackoverflow": {
+          "score": 0.0,
+          "raw": 1
+        }
+      },
+      "sampleRepositories": [
+        "JCATHoney/tableau",
+        "elixir-tools/tableau",
+        "EAAppFoundry/tableau"
+      ],
+      "summary": "공고 18건(0.7%)이고 Stack Overflow 질문은 180일간 1건에 그쳐 생태계 점수가 최하위(6.8)로 계산됐습니다. 개발자 커뮤니티가 아니라 현업 분석가 쪽에서 소비되는 도구라 이 지표로는 과소평가됩니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "18건(0.7%)에서 요구돼 27개 기술 중 26위입니다. 직군별 요구 비율 — 데이터 12.5%(9건), 인프라 · 보안 1.3%(4건)."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 441,754개, 최근 180일 이슈·PR 50,352건이 집계돼 저장소 점수 20점 · 활동 점수 0.5점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`tableau-api` 태그로 최근 180일 질문 1개가 올라와 열기 점수 0점입니다."
+        }
+      ],
+      "stack": [
+        "SQL",
+        "PostgreSQL",
+        "Python"
+      ],
+      "verdict": "개발 직군 공고에서는 거의 안 보입니다. 데이터 분석 직군을 노릴 때만 보조 항목으로 담으세요."
+    },
+    {
+      "tech": "Cloudflare",
+      "skillCode": "cloudflare",
+      "kind": "엣지 인프라",
+      "roles": [],
+      "demand": 0.0,
+      "demandRank": 27,
+      "ecosystemScore": 46.4,
+      "quadrant": "저관심",
+      "postings": 2,
+      "postingsShare": 0.1,
+      "postingsNote": "채용공고 2,412건 중 2건(0.1%)에서 요구",
+      "ecosystem": {
+        "githubRepo": {
+          "score": 35.5,
+          "raw": 948321
+        },
+        "githubActivity": {
+          "score": 73.8,
+          "raw": 1851207
+        },
+        "stackoverflow": {
+          "score": 30.0,
+          "raw": 14
+        }
+      },
+      "sampleRepositories": [
+        "ip-scanner/cloudflare",
+        "kriasoft/react-starter-kit",
+        "cloudflare/moltworker"
+      ],
+      "summary": "공고 2건(0.1%)으로 최하위입니다. 다만 이 수치는 신뢰하기 어렵습니다 — 추출 파이프라인이 회사 자기언급을 걸러내는데, Cloudflare는 이 데이터셋의 주요 채용 기업이라 자사 공고에서 태그가 통째로 제거됩니다.",
+      "signals": [
+        {
+          "meta": "채용 · 공고 2,412건 기준",
+          "title": "2건(0.1%)에서 요구돼 27개 기술 중 27위입니다. 직군별 요구 비율 — 직군별 표본 부족."
+        },
+        {
+          "meta": "생태계 · GitHub 180일",
+          "title": "저장소 948,321개, 최근 180일 이슈·PR 1,851,207건이 집계돼 저장소 점수 35.5점 · 활동 점수 73.8점입니다."
+        },
+        {
+          "meta": "생태계 · Stack Overflow 180일",
+          "title": "`cloudflare` 태그로 최근 180일 질문 14개가 올라와 열기 점수 30점입니다."
+        }
+      ],
+      "stack": [
+        "TypeScript",
+        "Node.js",
+        "React",
+        "AWS"
+      ],
+      "verdict": "지금 수치로 판단하지 마세요. 자기언급 필터 보정 전까지는 채용 수요를 판단할 근거가 없는 상태입니다."
+    }
+  ]
+}

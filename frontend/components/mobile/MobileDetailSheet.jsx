@@ -57,8 +57,7 @@ function PostingList({ postings, loading, techName }) {
  * 데스크톱의 sticky 사이드 DetailPanel 대신, 하단에서 올라오는 바텀시트로
  * 같은 정보를 보여준다. tech가 있으면 열리고, onClose로 닫힌다.
  */
-export default function MobileDetailSheet({ tech, onClose }) {
-  const [favs, setFavs] = useState({});
+export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
   const [tab, setTab] = useState("overview");
   const open = Boolean(tech);
 
@@ -125,7 +124,6 @@ export default function MobileDetailSheet({ tech, onClose }) {
 
   const meta = tech ? getQuadrantMeta(tech.quadrant) : null;
   const color = meta ? `var(--quad-${meta.slug})` : undefined;
-  const isFav = tech ? Boolean(favs[tech.tech]) : false;
   const bars = tech ? ecosystemBars(tech) : [];
 
   return (
@@ -222,7 +220,11 @@ export default function MobileDetailSheet({ tech, onClose }) {
                       <div className="mv-sheet__stat-value">{tech.demand}</div>
                       <div className="mv-sheet__stat-note">
                         공고 언급 빈도의 백분위 순위
-                        {tech.demandRank ? ` · 27개 중 ${tech.demandRank}위` : ""}
+                        {tech.roleContext
+                          ? ` · ${tech.roleContext.role} 안에서 ${tech.roleContext.rank}위`
+                          : tech.demandRank
+                            ? ` · ${totalTechs}개 중 ${tech.demandRank}위`
+                            : ""}
                       </div>
                     </div>
                     <div className="mv-sheet__stat">
@@ -286,20 +288,6 @@ export default function MobileDetailSheet({ tech, onClose }) {
                       <div className="mv-sheet__verdict-text">{tech.verdict}</div>
                     </div>
                   )}
-
-                  <div className="mv-sheet__actions">
-                    <button
-                      type="button"
-                      className="mv-sheet__btn"
-                      style={{ background: isFav ? meta.tint : "transparent" }}
-                      onClick={() => setFavs((f) => ({ ...f, [tech.tech]: !f[tech.tech] }))}
-                    >
-                      {isFav ? "★ 담아둔 기술" : "☆ 관심 기술로 담기"}
-                    </button>
-                    <button type="button" className="mv-sheet__btn mv-sheet__btn--ghost">
-                      학습 경로 보기
-                    </button>
-                  </div>
 
                   <p className="mv-sheet__footnote">
                     생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는

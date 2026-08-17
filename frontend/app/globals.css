@@ -883,16 +883,56 @@ a {
   animation: shimmer 1.5s linear infinite;
 }
 
+/* 좁은 화면에서도 2x2를 유지한다. 세로로 4개를 세우면 "두 축이 기술을 네
+   자리로 나눈다"는 이 섹션의 설명 자체가 화면과 어긋난다 (/m의
+   .mv-quad-grid도 같은 이유로 2열을 지킨다). 대신 칸 안쪽 치수를 줄인다. */
 @media (max-width: 720px) {
   .quadrants__frame {
     grid-template-columns: 24px minmax(0, 1fr);
   }
   .quadrants__grid {
-    grid-template-columns: 1fr;
-    grid-template-rows: repeat(4, auto);
+    gap: 8px;
   }
-  .quadrants__crosshair {
-    display: none;
+  .quadrant-cell {
+    padding: 13px;
+    gap: 8px;
+    border-radius: 14px;
+  }
+  /* 칸이 좁아지면 이름과 개수가 한 줄에 다 안 들어간다. 줄바꿈을 허용해
+     개수가 넘쳐 잘리는 대신 아래로 내려가게 한다. */
+  .quadrant-cell__top {
+    flex-wrap: wrap;
+    gap: 6px 8px;
+  }
+  .quadrant-cell__marker {
+    width: 7px;
+    height: 7px;
+  }
+  .quadrant-cell__label {
+    font-size: 0.82rem;
+  }
+  .quadrant-cell__count {
+    font-size: 0.68rem;
+  }
+  .quadrant-cell__desc {
+    font-size: 0.72rem;
+    line-height: 1.5;
+  }
+  .quadrant-cell__samples {
+    gap: 5px;
+  }
+  .quadrant-cell__tag {
+    padding: 4px 8px;
+    border-radius: 6px;
+    font-size: 0.64rem;
+  }
+  .quadrant-cell__empty {
+    font-size: 0.68rem;
+  }
+  .quadrant-cell__skeleton {
+    width: 50px;
+    height: 22px;
+    border-radius: 6px;
   }
 }
 
@@ -929,6 +969,38 @@ a {
   justify-content: space-between;
   gap: 12px;
   margin-bottom: 20px;
+}
+
+/* 지도에 표시할 기술 수. 200개를 한 번에 찍으면 이름표가 서로 겹치므로
+   기본은 상위 30개고, 더 넓게 보고 싶은 사람이 직접 늘린다. */
+.chart-panel__limits {
+  display: flex;
+  gap: 2px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.chart-panel__limit {
+  padding: 4px 11px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.72rem;
+  letter-spacing: -0.01em;
+  cursor: pointer;
+  transition: color 140ms var(--ease-out), background 140ms var(--ease-out);
+}
+
+.chart-panel__limit:hover {
+  color: var(--text-primary);
+}
+
+.chart-panel__limit[aria-pressed="true"] {
+  background: var(--accent-soft);
+  color: var(--text-primary);
 }
 
 .chart-panel__title {
@@ -1029,6 +1101,9 @@ a {
   background: var(--ink-850);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 20px 40px -20px rgba(0, 0, 0, 0.55);
   list-style: none;
+  /* 직군이 14개라 옵션이 15줄이 된다. 뷰포트를 넘기지 않게 잘라 스크롤한다. */
+  max-height: min(60vh, 380px);
+  overflow-y: auto;
   /* 팝오버는 중앙이 아니라 자기를 연 트리거에서 자라나야 한다.
      scale(0)이 아닌 0.96에서 시작해야 허공에서 튀어나온 느낌이 안 난다. */
   transform-origin: top left;
@@ -1167,11 +1242,19 @@ a {
   gap: 10px;
 }
 
-.gap-map__plane {
+/* 판을 감싸는 레이어. 판 자체는 사분면 배경이 둥근 모서리 밖으로 새지 않게
+   overflow: hidden이라, 가장자리 점의 툴팁이 잘린다. 툴팁은 이 래퍼에 그려
+   같은 좌표계를 쓰면서도 판 밖으로 넘어갈 수 있게 한다. */
+.gap-map__plane-wrap {
   position: relative;
   grid-column: 2;
   grid-row: 1;
   height: clamp(360px, 44vw, 520px);
+}
+
+.gap-map__plane {
+  position: absolute;
+  inset: 0;
   border: 1px solid var(--line);
   border-radius: 14px;
   background: var(--ink-950);
@@ -1451,7 +1534,9 @@ a {
   position: absolute;
   z-index: 4;
   pointer-events: none;
-  transform: translate(-50%, 0);
+  /* --tip-x는 GapMap이 점의 x좌표를 보고 넣는다. 판 가장자리에서는 상자가
+     밖으로 나가지 않게 -50%(가운데) 대신 0이나 -100%가 들어온다. */
+  transform: translate(var(--tip-x, -50%), 0);
   animation: tipIn 0.16s var(--ease-out) both;
   background: var(--ink-800);
   border: 1px solid var(--line-strong);
@@ -1839,7 +1924,7 @@ a {
   font-variant-numeric: tabular-nums;
 }
 
-/* 정규화 점수 옆에 raw 카운트를 함께 둔다. 세 점수 모두 27개 안에서의
+/* 정규화 점수 옆에 raw 카운트를 함께 둔다. 세 점수 모두 200개 안에서의
    Min-Max라 최하위가 0점으로 눌리는데, raw가 없으면 "안 쓰인다"로 읽힌다. */
 .detail-panel__metric-raw {
   margin-left: 8px;
@@ -2024,40 +2109,6 @@ a {
   font-size: 0.86rem;
   line-height: 1.7;
   word-break: keep-all;
-}
-
-.detail-panel__actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 20px;
-}
-
-.detail-panel__btn {
-  padding: 12px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--ink-850);
-  color: var(--text-primary);
-  font-size: 0.82rem;
-  font-weight: 500;
-  cursor: pointer;
-  transition: transform 140ms var(--ease-out), background 180ms ease,
-    border-color 180ms ease;
-}
-
-.detail-panel__btn:hover {
-  background: var(--ink-800);
-  border-color: var(--line-strong);
-}
-
-.detail-panel__btn:active {
-  transform: scale(0.98);
-}
-
-.detail-panel__btn--ghost {
-  background: transparent;
-  color: var(--text-secondary);
 }
 
 .detail-panel__footnote {
@@ -2265,6 +2316,13 @@ a {
   left: 16px;
   color: var(--text-muted);
   pointer-events: none;
+  transition: color 200ms ease;
+}
+
+/* 포커스가 들어오면 돋보기에 강조색을 준다. 테두리를 번지게 하지 않고도
+   "지금 여기에 입력한다"를 알리는, 이 필드에만 있는 조용한 신호다. */
+.dict-search:focus-within .dict-search__icon {
+  color: var(--accent);
 }
 
 .dict-search__input {
@@ -2287,11 +2345,17 @@ a {
   border-color: var(--line-strong);
 }
 
+/* 전역 :focus-visible의 실선 아웃라인을 그대로 쓴다.
+   이전에는 여기서만 outline을 끄고 3px 청록 halo(box-shadow)를 깔았는데,
+   사이트의 다른 컨트롤은 전부 하드 엣지 아웃라인이라 폭이 1,150px에 달하는
+   이 입력창만 번져 보였다. halo를 걷고 배경 상승 + 돋보기 강조색으로 대신한다.
+
+   전역 규칙이 outline과 함께 거는 border-radius: 4px는 되돌린다 —
+   12px 필드가 포커스 순간에만 각지면 어색하다. */
 .dict-search__input:focus-visible {
-  outline: none;
-  border-color: var(--accent);
+  border-radius: 12px;
+  border-color: var(--line-strong);
   background: var(--ink-850);
-  box-shadow: 0 0 0 3px var(--accent-soft);
 }
 
 /* 브라우저 기본 검색 지우기 버튼은 숨기고 직접 그린 버튼을 쓴다. */
@@ -2379,6 +2443,9 @@ a {
 
 .dict-sort__btn {
   padding: 7px 14px;
+  /* 브라우저 기본 <button> 테두리(outset 흰색)를 지운다. 남겨두면 알약 셋이
+     각각 테두리를 둘러, 이 그룹을 감싸는 .dict-sort 테두리와 이중이 된다. */
+  border: none;
   border-radius: 999px;
   background: transparent;
   color: var(--text-muted);
@@ -2523,6 +2590,9 @@ a {
   gap: 8px 32px;
   width: 100%;
   padding: 20px 52px 20px 22px;
+  /* <button>이라 브라우저 기본 테두리가 붙는다. 이 버튼이 카드를 가득 채우기
+     때문에, 지우지 않으면 흰 선이 카드 테두리인 것처럼 보인다. */
+  border: none;
   background: transparent;
   color: inherit;
   font-family: inherit;
@@ -2621,7 +2691,7 @@ a {
   color: var(--text-muted);
 }
 
-/* 리드 문단 — 사전 전체와 상세 27개의 관계를 먼저 설명한다. */
+/* 리드 문단 — 사전 전체와 지표가 수집된 항목의 관계를 먼저 설명한다. */
 .dict__lead {
   margin-top: 16px;
   max-width: 68ch;
@@ -2643,7 +2713,7 @@ a {
 
 /*
  * 생태계 지표가 없는 표제어(190개)는 펼칠 내용이 없으므로 버튼이 아니라 정적 블록이다.
- * 상세 항목과 같은 그리드를 쓰되, 시선이 27개 상세 쪽에 남도록 한 톤 죽인다.
+ * 상세 항목과 같은 그리드를 쓰되, 시선이 상세 쪽에 남도록 한 톤 죽인다.
  */
 .dict-entry--brief {
   background: transparent;
@@ -2735,7 +2805,7 @@ a {
   color: var(--text-primary);
 }
 
-/* 정규화 점수는 27개 안에서의 Min-Max라 최하위가 0점으로 눌린다.
+/* 정규화 점수는 200개 안에서의 백분위 순위라 최하위가 0점이 된다.
    raw 카운트를 함께 두지 않으면 "안 쓰인다"로 읽힌다. */
 .dict-entry__metric-raw {
   margin-left: 8px;
@@ -3019,11 +3089,11 @@ a {
 @keyframes tipIn {
   from {
     opacity: 0;
-    transform: translate(-50%, 5px) scale(0.97);
+    transform: translate(var(--tip-x, -50%), 5px) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translate(-50%, 0) scale(1);
+    transform: translate(var(--tip-x, -50%), 0) scale(1);
   }
 }
 

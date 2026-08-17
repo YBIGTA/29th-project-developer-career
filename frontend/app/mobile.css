@@ -551,6 +551,9 @@
   background: var(--ink-850);
   box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
   list-style: none;
+  /* 직군이 14개라 옵션이 15줄이 된다. 뷰포트를 넘기지 않게 잘라 스크롤한다. */
+  max-height: min(55vh, 320px);
+  overflow-y: auto;
   animation: mvPopIn 150ms var(--ease-out) both;
 }
 
@@ -1245,7 +1248,7 @@
   font-variant-numeric: tabular-nums;
 }
 
-/* 정규화 점수 옆의 raw 카운트. 세 점수 모두 27개 안에서의 Min-Max라
+/* 정규화 점수 옆의 raw 카운트. 세 점수 모두 200개 안에서의 백분위 순위라
    최하위가 0점으로 눌리는데, raw가 없으면 "안 쓰인다"로 읽힌다. */
 .mv-sheet__metric-raw {
   margin-left: 7px;
@@ -1421,32 +1424,6 @@
   font-size: 0.84rem;
   line-height: 1.66;
   word-break: keep-all;
-}
-
-.mv-sheet__actions {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 8px;
-  margin-top: 18px;
-}
-
-.mv-sheet__btn {
-  min-height: 46px;
-  border: 1px solid var(--line);
-  border-radius: 10px;
-  background: var(--ink-850);
-  color: var(--text-primary);
-  font-size: 0.8rem;
-  font-weight: 500;
-}
-
-.mv-sheet__btn:active {
-  transform: scale(0.98);
-}
-
-.mv-sheet__btn--ghost {
-  background: transparent;
-  color: var(--text-secondary);
 }
 
 .mv-sheet__footnote {
@@ -1753,6 +1730,8 @@
   width: 100%;
   padding: 14px;
   text-align: left;
+  /* 데스크톱과 같은 이유로 브라우저 기본 <button> 테두리를 지운다. */
+  border: none;
   background: transparent;
 }
 

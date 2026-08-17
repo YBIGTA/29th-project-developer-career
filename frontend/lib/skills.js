@@ -5,9 +5,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
 /**
  * 기술스택 사전 전체(217개)를 가져온다.
  *
- * 지도에 찍히는 27개와 달리 여기에는 tech_stack_pipeline의 TECH_DICTIONARY에 등록된
- * 모든 canonical 기술이 들어간다. 생태계 지표(GitHub·Stack Overflow)는 27개에만
- * 수집돼 있으므로, 나머지 항목은 채용공고에서 뽑아낼 수 있는 사실만 담는다.
+ * 지도에 찍히는 기술보다 넓다. 여기에는 tech_stack_pipeline의 TECH_DICTIONARY에
+ * 등록된 모든 canonical 기술이 들어간다. 생태계 지표(GitHub·Stack Overflow)는
+ * 공고에 한 번이라도 등장한 200개에만 수집돼 있으므로, 나머지 17개는 사전에
+ * 등록됐다는 사실과 별칭만 담는다.
  *
  * 반환 형태:
  *   meta  { totalSkills, detailedSkills, taggedSkills, totalPostings, categories }
@@ -34,7 +35,7 @@ export async function getSkillIndex() {
 }
 
 /**
- * 사전 전체 목록에 27개 상세 항목을 얹는다.
+ * 사전 전체 목록에 지표가 수집된 200개 항목을 얹는다.
  *
  * 겹치는 필드(roles, postings 등)는 양쪽이 같은 원본에서 나왔으므로 어느 쪽을 써도
  * 같지만, 상세 쪽을 뒤에 펼쳐 quadrant·demand·summary 같은 추가 필드를 채운다.
@@ -43,7 +44,11 @@ export function mergeSkills(indexItems, detailItems) {
   const byCode = new Map(detailItems.map((d) => [d.skillCode, d]));
   return indexItems.map((item) => {
     const detail = byCode.get(item.skillCode);
-    return detail ? { ...item, ...detail, detailed: true } : item;
+    if (!detail) return item;
+    // detailed는 "생태계 지표가 수집됐는가"다. 해설 문장(summary/verdict)이
+    // 있는 27개와는 다른 조건이다 — 200개 전부가 지표는 갖고 있고, 해설은
+    // 없는 항목이 훨씬 많다.
+    return { ...item, ...detail, detailed: Boolean(detail.ecosystem) };
   });
 }
 

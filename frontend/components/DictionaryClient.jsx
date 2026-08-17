@@ -47,7 +47,7 @@ export default function DictionaryClient() {
       setLoading(true);
       setError(null);
       try {
-        // 사전 전체와 상세 27개는 별개 소스라 함께 받아 합친다.
+        // 사전 전체(217)와 지표가 수집된 기술(200)은 별개 소스라 함께 받아 합친다.
         const [index, gapmap] = await Promise.all([getSkillIndex(), getGapMapData()]);
         if (!cancelled) {
           setSkills(mergeSkills(index.items, gapmap.items));
@@ -77,7 +77,7 @@ export default function DictionaryClient() {
     );
 
     if (sort === "postings") return rows.sort((a, b) => b.postings - a.postings);
-    // 생태계 점수는 상세 27개에만 있다. 점수가 없는 항목은 뒤로 민다.
+    // 생태계 점수는 지표가 수집된 200개에만 있다. 점수가 없는 항목은 뒤로 민다.
     if (sort === "ecosystem")
       return rows.sort((a, b) => (b.ecosystemScore ?? -1) - (a.ecosystemScore ?? -1));
     return rows.sort((a, b) => a.tech.localeCompare(b.tech, "en"));
@@ -95,7 +95,7 @@ export default function DictionaryClient() {
     return Array.from(map, ([letter, items]) => ({ letter, items }));
   }, [filtered, sort]);
 
-  // 지도는 수요 상위 N개까지만 찍는다. 사전에는 전부 실리므로, 지도에서
+  // 지도는 사분면별로 고르게 뽑은 N개까지만 찍는다. 사전에는 전부 실리므로, 지도에서
   // 잘린 항목임을 여기서 알려준다.
   const onMap = useMemo(() => mapCodeSet(mapItems, dataMeta?.mapLimit), [mapItems, dataMeta?.mapLimit]);
 
@@ -136,10 +136,8 @@ export default function DictionaryClient() {
         </header>
 
         <p className="dict__lead">
-          채용공고에서 기술 태그를 뽑을 때 쓰는 사전 전체입니다.
-          {indexMeta ? ` 표제어 ${indexMeta.totalSkills}개 가운데 ` : " 이 가운데 "}
-          <strong>{indexMeta?.detailedSkills ?? 27}개</strong>는 생태계 지표까지 수집돼 지도에
-          찍히고, 나머지는 채용공고에서 확인된 사실만 싣습니다.
+          기술 {indexMeta?.totalSkills ?? 217}개를 이름·별칭·분류로 찾아보고, 각각이 채용공고에
+          얼마나 나오는지 확인하세요.
         </p>
 
         <div className="dict-toolbar">
@@ -346,7 +344,10 @@ export default function DictionaryClient() {
   );
 }
 
-/** 생태계 지표까지 수집된 27개. 펼치면 근거와 학습 조언까지 보여준다. */
+/**
+ * 생태계 지표까지 수집된 200개. 펼치면 지표 3분해와 근거를 보여준다.
+ * 손으로 쓴 해설(summary / stack / verdict)은 그중 일부에만 있어서 조건부로 그린다.
+ */
 function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
   const meta = getQuadrantMeta(tech.quadrant);
   const color = `var(--quad-${meta.slug})`;
@@ -374,7 +375,9 @@ function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
           ))}
         </span>
 
-        <span className="dict-entry__summary">{tech.summary}</span>
+        <span className="dict-entry__summary">
+          {tech.summary ?? tech.signals?.[0]?.title}
+        </span>
 
         <span className="dict-entry__scores">
           <span className="dict-score">
@@ -444,26 +447,32 @@ function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
                 ))}
               </div>
 
-              <div className="dict-entry__sub">함께 요구되는 기술</div>
-              <div className="dict-entry__stack">
-                {(tech.stack ?? []).map((s) => (
-                  <button
-                    type="button"
-                    className="dict-entry__chip"
-                    key={s}
-                    onClick={() => onPickStack(s)}
-                  >
-                    {s}
-                  </button>
-                ))}
-              </div>
+              {tech.stack?.length > 0 && (
+                <>
+                  <div className="dict-entry__sub">함께 요구되는 기술</div>
+                  <div className="dict-entry__stack">
+                    {tech.stack.map((s) => (
+                      <button
+                        type="button"
+                        className="dict-entry__chip"
+                        key={s}
+                        onClick={() => onPickStack(s)}
+                      >
+                        {s}
+                      </button>
+                    ))}
+                  </div>
+                </>
+              )}
             </div>
           </div>
 
-          <div className="dict-entry__verdict" style={{ background: meta.tint }}>
-            <div className="dict-entry__sub">지금 배운다면</div>
-            <p className="dict-entry__verdict-text">{tech.verdict}</p>
-          </div>
+          {tech.verdict && (
+            <div className="dict-entry__verdict" style={{ background: meta.tint }}>
+              <div className="dict-entry__sub">지금 배운다면</div>
+              <p className="dict-entry__verdict-text">{tech.verdict}</p>
+            </div>
+          )}
         </div>
       )}
     </article>

@@ -1,0 +1,201 @@
+skill,count
+Python,919
+AWS,428
+Kubernetes,418
+Go,409
+GCP,354
+SQL,326
+TypeScript,324
+Azure,310
+Java,264
+C++,252
+JavaScript,242
+Rust,225
+React,205
+Claude,172
+Terraform,159
+Linux,149
+GPT,145
+Node.js,130
+PostgreSQL,126
+Docker,115
+Apache Spark,105
+Apache Kafka,97
+PyTorch,96
+OpenAI Codex,75
+MongoDB Atlas,71
+Airflow,68
+GitHub,68
+Ruby,68
+C#,64
+MCP,60
+Grafana,55
+TensorFlow,54
+Android,50
+Bash,49
+Git,48
+Prometheus,47
+iOS,47
+Anthropic,46
+MySQL,45
+Redis,42
+Salesforce,41
+Swift,41
+Apache Flink,40
+Snowflake,40
+Datadog,39
+GraphQL,39
+Scala,39
+JAX,38
+dbt,36
+BigQuery,35
+CUDA,33
+Kotlin,33
+REST,31
+GitHub Copilot,31
+R,28
+C,27
+ClickHouse,27
+Transformers,26
+Ansible,25
+MongoDB,25
+Figma,24
+gRPC,24
+CSS,23
+Next.js,23
+LangChain,22
+Helm,21
+Databricks,21
+Jira,21
+Lua,20
+Elasticsearch,20
+Amazon S3,19
+HTML,19
+GitHub Actions,19
+Cloudflare Workers,19
+Amazon EKS,18
+Hadoop,18
+Tableau,18
+Zendesk,18
+Pandas,17
+Okta,17
+Apache Iceberg,17
+Splunk,17
+Assembly,17
+Bazel,17
+Gradle,17
+Cassandra,17
+Pulumi,16
+Trino,16
+Buildkite,16
+Jenkins,16
+Dagster,15
+Redux,15
+Looker,14
+OpenTelemetry,14
+Envoy,14
+Ruby on Rails,14
+Cloudflare,14
+Triton Inference Server,13
+AWS CloudFormation,12
+NetSuite,12
+FastAPI,12
+SwiftUI,12
+CockroachDB,12
+Puppet,12
+PHP,12
+Google GKE,11
+DynamoDB,11
+Objective-C,11
+GitLab,11
+Spring,11
+RabbitMQ,11
+ArgoCD,10
+Express,10
+Vue.js,10
+Flask,10
+React Native,10
+Vault,10
+Hugging Face,9
+WebAssembly,9
+Snyk,9
+.NET,9
+SAS,8
+Confluence,8
+NCCL,8
+Dependabot,8
+Istio,8
+OpenShift,8
+Slurm,7
+Gemini,7
+NumPy,7
+UIKit,7
+scikit-learn,7
+Perl,7
+Jupyter,6
+Vertex AI,6
+Angular,6
+Amazon EC2,6
+Nix,6
+GitLab CI,6
+CircleCI,6
+SQLite,5
+Webpack,5
+Redshift,5
+Elixir,5
+Llama,4
+HubSpot,4
+Tailwind CSS,4
+Vite,4
+MATLAB,4
+Jetpack Compose,4
+GDB,4
+NestJS,4
+Nginx,4
+Kibana,4
+Vanta,3
+Svelte,3
+Streamlit,3
+Heroku,3
+Vercel,3
+Power BI,3
+MobX,2
+SystemVerilog,2
+Starlark,2
+Plotly,2
+Sass,2
+ESLint,2
+Django,2
+Cypress,2
+Firestore,2
+Zookeeper,2
+Julia,2
+PyTest,2
+Groovy,2
+Neo4j,2
+XGBoost,2
+Cypher,2
+Postman,2
+Bicep,2
+Solidity,2
+VBA,2
+SolidJS,1
+styled-components,1
+Gatsby,1
+Fly.io,1
+Laravel,1
+Haskell,1
+Zig,1
+Deno,1
+IIS,1
+TeamCity,1
+GLSL,1
+Lucene,1
+MLflow,1
+Apache Pulsar,1
+Flutter,1
+Babel,1
+Selenium,1
+Material UI,1
+Storybook,1
+TanStack,1

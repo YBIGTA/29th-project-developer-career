@@ -14,6 +14,7 @@ services:
       - db_data:/var/lib/postgresql/data
 
   api:
+    image: chanwoongyoon/devcompass-api:latest
     build:
       context: .
       dockerfile: Dockerfile.api

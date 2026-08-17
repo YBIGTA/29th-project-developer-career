@@ -19,12 +19,31 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  deploy:
+  build:
     runs-on: ubuntu-latest
 
     steps:
       - uses: actions/checkout@v4
 
+      - name: Log in to Docker Hub
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Build and push API image
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          file: Dockerfile.api
+          push: true
+          tags: chanwoongyoon/devcompass-api:latest
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
       - name: Configure SSH
         env:
           EC2_KNOWN_HOSTS: ${{ secrets.EC2_KNOWN_HOSTS }}
@@ -35,7 +54,7 @@ jobs:
           printf '%s\n' "$EC2_KNOWN_HOSTS" > ~/.ssh/known_hosts
           chmod 600 ~/.ssh/id_ed25519 ~/.ssh/known_hosts
 
-      - name: Update and restart API
+      - name: Pull and restart API
         env:
           EC2_APP_DIR: ${{ secrets.EC2_APP_DIR }}
           EC2_HOST: ${{ secrets.EC2_HOST }}
@@ -44,9 +63,7 @@ jobs:
           ssh -i ~/.ssh/id_ed25519 "$EC2_USER@$EC2_HOST" "
             set -eu
             cd \"$EC2_APP_DIR\"
-            git fetch origin deployment
-            git checkout deployment
-            git pull --ff-only origin deployment
-            docker compose up -d --build api
+            docker compose pull api
+            docker compose up -d api
             docker compose ps api
           "

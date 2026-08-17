@@ -17,7 +17,7 @@ SKILLS_SQL = text("""
         FROM vw_active_job_skill
         GROUP BY skill_id
     ), aliases AS (
-        SELECT skill_id, array_agg(alias ORDER BY alias) AS aliases
+        SELECT skill_id, array_agg(alias_text ORDER BY alias_text) AS aliases
         FROM skill_alias
         WHERE is_active = true
         GROUP BY skill_id

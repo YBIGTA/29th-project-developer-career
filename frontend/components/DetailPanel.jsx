@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
-import { ecosystemBars } from "@/lib/ecosystem";
+import { ecosystemBars, ecosystemNote } from "@/lib/ecosystem";
 import { useTechPostings } from "@/lib/useTechPostings";
 
 function PostingList({ postings, loading, techName }) {
@@ -171,9 +171,7 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
               <div className="detail-panel__stat">
                 <div className="detail-panel__stat-label">생태계 종합</div>
                 <div className="detail-panel__stat-value">{tech.ecosystemScore}</div>
-                <div className="detail-panel__stat-note">
-                  아래 세 지표(각 0~100)의 평균입니다.
-                </div>
+                <div className="detail-panel__stat-note">{ecosystemNote(tech)}</div>
               </div>
             </div>
 

@@ -1,5 +1,6 @@
 import mockData from "./mockData.json";
 import mockPostings from "./mockPostings.json";
+import { withNotes } from "./notes";
 
 // frontend/.env.local의 NEXT_PUBLIC_API_URL (Vercel에는 `vercel env add`로 등록).
 // 저장소 루트의 .env.local은 Next.js가 읽지 않는다 — frontend/ 안에 둬야 한다.
@@ -18,9 +19,13 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  *               안에서만 다시 매긴 값이라 아래 전체 기준 값과 다르다,
  *           demand(공고 언급 빈도의 백분위 순위 0~100), demandRank,
  *           ecosystemScore, quadrant, postings, postingsShare, postingsNote,
- *           ecosystem: { githubRepo, githubActivity, stackoverflow } — 각 { score, raw },
+ *           ecosystem: { githubRepo?, githubActivity?, stackoverflow? } — 각 { score, raw }.
+ *             세 개가 다 오지는 않는다. DW API는 현재 stackoverflow만 내려주고
+ *             로컬 mockData.json만 세 개를 모두 갖는다. 화면은 있는 것만 그린다
+ *             (lib/ecosystem.js 참고),
  *           sampleRepositories, signals,
- *           summary, verdict, stack — 해설이 작성된 기술에만 있다 }[]
+ *           summary(항상 있음 — 매 응답마다 lib/notes.js가 데이터로 새로 조립한다),
+ *           verdict, stack — 손으로 쓴 해설이 있는 기술에만 있다 (lib/techNotes.json) }[]
  *
  * 정규화: 두 축 모두 **백분위 순위**다. 데이터 웨어하우스가 내려주는
  * demand_score(선형 최대값 환산)는 쓰지 않는다 — 1위만 100점이고 나머지가
@@ -35,7 +40,7 @@ export async function getGapMapData() {
   // 확정된 요청을 굳이 보내지 않는다. 그대로 두면 매번 404가 나고 콘솔에
   // 놀랄 만한 에러 로그만 남긴 채 어차피 mockData로 대체된다.
   if (!API_URL) {
-    return mockData;
+    return withNotes(mockData);
   }
 
   try {
@@ -45,10 +50,10 @@ export async function getGapMapData() {
       throw new Error(`괴리맵 데이터를 불러오지 못했습니다 (status: ${res.status})`);
     }
 
-    return await res.json();
+    return withNotes(await res.json());
   } catch (error) {
     console.error("[getGapMapData] 요청 실패, mockData.json으로 대체합니다:", error);
-    return mockData;
+    return withNotes(mockData);
   }
 }
 

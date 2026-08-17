@@ -8,6 +8,7 @@ import { ecosystemBars } from "@/lib/ecosystem";
 import { mapCodeSet } from "@/lib/mapPoints";
 import { getGapMapData } from "@/lib/api";
 import { getSkillIndex, mergeSkills, skillHaystack } from "@/lib/skills";
+import { useActiveSection } from "@/lib/useInView";
 
 const SORTS = [
   { key: "dict", label: "사전순" },
@@ -95,6 +96,18 @@ export default function DictionaryClient() {
     return Array.from(map, ([letter, items]) => ({ letter, items }));
   }, [filtered, sort]);
 
+  // 레일에서 지금 보고 있는 글자를 짚어준다.
+  //
+  // 경계 200px은 글자를 눌렀을 때 그 묶음이 실제로 앉는 자리에서 나왔다.
+  // html의 scroll-padding-top(88) + .dict-group의 scroll-margin-top(108)이
+  // 더해져 196px에 착지한다. 경계를 그보다 위(예: 128)에 두면 방금 누른
+  // 묶음이 "아직 안 지나간 것"으로 판정돼 강조가 바로 앞 글자로 튄다.
+  const letterIds = useMemo(
+    () => groups.filter((g) => g.letter).map((g) => `dict-${g.letter}`),
+    [groups]
+  );
+  const [activeLetterId, setActiveLetterId] = useActiveSection(letterIds, { topOffset: 200 });
+
   // 지도는 사분면별로 고르게 뽑은 N개까지만 찍는다. 사전에는 전부 실리므로, 지도에서
   // 잘린 항목임을 여기서 알려준다.
   const onMap = useMemo(() => mapCodeSet(mapItems, dataMeta?.mapLimit), [mapItems, dataMeta?.mapLimit]);
@@ -131,6 +144,16 @@ export default function DictionaryClient() {
         <header className="dict__head">
           <h1 className="dict__title">전체 기술 목록</h1>
           <Link className="dict__back" href="/#gapmap">
+            <svg viewBox="0 0 16 16" aria-hidden="true" width="15" height="15">
+              <path
+                d="M12.8 8H3.2M7.2 4l-4 4 4 4"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
             지도로 돌아가기
           </Link>
         </header>
@@ -285,7 +308,29 @@ export default function DictionaryClient() {
                 {sort === "dict" && (
                   <nav className="dict-rail" aria-label="첫 글자로 이동">
                     {groups.map((g) => (
-                      <a key={g.letter} className="dict-rail__link" href={`#dict-${g.letter}`}>
+                      <a
+                        key={g.letter}
+                        className="dict-rail__link"
+                        href={`#dict-${g.letter}`}
+                        data-active={activeLetterId === `dict-${g.letter}`}
+                        aria-current={
+                          activeLetterId === `dict-${g.letter}` ? "location" : undefined
+                        }
+                        // 색인은 "훑어 내려가는" 것이 아니라 "건너뛰는" 것이므로
+                        // 부드러운 스크롤을 쓰지 않는다. 부드럽게 굴리면 지나가는
+                        // 글자마다 옵저버가 판정을 바꿔 강조가 C·D·E…로 딸려
+                        // 다니다가 뒤늦게 목적지에 도착한다. 즉시 이동하면 강조가
+                        // 누른 글자에 바로 맞고 그대로 있는다.
+                        // 착지 위치는 .dict-group의 scroll-margin-top이 잡아준다.
+                        onClick={(e) => {
+                          const target = document.getElementById(`dict-${g.letter}`);
+                          if (!target) return;
+                          e.preventDefault();
+                          target.scrollIntoView({ behavior: "instant", block: "start" });
+                          setActiveLetterId(`dict-${g.letter}`);
+                          history.replaceState(null, "", `#dict-${g.letter}`);
+                        }}
+                      >
                         {g.letter}
                       </a>
                     ))}

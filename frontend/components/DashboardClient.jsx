@@ -2,14 +2,12 @@
 
 import { useCallback, useEffect, useMemo, useState } from "react";
 import Link from "next/link";
-import FilterBar from "@/components/FilterBar";
-import GapMap from "@/components/GapMap";
 import DetailPanel from "@/components/DetailPanel";
 import Hero from "@/components/Hero";
-import QuadrantIntro from "@/components/QuadrantIntro";
+import QuadrantMapStage from "@/components/QuadrantMapStage";
 import TopBar from "@/components/TopBar";
 import { getGapMapData } from "@/lib/api";
-import { pickMapPoints, MAP_LIMIT, MAP_LIMIT_STEPS } from "@/lib/mapPoints";
+import { pickMapPoints, MAP_LIMIT } from "@/lib/mapPoints";
 import { ALL_ROLES, projectByRole } from "@/lib/roles";
 import { useInView } from "@/lib/useInView";
 
@@ -21,7 +19,7 @@ export default function DashboardClient() {
   const [selectedRole, setSelectedRole] = useState(ALL_ROLES);
   const [selectedTech, setSelectedTech] = useState(null);
 
-  const [mapRef, mapInView] = useInView({ threshold: 0.3 });
+  const [nextStepRef, nextStepInView] = useInView({ threshold: 0.2 });
   // initial=true — 첫 페인트에서 상단바가 잠깐 불투명해졌다 사라지는 깜빡임을 막는다.
   const [heroSentinelRef, heroVisible] = useInView({
     threshold: 0,
@@ -100,12 +98,6 @@ export default function DashboardClient() {
     setSelectedTech(null);
   }, []);
 
-  const pickFromQuadrant = useCallback((tech) => {
-    if (!tech) return;
-    setSelectedTech(tech);
-    document.getElementById("gapmap")?.scrollIntoView({ block: "start" });
-  }, []);
-
   return (
     <div className="page">
       <TopBar
@@ -120,72 +112,38 @@ export default function DashboardClient() {
       <Hero techCount={data.length} meta={meta} />
 
       <main className="page__main">
-        <QuadrantIntro data={data} loading={loading} onPickQuadrant={pickFromQuadrant} />
+        <QuadrantMapStage
+          data={data}
+          mapData={mapData}
+          filteredCount={filteredData.length}
+          totalCount={data.length}
+          loading={loading}
+          error={error}
+          roles={roles}
+          hasRoleData={hasRoleData}
+          selectedRole={selectedRole}
+          onRoleChange={changeRole}
+          selectedTech={selectedTech}
+          onSelectPoint={setSelectedTech}
+          mapLimit={mapLimit}
+          onLimitChange={setLimitOverride}
+          detailPanel={
+            <DetailPanel
+              tech={selectedTech}
+              totalTechs={meta?.totalTechs ?? data.length}
+              onClose={() => setSelectedTech(null)}
+            />
+          }
+        />
 
-        <section className="map-section" id="gapmap" ref={mapRef}>
-          <div className="section-head">
-            <div className="section-head__eyebrow">수요 − 생태계 지도</div>
-            <h2 className="section-head__title">
-              두 축이 어긋난 자리에 <em>선점 후보</em>가 있습니다
-            </h2>
-            <p className="section-head__lead">
-              점 하나가 기술 하나입니다. 오른쪽 아래로 갈수록 생태계는 이미 달아올랐는데 채용
-              공고는 아직 따라오지 않은 기술입니다.
-            </p>
-          </div>
-
-          <FilterBar
-            roles={roles}
-            selectedRole={selectedRole}
-            onRoleChange={changeRole}
-            hasRoleData={hasRoleData}
-            resultCount={filteredData.length}
-            totalCount={data.length}
-          />
-
-          <div className="map-section__grid">
-            <div className="chart-panel">
-              <div className="chart-panel__head">
-                <div className="chart-panel__title">생태계 × 채용 수요</div>
-                <div className="chart-panel__limits" role="group" aria-label="지도에 표시할 기술 수">
-                  {MAP_LIMIT_STEPS.map((step) => {
-                    const value = Number.isFinite(step) ? step : filteredData.length;
-                    return (
-                      <button
-                        key={String(step)}
-                        type="button"
-                        className="chart-panel__limit"
-                        aria-pressed={mapLimit === value}
-                        onClick={() => setLimitOverride(value)}
-                      >
-                        {Number.isFinite(step) ? `${step}개` : "전체"}
-                      </button>
-                    );
-                  })}
-                </div>
-              </div>
-              <GapMap
-                data={mapData}
-                selectedTech={selectedTech}
-                onSelectPoint={setSelectedTech}
-                loading={loading}
-                error={error}
-                revealed={mapInView}
-              />
-            </div>
-
-            <aside>
-              <DetailPanel
-                tech={selectedTech}
-                totalTechs={meta?.totalTechs ?? data.length}
-                onClose={() => setSelectedTech(null)}
-              />
-            </aside>
-          </div>
-
-          {/* 지도를 다 본 사람이 자연스럽게 넘어갈 다음 걸음. 상단바 검색 버튼은
-              언제든 쓸 수 있는 통로고, 여기는 읽는 흐름 위에 놓인 안내다. */}
-          <Link className="next-step" href="/dictionary" data-revealed={mapInView}>
+        {/* 지도를 다 본 사람이 자연스럽게 넘어갈 다음 걸음. 상단바의 "기술 사전"
+            버튼은 언제든 쓸 수 있는 통로고, 여기는 읽는 흐름 위에 놓인 안내다. */}
+        <Link
+          className="next-step"
+          href="/dictionary"
+          ref={nextStepRef}
+          data-revealed={nextStepInView}
+        >
             <span className="next-step__copy">
               <span className="next-step__title">전체 기술 목록</span>
               <span className="next-step__text">
@@ -207,8 +165,7 @@ export default function DashboardClient() {
                 />
               </svg>
             </span>
-          </Link>
-        </section>
+        </Link>
       </main>
 
       <footer className="page__footer">

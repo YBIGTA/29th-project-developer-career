@@ -1,0 +1,59 @@
+# Version control and local metadata
+.git
+.gitignore
+.github/
+.DS_Store
+**/.DS_Store
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+.venv/
+venv/
+
+# Python caches and generated packages
+__pycache__/
+**/__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+
+# Test, coverage, and type-checker caches
+.coverage
+.coverage.*
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.tox/
+
+# Editors and operating-system files
+.idea/
+.vscode/
+Thumbs.db
+
+# Local logs and temporary files
+*.log
+*.tmp
+*.swp
+tmp/
+
+# Development-only documents and notebooks
+README*.md
+docs/
+notebooks/
+*.ipynb
+
+# Local orchestration files are not needed in the Task A image
+compose*.yaml
+compose*.yml
+docker-compose*.yaml
+docker-compose*.yml
+
+# Keep these build inputs in context:
+# - artifacts/job_role_svc_v1.joblib
+# - src/
+# - tests/
+# - pyproject.toml

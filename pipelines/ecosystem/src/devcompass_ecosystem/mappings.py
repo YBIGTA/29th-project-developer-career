@@ -6,7 +6,7 @@ GITHUB_QUERIES = {
     "C++": ("language:C++", '"C++"'),
     "C#": ("language:C#", '"C#"'),
     "C": ("language:C", '"C"'),
-    "Go": ("language:Go", "golang OR go"),
+    "Go": ("language:Go", '"golang" OR "go language"'),
     "Rust": ("language:Rust", "rust"),
     "Ruby": ("language:Ruby", "ruby"),
     "R": ("language:R", '"R language" OR rstats'),

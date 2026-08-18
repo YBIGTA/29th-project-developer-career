@@ -1,5 +1,5 @@
 AWSTemplateFormatVersion: "2010-09-09"
-Description: DevCompass jobs-only EventBridge Scheduler and Step Functions workflow.
+Description: DevCompass daily Task A and Task B EventBridge Scheduler and Step Functions workflow.
 
 Parameters:
   EnvironmentName:
@@ -10,7 +10,7 @@ Parameters:
 
   EcsClusterArn:
     Type: String
-    Description: ARN of the ECS cluster that runs Task A.
+    Description: ARN of the ECS cluster that runs Task A and Task B.
 
   TaskATaskDefinitionArn:
     Type: String
@@ -21,13 +21,22 @@ Parameters:
     Default: devcompass-batch
     Description: Container name inside the Task A task definition.
 
+  TaskBTaskDefinitionArn:
+    Type: String
+    Description: Revision-pinned ECS task definition ARN for Task B.
+
+  TaskBContainerName:
+    Type: String
+    Default: devcompass-ecosystem
+    Description: Container name inside the Task B task definition.
+
   TaskExecutionRoleArn:
     Type: String
-    Description: ECS task execution role ARN used by Task A.
+    Description: ECS task execution role ARN used by both tasks.
 
   TaskRoleArn:
     Type: String
-    Description: ECS task role ARN used by Task A.
+    Description: ECS task role ARN used by both tasks.
 
   PrivateSubnetIds:
     Type: List<AWS::EC2::Subnet::Id>
@@ -35,7 +44,7 @@ Parameters:
 
   SecurityGroupIds:
     Type: List<AWS::EC2::SecurityGroup::Id>
-    Description: Security groups allowing Task A to reach RDS and public ATS APIs.
+    Description: Security groups allowing both tasks to reach RDS and public APIs.
 
   ScheduleExpression:
     Type: String
@@ -56,10 +65,24 @@ Parameters:
 
   WorkflowTimeoutSeconds:
     Type: Number
-    Default: 14400
+    Default: 18000
     MinValue: 300
     MaxValue: 86400
-    Description: Hard timeout for one jobs-only workflow execution.
+    Description: Hard timeout for the complete parallel workflow execution.
+
+  TaskATimeoutSeconds:
+    Type: Number
+    Default: 10800
+    MinValue: 300
+    MaxValue: 14400
+    Description: Timeout for one Task A ECS attempt; keep below WorkflowTimeoutSeconds.
+
+  TaskBTimeoutSeconds:
+    Type: Number
+    Default: 14400
+    MinValue: 300
+    MaxValue: 14400
+    Description: Timeout for one Task B ECS attempt; keep below WorkflowTimeoutSeconds.
 
   LogRetentionDays:
     Type: Number
@@ -97,13 +120,15 @@ Resources:
               Service: states.amazonaws.com
             Action: sts:AssumeRole
       Policies:
-        - PolicyName: RunTaskAAndWait
+        - PolicyName: RunDataTasksAndWait
           PolicyDocument:
             Version: "2012-10-17"
             Statement:
               - Effect: Allow
                 Action: ecs:RunTask
-                Resource: !Ref TaskATaskDefinitionArn
+                Resource:
+                  - !Ref TaskATaskDefinitionArn
+                  - !Ref TaskBTaskDefinitionArn
               - Effect: Allow
                 Action:
                   - ecs:DescribeTasks
@@ -152,58 +177,154 @@ Resources:
         IncludeExecutionData: true
         Level: ALL
       Definition:
-        Comment: Run the DevCompass Task A jobs pipeline and wait for its exit status.
-        StartAt: RunTaskA
+        Comment: Run Task A and Task B in parallel and require both containers to exit successfully.
+        StartAt: RunDataPipelines
         TimeoutSeconds: !Ref WorkflowTimeoutSeconds
         States:
-          RunTaskA:
-            Type: Task
-            Resource: arn:aws:states:::ecs:runTask.sync
-            Parameters:
-              Cluster: !Ref EcsClusterArn
-              LaunchType: FARGATE
-              PlatformVersion: LATEST
-              TaskDefinition: !Ref TaskATaskDefinitionArn
-              NetworkConfiguration:
-                AwsvpcConfiguration:
-                  AssignPublicIp: DISABLED
-                  Subnets: !Ref PrivateSubnetIds
-                  SecurityGroups: !Ref SecurityGroupIds
-              Overrides:
-                ContainerOverrides:
-                  - Name: !Ref TaskAContainerName
-                    Command:
-                      - --mode
-                      - full
-                    Environment:
-                      - Name: DEVCOMPASS_RUN_ID
-                        Value.$: $$.Execution.Name
-                      - Name: DEVCOMPASS_WORKFLOW_TYPE
-                        Value: jobs-only
-            Retry:
-              - ErrorEquals:
-                  - States.TaskFailed
-                  - States.Timeout
-                IntervalSeconds: 30
-                MaxAttempts: 2
-                BackoffRate: 2
-                MaxDelaySeconds: 300
-                JitterStrategy: FULL
+          RunDataPipelines:
+            Type: Parallel
+            Branches:
+              - StartAt: RunTaskA
+                States:
+                  RunTaskA:
+                    Type: Task
+                    Resource: arn:aws:states:::ecs:runTask.sync
+                    TimeoutSeconds: !Ref TaskATimeoutSeconds
+                    Parameters:
+                      Cluster: !Ref EcsClusterArn
+                      LaunchType: FARGATE
+                      PlatformVersion: LATEST
+                      TaskDefinition: !Ref TaskATaskDefinitionArn
+                      NetworkConfiguration:
+                        AwsvpcConfiguration:
+                          AssignPublicIp: DISABLED
+                          Subnets: !Ref PrivateSubnetIds
+                          SecurityGroups: !Ref SecurityGroupIds
+                      Overrides:
+                        ContainerOverrides:
+                          - Name: !Ref TaskAContainerName
+                            Command:
+                              - --mode
+                              - full
+                            Environment:
+                              - Name: DEVCOMPASS_RUN_ID
+                                Value.$: $$.Execution.Name
+                              - Name: DEVCOMPASS_WORKFLOW_RUN_ID
+                                Value.$: $$.Execution.Name
+                              - Name: DEVCOMPASS_WORKFLOW_TYPE
+                                Value: daily-full
+                    Retry:
+                      - ErrorEquals:
+                          - States.TaskFailed
+                          - States.Timeout
+                        IntervalSeconds: 30
+                        MaxAttempts: 2
+                        BackoffRate: 2
+                        MaxDelaySeconds: 300
+                        JitterStrategy: FULL
+                    Catch:
+                      - ErrorEquals:
+                          - States.ALL
+                        ResultPath: $.taskError
+                        Next: TaskAFailed
+                    ResultPath: $.taskResult
+                    Next: ValidateTaskAExitCode
+
+                  ValidateTaskAExitCode:
+                    Type: Choice
+                    Choices:
+                      - And:
+                          - Variable: $.taskResult.Containers[0].ExitCode
+                            IsPresent: true
+                          - Variable: $.taskResult.Containers[0].ExitCode
+                            NumericEquals: 0
+                        Next: TaskASucceeded
+                    Default: TaskAFailed
+
+                  TaskASucceeded:
+                    Type: Succeed
+
+                  TaskAFailed:
+                    Type: Fail
+                    Error: DevCompass.TaskAFailed
+                    Cause: Task A failed or returned a nonzero container exit code.
+
+              - StartAt: RunTaskB
+                States:
+                  RunTaskB:
+                    Type: Task
+                    Resource: arn:aws:states:::ecs:runTask.sync
+                    TimeoutSeconds: !Ref TaskBTimeoutSeconds
+                    Parameters:
+                      Cluster: !Ref EcsClusterArn
+                      LaunchType: FARGATE
+                      PlatformVersion: LATEST
+                      TaskDefinition: !Ref TaskBTaskDefinitionArn
+                      NetworkConfiguration:
+                        AwsvpcConfiguration:
+                          AssignPublicIp: DISABLED
+                          Subnets: !Ref PrivateSubnetIds
+                          SecurityGroups: !Ref SecurityGroupIds
+                      Overrides:
+                        ContainerOverrides:
+                          - Name: !Ref TaskBContainerName
+                            Environment:
+                              - Name: DEVCOMPASS_WORKFLOW_RUN_ID
+                                Value.$: $$.Execution.Name
+                              - Name: DEVCOMPASS_AS_OF_DATE
+                                Value.$: $$.Execution.StartTime
+                              - Name: DEVCOMPASS_WORKFLOW_TYPE
+                                Value: daily-full
+                    Retry:
+                      - ErrorEquals:
+                          - States.TaskFailed
+                          - States.Timeout
+                        IntervalSeconds: 30
+                        MaxAttempts: 2
+                        BackoffRate: 2
+                        MaxDelaySeconds: 300
+                        JitterStrategy: FULL
+                    Catch:
+                      - ErrorEquals:
+                          - States.ALL
+                        ResultPath: $.taskError
+                        Next: TaskBFailed
+                    ResultPath: $.taskResult
+                    Next: ValidateTaskBExitCode
+
+                  ValidateTaskBExitCode:
+                    Type: Choice
+                    Choices:
+                      - And:
+                          - Variable: $.taskResult.Containers[0].ExitCode
+                            IsPresent: true
+                          - Variable: $.taskResult.Containers[0].ExitCode
+                            NumericEquals: 0
+                        Next: TaskBSucceeded
+                    Default: TaskBFailed
+
+                  TaskBSucceeded:
+                    Type: Succeed
+
+                  TaskBFailed:
+                    Type: Fail
+                    Error: DevCompass.TaskBFailed
+                    Cause: Task B failed or returned a nonzero container exit code.
             Catch:
               - ErrorEquals:
                   - States.ALL
-                ResultPath: $.taskAError
-                Next: TaskAFailed
-            ResultPath: $.taskAResult
-            Next: JobsWorkflowSucceeded
+                ResultPath: $.pipelineError
+                Next: DataWorkflowFailed
+            ResultPath: $.pipelineResults
+            Next: DataWorkflowSucceeded
 
-          JobsWorkflowSucceeded:
+          DataWorkflowSucceeded:
             Type: Succeed
 
-          TaskAFailed:
+          DataWorkflowFailed:
             Type: Fail
-            Error: DevCompass.TaskAFailed
-            Cause: Task A failed after Step Functions retries were exhausted.
+            Error: DevCompass.DataWorkflowFailed
+            Cause: Task A or Task B failed after retries were exhausted.
 
   SchedulerRole:
     Type: AWS::IAM::Role
@@ -232,7 +353,7 @@ Resources:
     Type: AWS::Scheduler::Schedule
     Properties:
       Name: !Sub ${EnvironmentName}-devcompass-jobs-daily
-      Description: Start the DevCompass jobs-only Step Functions workflow once a day.
+      Description: Start the DevCompass Task A and Task B workflow once a day.
       FlexibleTimeWindow:
         Mode: "OFF"
       ScheduleExpression: !Ref ScheduleExpression
@@ -241,7 +362,7 @@ Resources:
       Target:
         Arn: !Ref JobsStateMachine
         RoleArn: !GetAtt SchedulerRole.Arn
-        Input: '{"workflowType":"jobs-only","trigger":"eventbridge-scheduler"}'
+        Input: '{"workflowType":"daily-full","trigger":"eventbridge-scheduler"}'
         DeadLetterConfig:
           Arn: !GetAtt SchedulerDeadLetterQueue.Arn
         RetryPolicy:
@@ -252,7 +373,7 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmName: !Sub ${EnvironmentName}-devcompass-jobs-execution-failed
-      AlarmDescription: The jobs-only Step Functions workflow failed.
+      AlarmDescription: The daily Task A and Task B workflow failed.
       Namespace: AWS/States
       MetricName: ExecutionsFailed
       Dimensions:
@@ -271,7 +392,7 @@ Resources:
     Type: AWS::CloudWatch::Alarm
     Properties:
       AlarmName: !Sub ${EnvironmentName}-devcompass-jobs-execution-timed-out
-      AlarmDescription: The jobs-only Step Functions workflow timed out.
+      AlarmDescription: The daily Task A and Task B workflow timed out.
       Namespace: AWS/States
       MetricName: ExecutionsTimedOut
       Dimensions:

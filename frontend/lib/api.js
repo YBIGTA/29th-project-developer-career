@@ -20,7 +20,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  *           demand(공고 언급 빈도의 백분위 순위 0~100), demandRank,
  *           ecosystemScore, quadrant, postings, postingsShare, postingsNote,
  *           ecosystem: { githubRepo?, githubActivity?, stackoverflow? } — 각 { score, raw }.
- *             세 개가 다 오지는 않는다. DW API는 현재 stackoverflow만 내려주고
+ *             세 개가 다 오지는 않는다. 운영 DW는 최신 Task B 성공 후 세 개를 내려주고
  *             로컬 mockData.json만 세 개를 모두 갖는다. 화면은 있는 것만 그린다
  *             (lib/ecosystem.js 참고),
  *           sampleRepositories, signals,

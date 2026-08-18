@@ -1,0 +1,15 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "devcompass-ecosystem"
+version = "0.1.0"
+description = "DevCompass GitHub and Stack Overflow ecosystem metrics pipeline"
+requires-python = ">=3.10"
+dependencies = [
+    "psycopg[binary]>=3.2,<4",
+]
+
+[tool.setuptools.packages.find]
+where = ["src"]

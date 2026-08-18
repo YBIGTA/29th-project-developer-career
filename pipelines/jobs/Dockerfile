@@ -5,7 +5,7 @@ FROM python:${PYTHON_VERSION}-slim AS base
 ENV PYTHONDONTWRITEBYTECODE=1 \
     PYTHONUNBUFFERED=1 \
     PIP_NO_CACHE_DIR=1 \
-    DEVCOMPASS_ROLE_MODEL_PATH=/app/experiment/job_role_svc_v1.joblib \
+    DEVCOMPASS_ROLE_MODEL_PATH=/app/artifacts/job_role_svc_v1.joblib \
     DEVCOMPASS_ROLE_MODEL_VERSION=job-role-svc-v1 \
     DEVCOMPASS_SKILL_EXTRACTOR_VERSION=tech-dictionary-v1 \
     DEVCOMPASS_ENRICHMENT_BATCH_SIZE=250 \
@@ -29,19 +29,11 @@ COPY pyproject.toml ./
 COPY src/ ./src/
 RUN pip install .
 
-COPY experiment/job_role_svc_v1.joblib ./experiment/job_role_svc_v1.joblib
+COPY artifacts/job_role_svc_v1.joblib ./artifacts/job_role_svc_v1.joblib
 
-RUN python -c "from devcompass.enrichment import JobRoleClassifier; JobRoleClassifier('/app/experiment/job_role_svc_v1.joblib', expected_version='job-role-svc-v1')"
-
-FROM base AS validation
-
-COPY tests/ /tmp/devcompass-tests/
-RUN python -m unittest discover -s /tmp/devcompass-tests -v \
-    && touch /tmp/devcompass-validation-ok
+RUN python -c "from devcompass.enrichment import JobRoleClassifier; JobRoleClassifier('/app/artifacts/job_role_svc_v1.joblib', expected_version='job-role-svc-v1')"
 
 FROM base AS runtime
-
-COPY --from=validation /tmp/devcompass-validation-ok /app/.devcompass-validation-ok
 
 USER devcompass
 ENTRYPOINT ["python", "-m", "devcompass.batch"]

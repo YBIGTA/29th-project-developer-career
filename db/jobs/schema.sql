@@ -1,5 +1,5 @@
 -- DevCompass phase-1 collection layer schema.
--- Scope: ATS registry, current postings, posting history, and Airflow run metadata.
+-- Scope: ATS registry, current postings, posting history, and batch run metadata.
 
 CREATE OR REPLACE FUNCTION set_updated_at()
 RETURNS TRIGGER AS $$
@@ -147,7 +147,7 @@ CREATE INDEX IF NOT EXISTS idx_collection_board_status_board_collected
 ON collection_board_status (board_id, collected_at DESC);
 
 -- DevCompass reference dictionaries.
--- These tables are seeded before enrichment jobs run and are not populated by Airflow.
+-- These tables are seeded before enrichment jobs run and are not pipeline outputs.
 
 CREATE TABLE IF NOT EXISTS job_role (
     job_role_id BIGSERIAL PRIMARY KEY,
@@ -334,7 +334,7 @@ ON job_skill (skill_id, enrichment_id);
 COMMENT ON TABLE ats_board IS 'Registry of companies and public ATS boards to collect.';
 COMMENT ON TABLE job_posting IS 'Current latest observed state for each source job posting.';
 COMMENT ON TABLE job_posting_history IS 'Version history inserted only when a posting content_hash changes.';
-COMMENT ON TABLE collection_run IS 'One Airflow DAG collection run and aggregate outcome.';
+COMMENT ON TABLE collection_run IS 'One Task A collection run and aggregate outcome.';
 COMMENT ON TABLE collection_board_status IS 'Per-run, per-board API result. Downstream closed detection must use only status = success rows.';
 COMMENT ON TABLE job_role IS 'Predefined LinearSVC output taxonomy. UNMATCHED is represented by a null role foreign key, not a row here.';
 COMMENT ON TABLE skill_category IS 'Predefined categories from TECH_DICTIONARY.';

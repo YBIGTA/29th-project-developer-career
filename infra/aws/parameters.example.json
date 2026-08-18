@@ -16,6 +16,14 @@
     "ParameterValue": "devcompass-batch"
   },
   {
+    "ParameterKey": "TaskBTaskDefinitionArn",
+    "ParameterValue": "arn:aws:ecs:ap-northeast-2:123456789012:task-definition/devcompass-ecosystem:1"
+  },
+  {
+    "ParameterKey": "TaskBContainerName",
+    "ParameterValue": "devcompass-ecosystem"
+  },
+  {
     "ParameterKey": "TaskExecutionRoleArn",
     "ParameterValue": "arn:aws:iam::123456789012:role/devcompass-task-execution"
   },
@@ -36,4 +44,3 @@
     "ParameterValue": "DISABLED"
   }
 ]
-

@@ -44,8 +44,15 @@ ROLE_COUNTS_SQL = text("""
 """)
 
 ECOSYSTEM_SQL = text("""
-    SELECT skill, stackoverflow_question_count_180d, ecosystem_score
-    FROM vw_stackoverflow_ecosystem_skill
+    SELECT skill_id, skill_name,
+           github_repository_count,
+           github_activity_count_180d,
+           stackoverflow_question_count_180d,
+           github_repository_score,
+           github_activity_score,
+           stackoverflow_score,
+           ecosystem_score
+    FROM vw_latest_ecosystem_skill
 """)
 
 PERIOD_SQL = text("""
@@ -101,7 +108,7 @@ def load_data(db: Session):
     for row in db.execute(ROLE_COUNTS_SQL).mappings():
         role_counts[row["skill_id"]].append(dict(row))
     ecosystem = {
-        row["skill"]: dict(row) for row in db.execute(ECOSYSTEM_SQL).mappings()
+        row["skill_id"]: dict(row) for row in db.execute(ECOSYSTEM_SQL).mappings()
     }
     period = dict(db.execute(PERIOD_SQL).mappings().one())
     return skills, role_counts, ecosystem, period
@@ -109,8 +116,11 @@ def load_data(db: Session):
 
 def map_items(db: Session) -> tuple[list[dict], dict]:
     skills, role_counts, ecosystem, period = load_data(db)
-    # The database currently exposes only Stack Overflow ecosystem data.
-    skills = [skill for skill in skills if skill["postings"] and skill["skill_name"] in ecosystem]
+    skills = [
+        skill
+        for skill in skills
+        if skill["postings"] and skill["skill_id"] in ecosystem
+    ]
     demand_scores = percentile([skill["postings"] for skill in skills])
     demand_ranks = rank([skill["postings"] for skill in skills])
     by_role: dict[str, list[int]] = defaultdict(list)
@@ -123,7 +133,7 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
 
     items = []
     for skill in skills:
-        eco = ecosystem[skill["skill_name"]]
+        eco = ecosystem[skill["skill_id"]]
         ecosystem_score = float(eco["ecosystem_score"])
         breakdown = []
         for row in sorted(role_counts[skill["skill_id"]], key=lambda value: (-value["postings"], value["role_name"])):
@@ -147,13 +157,25 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
             "quadrant": quadrant(demand, ecosystem_score),
             "postings": skill["postings"], "postingsShare": share,
             "postingsNote": f"활성 채용공고 {total:,}건 중 {skill['postings']:,}건({share}%)에서 요구",
-            "ecosystem": {"stackoverflow": {
-                "score": ecosystem_score,
-                "raw": eco["stackoverflow_question_count_180d"],
-            }},
+            "ecosystem": {
+                "githubRepo": {
+                    "score": float(eco["github_repository_score"]),
+                    "raw": eco["github_repository_count"],
+                },
+                "githubActivity": {
+                    "score": float(eco["github_activity_score"]),
+                    "raw": eco["github_activity_count_180d"],
+                },
+                "stackoverflow": {
+                    "score": float(eco["stackoverflow_score"]),
+                    "raw": eco["stackoverflow_question_count_180d"],
+                },
+            },
             "signals": [
                 {"meta": "채용", "title": f"활성 공고 {skill['postings']:,}건에서 요구됩니다."},
-                {"meta": "생태계 · Stack Overflow", "title": f"최근 180일 질문 {eco['stackoverflow_question_count_180d']:,}건 기준 백분위 {ecosystem_score}점입니다."},
+                {"meta": "생태계 · GitHub", "title": f"저장소 {eco['github_repository_count']:,}개 기준 백분위 {float(eco['github_repository_score'])}점입니다."},
+                {"meta": "생태계 · GitHub 활동", "title": f"최근 180일 이슈·PR {eco['github_activity_count_180d']:,}건 기준 백분위 {float(eco['github_activity_score'])}점입니다."},
+                {"meta": "생태계 · Stack Overflow", "title": f"최근 180일 질문 {eco['stackoverflow_question_count_180d']:,}건 기준 백분위 {float(eco['stackoverflow_score'])}점입니다."},
             ],
         })
     items.sort(key=lambda item: (-item["postings"], item["tech"]))
@@ -191,7 +213,7 @@ def get_skills(db: Session = Depends(get_db)):
             "postingsShare": round(100 * skill["postings"] / total, 1) if total else 0.0,
             "rank": ranks.get(skill["postings"]),
             "roles": [row["role_name"] for row in roles[:2]],
-            "detailed": skill["skill_name"] in ecosystem,
+            "detailed": skill["skill_id"] in ecosystem,
         })
     items.sort(key=lambda item: item["tech"].lower())
     categories = sorted({item["category"] for item in items})

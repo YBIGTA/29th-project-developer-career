@@ -1,0 +1,39 @@
+[
+  {
+    "ParameterKey": "EnvironmentName",
+    "ParameterValue": "dev"
+  },
+  {
+    "ParameterKey": "EcsClusterArn",
+    "ParameterValue": "arn:aws:ecs:ap-northeast-2:123456789012:cluster/devcompass"
+  },
+  {
+    "ParameterKey": "TaskATaskDefinitionArn",
+    "ParameterValue": "arn:aws:ecs:ap-northeast-2:123456789012:task-definition/devcompass-batch:1"
+  },
+  {
+    "ParameterKey": "TaskAContainerName",
+    "ParameterValue": "devcompass-batch"
+  },
+  {
+    "ParameterKey": "TaskExecutionRoleArn",
+    "ParameterValue": "arn:aws:iam::123456789012:role/devcompass-task-execution"
+  },
+  {
+    "ParameterKey": "TaskRoleArn",
+    "ParameterValue": "arn:aws:iam::123456789012:role/devcompass-task"
+  },
+  {
+    "ParameterKey": "PrivateSubnetIds",
+    "ParameterValue": "subnet-aaaaaaaa,subnet-bbbbbbbb"
+  },
+  {
+    "ParameterKey": "SecurityGroupIds",
+    "ParameterValue": "sg-aaaaaaaa"
+  },
+  {
+    "ParameterKey": "ScheduleState",
+    "ParameterValue": "DISABLED"
+  }
+]
+

@@ -1,0 +1,317 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: DevCompass jobs-only EventBridge Scheduler and Step Functions workflow.
+
+Parameters:
+  EnvironmentName:
+    Type: String
+    Default: dev
+    AllowedPattern: "^[a-z0-9-]+$"
+    Description: Short environment name used in AWS resource names.
+
+  EcsClusterArn:
+    Type: String
+    Description: ARN of the ECS cluster that runs Task A.
+
+  TaskATaskDefinitionArn:
+    Type: String
+    Description: Revision-pinned ECS task definition ARN for Task A.
+
+  TaskAContainerName:
+    Type: String
+    Default: devcompass-batch
+    Description: Container name inside the Task A task definition.
+
+  TaskExecutionRoleArn:
+    Type: String
+    Description: ECS task execution role ARN used by Task A.
+
+  TaskRoleArn:
+    Type: String
+    Description: ECS task role ARN used by Task A.
+
+  PrivateSubnetIds:
+    Type: List<AWS::EC2::Subnet::Id>
+    Description: Private subnets with routes to RDS and internet egress.
+
+  SecurityGroupIds:
+    Type: List<AWS::EC2::SecurityGroup::Id>
+    Description: Security groups allowing Task A to reach RDS and public ATS APIs.
+
+  ScheduleExpression:
+    Type: String
+    Default: cron(0 0 * * ? *)
+    Description: EventBridge Scheduler cron expression, evaluated in ScheduleTimezone.
+
+  ScheduleTimezone:
+    Type: String
+    Default: Asia/Seoul
+
+  ScheduleState:
+    Type: String
+    Default: DISABLED
+    AllowedValues:
+      - ENABLED
+      - DISABLED
+    Description: Keep disabled until a manual Step Functions execution succeeds.
+
+  WorkflowTimeoutSeconds:
+    Type: Number
+    Default: 14400
+    MinValue: 300
+    MaxValue: 86400
+    Description: Hard timeout for one jobs-only workflow execution.
+
+  LogRetentionDays:
+    Type: Number
+    Default: 30
+    AllowedValues: [7, 14, 30, 60, 90, 120, 180, 365]
+
+Resources:
+  WorkflowLogGroup:
+    Type: AWS::Logs::LogGroup
+    Properties:
+      LogGroupName: !Sub /aws/vendedlogs/states/${EnvironmentName}-devcompass-jobs
+      RetentionInDays: !Ref LogRetentionDays
+
+  SchedulerDeadLetterQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      QueueName: !Sub ${EnvironmentName}-devcompass-jobs-scheduler-dlq
+      MessageRetentionPeriod: 1209600
+      SqsManagedSseEnabled: true
+
+  WorkflowAlarmTopic:
+    Type: AWS::SNS::Topic
+    Properties:
+      TopicName: !Sub ${EnvironmentName}-devcompass-jobs-alarms
+
+  StateMachineRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${EnvironmentName}-devcompass-jobs-step-functions
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: states.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: RunTaskAAndWait
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: ecs:RunTask
+                Resource: !Ref TaskATaskDefinitionArn
+              - Effect: Allow
+                Action:
+                  - ecs:DescribeTasks
+                  - ecs:StopTask
+                Resource: "*"
+              - Effect: Allow
+                Action:
+                  - events:DescribeRule
+                  - events:PutRule
+                  - events:PutTargets
+                Resource: !Sub arn:${AWS::Partition}:events:${AWS::Region}:${AWS::AccountId}:rule/StepFunctionsGetEventsForECSTaskRule
+              - Effect: Allow
+                Action: iam:PassRole
+                Resource:
+                  - !Ref TaskExecutionRoleArn
+                  - !Ref TaskRoleArn
+                Condition:
+                  StringEquals:
+                    iam:PassedToService: ecs-tasks.amazonaws.com
+        - PolicyName: WriteExecutionLogs
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action:
+                  - logs:CreateLogDelivery
+                  - logs:DeleteLogDelivery
+                  - logs:DescribeLogGroups
+                  - logs:DescribeResourcePolicies
+                  - logs:GetLogDelivery
+                  - logs:ListLogDeliveries
+                  - logs:PutResourcePolicy
+                  - logs:UpdateLogDelivery
+                Resource: "*"
+
+  JobsStateMachine:
+    Type: AWS::StepFunctions::StateMachine
+    Properties:
+      StateMachineName: !Sub ${EnvironmentName}-devcompass-jobs
+      StateMachineType: STANDARD
+      RoleArn: !GetAtt StateMachineRole.Arn
+      LoggingConfiguration:
+        Destinations:
+          - CloudWatchLogsLogGroup:
+              LogGroupArn: !Sub ${WorkflowLogGroup.Arn}:*
+        IncludeExecutionData: true
+        Level: ALL
+      Definition:
+        Comment: Run the DevCompass Task A jobs pipeline and wait for its exit status.
+        StartAt: RunTaskA
+        TimeoutSeconds: !Ref WorkflowTimeoutSeconds
+        States:
+          RunTaskA:
+            Type: Task
+            Resource: arn:aws:states:::ecs:runTask.sync
+            Parameters:
+              Cluster: !Ref EcsClusterArn
+              LaunchType: FARGATE
+              PlatformVersion: LATEST
+              TaskDefinition: !Ref TaskATaskDefinitionArn
+              NetworkConfiguration:
+                AwsvpcConfiguration:
+                  AssignPublicIp: DISABLED
+                  Subnets: !Ref PrivateSubnetIds
+                  SecurityGroups: !Ref SecurityGroupIds
+              Overrides:
+                ContainerOverrides:
+                  - Name: !Ref TaskAContainerName
+                    Command:
+                      - --mode
+                      - full
+                    Environment:
+                      - Name: DEVCOMPASS_RUN_ID
+                        Value.$: $$.Execution.Name
+                      - Name: DEVCOMPASS_WORKFLOW_TYPE
+                        Value: jobs-only
+            Retry:
+              - ErrorEquals:
+                  - States.TaskFailed
+                  - States.Timeout
+                IntervalSeconds: 30
+                MaxAttempts: 2
+                BackoffRate: 2
+                MaxDelaySeconds: 300
+                JitterStrategy: FULL
+            Catch:
+              - ErrorEquals:
+                  - States.ALL
+                ResultPath: $.taskAError
+                Next: TaskAFailed
+            ResultPath: $.taskAResult
+            Next: JobsWorkflowSucceeded
+
+          JobsWorkflowSucceeded:
+            Type: Succeed
+
+          TaskAFailed:
+            Type: Fail
+            Error: DevCompass.TaskAFailed
+            Cause: Task A failed after Step Functions retries were exhausted.
+
+  SchedulerRole:
+    Type: AWS::IAM::Role
+    Properties:
+      RoleName: !Sub ${EnvironmentName}-devcompass-jobs-scheduler
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal:
+              Service: scheduler.amazonaws.com
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: StartJobsWorkflow
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: states:StartExecution
+                Resource: !Ref JobsStateMachine
+              - Effect: Allow
+                Action: sqs:SendMessage
+                Resource: !GetAtt SchedulerDeadLetterQueue.Arn
+
+  DailyJobsSchedule:
+    Type: AWS::Scheduler::Schedule
+    Properties:
+      Name: !Sub ${EnvironmentName}-devcompass-jobs-daily
+      Description: Start the DevCompass jobs-only Step Functions workflow once a day.
+      FlexibleTimeWindow:
+        Mode: "OFF"
+      ScheduleExpression: !Ref ScheduleExpression
+      ScheduleExpressionTimezone: !Ref ScheduleTimezone
+      State: !Ref ScheduleState
+      Target:
+        Arn: !Ref JobsStateMachine
+        RoleArn: !GetAtt SchedulerRole.Arn
+        Input: '{"workflowType":"jobs-only","trigger":"eventbridge-scheduler"}'
+        DeadLetterConfig:
+          Arn: !GetAtt SchedulerDeadLetterQueue.Arn
+        RetryPolicy:
+          MaximumEventAgeInSeconds: 3600
+          MaximumRetryAttempts: 2
+
+  WorkflowFailedAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub ${EnvironmentName}-devcompass-jobs-execution-failed
+      AlarmDescription: The jobs-only Step Functions workflow failed.
+      Namespace: AWS/States
+      MetricName: ExecutionsFailed
+      Dimensions:
+        - Name: StateMachineArn
+          Value: !Ref JobsStateMachine
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref WorkflowAlarmTopic
+
+  WorkflowTimedOutAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub ${EnvironmentName}-devcompass-jobs-execution-timed-out
+      AlarmDescription: The jobs-only Step Functions workflow timed out.
+      Namespace: AWS/States
+      MetricName: ExecutionsTimedOut
+      Dimensions:
+        - Name: StateMachineArn
+          Value: !Ref JobsStateMachine
+      Statistic: Sum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref WorkflowAlarmTopic
+
+  SchedulerDeadLetterAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmName: !Sub ${EnvironmentName}-devcompass-jobs-scheduler-dlq
+      AlarmDescription: EventBridge Scheduler exhausted delivery retries.
+      Namespace: AWS/SQS
+      MetricName: ApproximateNumberOfMessagesVisible
+      Dimensions:
+        - Name: QueueName
+          Value: !GetAtt SchedulerDeadLetterQueue.QueueName
+      Statistic: Maximum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions:
+        - !Ref WorkflowAlarmTopic
+
+Outputs:
+  StateMachineArn:
+    Value: !Ref JobsStateMachine
+  ScheduleName:
+    Value: !Ref DailyJobsSchedule
+  SchedulerDeadLetterQueueUrl:
+    Value: !Ref SchedulerDeadLetterQueue
+  WorkflowAlarmTopicArn:
+    Description: Subscribe an email, chat integration, or incident system to this topic.
+    Value: !Ref WorkflowAlarmTopic

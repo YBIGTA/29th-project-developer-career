@@ -1,0 +1,36 @@
+INSERT INTO ats_board (company_name, ats_source, board_slug, is_enabled)
+VALUES
+    ('Stripe', 'greenhouse', 'stripe', TRUE),
+    ('Cloudflare', 'greenhouse', 'cloudflare', TRUE),
+    ('Datadog', 'greenhouse', 'datadog', TRUE),
+    ('Discord', 'greenhouse', 'discord', TRUE),
+    ('Figma', 'greenhouse', 'figma', TRUE),
+    ('Cockroach Labs', 'greenhouse', 'cockroachlabs', TRUE),
+    ('MongoDB', 'greenhouse', 'mongodb', TRUE),
+    ('Lyft', 'greenhouse', 'lyft', TRUE),
+    ('Roblox', 'greenhouse', 'roblox', TRUE),
+    ('Airbnb', 'greenhouse', 'airbnb', TRUE),
+    ('Anthropic', 'greenhouse', 'anthropic', TRUE),
+    ('Scale AI', 'greenhouse', 'scaleai', TRUE),
+    ('Palantir', 'lever', 'palantir', TRUE),
+    ('Spotify', 'lever', 'spotify', TRUE),
+    ('Binance', 'lever', 'binance', TRUE),
+    ('OpenAI', 'ashby', 'openai', TRUE),
+    ('Notion', 'ashby', 'notion', TRUE),
+    ('Ramp', 'ashby', 'ramp', TRUE),
+    ('Cursor', 'ashby', 'cursor', TRUE),
+    ('Linear', 'ashby', 'linear', TRUE),
+    ('Perplexity', 'ashby', 'perplexity', TRUE),
+    ('Replit', 'ashby', 'replit', TRUE),
+    ('PostHog', 'ashby', 'posthog', TRUE),
+    ('Supabase', 'ashby', 'supabase', TRUE),
+    ('Modal', 'ashby', 'modal', TRUE),
+    ('Cohere', 'ashby', 'cohere', TRUE),
+    ('ElevenLabs', 'ashby', 'elevenlabs', TRUE),
+    ('LangChain', 'ashby', 'langchain', TRUE),
+    ('Render', 'ashby', 'render', TRUE),
+    ('Railway', 'ashby', 'railway', TRUE)
+ON CONFLICT (ats_source, board_slug) DO UPDATE SET
+    company_name = EXCLUDED.company_name,
+    is_enabled = EXCLUDED.is_enabled;
+

@@ -58,7 +58,7 @@ class BatchConfig:
             role_model_path=Path(
                 os.environ.get(
                     "DEVCOMPASS_ROLE_MODEL_PATH",
-                    "experiment/job_role_svc_v1.joblib",
+                    "artifacts/job_role_svc_v1.joblib",
                 )
             ),
             role_model_version=os.environ.get(

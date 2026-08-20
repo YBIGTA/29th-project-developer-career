@@ -33,7 +33,7 @@ CREATE INDEX IF NOT EXISTS idx_ecosystem_run_latest_success
 ON ecosystem_run (finished_at DESC, run_id DESC)
 WHERE status = 'success';
 
-CREATE TABLE IF NOT EXISTS github_skill_counts (
+CREATE TABLE IF NOT EXISTS ecosystem_github_metrics (
     run_id TEXT NOT NULL REFERENCES ecosystem_run(run_id) ON DELETE CASCADE,
     skill_id BIGINT NOT NULL REFERENCES skill(skill_id) ON DELETE RESTRICT,
     github_repository_count BIGINT CHECK (github_repository_count >= 0),
@@ -64,10 +64,10 @@ CREATE TABLE IF NOT EXISTS github_skill_counts (
     )
 );
 
-CREATE INDEX IF NOT EXISTS idx_github_skill_counts_skill_run
-ON github_skill_counts (skill_id, run_id);
+CREATE INDEX IF NOT EXISTS idx_ecosystem_github_metrics_skill_run
+ON ecosystem_github_metrics (skill_id, run_id);
 
-CREATE TABLE IF NOT EXISTS stackoverflow_skill_counts (
+CREATE TABLE IF NOT EXISTS ecosystem_stackoverflow_metrics (
     run_id TEXT NOT NULL REFERENCES ecosystem_run(run_id) ON DELETE CASCADE,
     skill_id BIGINT NOT NULL REFERENCES skill(skill_id) ON DELETE RESTRICT,
     stackoverflow_tag TEXT,
@@ -92,13 +92,13 @@ CREATE TABLE IF NOT EXISTS stackoverflow_skill_counts (
     )
 );
 
-CREATE INDEX IF NOT EXISTS idx_stackoverflow_skill_counts_skill_run
-ON stackoverflow_skill_counts (skill_id, run_id);
+CREATE INDEX IF NOT EXISTS idx_ecosystem_stackoverflow_metrics_skill_run
+ON ecosystem_stackoverflow_metrics (skill_id, run_id);
 
 COMMENT ON TABLE ecosystem_run IS
     'One Task B snapshot. Only status=success runs are exposed to the API.';
-COMMENT ON TABLE github_skill_counts IS
+COMMENT ON TABLE ecosystem_github_metrics IS
     'Versioned raw GitHub Search API counts per run and canonical skill.';
-COMMENT ON TABLE stackoverflow_skill_counts IS
+COMMENT ON TABLE ecosystem_stackoverflow_metrics IS
     'Versioned raw Stack Overflow question counts per run and canonical skill.';
 

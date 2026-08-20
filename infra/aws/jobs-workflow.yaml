@@ -173,7 +173,7 @@ Resources:
       LoggingConfiguration:
         Destinations:
           - CloudWatchLogsLogGroup:
-              LogGroupArn: !Sub ${WorkflowLogGroup.Arn}:*
+              LogGroupArn: !GetAtt WorkflowLogGroup.Arn
         IncludeExecutionData: true
         Level: ALL
       Definition:

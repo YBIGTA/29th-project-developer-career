@@ -22,8 +22,10 @@ waits for their containers to finish.
 - Revision-pinned ECS task definitions are registered for both images.
 - The task definitions inject RDS credentials and API secrets from Secrets
   Manager or SSM Parameter Store.
-- Private subnets can reach RDS and have internet egress for ATS, GitHub, and
-  Stack Exchange APIs.
+- `PrivateSubnetIds` are public subnets (route to an Internet Gateway) — tasks
+  run with `AssignPublicIp: ENABLED` and get a public IP for outbound access to
+  RDS, ATS, GitHub, and Stack Exchange APIs. No inbound rule is opened, so
+  tasks stay unreachable from the internet despite the public IP.
 - The ECS task execution role can pull images and read configured secrets.
 - The security groups allow PostgreSQL traffic to the RDS security group.
 

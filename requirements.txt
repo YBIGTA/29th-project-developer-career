@@ -1,5 +1,5 @@
-# 로컬 풀 개발환경 / CI용 (API + 배치 + 테스트 도구 전체 설치)
-# 배포 시에는 API 서버는 requirements/api.txt, 배치 서버는 requirements/batch.txt만 설치할 것
+# 로컬 풀 개발환경 / CI용 (API + 테스트 도구)
+# 배포 시에는 API 서버는 requirements/api.txt만 설치할 것
+# 데이터 수집 파이프라인 의존성은 pipelines/jobs, pipelines/ecosystem 각각의 pyproject.toml 참고
 -r requirements/api.txt
--r requirements/batch.txt
 -r requirements/dev.txt

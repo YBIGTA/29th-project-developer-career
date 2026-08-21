@@ -275,6 +275,9 @@ def get_timeseries(
         TIMESERIES_SQL,
         {"from_month": from_month, "to_month": to_month},
     ).mappings()]
+    for row in rows:
+        if row["month"] is not None:
+            row["month"] = row["month"].isoformat()
     return {
         "meta": {"from": from_month, "to": to_month},
         "items": rows,

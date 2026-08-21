@@ -84,19 +84,43 @@
     return picked;
   }
 
+  // -------------------------------------------------------------- 직군 필터
+  // "전체"에서 y축은 200개 전부를 놓고 매긴 백분위다. 직군을 고르면 그 직군
+  // 공고에 실제로 등장한 기술끼리만 다시 매긴 값으로 갈아끼운다. 생태계 점수
+  // (x축)는 직군과 무관하므로 그대로 둔다 — 앱의 lib/roles.js 와 같다.
+  const ALL_ROLES = "all";
+
+  function projectByRole(items, role) {
+    if (!role || role === ALL_ROLES) return items;
+    const out = [];
+    for (const item of items) {
+      const hit = (item.roleBreakdown || []).find((b) => b.role === role);
+      if (!hit) continue;
+      out.push({
+        ...item,
+        demand: hit.demand,
+        quadrant: hit.quadrant,
+        roleContext: { role, count: hit.count, rank: hit.rank },
+      });
+    }
+    return out;
+  }
+
   // ------------------------------------------------------------------ 상태
   let limit = 60;
   let selected = null;
   let openZone = null;
+  let role = ALL_ROLES;
 
   const plane = $("#plane");
   const wrap = $("#plane-wrap");
 
-  let view = [], scaleX = () => 50, yPos = new Map();
+  let filtered = [], view = [], scaleX = () => 50, yPos = new Map();
   const yOf = (d) => yPos.get(d.skillCode) ?? 0;
 
   function recompute() {
-    view = pickMapPoints(DATA.items, limit === "all" ? Infinity : limit);
+    filtered = projectByRole(DATA.items, role);
+    view = pickMapPoints(filtered, limit === "all" ? Infinity : limit);
     scaleX = makeAxisScale(view.map((d) => d.ecosystemScore));
     yPos = makeRankScale(view);
   }
@@ -210,7 +234,15 @@
       <div class="tooltip__coords">
         <span>생태계 ${d.ecosystemScore}</span><span>수요 ${d.demand}</span>
       </div>
-      ${d.postings > 0 ? `<div class="tooltip__postings">공고 ${d.postings.toLocaleString("ko-KR")}건</div>` : ""}`;
+      ${
+        // 직군이 걸려 있으면 y축이 그 직군 기준이므로 건수도 직군 건수를 보여준다.
+        // 좌표와 다른 모집단의 숫자를 나란히 두지 않기 위해서다.
+        d.roleContext
+          ? `<div class="tooltip__postings">${d.roleContext.role} ${d.roleContext.count.toLocaleString("ko-KR")}건</div>`
+          : d.postings > 0
+            ? `<div class="tooltip__postings">공고 ${d.postings.toLocaleString("ko-KR")}건</div>`
+            : ""
+      }`;
     wrap.appendChild(tip);
   }
 
@@ -331,13 +363,66 @@
     }
   }
 
+  // -------------------------------------------------------- 직군 드롭다운
+  function renderRoleMenu() {
+    const menu = $("#role-menu");
+    menu.innerHTML = "";
+    const options = [{ value: ALL_ROLES, label: "전체" },
+      ...(DATA.meta.roles || []).map((r) => ({ value: r, label: r }))];
+
+    for (const o of options) {
+      const li = document.createElement("li");
+      li.setAttribute("role", "option");
+      li.setAttribute("aria-selected", String(o.value === role));
+      const b = document.createElement("button");
+      b.type = "button";
+      b.className = "filter-select__option" +
+        (o.value === role ? " filter-select__option--selected" : "");
+      b.textContent = o.label;
+      b.addEventListener("click", () => {
+        role = o.value;
+        // 직군을 바꾸면 y축 기준이 바뀐다. 열려 있던 상세는 이전 기준의 값을
+        // 들고 있게 되므로 선택을 비워 섞이지 않게 한다 (앱과 동일).
+        selected = null;
+        openZone = null;
+        closeRoleMenu();
+        $("#role-current").textContent = o.label;
+        renderAll();
+      });
+      li.appendChild(b);
+      menu.appendChild(li);
+    }
+  }
+
+  function openRoleMenu() {
+    renderRoleMenu();
+    $("#role-menu").hidden = false;
+    $("#role-trigger").setAttribute("aria-expanded", "true");
+    document.addEventListener("mousedown", onOutside);
+  }
+
+  function closeRoleMenu() {
+    $("#role-menu").hidden = true;
+    $("#role-trigger").setAttribute("aria-expanded", "false");
+    document.removeEventListener("mousedown", onOutside);
+  }
+
+  const onOutside = (e) => {
+    if (!$("#role-field").contains(e.target)) closeRoleMenu();
+  };
+
+  $("#role-trigger").addEventListener("click", () => {
+    if ($("#role-menu").hidden) openRoleMenu();
+    else closeRoleMenu();
+  });
+
   // ------------------------------------------------------------------- 배선
   function renderAll() {
     recompute();
     renderMap();
     renderDetail();
     renderWatchlist();
-    $("#result-count").textContent = `${view.length}개 표시 · 전체 ${DATA.items.length}개`;
+    $("#result-count").textContent = `${filtered.length} / ${DATA.items.length}개 기술`;
   }
 
   document.querySelectorAll(".chart-panel__limit").forEach((b) => {
@@ -351,7 +436,8 @@
 
   window.addEventListener("keydown", (e) => {
     if (e.key !== "Escape") return;
-    if (openZone) { openZone = null; renderMap(); }
+    if (!$("#role-menu").hidden) closeRoleMenu();
+    else if (openZone) { openZone = null; renderMap(); }
     else if (selected) { selected = null; renderAll(); }
   });
 

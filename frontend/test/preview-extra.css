@@ -23,26 +23,6 @@
   pointer-events: none;
 }
 
-/* 실제 앱의 FilterBar 자리. 미리보기에서는 직군 필터를 넣지 않았으므로
-   결과 수만 보여주는 얇은 줄로 둔다. */
-.filter-bar {
-  display: flex;
-  align-items: baseline;
-  gap: 10px;
-  margin-bottom: 4px;
-}
-
-.filter-bar__label {
-  font-size: 0.76rem;
-  font-weight: 600;
-  color: var(--text-primary);
-}
-
-.filter-bar__note {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-}
-
 /* 상단바가 fixed라 본문이 그 아래로 깔린다. 앱에서는 히어로가 이 자리를
    만들어줬는데 히어로를 없앴으므로 여기서 직접 띄운다.
    .dict가 이미 갖고 있는 112px과 같은 값을 써야 지도 <-> 사전을 오갈 때

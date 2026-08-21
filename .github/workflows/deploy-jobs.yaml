@@ -10,6 +10,10 @@ on:
       - .github/workflows/deploy-pipeline.yaml
   workflow_dispatch:
 
+permissions:
+  id-token: write
+  contents: read
+
 concurrency:
   group: deploy-jobs
   cancel-in-progress: false

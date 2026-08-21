@@ -15,7 +15,7 @@ permissions:
   contents: read
 
 concurrency:
-  group: deploy-jobs
+  group: devcompass-jobs-workflow-stack
   cancel-in-progress: false
 
 jobs:

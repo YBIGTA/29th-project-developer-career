@@ -1,0 +1,9084 @@
+{
+ "months": [
+  "2025-12",
+  "2026-01",
+  "2026-02",
+  "2026-03",
+  "2026-04",
+  "2026-05",
+  "2026-06",
+  "2026-07"
+ ],
+ "techs": {
+  ".NET": {
+   "docs": {
+    "url": "https://learn.microsoft.com/dotnet/"
+   },
+   "index": [
+    100.0,
+    114.0,
+    108.9,
+    114.1,
+    122.1,
+    108.1,
+    117.8,
+    96.9
+   ],
+   "github": [
+    190855,
+    212263,
+    258140,
+    353592,
+    398796,
+    531056,
+    571763,
+    726738
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    58,
+    60,
+    47,
+    46,
+    40,
+    25,
+    25,
+    11
+   ]
+  },
+  "AWS": {
+   "docs": {
+    "url": "https://docs.aws.amazon.com/"
+   },
+   "videos": [
+    {
+     "id": "Nzv-tzU-UAw",
+     "title": "AWS Tutorial for Beginners – Step-by-Step Guide to Cloud Computing",
+     "channel": "Kevin Stratvert",
+     "views": 319401,
+     "seconds": 1312
+    },
+    {
+     "id": "Ae3xyW2Ef0c",
+     "title": "AWS Tutorial For Beginners (2026 Guide)  | AWS Data Engineer",
+     "channel": "Ansh Lamba",
+     "views": 141487,
+     "seconds": 19233
+    },
+    {
+     "id": "JIbIYCM48to",
+     "title": "Top 50+ AWS Services Explained in 10 Minutes",
+     "channel": "Fireship",
+     "views": 1955956,
+     "seconds": 706
+    }
+   ],
+   "index": [
+    100.0,
+    166.0,
+    103.3,
+    95.1,
+    110.9,
+    100.6,
+    120.4,
+    87.9
+   ],
+   "github": [
+    98591,
+    174829,
+    137209,
+    186376,
+    194234,
+    212050,
+    249359,
+    295976
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    25,
+    35,
+    18,
+    13,
+    15,
+    12,
+    13,
+    5
+   ]
+  },
+  "AWS CloudFormation": {
+   "docs": {
+    "url": "https://docs.aws.amazon.com/cloudformation/"
+   },
+   "index": [
+    100.0,
+    410.0,
+    82.0,
+    174.1,
+    349.4,
+    41.4,
+    77.5,
+    82.1
+   ],
+   "github": [
+    5065,
+    5829,
+    5395,
+    4128,
+    4212,
+    4155,
+    8527,
+    10896
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    3,
+    0,
+    1,
+    2,
+    0,
+    0,
+    0
+   ]
+  },
+  "Airflow": {
+   "docs": {
+    "url": "https://airflow.apache.org/docs/"
+   },
+   "videos": [
+    {
+     "id": "IiczxlbQb8s",
+     "title": "Airflow Tutorial For Beginners (2026) | Apache Airflow Full Course",
+     "channel": "Ansh Lamba",
+     "views": 146101,
+     "seconds": 22253
+    },
+    {
+     "id": "P6gsMOoXFLU",
+     "title": "What is Apache Airflow?",
+     "channel": "codebasics",
+     "views": 92799,
+     "seconds": 521
+    },
+    {
+     "id": "CGxxVj13sOs",
+     "title": "What is Apache Airflow? For beginners",
+     "channel": "Data with Marc",
+     "views": 79768,
+     "seconds": 710
+    }
+   ],
+   "index": [
+    100.0,
+    182.2,
+    198.7,
+    89.0,
+    247.6,
+    39.7,
+    120.7,
+    212.9
+   ],
+   "github": [
+    4214,
+    9833,
+    8718,
+    11091,
+    14194,
+    17172,
+    11628,
+    10858
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    6,
+    6,
+    2,
+    6,
+    0,
+    2,
+    3
+   ]
+  },
+  "Amazon EC2": {
+   "docs": {
+    "url": "https://docs.aws.amazon.com/ec2/"
+   },
+   "index": [
+    100.0,
+    52.1,
+    72.1,
+    44.2,
+    9.7,
+    85.8,
+    102.6,
+    9.4
+   ],
+   "github": [
+    4852,
+    6842,
+    5154,
+    5886,
+    3598,
+    4238,
+    4426,
+    5560
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    1,
+    2,
+    1,
+    0,
+    2,
+    2,
+    0
+   ]
+  },
+  "Amazon EKS": {
+   "docs": {
+    "url": "https://docs.aws.amazon.com/eks/"
+   },
+   "videos": [
+    {
+     "id": "hK8wf18SasY",
+     "title": "Kubernetes and EKS for Beginners – Crash Course with Pulumi",
+     "channel": "freeCodeCamp.org",
+     "views": 62014,
+     "seconds": 3957
+    },
+    {
+     "id": "p6xDCz00TxU",
+     "title": "AWS EKS - Create Kubernetes cluster on Amazon EKS | the easy way",
+     "channel": "TechWorld with Nana",
+     "views": 660607,
+     "seconds": 987
+    },
+    {
+     "id": "MlDJfLVycIA",
+     "title": "AWS EKS Tutorial for Beginners (2026) | Kubernetes on AWS Step-by-Step",
+     "channel": "Cloud Guru",
+     "views": 39568,
+     "seconds": 4416
+    }
+   ],
+   "index": [
+    100.0,
+    51.8,
+    89.2,
+    63.7,
+    44.3,
+    242.4,
+    337.7,
+    54.0
+   ],
+   "github": [
+    3694,
+    1966,
+    4278,
+    3722,
+    2695,
+    757,
+    4296,
+    5225
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    1,
+    0
+   ]
+  },
+  "Amazon S3": {
+   "docs": {
+    "url": "https://docs.aws.amazon.com/s3/"
+   },
+   "videos": [
+    {
+     "id": "lKPnz27rCPQ",
+     "title": "Amazon S3 For Absolute Beginners: Python Tutorial in 30 Minutes",
+     "channel": "NeuralNine",
+     "views": 12866,
+     "seconds": 1971
+    },
+    {
+     "id": "kFeplA2bubM",
+     "title": "📦 Master Amazon S3 on AWS | Complete Guide to Buckets, Storage Classes, and Pricing",
+     "channel": "CodeSnippet",
+     "views": 37483,
+     "seconds": 753
+    },
+    {
+     "id": "Nzv-tzU-UAw",
+     "title": "AWS Tutorial for Beginners – Step-by-Step Guide to Cloud Computing",
+     "channel": "Kevin Stratvert",
+     "views": 319401,
+     "seconds": 1312
+    }
+   ],
+   "index": [
+    100.0,
+    96.3,
+    73.5,
+    106.4,
+    130.8,
+    104.4,
+    123.6,
+    105.4
+   ],
+   "github": [
+    54747,
+    63387,
+    71410,
+    117331,
+    151128,
+    172847,
+    198536,
+    247429
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    14,
+    10,
+    5,
+    8,
+    8,
+    4,
+    5,
+    2
+   ]
+  },
+  "Android": {
+   "docs": {
+    "url": "https://developer.android.com/docs"
+   },
+   "videos": [
+    {
+     "id": "FjrKMcnKahY",
+     "title": "Android App Development Tutorial for Beginners - Your First App",
+     "channel": "freeCodeCamp.org",
+     "views": 577899,
+     "seconds": 3320
+    },
+    {
+     "id": "saKrGCWlJDs",
+     "title": "Android Studio Tutorial (2024 Edition) - Part 1",
+     "channel": "DJ Malone",
+     "views": 487824,
+     "seconds": 1197
+    },
+    {
+     "id": "9BRlhyAlvEU",
+     "title": "The Easiest Way to Build Android Apps (Beginner's Tutorial)",
+     "channel": "The Cutting Edge School",
+     "views": 42439,
+     "seconds": 1057
+    }
+   ],
+   "index": [
+    100.0,
+    109.5,
+    91.4,
+    81.2,
+    84.6,
+    91.6,
+    82.3,
+    94.7
+   ],
+   "github": [
+    93095,
+    115399,
+    119468,
+    182864,
+    184611,
+    227051,
+    247697,
+    310575
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    190,
+    180,
+    124,
+    103,
+    89,
+    86,
+    62,
+    54
+   ]
+  },
+  "Angular": {
+   "docs": {
+    "url": "https://angular.dev/"
+   },
+   "index": [
+    100.0,
+    96.0,
+    103.6,
+    73.6,
+    76.0,
+    43.0,
+    76.8,
+    108.2
+   ],
+   "github": [
+    53012,
+    73682,
+    53756,
+    66788,
+    67201,
+    62253,
+    86031,
+    112065
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    68,
+    53,
+    53,
+    35,
+    30,
+    14,
+    22,
+    24
+   ]
+  },
+  "Ansible": {
+   "docs": {
+    "url": "https://docs.ansible.com/"
+   },
+   "videos": [
+    {
+     "id": "1id6ERvfozo",
+     "title": "What is Ansible | Ansible Playbook explained | Ansible Tutorial for Beginners",
+     "channel": "TechWorld with Nana",
+     "views": 926903,
+     "seconds": 1001
+    },
+    {
+     "id": "r19gTRJFRvg",
+     "title": "What is Ansible? | Ansible Explained in Tamil for Beginners | Agentless DevOps Tool | Simply Byte",
+     "channel": "Simply Byte - Tamil",
+     "views": 10591,
+     "seconds": 661
+    },
+    {
+     "id": "p9bda0-TIRc",
+     "title": "Ansible Playbook Basics - FINALLY Explained Clearly!",
+     "channel": "Alta3 Research",
+     "views": 68281,
+     "seconds": 754
+    }
+   ],
+   "index": [
+    100.0,
+    66.0,
+    65.2,
+    84.9,
+    54.1,
+    99.7,
+    58.5,
+    29.9
+   ],
+   "github": [
+    14555,
+    14470,
+    15094,
+    19661,
+    20103,
+    21272,
+    23639,
+    28605
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    2,
+    2,
+    3,
+    1,
+    3,
+    1,
+    0
+   ]
+  },
+  "Anthropic": {
+   "docs": {
+    "url": "https://docs.claude.com/",
+    "note": "Claude와 동일 문서로 통합 가능"
+   },
+   "videos": [
+    {
+     "id": "kyB68hS-vco",
+     "title": "The Complete Claude Anthropic Tutorial",
+     "channel": "Learn With Shopify",
+     "views": 57818,
+     "seconds": 849
+    },
+    {
+     "id": "ntDIxaeo3Wg",
+     "title": "Claude Code - Full Tutorial for Beginners",
+     "channel": "Tech With Tim",
+     "views": 1515081,
+     "seconds": 2149
+    },
+    {
+     "id": "rRrBbyv3ChM",
+     "title": "FULL Claude Tutorial for Beginners in 2026! (Become a PRO!)",
+     "channel": "AI Foundations",
+     "views": 1175184,
+     "seconds": 2957
+    }
+   ],
+   "index": [
+    100.0,
+    143.2,
+    157.8,
+    218.9,
+    246.8,
+    269.9,
+    305.8,
+    304.2
+   ],
+   "github": [
+    37927,
+    50613,
+    77731,
+    121550,
+    154292,
+    202740,
+    229155,
+    302301
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Apache Flink": {
+   "docs": {
+    "url": "https://nightlies.apache.org/flink/flink-docs-stable/"
+   },
+   "videos": [
+    {
+     "id": "5mQ2NxmYa3M",
+     "title": "How to Get Started with Apache Flink! Apache Flink Set-Up for Beginners!",
+     "channel": "The Data and AI Guy",
+     "views": 5155,
+     "seconds": 705
+    },
+    {
+     "id": "fYO5-6Owt0w",
+     "title": "Apache Flink - A Must-Have For Your Streams | Systems Design Interview 0 to 1 With Ex-Google SWE",
+     "channel": "Jordan has no life",
+     "views": 60923,
+     "seconds": 657
+    },
+    {
+     "id": "nfMANR13ZSA",
+     "title": "Learn Apache Flink In 45 Minutes - Apache Flink Tutorial For Beginners",
+     "channel": "LimeGuru",
+     "views": 58969,
+     "seconds": 2847
+    }
+   ],
+   "index": [
+    100.0,
+    149.4,
+    136.6,
+    140.4,
+    183.4,
+    12.4,
+    79.8,
+    10.6
+   ],
+   "github": [
+    529,
+    413,
+    573,
+    1052,
+    4085,
+    3385,
+    995,
+    3812
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    4,
+    3,
+    3,
+    3,
+    0,
+    1,
+    0
+   ]
+  },
+  "Apache Iceberg": {
+   "docs": {
+    "url": "https://iceberg.apache.org/docs/latest/"
+   },
+   "videos": [
+    {
+     "id": "TsmhRZElPvM",
+     "title": "Apache Iceberg: What It Is and Why Everyone’s Talking About It.",
+     "channel": "Confluent Developer",
+     "views": 652743,
+     "seconds": 831
+    },
+    {
+     "id": "iSfDV39aiXc",
+     "title": "Intro to Apache Iceberg! Apache Iceberg Explained for Beginners!",
+     "channel": "The Data and AI Guy",
+     "views": 19666,
+     "seconds": 662
+    },
+    {
+     "id": "qHCuDOCJRaQ",
+     "title": "Apache Iceberg Explained in 10 Minutes – Everything You Need to Know!",
+     "channel": "CodeWithYu",
+     "views": 3826,
+     "seconds": 715
+    }
+   ],
+   "index": [
+    100.0,
+    41.2,
+    135.4,
+    49.0,
+    4.4,
+    4.5,
+    87.1,
+    13.2
+   ],
+   "github": [
+    735,
+    728,
+    718,
+    983,
+    1018,
+    1247,
+    3572,
+    4830
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    1,
+    3,
+    1,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Apache Kafka": {
+   "docs": {
+    "url": "https://kafka.apache.org/documentation/"
+   },
+   "videos": [
+    {
+     "id": "QkdkLdMBuL0",
+     "title": "Kafka Tutorial for Beginners | Everything you need to get started",
+     "channel": "TechWorld with Nana",
+     "views": 1356659,
+     "seconds": 1113
+    },
+    {
+     "id": "B7CwU_tNYIE",
+     "title": "Kafka Crash Course - Hands-On Project",
+     "channel": "TechWorld with Nana",
+     "views": 264207,
+     "seconds": 4079
+    },
+    {
+     "id": "cNFAP9OnJjo",
+     "title": "Apache Kafka Crash Course | Kafka Tutorial for Beginners | KodeKloud",
+     "channel": "KodeKloud",
+     "views": 39807,
+     "seconds": 3732
+    }
+   ],
+   "index": [
+    100.0,
+    63.6,
+    125.4,
+    62.8,
+    90.2,
+    77.8,
+    55.4,
+    34.6
+   ],
+   "github": [
+    19108,
+    22314,
+    26868,
+    30046,
+    33237,
+    36199,
+    39438,
+    44295
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    16,
+    7,
+    15,
+    6,
+    8,
+    6,
+    3,
+    1
+   ]
+  },
+  "Apache Pulsar": {
+   "docs": {
+    "url": "https://pulsar.apache.org/docs/"
+   },
+   "index": [
+    100.0,
+    3.8,
+    3.4,
+    4.4,
+    4.5,
+    4.7,
+    3.8,
+    3.5
+   ],
+   "github": [
+    289,
+    183,
+    206,
+    329,
+    345,
+    440,
+    383,
+    430
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Apache Spark": {
+   "docs": {
+    "url": "https://spark.apache.org/docs/latest/"
+   },
+   "videos": [
+    {
+     "id": "z4Owc8RRApg",
+     "title": "Apache Spark Was Hard Until I Learned These 30 Concepts!",
+     "channel": "Afaque Ahmad",
+     "views": 159372,
+     "seconds": 2540
+    },
+    {
+     "id": "iXVIPQEGZ9Y",
+     "title": "Apache Spark Architecture - EXPLAINED!",
+     "channel": "Databricks For Professionals",
+     "views": 175081,
+     "seconds": 4510
+    },
+    {
+     "id": "KAuIvccwbPY",
+     "title": "What is Apache Spark?",
+     "channel": "codebasics",
+     "views": 73158,
+     "seconds": 442
+    }
+   ],
+   "index": [
+    100.0,
+    161.2,
+    82.2,
+    178.5,
+    68.1,
+    126.1,
+    93.7,
+    83.9
+   ],
+   "github": [
+    13222,
+    15181,
+    16717,
+    21558,
+    21901,
+    30075,
+    39178,
+    42316
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    9,
+    14,
+    5,
+    13,
+    3,
+    6,
+    3,
+    2
+   ]
+  },
+  "ArgoCD": {
+   "docs": {
+    "url": "https://argo-cd.readthedocs.io/"
+   },
+   "index": [
+    100.0,
+    45.0,
+    43.3,
+    53.9,
+    154.0,
+    57.6,
+    55.1,
+    52.0
+   ],
+   "github": [
+    5891,
+    6795,
+    8270,
+    12526,
+    12350,
+    16780,
+    17587,
+    20038
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    0,
+    0,
+    0,
+    2,
+    0,
+    0,
+    0
+   ]
+  },
+  "Assembly": {
+   "videos": [
+    {
+     "id": "PxiMLtsuGO0",
+     "title": "Learn Assembly For Beginners | Introduction to Assembly | Assembly Tutorial x86-64 Architecture",
+     "channel": "Mxy",
+     "views": 83786,
+     "seconds": 533
+    },
+    {
+     "id": "u_-oQx_4jvo",
+     "title": "How Assembly Functions Work - The Stack Explained",
+     "channel": "Mxy",
+     "views": 152519,
+     "seconds": 935
+    },
+    {
+     "id": "LdWU8JEfPhg",
+     "title": "Assembly Basics: The Language Behind the Hardware",
+     "channel": "WhiteboardDoodles",
+     "views": 254666,
+     "seconds": 775
+    }
+   ],
+   "index": [
+    100.0,
+    110.5,
+    102.0,
+    145.9,
+    146.7,
+    156.2,
+    123.5,
+    76.9
+   ],
+   "github": [
+    17442,
+    21225,
+    32429,
+    47758,
+    51622,
+    65090,
+    78630,
+    119521
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    22,
+    21,
+    15,
+    22,
+    18,
+    17,
+    10,
+    3
+   ]
+  },
+  "Azure": {
+   "docs": {
+    "url": "https://learn.microsoft.com/azure/"
+   },
+   "videos": [
+    {
+     "id": "liRgZeF6mbk",
+     "title": "90% Of Azure EXPLAINED In 20 Minutes | COMPLETE Crash Course For Beginners",
+     "channel": "Vishakha Sadhwani",
+     "views": 110651,
+     "seconds": 1312
+    },
+    {
+     "id": "nr-HQN9nIxM",
+     "title": "Microsoft Azure Explained: A Beginner's Guide to Cloud Computing",
+     "channel": "Zak Jaeb",
+     "views": 37173,
+     "seconds": 831
+    },
+    {
+     "id": "4BibQ69MD8c",
+     "title": "Azure DevOps Tutorial for Beginners | CI/CD with Azure Pipelines",
+     "channel": "TechWorld with Nana",
+     "views": 2063110,
+     "seconds": 2189
+    }
+   ],
+   "index": [
+    100.0,
+    91.5,
+    80.6,
+    91.2,
+    77.7,
+    65.7,
+    67.1,
+    49.0
+   ],
+   "github": [
+    85777,
+    80933,
+    89928,
+    146959,
+    129598,
+    143116,
+    149063,
+    171222
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    50,
+    40,
+    29,
+    30,
+    21,
+    15,
+    13,
+    6
+   ]
+  },
+  "Babel": {
+   "docs": {
+    "url": "https://babeljs.io/docs/"
+   },
+   "index": [
+    100.0,
+    117.8,
+    112.9,
+    142.0,
+    124.2,
+    179.2,
+    173.6,
+    130.8
+   ],
+   "github": [
+    32406,
+    39205,
+    47506,
+    72811,
+    66343,
+    98069,
+    122218,
+    111078
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "Bash": {
+   "docs": {
+    "url": "https://www.gnu.org/software/bash/manual/"
+   },
+   "videos": [
+    {
+     "id": "PNhq_4d-5ek",
+     "title": "Bash Scripting Tutorial for Beginners",
+     "channel": "TechWorld with Nana",
+     "views": 298525,
+     "seconds": 3933
+    },
+    {
+     "id": "tK9Oc6AEnR4",
+     "title": "Bash Scripting Tutorial for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 1161630,
+     "seconds": 2877
+    },
+    {
+     "id": "cZfla5046X0",
+     "title": "Bash Scripting Tutorial For Beginners | Bash Scripting Explained | Shell Scripting | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 1130,
+     "seconds": 952
+    }
+   ],
+   "index": [
+    100.0,
+    115.0,
+    130.9,
+    165.5,
+    171.5,
+    173.1,
+    148.4,
+    176.2
+   ],
+   "github": [
+    90159,
+    122549,
+    169070,
+    237464,
+    279190,
+    360168,
+    363604,
+    523362
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    18,
+    15,
+    15,
+    21,
+    16,
+    13,
+    8,
+    7
+   ]
+  },
+  "Bazel": {
+   "docs": {
+    "url": "https://bazel.build/docs"
+   },
+   "videos": [
+    {
+     "id": "8gwyH3EX1yM",
+     "title": "Build System Tutorial for Complete Beginner | Google's Build System - Bazel",
+     "channel": "Sanket Singh",
+     "views": 2305,
+     "seconds": 3760
+    },
+    {
+     "id": "JLvnnJCBUxE",
+     "title": "What is Bazel? A Beginner’s Guide for 2025",
+     "channel": "Vitaly Bragilevsky",
+     "views": 8334,
+     "seconds": 1086
+    },
+    {
+     "id": "toPWLiUq5Ps",
+     "title": "A step by step bazel beginner guide",
+     "channel": "Gisli - Oroi Game Studios",
+     "views": 50833,
+     "seconds": 2922
+    }
+   ],
+   "index": [
+    100.0,
+    97.2,
+    135.9,
+    78.8,
+    38.9,
+    59.7,
+    36.1,
+    32.5
+   ],
+   "github": [
+    16007,
+    23999,
+    19825,
+    16780,
+    18734,
+    17589,
+    22906,
+    24855
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    1,
+    4,
+    2,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "Bicep": {
+   "docs": {
+    "url": "https://learn.microsoft.com/azure/azure-resource-manager/bicep/"
+   },
+   "index": [
+    100.0,
+    44.5,
+    57.7,
+    62.1,
+    177.2,
+    54.2,
+    196.9,
+    39.6
+   ],
+   "github": [
+    2536,
+    3167,
+    5199,
+    6818,
+    7790,
+    7454,
+    6863,
+    7201
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    0
+   ]
+  },
+  "BigQuery": {
+   "docs": {
+    "url": "https://cloud.google.com/bigquery/docs"
+   },
+   "videos": [
+    {
+     "id": "eYBTdiwzJqQ",
+     "title": "Google BigQuery Tutorial (Beginner to Advanced) | Complete Guide in 14 Minutes",
+     "channel": "KumarAbhishek008",
+     "views": 2916,
+     "seconds": 810
+    },
+    {
+     "id": "pud-vuNE15g",
+     "title": "What Is BigQuery - Breaking Down What BigQuery Is And Diving Into A Hands On Walkthrough",
+     "channel": "Seattle Data Guy",
+     "views": 15582,
+     "seconds": 668
+    },
+    {
+     "id": "MYAfyPlVVak",
+     "title": "BigQuery Tutorial for Beginners | Google BigQuery Tutorial",
+     "channel": "Vishmita Data Labs",
+     "views": 58883,
+     "seconds": 4006
+    }
+   ],
+   "index": [
+    100.0,
+    39.9,
+    56.0,
+    93.0,
+    84.6,
+    107.7,
+    51.8,
+    249.5
+   ],
+   "github": [
+    4806,
+    6291,
+    6948,
+    9536,
+    11855,
+    11723,
+    14268,
+    15417
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    11,
+    3,
+    4,
+    7,
+    5,
+    6,
+    2,
+    9
+   ]
+  },
+  "Buildkite": {
+   "docs": {
+    "url": "https://buildkite.com/docs"
+   },
+   "index": [
+    100.0,
+    105.2,
+    94.5,
+    103.1,
+    108.4,
+    109.0,
+    72.9,
+    86.7
+   ],
+   "github": [
+    6643,
+    7178,
+    8157,
+    10839,
+    11870,
+    14340,
+    10515,
+    15090
+   ],
+   "hasStackoverflow": false
+  },
+  "C": {
+   "docs": {
+    "url": "https://en.cppreference.com/w/c"
+   },
+   "videos": [
+    {
+     "id": "KJgsSFOSQv0",
+     "title": "C Programming Tutorial for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 18704312,
+     "seconds": 13573
+    },
+    {
+     "id": "dTp0c41XnrQ",
+     "title": "Learn C Language In 10 Minutes!! C Language Tutorial",
+     "channel": "AmanBytes",
+     "views": 1217366,
+     "seconds": 636
+    },
+    {
+     "id": "U8_8fTODn5g",
+     "title": "Learn C language in 30 Minutes & Start Coding For Beginners in Hindi",
+     "channel": "Technology Gyan",
+     "views": 18025821,
+     "seconds": 2549
+    }
+   ],
+   "index": [
+    100.0,
+    122.1,
+    120.5,
+    142.8,
+    147.2,
+    142.8,
+    158.2,
+    138.1
+   ],
+   "github": [
+    375490,
+    433463,
+    522563,
+    692542,
+    795781,
+    1051253,
+    1024866,
+    1197199
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    85,
+    98,
+    82,
+    102,
+    82,
+    63,
+    68,
+    41
+   ]
+  },
+  "C#": {
+   "docs": {
+    "url": "https://learn.microsoft.com/dotnet/csharp/"
+   },
+   "videos": [
+    {
+     "id": "gfkTfcpWqAY",
+     "title": "C# Tutorial For Beginners - Learn C# Basics in 1 Hour",
+     "channel": "Programming with Mosh",
+     "views": 6060729,
+     "seconds": 4232
+    },
+    {
+     "id": "sg_pjLsqT34",
+     "title": "The Best Way to Learn C# in 2026 is Here",
+     "channel": "Nick Chapsas",
+     "views": 261580,
+     "seconds": 574
+    },
+    {
+     "id": "qZpMX8Re_2Q",
+     "title": "Learn C# FREE Tutorial Course Beginner to Advanced! [2026 - 12 HOURS]",
+     "channel": "Code Monkey",
+     "views": 548655,
+     "seconds": 45636
+    }
+   ],
+   "index": [
+    100.0,
+    94.4,
+    97.6,
+    95.5,
+    107.9,
+    106.4,
+    112.3,
+    104.1
+   ],
+   "github": [
+    375491,
+    433456,
+    522564,
+    692556,
+    795815,
+    1051186,
+    1024680,
+    1197205
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    233,
+    179,
+    158,
+    145,
+    136,
+    112,
+    105,
+    71
+   ]
+  },
+  "C++": {
+   "docs": {
+    "url": "https://en.cppreference.com/w/"
+   },
+   "videos": [
+    {
+     "id": "ZzaPdXTrSb8",
+     "title": "C++ Tutorial for Beginners - Learn C++ in 1 Hour",
+     "channel": "Programming with Mosh",
+     "views": 6803565,
+     "seconds": 4976
+    },
+    {
+     "id": "vLnPwxZdW4Y",
+     "title": "C++ Tutorial for Beginners - Full Course",
+     "channel": "freeCodeCamp.org",
+     "views": 13507157,
+     "seconds": 14479
+    },
+    {
+     "id": "McojvctVsUs",
+     "title": "C++ Tutorial For Beginners | C++ Programming | C++ | C++ Basics | C++ For Beginners | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 1267338,
+     "seconds": 1590
+    }
+   ],
+   "index": [
+    100.0,
+    106.4,
+    118.3,
+    122.0,
+    120.1,
+    138.2,
+    129.3,
+    159.3
+   ],
+   "github": [
+    375491,
+    433456,
+    522562,
+    692559,
+    795818,
+    1051204,
+    1024680,
+    1197203
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    195,
+    177,
+    173,
+    172,
+    132,
+    137,
+    107,
+    107
+   ]
+  },
+  "CSS": {
+   "docs": {
+    "url": "https://developer.mozilla.org/ko/docs/Web/CSS",
+    "note": "MDN"
+   },
+   "videos": [
+    {
+     "id": "_5DeUh06MUw",
+     "title": "How to Start CSS Preparation? CSS for Beginners | Dr. Hina Sikander’s Study Plan",
+     "channel": "Dr. Hina Sikander",
+     "views": 245884,
+     "seconds": 1634
+    },
+    {
+     "id": "c26O1N3x6ug",
+     "title": "CSS Tutorial For Beginners: CSS Crash Course (2026)",
+     "channel": "Iman Musa",
+     "views": 55224,
+     "seconds": 7265
+    },
+    {
+     "id": "OXGznpKZ_sA",
+     "title": "CSS Tutorial – Full Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 2947253,
+     "seconds": 40090
+    }
+   ],
+   "index": [
+    100.0,
+    112.3,
+    122.1,
+    123.2,
+    123.7,
+    128.4,
+    119.2,
+    124.5
+   ],
+   "github": [
+    221170,
+    288346,
+    383385,
+    543807,
+    580880,
+    647265,
+    652580,
+    809647
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    91,
+    83,
+    76,
+    68,
+    55,
+    55,
+    42,
+    33
+   ]
+  },
+  "CUDA": {
+   "docs": {
+    "url": "https://docs.nvidia.com/cuda/"
+   },
+   "videos": [
+    {
+     "id": "86FAWCzIe_4",
+     "title": "CUDA Programming Course – High-Performance Computing with GPUs",
+     "channel": "freeCodeCamp.org",
+     "views": 594704,
+     "seconds": 42911
+    },
+    {
+     "id": "K9anz4aB0S0",
+     "title": "What is CUDA? - Computerphile",
+     "channel": "Computerphile",
+     "views": 504849,
+     "seconds": 701
+    },
+    {
+     "id": "xewKxorikwE",
+     "title": "Give Me 30 min, I'll Make CUDA Click Forever",
+     "channel": "Zachary Huang",
+     "views": 25759,
+     "seconds": 1711
+    }
+   ],
+   "index": [
+    100.0,
+    105.0,
+    122.5,
+    140.2,
+    102.6,
+    215.0,
+    74.0,
+    138.2
+   ],
+   "github": [
+    20257,
+    23264,
+    23851,
+    34572,
+    38876,
+    51316,
+    50609,
+    69007
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    9,
+    8,
+    9,
+    10,
+    5,
+    12,
+    2,
+    4
+   ]
+  },
+  "Cassandra": {
+   "docs": {
+    "url": "https://cassandra.apache.org/doc/latest/"
+   },
+   "videos": [
+    {
+     "id": "TD3-INhm60Q",
+     "title": "Cassandra Deep Dive w/ a Ex-Meta Staff Engineer",
+     "channel": "Hello Interview",
+     "views": 66219,
+     "seconds": 1791
+    },
+    {
+     "id": "J-cSy5MeMOA",
+     "title": "Apache Cassandra Database – Full Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 333251,
+     "seconds": 4120
+    },
+    {
+     "id": "uwANOcXmMp8",
+     "title": "Apache Cassandra | Cassandra Tutorial Part-2 | Cassandra Tutorial for Beginners | Big Data Tutorial",
+     "channel": "edureka!",
+     "views": 28395,
+     "seconds": 5091
+    }
+   ],
+   "index": [
+    100.0,
+    25.9,
+    110.0,
+    71.3,
+    179.6,
+    24.3,
+    86.9,
+    16.4
+   ],
+   "github": [
+    2219,
+    4108,
+    6169,
+    7580,
+    8222,
+    7434,
+    6309,
+    6641
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    0,
+    2,
+    1,
+    3,
+    0,
+    1,
+    0
+   ]
+  },
+  "CircleCI": {
+   "docs": {
+    "url": "https://circleci.com/docs/"
+   },
+   "index": [
+    100.0,
+    207.0,
+    95.4,
+    120.6,
+    131.8,
+    108.3,
+    99.8,
+    83.4
+   ],
+   "github": [
+    4980,
+    5419,
+    6168,
+    9502,
+    10818,
+    10686,
+    10793,
+    10878
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Claude": {
+   "docs": {
+    "url": "https://docs.claude.com/",
+    "note": "Anthropic 공식 문서"
+   },
+   "videos": [
+    {
+     "id": "rRrBbyv3ChM",
+     "title": "FULL Claude Tutorial for Beginners in 2026! (Become a PRO!)",
+     "channel": "AI Foundations",
+     "views": 1175182,
+     "seconds": 2957
+    },
+    {
+     "id": "ntDIxaeo3Wg",
+     "title": "Claude Code - Full Tutorial for Beginners",
+     "channel": "Tech With Tim",
+     "views": 1515059,
+     "seconds": 2149
+    },
+    {
+     "id": "eMZmDH3T2bY",
+     "title": "Claude Code Tutorial for Beginners",
+     "channel": "Kevin Stratvert",
+     "views": 915968,
+     "seconds": 884
+    }
+   ],
+   "index": [
+    100.0,
+    172.0,
+    272.1,
+    398.7,
+    457.9,
+    532.8,
+    623.2,
+    665.4
+   ],
+   "github": [
+    234621,
+    411898,
+    813019,
+    1459169,
+    1704360,
+    2505878,
+    3190251,
+    3983163
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    2,
+    4,
+    5,
+    8,
+    1,
+    2,
+    5
+   ]
+  },
+  "ClickHouse": {
+   "docs": {
+    "url": "https://clickhouse.com/docs"
+   },
+   "videos": [
+    {
+     "id": "FSqVTcyIbBM",
+     "title": "Wow! Kalian Wajib Tahu Database Ini : ClickHouse",
+     "channel": "Programmer Zaman Now",
+     "views": 22801,
+     "seconds": 3405
+    },
+    {
+     "id": "7o5KpYAkZPE",
+     "title": "Install & Configure ClickHouse on Ubuntu 24.04 LTS | Step-by-Step Setup 🖥️ #clickhouse #database",
+     "channel": "Chirag Mahto",
+     "views": 1769,
+     "seconds": 974
+    },
+    {
+     "id": "j_kKKX1bguw",
+     "title": "Building Real-time Applications with ClickHouse Materialized Views",
+     "channel": "ClickHouse",
+     "views": 24903,
+     "seconds": 1218
+    }
+   ],
+   "index": [
+    100.0,
+    122.9,
+    114.4,
+    190.3,
+    209.9,
+    66.9,
+    67.7,
+    68.4
+   ],
+   "github": [
+    10675,
+    13861,
+    14463,
+    15925,
+    14727,
+    19966,
+    22182,
+    27023
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    1,
+    1,
+    3,
+    3,
+    0,
+    0,
+    0
+   ]
+  },
+  "Cloudflare": {
+   "docs": {
+    "url": "https://developers.cloudflare.com/"
+   },
+   "videos": [
+    {
+     "id": "ZusZzWXZWS4",
+     "title": "Cloudflare Tutorial For Beginners - How To use Cloudflare",
+     "channel": "Bizanosa",
+     "views": 6070,
+     "seconds": 3161
+    },
+    {
+     "id": "FH5-m0aiO5g",
+     "title": "The Cloudflare Stack",
+     "channel": "Cloudflare Developers",
+     "views": 78118,
+     "seconds": 806
+    },
+    {
+     "id": "H7Qe96fqg1M",
+     "title": "Learn Cloudflare Workers 101 - Full Course for Beginners",
+     "channel": "Cloudflare Developers",
+     "views": 174078,
+     "seconds": 3604
+    }
+   ],
+   "index": [
+    100.0,
+    113.3,
+    120.4,
+    149.1,
+    143.1,
+    164.2,
+    189.8,
+    158.4
+   ],
+   "github": [
+    79156,
+    107405,
+    134427,
+    199359,
+    213671,
+    295175,
+    325894,
+    419846
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    2,
+    3,
+    4,
+    2,
+    2,
+    4,
+    0
+   ]
+  },
+  "Cloudflare Workers": {
+   "docs": {
+    "url": "https://developers.cloudflare.com/workers/"
+   },
+   "videos": [
+    {
+     "id": "WDhruDqb5nM",
+     "title": "Cloudflare Workers Explained",
+     "channel": "Cloudflare Developers",
+     "views": 423874,
+     "seconds": 323
+    },
+    {
+     "id": "H7Qe96fqg1M",
+     "title": "Learn Cloudflare Workers 101 - Full Course for Beginners",
+     "channel": "Cloudflare Developers",
+     "views": 174078,
+     "seconds": 3604
+    },
+    {
+     "id": "1gX0uavithA",
+     "title": "Cloudflare Workers Tutorial - Intro & Deployment",
+     "channel": "webdecoded",
+     "views": 11804,
+     "seconds": 1381
+    }
+   ],
+   "index": [
+    100.0,
+    196.1,
+    173.5,
+    195.8,
+    342.6,
+    252.7,
+    296.2,
+    258.8
+   ],
+   "github": [
+    24597,
+    39211,
+    47492,
+    76209,
+    88992,
+    123123,
+    135468,
+    166804
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    2,
+    1,
+    0,
+    4,
+    0,
+    1,
+    0
+   ]
+  },
+  "CockroachDB": {
+   "docs": {
+    "url": "https://www.cockroachlabs.com/docs/"
+   },
+   "index": [
+    100.0,
+    103.2,
+    110.5,
+    82.3,
+    73.1,
+    61.3,
+    36.9,
+    33.9
+   ],
+   "github": [
+    3865,
+    4094,
+    5548,
+    5032,
+    4655,
+    4691,
+    3098,
+    3430
+   ],
+   "hasStackoverflow": false
+  },
+  "Confluence": {
+   "docs": {
+    "url": "https://support.atlassian.com/confluence-cloud/"
+   },
+   "index": [
+    100.0,
+    108.6,
+    104.0,
+    109.6,
+    124.7,
+    156.0,
+    130.4,
+    155.5
+   ],
+   "github": [
+    3924,
+    4377,
+    5302,
+    6803,
+    8065,
+    12128,
+    11118,
+    15990
+   ],
+   "hasStackoverflow": false
+  },
+  "Cypher": {
+   "docs": {
+    "url": "https://neo4j.com/docs/cypher-manual/current/",
+    "note": "Neo4j 쿼리 언어 문서"
+   },
+   "index": [
+    100.0,
+    36.1,
+    51.7,
+    59.0,
+    60.1,
+    214.6,
+    42.1,
+    42.0
+   ],
+   "github": [
+    1271,
+    2105,
+    3810,
+    5297,
+    5620,
+    7135,
+    5186,
+    6247
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "Cypress": {
+   "docs": {
+    "url": "https://docs.cypress.io/"
+   },
+   "index": [
+    100.0,
+    155.9,
+    86.6,
+    124.3,
+    84.2,
+    71.2,
+    65.4,
+    51.7
+   ],
+   "github": [
+    11494,
+    15113,
+    17878,
+    21445,
+    22057,
+    22430,
+    22580,
+    21545
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    2,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Dagster": {
+   "docs": {
+    "url": "https://docs.dagster.io/"
+   },
+   "index": [
+    100.0,
+    932.7,
+    587.3,
+    91.8,
+    121.7,
+    127.6,
+    161.4,
+    102.9
+   ],
+   "github": [
+    1216,
+    1317,
+    1342,
+    1767,
+    2440,
+    3074,
+    4262,
+    3279
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    2,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Databricks": {
+   "docs": {
+    "url": "https://docs.databricks.com/"
+   },
+   "videos": [
+    {
+     "id": "trJTgk8miw4",
+     "title": "Learn Databricks for FREE (Step-by-Step Guide)",
+     "channel": "Data with Baraa",
+     "views": 71974,
+     "seconds": 1496
+    },
+    {
+     "id": "X5zTCgPN_D4",
+     "title": "What is Databricks? The Story Behind the Modern Data Platform (Visual Explanation)",
+     "channel": "Data with Baraa",
+     "views": 277726,
+     "seconds": 918
+    },
+    {
+     "id": "0Hd5vYqin7w",
+     "title": "Databricks Data Engineer Associate Certification Course – Pass the Exam!",
+     "channel": "freeCodeCamp.org",
+     "views": 218830,
+     "seconds": 26902
+    }
+   ],
+   "index": [
+    100.0,
+    65.6,
+    88.8,
+    102.7,
+    66.8,
+    58.0,
+    48.7,
+    62.4
+   ],
+   "github": [
+    3865,
+    4224,
+    4743,
+    6355,
+    7634,
+    9154,
+    9678,
+    11595
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    11,
+    6,
+    7,
+    8,
+    4,
+    3,
+    2,
+    2
+   ]
+  },
+  "Datadog": {
+   "docs": {
+    "url": "https://docs.datadoghq.com/"
+   },
+   "videos": [
+    {
+     "id": "xkQDUKEQisE",
+     "title": "Datadog Tutorial for Beginners – Full Course 2026",
+     "channel": "Thetips4you",
+     "views": 5866,
+     "seconds": 2000
+    },
+    {
+     "id": "Js06FTU3nXo",
+     "title": "Datadog 101 Course | Datadog Tutorial for Beginners | SRE | DevOps",
+     "channel": "Thetips4you",
+     "views": 94225,
+     "seconds": 1633
+    },
+    {
+     "id": "6a5BRWQSkGc",
+     "title": "Datadog Crash Tutorials for Beginners to Advance June 2025",
+     "channel": "SRE School",
+     "views": 1247,
+     "seconds": 3771
+    }
+   ],
+   "index": [
+    100.0,
+    65.4,
+    152.6,
+    75.7,
+    146.4,
+    75.1,
+    76.9,
+    160.6
+   ],
+   "github": [
+    9643,
+    9425,
+    11964,
+    16823,
+    21413,
+    20881,
+    23458,
+    22164
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    2,
+    0,
+    1,
+    0,
+    0,
+    1
+   ]
+  },
+  "Deno": {
+   "docs": {
+    "url": "https://docs.deno.com/"
+   },
+   "index": [
+    100.0,
+    81.5,
+    55.5,
+    46.3,
+    166.7,
+    86.8,
+    167.0,
+    113.3
+   ],
+   "github": [
+    19984,
+    17438,
+    16008,
+    24304,
+    66216,
+    40063,
+    97591,
+    98532
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    2,
+    1,
+    0,
+    2,
+    1,
+    1,
+    0
+   ]
+  },
+  "Dependabot": {
+   "docs": {
+    "url": "https://docs.github.com/code-security/dependabot"
+   },
+   "index": [
+    100.0,
+    101.0,
+    91.0,
+    74.9,
+    67.4,
+    56.5,
+    61.5,
+    55.0
+   ],
+   "github": [
+    1524382,
+    1579765,
+    1799117,
+    1811309,
+    1697919,
+    1709708,
+    2020509,
+    2204767
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Django": {
+   "docs": {
+    "url": "https://docs.djangoproject.com/"
+   },
+   "index": [
+    100.0,
+    100.1,
+    58.5,
+    103.8,
+    65.0,
+    75.1,
+    99.7,
+    54.6
+   ],
+   "github": [
+    31493,
+    28037,
+    40387,
+    40120,
+    42553,
+    45995,
+    44635,
+    55643
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    31,
+    28,
+    11,
+    24,
+    11,
+    12,
+    14,
+    5
+   ]
+  },
+  "Docker": {
+   "docs": {
+    "url": "https://docs.docker.com/"
+   },
+   "videos": [
+    {
+     "id": "pTFZFxd4hOI",
+     "title": "Docker Tutorial for Beginners",
+     "channel": "Programming with Mosh",
+     "views": 3168028,
+     "seconds": 3364
+    },
+    {
+     "id": "pg19Z8LL06w",
+     "title": "Docker Crash Course for Absolute Beginners [NEW]",
+     "channel": "TechWorld with Nana",
+     "views": 2980146,
+     "seconds": 4059
+    },
+    {
+     "id": "gAkwW2tuIqE",
+     "title": "Learn Docker in 7 Easy Steps - Full Beginner's Tutorial",
+     "channel": "Fireship",
+     "views": 2547326,
+     "seconds": 662
+    }
+   ],
+   "index": [
+    100.0,
+    68.9,
+    53.3,
+    65.8,
+    62.7,
+    49.8,
+    58.6,
+    57.4
+   ],
+   "github": [
+    616197,
+    396341,
+    402806,
+    585296,
+    561058,
+    663896,
+    688543,
+    901088
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    52,
+    39,
+    23,
+    30,
+    25,
+    10,
+    17,
+    10
+   ]
+  },
+  "DynamoDB": {
+   "docs": {
+    "url": "https://docs.aws.amazon.com/dynamodb/"
+   },
+   "index": [
+    100.0,
+    187.1,
+    145.9,
+    94.4,
+    283.1,
+    155.9,
+    84.1,
+    74.2
+   ],
+   "github": [
+    11843,
+    12424,
+    14512,
+    17698,
+    17832,
+    19600,
+    21628,
+    23028
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    2,
+    1,
+    0,
+    3,
+    1,
+    0,
+    0
+   ]
+  },
+  "ESLint": {
+   "docs": {
+    "url": "https://eslint.org/docs/latest/"
+   },
+   "index": [
+    100.0,
+    75.4,
+    120.4,
+    62.8,
+    54.5,
+    63.1,
+    70.7,
+    77.6
+   ],
+   "github": [
+    371430,
+    278850,
+    578785,
+    377837,
+    329141,
+    458457,
+    583811,
+    772754
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    3,
+    2,
+    0,
+    1,
+    1,
+    0,
+    0
+   ]
+  },
+  "Elasticsearch": {
+   "docs": {
+    "url": "https://www.elastic.co/guide/"
+   },
+   "videos": [
+    {
+     "id": "DR-zJXxtefE",
+     "title": "Elasticsearch Tutorial for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 308314,
+     "seconds": 1109
+    },
+    {
+     "id": "a4HBKEda_F8",
+     "title": "Elasticsearch Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 226622,
+     "seconds": 17947
+    },
+    {
+     "id": "PuZvF2EyfBM",
+     "title": "Elasticsearch Deep Dive w/ a Ex-Meta Senior Manager for System Design Interviews",
+     "channel": "Hello Interview",
+     "views": 195116,
+     "seconds": 2643
+    }
+   ],
+   "index": [
+    100.0,
+    90.5,
+    98.6,
+    22.1,
+    60.9,
+    39.5,
+    92.4,
+    86.2
+   ],
+   "github": [
+    10734,
+    12809,
+    13534,
+    14545,
+    16716,
+    15551,
+    14961,
+    19959
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    5,
+    5,
+    0,
+    2,
+    1,
+    3,
+    2
+   ]
+  },
+  "Elixir": {
+   "docs": {
+    "url": "https://elixir-lang.org/docs.html"
+   },
+   "index": [
+    100.0,
+    199.3,
+    105.0,
+    354.2,
+    119.3,
+    278.1,
+    106.1,
+    355.4
+   ],
+   "github": [
+    5513,
+    6117,
+    7517,
+    11250,
+    10843,
+    13389,
+    12705,
+    14389
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    0,
+    2,
+    0,
+    1,
+    0,
+    1
+   ]
+  },
+  "Envoy": {
+   "docs": {
+    "url": "https://www.envoyproxy.io/docs"
+   },
+   "index": [
+    100.0,
+    190.7,
+    45.9,
+    52.2,
+    55.2,
+    50.1,
+    56.7,
+    53.2
+   ],
+   "github": [
+    6623,
+    6097,
+    6570,
+    9100,
+    10032,
+    10952,
+    13589,
+    15360
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    3,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Express": {
+   "docs": {
+    "url": "https://expressjs.com/"
+   },
+   "index": [
+    100.0,
+    77.0,
+    65.5,
+    71.7,
+    90.1,
+    91.4,
+    49.8,
+    69.7
+   ],
+   "github": [
+    107385,
+    111471,
+    119129,
+    113399,
+    114844,
+    151118,
+    133657,
+    192818
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    18,
+    7,
+    5,
+    10,
+    13,
+    11,
+    3,
+    4
+   ]
+  },
+  "FastAPI": {
+   "docs": {
+    "url": "https://fastapi.tiangolo.com/"
+   },
+   "index": [
+    100.0,
+    128.1,
+    96.7,
+    108.6,
+    131.5,
+    122.8,
+    112.5,
+    93.5
+   ],
+   "github": [
+    32204,
+    34405,
+    51311,
+    67568,
+    71971,
+    87966,
+    93832,
+    97436
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    12,
+    15,
+    7,
+    8,
+    9,
+    7,
+    5,
+    3
+   ]
+  },
+  "Figma": {
+   "docs": {
+    "url": "https://help.figma.com/"
+   },
+   "videos": [
+    {
+     "id": "jQ1sfKIl50E",
+     "title": "Figma Tutorial for Beginners (13-min crash course!)",
+     "channel": "Flux Academy",
+     "views": 1237634,
+     "seconds": 802
+    },
+    {
+     "id": "1SNZRCVNizg",
+     "title": "Free Figma Crash Course for Beginners 2026 | UI/UX Design",
+     "channel": "DesignWithArash",
+     "views": 609777,
+     "seconds": 5386
+    },
+    {
+     "id": "ezldKx-jPag",
+     "title": "Figma Tutorial for Beginners",
+     "channel": "Kevin Stratvert",
+     "views": 1140355,
+     "seconds": 4397
+    }
+   ],
+   "index": [
+    100.0,
+    131.1,
+    147.6,
+    158.1,
+    108.5,
+    104.1,
+    171.4,
+    100.0
+   ],
+   "github": [
+    15018,
+    20221,
+    20867,
+    27744,
+    26857,
+    30981,
+    33121,
+    39353
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    1,
+    1,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Firestore": {
+   "docs": {
+    "url": "https://firebase.google.com/docs/firestore"
+   },
+   "index": [
+    100.0,
+    84.4,
+    138.0,
+    80.9,
+    60.6,
+    94.9,
+    130.9,
+    108.3
+   ],
+   "github": [
+    11158,
+    14611,
+    19807,
+    27002,
+    28751,
+    37102,
+    36214,
+    44663
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    2,
+    4,
+    1,
+    0,
+    1,
+    2,
+    1
+   ]
+  },
+  "Flask": {
+   "docs": {
+    "url": "https://flask.palletsprojects.com/"
+   },
+   "index": [
+    100.0,
+    139.9,
+    53.4,
+    106.5,
+    107.4,
+    130.8,
+    105.2,
+    103.2
+   ],
+   "github": [
+    20433,
+    21976,
+    27633,
+    27412,
+    28291,
+    30882,
+    25910,
+    27766
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    10,
+    1,
+    6,
+    5,
+    6,
+    4,
+    3
+   ]
+  },
+  "Flutter": {
+   "docs": {
+    "url": "https://docs.flutter.dev/"
+   },
+   "index": [
+    100.0,
+    111.5,
+    123.0,
+    79.0,
+    65.6,
+    86.3,
+    96.8,
+    83.2
+   ],
+   "github": [
+    22638,
+    23135,
+    29845,
+    40494,
+    45516,
+    57513,
+    75099,
+    85997
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    104,
+    102,
+    93,
+    57,
+    38,
+    45,
+    41,
+    26
+   ]
+  },
+  "Fly.io": {
+   "docs": {
+    "url": "https://fly.io/docs/"
+   },
+   "index": [
+    100.0,
+    143.1,
+    146.6,
+    151.2,
+    156.5,
+    147.2,
+    90.3,
+    84.9
+   ],
+   "github": [
+    1806,
+    2654,
+    3439,
+    4322,
+    4660,
+    5266,
+    3543,
+    4016
+   ],
+   "hasStackoverflow": false
+  },
+  "GCP": {
+   "docs": {
+    "url": "https://cloud.google.com/docs"
+   },
+   "videos": [
+    {
+     "id": "HU58N5fz7B8",
+     "title": "GCP Full Course 2026 | GCP Tutorial For Beginners | Google Cloud Platform Training | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 14520,
+     "seconds": 4555
+    },
+    {
+     "id": "lvZk_sc8u5I",
+     "title": "Google Cloud Full Course for Beginners [2025] | GCP Tutorial with Hands-On Labs | GCP Crash Course",
+     "channel": "Tech Tutorials with Piyush",
+     "views": 181981,
+     "seconds": 15038
+    },
+    {
+     "id": "LseLBB5ZCxw",
+     "title": "Google Cloud Platfrom Full Course | Google Cloud Crash Course | GCP Tutorial For Beginners",
+     "channel": "MindMajix",
+     "views": 3359,
+     "seconds": 26160
+    }
+   ],
+   "index": [
+    100.0,
+    96.8,
+    90.3,
+    91.3,
+    125.7,
+    86.3,
+    91.5,
+    110.4
+   ],
+   "github": [
+    38349,
+    48202,
+    60906,
+    74486,
+    74671,
+    114252,
+    114422,
+    143859
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    20,
+    15,
+    11,
+    11,
+    15,
+    6,
+    6,
+    6
+   ]
+  },
+  "GDB": {
+   "docs": {
+    "url": "https://sourceware.org/gdb/current/onlinedocs/gdb/"
+   },
+   "index": [
+    100.0,
+    113.6,
+    27.9,
+    50.6,
+    32.9,
+    96.1,
+    116.4,
+    105.5
+   ],
+   "github": [
+    2192,
+    2369,
+    2444,
+    3268,
+    3032,
+    3545,
+    3884,
+    5178
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    6,
+    1,
+    2,
+    1,
+    3,
+    3,
+    2
+   ]
+  },
+  "GLSL": {
+   "docs": {
+    "url": "https://registry.khronos.org/OpenGL-Refpages/gl4/",
+    "note": "Khronos 레퍼런스"
+   },
+   "index": [
+    100.0,
+    58.9,
+    209.5,
+    46.2,
+    230.6,
+    149.8,
+    300.7,
+    387.9
+   ],
+   "github": [
+    3640,
+    4860,
+    6011,
+    5881,
+    5608,
+    6885,
+    6914,
+    7835
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    2,
+    0,
+    2,
+    1,
+    2,
+    2
+   ]
+  },
+  "GPT": {
+   "docs": {
+    "url": "https://platform.openai.com/docs",
+    "note": "OpenAI API 문서"
+   },
+   "videos": [
+    {
+     "id": "n7gxTAwQ634",
+     "title": "The ULTIMATE GPT-5 Guide 2026: How to Use Chat GPT-5 For Beginners",
+     "channel": "AI Master",
+     "views": 120467,
+     "seconds": 2235
+    },
+    {
+     "id": "WLg9qWOf6zw",
+     "title": "How I Use ChatGPT Work and GPT-5.6 to Do Everything (Beginner Tutorial)",
+     "channel": "Peter Yang",
+     "views": 73090,
+     "seconds": 1732
+    },
+    {
+     "id": "poM2n8fBcag",
+     "title": "ChatGPT Tutorial for Beginners: How to Actually Get Work Done with AI",
+     "channel": "Kevin Stratvert",
+     "views": 53674,
+     "seconds": 871
+    }
+   ],
+   "index": [
+    100.0,
+    96.1,
+    112.9,
+    106.3,
+    202.2,
+    108.0,
+    134.8,
+    120.8
+   ],
+   "github": [
+    28359,
+    32599,
+    47130,
+    79858,
+    97420,
+    126624,
+    127669,
+    187375
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    5,
+    5,
+    2,
+    8,
+    0,
+    2,
+    0
+   ]
+  },
+  "Gatsby": {
+   "docs": {
+    "url": "https://www.gatsbyjs.com/docs/"
+   },
+   "index": [
+    100.0,
+    167.8,
+    176.1,
+    84.3,
+    59.3,
+    57.2,
+    51.2,
+    61.7
+   ],
+   "github": [
+    2892,
+    4982,
+    6616,
+    3856,
+    2825,
+    3277,
+    3218,
+    4673
+   ],
+   "hasStackoverflow": false
+  },
+  "Gemini": {
+   "docs": {
+    "url": "https://ai.google.dev/gemini-api/docs"
+   },
+   "index": [
+    100.0,
+    107.7,
+    112.6,
+    104.7,
+    78.1,
+    73.2,
+    100.9,
+    101.6
+   ],
+   "github": [
+    113309,
+    148215,
+    190482,
+    240972,
+    164998,
+    194090,
+    321910,
+    344943
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    10,
+    5,
+    5,
+    2,
+    3,
+    2,
+    1,
+    2
+   ]
+  },
+  "Git": {
+   "docs": {
+    "url": "https://git-scm.com/doc"
+   },
+   "videos": [
+    {
+     "id": "mAFoROnOfHs",
+     "title": "Git & GitHub Crash Course for Beginners [2026]",
+     "channel": "freeCodeCamp.org",
+     "views": 624052,
+     "seconds": 4880
+    },
+    {
+     "id": "8JJ101D3knE",
+     "title": "Git Tutorial for Beginners: Learn Git in 1 Hour",
+     "channel": "Programming with Mosh",
+     "views": 3482113,
+     "seconds": 4153
+    },
+    {
+     "id": "RGOj5yH7evk",
+     "title": "Git and GitHub for Beginners - Crash Course",
+     "channel": "freeCodeCamp.org",
+     "views": 5099841,
+     "seconds": 4110
+    }
+   ],
+   "index": [
+    100.0,
+    72.6,
+    75.1,
+    76.5,
+    95.0,
+    125.4,
+    116.6,
+    138.8
+   ],
+   "github": [
+    640248,
+    453712,
+    537363,
+    766510,
+    933668,
+    1485207,
+    1737789,
+    2328903
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    37,
+    28,
+    31,
+    21,
+    26,
+    30,
+    13,
+    16
+   ]
+  },
+  "GitHub": {
+   "docs": {
+    "url": "https://docs.github.com/"
+   },
+   "videos": [
+    {
+     "id": "mAFoROnOfHs",
+     "title": "Git & GitHub Crash Course for Beginners [2026]",
+     "channel": "freeCodeCamp.org",
+     "views": 624052,
+     "seconds": 4880
+    },
+    {
+     "id": "v5gnvDUWqFM",
+     "title": "GitHub Tutorial for Beginners (2025)",
+     "channel": "CodeWithChris",
+     "views": 64754,
+     "seconds": 1194
+    },
+    {
+     "id": "S7XpTAnSDL4",
+     "title": "Git & GitHub Tutorial | Visualized Git Course for Beginner & Professional Developers in 2024",
+     "channel": "JavaScript Mastery",
+     "views": 877294,
+     "seconds": 4327
+    }
+   ],
+   "index": [
+    100.0,
+    108.5,
+    99.1,
+    94.6,
+    91.0,
+    86.6,
+    86.2,
+    82.1
+   ],
+   "github": [
+    3784652,
+    4234278,
+    4879572,
+    5641400,
+    5637448,
+    6403734,
+    6928330,
+    8122956
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    17,
+    13,
+    11,
+    14,
+    12,
+    13,
+    13,
+    5
+   ]
+  },
+  "GitHub Actions": {
+   "docs": {
+    "url": "https://docs.github.com/actions"
+   },
+   "videos": [
+    {
+     "id": "y7S2oSjJ8PA",
+     "title": "GitHub Actions Tutorial - Deploy Node.js Application with CI CD and GitHub Actions",
+     "channel": "Piyush Garg",
+     "views": 129880,
+     "seconds": 2005
+    },
+    {
+     "id": "yyL6r2hBJEI",
+     "title": "GitHub Actions Tutorial in Tamil | CI/CD Explained for Beginners | DevOps | Part - 1",
+     "channel": "Simply Byte - Tamil",
+     "views": 5013,
+     "seconds": 609
+    },
+    {
+     "id": "R8_veQiYBjI",
+     "title": "GitHub Actions Tutorial - Basic Concepts and CI/CD Pipeline with Docker",
+     "channel": "TechWorld with Nana",
+     "views": 2236529,
+     "seconds": 1951
+    }
+   ],
+   "index": [
+    100.0,
+    67.5,
+    108.8,
+    103.6,
+    103.2,
+    101.8,
+    109.7,
+    103.9
+   ],
+   "github": [
+    1129631,
+    751975,
+    1580003,
+    1866087,
+    1921161,
+    2248546,
+    2636258,
+    3121338
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    10,
+    12,
+    10,
+    6,
+    6,
+    7,
+    7,
+    2
+   ]
+  },
+  "GitHub Copilot": {
+   "docs": {
+    "url": "https://docs.github.com/copilot"
+   },
+   "videos": [
+    {
+     "id": "n0NlxUyA7FI",
+     "title": "Getting started with GitHub Copilot | Tutorial",
+     "channel": "GitHub",
+     "views": 237898,
+     "seconds": 654
+    },
+    {
+     "id": "rheqk-L7Yes",
+     "title": "Ultimate GitHub Copilot CLI tutorial for beginners",
+     "channel": "GitHub",
+     "views": 16554,
+     "seconds": 1420
+    },
+    {
+     "id": "2pFPJYdPM7Q",
+     "title": "Introduction to GitHub Copilot Tutorial for Beginners",
+     "channel": "Cameron McKenzie",
+     "views": 30325,
+     "seconds": 1317
+    }
+   ],
+   "index": [
+    100.0,
+    120.1,
+    126.8,
+    130.1,
+    117.2,
+    97.8,
+    64.9,
+    75.4
+   ],
+   "github": [
+    314441,
+    357493,
+    476351,
+    635462,
+    558341,
+    498798,
+    415999,
+    536787
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    9,
+    8,
+    4,
+    6,
+    8,
+    2,
+    3
+   ]
+  },
+  "GitLab": {
+   "docs": {
+    "url": "https://docs.gitlab.com/"
+   },
+   "index": [
+    100.0,
+    149.1,
+    95.0,
+    158.3,
+    113.4,
+    167.0,
+    82.7,
+    146.1
+   ],
+   "github": [
+    21365,
+    23068,
+    32671,
+    32450,
+    35119,
+    70709,
+    70981,
+    88839
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    11,
+    4,
+    10,
+    5,
+    6,
+    1,
+    3
+   ]
+  },
+  "GitLab CI": {
+   "docs": {
+    "url": "https://docs.gitlab.com/ee/ci/"
+   },
+   "index": [
+    100.0,
+    56.5,
+    47.1,
+    99.2,
+    118.1,
+    135.5,
+    41.1,
+    98.0
+   ],
+   "github": [
+    4084,
+    4748,
+    5488,
+    5638,
+    5512,
+    8804,
+    8348,
+    15676
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    3,
+    2,
+    5,
+    5,
+    5,
+    1,
+    2
+   ]
+  },
+  "Go": {
+   "docs": {
+    "url": "https://go.dev/doc/"
+   },
+   "videos": [
+    {
+     "id": "XCZWyN9ZbEQ",
+     "title": "Full Golang Tutorial - Learn Go by Building a TodoList App",
+     "channel": "TechWorld with Nana",
+     "views": 230033,
+     "seconds": 5696
+    },
+    {
+     "id": "8uiZC0l4Ajw",
+     "title": "Learn GO Fast: Full Tutorial",
+     "channel": "Alex Mux",
+     "views": 1092861,
+     "seconds": 4073
+    },
+    {
+     "id": "85xEdlKojL4",
+     "title": "Go (Golang) Crash Course: The Complete Language Tour",
+     "channel": "Coding with Patrik",
+     "views": 7260,
+     "seconds": 1195
+    }
+   ],
+   "index": [
+    100.0,
+    96.4,
+    76.3,
+    65.1,
+    61.4,
+    61.0,
+    56.9,
+    58.9
+   ],
+   "github": [
+    72683,
+    85881,
+    125150,
+    130703,
+    112710,
+    116026,
+    115075,
+    195638
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    34,
+    26,
+    12,
+    10,
+    9,
+    9,
+    7,
+    4
+   ]
+  },
+  "Google GKE": {
+   "docs": {
+    "url": "https://cloud.google.com/kubernetes-engine/docs"
+   },
+   "index": [
+    100.0,
+    5.2,
+    4.6,
+    6.8,
+    5.8,
+    5.2,
+    120.1,
+    5.4
+   ],
+   "github": [
+    402,
+    495,
+    552,
+    994,
+    880,
+    953,
+    1203,
+    1303
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Gradle": {
+   "docs": {
+    "url": "https://docs.gradle.org/"
+   },
+   "videos": [
+    {
+     "id": "RCRQlz78wCg",
+     "title": "The Ultimate Gradle Kotlin Beginner's Crash Course For 2025",
+     "channel": "Philipp Lackner",
+     "views": 89509,
+     "seconds": 2537
+    },
+    {
+     "id": "1u1osfIvVpw",
+     "title": "Gradle Tutorial for Java and Spring Boot",
+     "channel": "Telusko",
+     "views": 15485,
+     "seconds": 1867
+    },
+    {
+     "id": "R6Z-Sxb837I",
+     "title": "Gradle Course for Beginners | Get Going with Gradle",
+     "channel": "Tom Gregory",
+     "views": 55128,
+     "seconds": 3419
+    }
+   ],
+   "index": [
+    100.0,
+    118.9,
+    109.5,
+    83.8,
+    73.2,
+    64.2,
+    68.9,
+    60.5
+   ],
+   "github": [
+    60693,
+    79687,
+    80776,
+    120140,
+    104267,
+    126600,
+    132069,
+    136641
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    27,
+    27,
+    22,
+    12,
+    9,
+    6,
+    6,
+    4
+   ]
+  },
+  "Grafana": {
+   "docs": {
+    "url": "https://grafana.com/docs/"
+   },
+   "videos": [
+    {
+     "id": "VwDEn97-J6I",
+     "title": "Prometheus And Grafana Explained In Tamil | DevOps Tutorial For Beginners",
+     "channel": "BTree Systems",
+     "views": 32677,
+     "seconds": 3303
+    },
+    {
+     "id": "vf5MJLoXUG0",
+     "title": "Grafana Tutorial for Beginners | What is Grafana | Prometheus and Grafana Monitoring (2026)",
+     "channel": "Tech With Diego",
+     "views": 54430,
+     "seconds": 362
+    },
+    {
+     "id": "w-c3KYKQQfs",
+     "title": "Grafana Tutorial For Beginners | Continuous Monitoring With Grafana | DevOps Training | Edureka",
+     "channel": "edureka!",
+     "views": 376300,
+     "seconds": 3720
+    }
+   ],
+   "index": [
+    100.0,
+    127.2,
+    198.9,
+    134.6,
+    72.2,
+    53.5,
+    69.8,
+    71.6
+   ],
+   "github": [
+    30302,
+    58019,
+    79603,
+    52494,
+    49790,
+    55491,
+    56500,
+    61249
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    2,
+    7,
+    6,
+    1,
+    0,
+    1,
+    1
+   ]
+  },
+  "GraphQL": {
+   "docs": {
+    "url": "https://graphql.org/learn/"
+   },
+   "videos": [
+    {
+     "id": "5199E50O7SI",
+     "title": "GraphQL Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 391479,
+     "seconds": 5340
+    },
+    {
+     "id": "xMCnDesBggM",
+     "title": "GraphQL Crash Course #1 - What is GraphQL?",
+     "channel": "Net Ninja",
+     "views": 377562,
+     "seconds": 642
+    },
+    {
+     "id": "dJjP0SbdIt0",
+     "title": "GraphQL tutorial for beginners from the basics of graph-ql in one-video.",
+     "channel": "Mafia Codes",
+     "views": 33635,
+     "seconds": 2788
+    }
+   ],
+   "index": [
+    100.0,
+    106.2,
+    93.7,
+    127.6,
+    124.6,
+    68.0,
+    80.8,
+    61.0
+   ],
+   "github": [
+    28256,
+    38976,
+    42735,
+    61241,
+    62326,
+    73631,
+    73096,
+    87373
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    4,
+    3,
+    5,
+    4,
+    0,
+    1,
+    0
+   ]
+  },
+  "Groovy": {
+   "docs": {
+    "url": "https://groovy-lang.org/documentation.html"
+   },
+   "index": [
+    100.0,
+    85.7,
+    26.3,
+    34.4,
+    29.6,
+    37.7,
+    34.4,
+    17.7
+   ],
+   "github": [
+    6202,
+    8033,
+    11126,
+    17750,
+    15890,
+    24377,
+    24369,
+    15090
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    4,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "HTML": {
+   "docs": {
+    "url": "https://developer.mozilla.org/ko/docs/Web/HTML",
+    "note": "MDN"
+   },
+   "videos": [
+    {
+     "id": "qz0aGYrrlhU",
+     "title": "HTML Tutorial for Beginners: HTML Crash Course",
+     "channel": "Programming with Mosh",
+     "views": 11044476,
+     "seconds": 4174
+    },
+    {
+     "id": "916GWv2Qs08",
+     "title": "HTML Tutorial - Website Crash Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 665079,
+     "seconds": 2720
+    },
+    {
+     "id": "2u4q2vDLiU0",
+     "title": "HTML Tutorial For Beginners: HTML Crash Course (2026)",
+     "channel": "Iman Musa",
+     "views": 67723,
+     "seconds": 3602
+    }
+   ],
+   "index": [
+    100.0,
+    80.8,
+    83.5,
+    82.1,
+    88.0,
+    81.8,
+    86.9,
+    81.8
+   ],
+   "github": [
+    1336780,
+    1040496,
+    1370857,
+    1539720,
+    1629260,
+    1797957,
+    2092654,
+    2315523
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    110,
+    91,
+    76,
+    84,
+    81,
+    68,
+    59,
+    43
+   ]
+  },
+  "Hadoop": {
+   "docs": {
+    "url": "https://hadoop.apache.org/docs/stable/"
+   },
+   "videos": [
+    {
+     "id": "Dp2-dAftD1Q",
+     "title": "How to Install Hadoop on Windows: Step-by-Step Guide | SPPU DSBDA LAB | Big Data",
+     "channel": "Technical Windows",
+     "views": 78939,
+     "seconds": 959
+    },
+    {
+     "id": "iANBytZ26MI",
+     "title": "What Is Hadoop? | Introduction To Hadoop | Hadoop Tutorial For Beginners | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 250196,
+     "seconds": 1805
+    },
+    {
+     "id": "rqVuj4nft-E",
+     "title": "Introduction to Hadoop | Hadoop Tutorial for Beginners | Hadoop Training | Edureka",
+     "channel": "edureka!",
+     "views": 53684,
+     "seconds": 3982
+    }
+   ],
+   "index": [
+    100.0,
+    111.6,
+    18.4,
+    163.9,
+    189.1,
+    30.7,
+    19.2,
+    19.4
+   ],
+   "github": [
+    1120,
+    1161,
+    1321,
+    4501,
+    4732,
+    3354,
+    2306,
+    2803
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    1,
+    0,
+    1,
+    1,
+    0,
+    0,
+    0
+   ]
+  },
+  "Haskell": {
+   "docs": {
+    "url": "https://www.haskell.org/documentation/"
+   },
+   "index": [
+    100.0,
+    39.6,
+    46.6,
+    107.6,
+    46.8,
+    27.2,
+    46.4,
+    60.9
+   ],
+   "github": [
+    2369,
+    3751,
+    4408,
+    15869,
+    6256,
+    5266,
+    4920,
+    5346
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    16,
+    5,
+    5,
+    11,
+    4,
+    2,
+    3,
+    3
+   ]
+  },
+  "Helm": {
+   "docs": {
+    "url": "https://helm.sh/docs/"
+   },
+   "videos": [
+    {
+     "id": "-ykwb1d0DXU",
+     "title": "What is Helm in Kubernetes? Helm and Helm Charts explained  | Kubernetes Tutorial 23",
+     "channel": "TechWorld with Nana",
+     "views": 1006247,
+     "seconds": 856
+    },
+    {
+     "id": "0IDeXe9Zqns",
+     "title": "Helm Tutorial for Beginners | Helm Charts | Kubernetes Deploy, Upgrade & Rollback Explained in Tamil",
+     "channel": "Simply Byte - Tamil",
+     "views": 8613,
+     "seconds": 1322
+    },
+    {
+     "id": "k4vhgeTAOn0",
+     "title": "Day 43 - Helm Charts Tutorial For Beginners | What is Helm Chart",
+     "channel": "Tech Tutorials with Piyush",
+     "views": 23841,
+     "seconds": 1778
+    }
+   ],
+   "index": [
+    100.0,
+    91.7,
+    90.2,
+    81.6,
+    83.0,
+    94.5,
+    99.6,
+    127.1
+   ],
+   "github": [
+    45448,
+    50066,
+    60783,
+    75756,
+    80299,
+    92869,
+    104107,
+    121474
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    1,
+    1,
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  "Heroku": {
+   "docs": {
+    "url": "https://devcenter.heroku.com/"
+   },
+   "index": [
+    100.0,
+    163.9,
+    37.3,
+    199.4,
+    220.5,
+    27.7,
+    25.1,
+    22.2
+   ],
+   "github": [
+    3665,
+    3247,
+    3909,
+    5810,
+    4365,
+    4419,
+    4395,
+    4693
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    2,
+    0,
+    2,
+    2,
+    0,
+    0,
+    0
+   ]
+  },
+  "HubSpot": {
+   "docs": {
+    "url": "https://developers.hubspot.com/docs"
+   },
+   "index": [
+    100.0,
+    105.6,
+    129.8,
+    141.9,
+    187.1,
+    217.4,
+    203.2,
+    199.2
+   ],
+   "github": [
+    1182,
+    1282,
+    1993,
+    2655,
+    3645,
+    5091,
+    5216,
+    6169
+   ],
+   "hasStackoverflow": false
+  },
+  "Hugging Face": {
+   "docs": {
+    "url": "https://huggingface.co/docs"
+   },
+   "index": [
+    100.0,
+    110.6,
+    22.9,
+    61.5,
+    115.9,
+    83.1,
+    46.5,
+    124.4
+   ],
+   "github": [
+    4554,
+    4669,
+    5294,
+    7462,
+    8982,
+    12243,
+    17927,
+    20943
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    3,
+    0,
+    1,
+    2,
+    1,
+    0,
+    1
+   ]
+  },
+  "IIS": {
+   "docs": {
+    "url": "https://learn.microsoft.com/iis/"
+   },
+   "index": [
+    100.0,
+    150.3,
+    92.5,
+    3.7,
+    113.8,
+    3.2,
+    42.0,
+    157.8
+   ],
+   "github": [
+    1054,
+    1066,
+    1275,
+    1612,
+    1583,
+    1766,
+    2261,
+    2712
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    8,
+    4,
+    0,
+    4,
+    0,
+    1,
+    3
+   ]
+  },
+  "Istio": {
+   "docs": {
+    "url": "https://istio.io/latest/docs/"
+   },
+   "index": [
+    100.0,
+    365.8,
+    97.0,
+    108.6,
+    108.8,
+    306.2,
+    83.3,
+    71.6
+   ],
+   "github": [
+    4008,
+    4727,
+    5051,
+    6887,
+    7187,
+    7334,
+    7253,
+    7520
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    2,
+    0,
+    0,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "JAX": {
+   "docs": {
+    "url": "https://jax.readthedocs.io/"
+   },
+   "videos": [
+    {
+     "id": "SMAsCd4W5Z0",
+     "title": "Understanding JAX: JIT, XLA, and Pure Functions Explained",
+     "channel": "Google for Developers",
+     "views": 21130,
+     "seconds": 606
+    },
+    {
+     "id": "lTtl4YObfSo",
+     "title": "Crochet Baby Jax Tutorial | Cute Amigurumi Plush",
+     "channel": "Generdy",
+     "views": 7894,
+     "seconds": 1622
+    },
+    {
+     "id": "wq-UsiOkBRU",
+     "title": "JAX Tutorial: The Lightning-Fast ML Library For Python",
+     "channel": "NeuralNine",
+     "views": 18701,
+     "seconds": 3878
+    }
+   ],
+   "index": [
+    100.0,
+    65.9,
+    75.4,
+    55.2,
+    138.6,
+    14.7,
+    50.7,
+    17.2
+   ],
+   "github": [
+    4477,
+    5412,
+    6434,
+    7321,
+    8173,
+    9024,
+    11188,
+    13947
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    3,
+    3,
+    2,
+    5,
+    0,
+    1,
+    0
+   ]
+  },
+  "Java": {
+   "docs": {
+    "url": "https://docs.oracle.com/en/java/"
+   },
+   "videos": [
+    {
+     "id": "LBqE4YOvhyc",
+     "title": "JAVA Full Course | Introduction to JAVA | Java Full Course for Beginners in 2026",
+     "channel": "Coder Army",
+     "views": 283628,
+     "seconds": 3547
+    },
+    {
+     "id": "23HFxAPyJ9U",
+     "title": "Start coding with JAVA in 10 minutes! ☕",
+     "channel": "Bro Code",
+     "views": 538762,
+     "seconds": 659
+    },
+    {
+     "id": "JPOzWljLYuU",
+     "title": "Java tutorial for complete beginners with interesting examples - Easy-to-follow Java programming",
+     "channel": "Duckademy IT courses",
+     "views": 1166181,
+     "seconds": 3754
+    }
+   ],
+   "index": [
+    100.0,
+    95.3,
+    90.8,
+    99.8,
+    100.4,
+    121.1,
+    93.4,
+    92.2
+   ],
+   "github": [
+    164483,
+    187400,
+    215688,
+    274036,
+    268514,
+    290905,
+    319027,
+    336236
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    241,
+    196,
+    155,
+    169,
+    141,
+    156,
+    95,
+    71
+   ]
+  },
+  "JavaScript": {
+   "docs": {
+    "url": "https://developer.mozilla.org/ko/docs/Web/JavaScript",
+    "note": "MDN"
+   },
+   "videos": [
+    {
+     "id": "TioxU0wdMQg",
+     "title": "JavaScript Tutorial for Beginners - Learn in 15 Minutes ( Crash Course 2026 )",
+     "channel": "ITower",
+     "views": 83878,
+     "seconds": 829
+    },
+    {
+     "id": "xKOyDDuQSVY",
+     "title": "Learn All the JavaScript Basics in 20 Minutes",
+     "channel": "Coding2GO",
+     "views": 128210,
+     "seconds": 1232
+    },
+    {
+     "id": "W6NZfCO5SIk",
+     "title": "JavaScript Course for Beginners – Your First Step to Web Development",
+     "channel": "Programming with Mosh",
+     "views": 15202056,
+     "seconds": 2897
+    }
+   ],
+   "index": [
+    100.0,
+    122.2,
+    92.8,
+    115.5,
+    142.8,
+    145.4,
+    131.8,
+    130.5
+   ],
+   "github": [
+    139966,
+    153922,
+    171961,
+    244589,
+    278091,
+    278830,
+    267620,
+    387784
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    183,
+    200,
+    122,
+    151,
+    156,
+    144,
+    107,
+    77
+   ]
+  },
+  "Jenkins": {
+   "docs": {
+    "url": "https://www.jenkins.io/doc/"
+   },
+   "index": [
+    100.0,
+    84.8,
+    74.3,
+    118.6,
+    61.4,
+    102.9,
+    63.0,
+    37.2
+   ],
+   "github": [
+    34234,
+    28309,
+    46373,
+    56480,
+    31927,
+    29727,
+    31355,
+    54778
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    4,
+    1,
+    5,
+    2,
+    5,
+    2,
+    0
+   ]
+  },
+  "Jetpack Compose": {
+   "docs": {
+    "url": "https://developer.android.com/jetpack/compose/documentation"
+   },
+   "index": [
+    100.0,
+    89.8,
+    73.1,
+    74.5,
+    75.2,
+    118.2,
+    134.1,
+    111.5
+   ],
+   "github": [
+    1484,
+    1762,
+    2283,
+    3182,
+    2519,
+    2862,
+    2862,
+    4485
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    23,
+    18,
+    12,
+    12,
+    10,
+    14,
+    13,
+    8
+   ]
+  },
+  "Jira": {
+   "docs": {
+    "url": "https://support.atlassian.com/jira-software-cloud/"
+   },
+   "videos": [
+    {
+     "id": "GPOWZSxEslU",
+     "title": "Jira Tutorial for Beginners — Learn Jira in 20 Minutes",
+     "channel": "Kevin Stratvert",
+     "views": 302269,
+     "seconds": 1174
+    },
+    {
+     "id": "QlJaTGg_P0M",
+     "title": "Jira Tutorial For Beginners 2026 | Jira Training | Jira Project Management | Jira | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 66096,
+     "seconds": 4476
+    },
+    {
+     "id": "fiWaMGCMyk8",
+     "title": "Jira  - Tutorial for Beginners in 12 MINUTES !  [ COMPLETE GUIDE 2025 ]",
+     "channel": "Skills Factory",
+     "views": 176026,
+     "seconds": 732
+    }
+   ],
+   "index": [
+    100.0,
+    115.6,
+    140.0,
+    159.9,
+    103.5,
+    106.1,
+    125.8,
+    131.7
+   ],
+   "github": [
+    52549,
+    57204,
+    71754,
+    103465,
+    89674,
+    110492,
+    120797,
+    144461
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    3,
+    3,
+    0,
+    0,
+    1,
+    1
+   ]
+  },
+  "Julia": {
+   "docs": {
+    "url": "https://docs.julialang.org/"
+   },
+   "index": [
+    100.0,
+    184.9,
+    169.5,
+    175.4,
+    108.2,
+    272.8,
+    43.5,
+    49.6
+   ],
+   "github": [
+    5971,
+    7390,
+    8732,
+    11548,
+    13880,
+    11927,
+    13953,
+    19221
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    4,
+    3,
+    3,
+    1,
+    4,
+    0,
+    0
+   ]
+  },
+  "Jupyter": {
+   "docs": {
+    "url": "https://docs.jupyter.org/"
+   },
+   "index": [
+    100.0,
+    69.4,
+    27.1,
+    107.4,
+    63.4,
+    145.5,
+    119.5,
+    15.7
+   ],
+   "github": [
+    10747,
+    14112,
+    14633,
+    21496,
+    18480,
+    17947,
+    16692,
+    17047
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    3,
+    0,
+    5,
+    2,
+    6,
+    4,
+    0
+   ]
+  },
+  "Kibana": {
+   "docs": {
+    "url": "https://www.elastic.co/guide/en/kibana/current/index.html"
+   },
+   "index": [
+    100.0,
+    55.9,
+    254.1,
+    50.9,
+    60.7,
+    50.2,
+    31.9,
+    197.4
+   ],
+   "github": [
+    4489,
+    5104,
+    5539,
+    7166,
+    8894,
+    8849,
+    6162,
+    9033
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    3,
+    0,
+    0,
+    0,
+    0,
+    1
+   ]
+  },
+  "Kotlin": {
+   "docs": {
+    "url": "https://kotlinlang.org/docs/home.html"
+   },
+   "videos": [
+    {
+     "id": "5flXf8nuq60",
+     "title": "Kotlin Crash Course",
+     "channel": "Traversy Media",
+     "views": 277386,
+     "seconds": 5030
+    },
+    {
+     "id": "dzUc9vrsldM",
+     "title": "Full 2025 Kotlin Crash Course For Beginners",
+     "channel": "Philipp Lackner",
+     "views": 378359,
+     "seconds": 11510
+    },
+    {
+     "id": "F9UC9DY-vIU",
+     "title": "Kotlin Course - Tutorial for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 1945584,
+     "seconds": 9511
+    }
+   ],
+   "index": [
+    100.0,
+    100.0,
+    106.0,
+    101.0,
+    72.6,
+    109.7,
+    94.2,
+    114.4
+   ],
+   "github": [
+    35185,
+    45163,
+    42886,
+    71490,
+    72879,
+    88239,
+    92793,
+    94926
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    58,
+    49,
+    45,
+    40,
+    22,
+    32,
+    22,
+    21
+   ]
+  },
+  "Kubernetes": {
+   "docs": {
+    "url": "https://kubernetes.io/docs/home/"
+   },
+   "videos": [
+    {
+     "id": "s_o8dwzRlu4",
+     "title": "Kubernetes Crash Course for Absolute Beginners [NEW]",
+     "channel": "TechWorld with Nana",
+     "views": 3809017,
+     "seconds": 4324
+    },
+    {
+     "id": "r2zuL9MW6wc",
+     "title": "Kubernetes Explained in 15 Minutes | Hands On",
+     "channel": "Travis Media",
+     "views": 313095,
+     "seconds": 918
+    },
+    {
+     "id": "UCs6JxkL1UM",
+     "title": "Kubernetes Tutorial for Beginners | How to Deploy Using Kubernetes | Kubernetes Guide (2026)",
+     "channel": "Tech With Diego",
+     "views": 6876,
+     "seconds": 532
+    }
+   ],
+   "index": [
+    100.0,
+    111.5,
+    88.5,
+    83.2,
+    83.5,
+    87.5,
+    83.4,
+    102.8
+   ],
+   "github": [
+    115394,
+    135717,
+    153799,
+    182253,
+    181490,
+    206677,
+    213512,
+    231558
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    12,
+    11,
+    5,
+    4,
+    4,
+    5,
+    4,
+    6
+   ]
+  },
+  "LangChain": {
+   "docs": {
+    "url": "https://python.langchain.com/docs/"
+   },
+   "videos": [
+    {
+     "id": "lG7Uxts9SXs",
+     "title": "LangChain Crash Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 272779,
+     "seconds": 3930
+    },
+    {
+     "id": "p0-eU2MG_Gk",
+     "title": "LangChain for Beginners: Your First AI Agent Explained in Tamil",
+     "channel": "AI Coach John (Tamil)",
+     "views": 55244,
+     "seconds": 1701
+    },
+    {
+     "id": "J7j5tCB_y4w",
+     "title": "LangChain Full Crash Course - AI Agents in Python",
+     "channel": "NeuralNine",
+     "views": 130863,
+     "seconds": 3200
+    }
+   ],
+   "index": [
+    100.0,
+    111.4,
+    101.0,
+    149.8,
+    99.7,
+    124.7,
+    138.3,
+    62.2
+   ],
+   "github": [
+    14470,
+    15766,
+    21910,
+    28176,
+    29714,
+    33100,
+    31583,
+    29643
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    6,
+    4,
+    7,
+    3,
+    4,
+    4,
+    1
+   ]
+  },
+  "Laravel": {
+   "docs": {
+    "url": "https://laravel.com/docs"
+   },
+   "index": [
+    100.0,
+    104.6,
+    63.8,
+    74.8,
+    103.3,
+    156.0,
+    114.9,
+    113.7
+   ],
+   "github": [
+    14415,
+    17947,
+    18257,
+    26025,
+    24734,
+    28078,
+    23460,
+    29727
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    30,
+    27,
+    13,
+    15,
+    18,
+    25,
+    15,
+    11
+   ]
+  },
+  "Linux": {
+   "docs": {
+    "url": "https://www.kernel.org/doc/html/latest/",
+    "note": "커널 문서; 배포판별 문서가 더 실용적일 수 있음"
+   },
+   "videos": [
+    {
+     "id": "fwP2JW_VnZI",
+     "title": "Linux Commands in 30 Mins (Real-World Example)",
+     "channel": "TechWorld with Nana",
+     "views": 66393,
+     "seconds": 1933
+    },
+    {
+     "id": "LKCVKw9CzFo",
+     "title": "100+ Linux Things you Need to Know",
+     "channel": "Fireship",
+     "views": 3268482,
+     "seconds": 743
+    },
+    {
+     "id": "eQbIxEw3AI0",
+     "title": "What Is Linux? - Explained for Beginners",
+     "channel": "Michael Horn",
+     "views": 269057,
+     "seconds": 501
+    }
+   ],
+   "index": [
+    100.0,
+    111.4,
+    119.3,
+    110.2,
+    117.9,
+    98.0,
+    111.8,
+    109.2
+   ],
+   "github": [
+    191831,
+    240330,
+    262927,
+    331697,
+    373419,
+    425368,
+    438568,
+    620783
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    38,
+    33,
+    37,
+    30,
+    26,
+    16,
+    19,
+    11
+   ]
+  },
+  "Llama": {
+   "docs": {
+    "url": "https://www.llama.com/docs/overview",
+    "note": "Meta 공식 문서"
+   },
+   "index": [
+    100.0,
+    114.0,
+    130.9,
+    106.7,
+    135.1,
+    129.2,
+    119.6,
+    119.4
+   ],
+   "github": [
+    10969,
+    12823,
+    18206,
+    25954,
+    34223,
+    39351,
+    39921,
+    48106
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Looker": {
+   "docs": {
+    "url": "https://cloud.google.com/looker/docs"
+   },
+   "index": [
+    100.0,
+    625.3,
+    102.6,
+    80.6,
+    70.5,
+    83.0,
+    57.8,
+    52.5
+   ],
+   "github": [
+    934,
+    833,
+    1245,
+    1192,
+    1085,
+    1536,
+    1172,
+    1285
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Lua": {
+   "docs": {
+    "url": "https://www.lua.org/manual/"
+   },
+   "videos": [
+    {
+     "id": "LWL5QUdSQiA",
+     "title": "All Of Roblox Lua (Luau) in 21 Minutes",
+     "channel": "KatanaBladeHD",
+     "views": 403604,
+     "seconds": 1248
+    },
+    {
+     "id": "CuWfgiwI73Q",
+     "title": "Everything You Need To Start Writing Lua",
+     "channel": "TJ DeVries",
+     "views": 215327,
+     "seconds": 1695
+    },
+    {
+     "id": "1S_lR4sOfq8",
+     "title": "Lua Crash Course for Beginners 🎮",
+     "channel": "BekBrace",
+     "views": 3998,
+     "seconds": 5015
+    }
+   ],
+   "index": [
+    100.0,
+    107.4,
+    107.5,
+    112.2,
+    82.6,
+    87.0,
+    114.2,
+    117.6
+   ],
+   "github": [
+    15684,
+    20002,
+    23490,
+    41252,
+    31876,
+    36754,
+    35028,
+    45972
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    8,
+    7,
+    6,
+    5,
+    3,
+    3,
+    4,
+    3
+   ]
+  },
+  "Lucene": {
+   "docs": {
+    "url": "https://lucene.apache.org/core/documentation.html"
+   },
+   "index": [
+    100.0,
+    1330.9,
+    579.5,
+    83.6,
+    91.1,
+    85.6,
+    74.3,
+    86.4
+   ],
+   "github": [
+    1218,
+    1153,
+    1233,
+    1611,
+    1830,
+    2065,
+    1966,
+    2759
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    3,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "MATLAB": {
+   "docs": {
+    "url": "https://www.mathworks.com/help/matlab/"
+   },
+   "index": [
+    100.0,
+    95.2,
+    115.4,
+    114.7,
+    199.0,
+    115.6,
+    51.7,
+    125.5
+   ],
+   "github": [
+    1636,
+    2456,
+    3690,
+    3634,
+    2692,
+    3222,
+    3734,
+    3834
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    4,
+    4,
+    4,
+    6,
+    3,
+    1,
+    2
+   ]
+  },
+  "MCP": {
+   "docs": {
+    "url": "https://modelcontextprotocol.io/"
+   },
+   "videos": [
+    {
+     "id": "E2DEHOEbzks",
+     "title": "Model Context Protocol (MCP) Explained for Beginners: AI Flight Booking Demo!",
+     "channel": "KodeKloud",
+     "views": 1264843,
+     "seconds": 1450
+    },
+    {
+     "id": "GuTcle5edjk",
+     "title": "you need to learn MCP RIGHT NOW!! (Model Context Protocol)",
+     "channel": "NetworkChuck",
+     "views": 1654398,
+     "seconds": 2320
+    },
+    {
+     "id": "kOhLoixrJXo",
+     "title": "MCP In 26 Minutes (Model Context Protocol)",
+     "channel": "Tina Huang",
+     "views": 243931,
+     "seconds": 1583
+    }
+   ],
+   "index": [
+    100.0,
+    134.3,
+    122.6,
+    129.7,
+    136.6,
+    155.8,
+    155.5,
+    170.2
+   ],
+   "github": [
+    144562,
+    183303,
+    241554,
+    312320,
+    312579,
+    429131,
+    494154,
+    631910
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    9,
+    3,
+    3,
+    5,
+    5,
+    3,
+    3
+   ]
+  },
+  "MLflow": {
+   "docs": {
+    "url": "https://mlflow.org/docs/latest/index.html"
+   },
+   "index": [
+    100.0,
+    103.0,
+    102.7,
+    114.3,
+    49.0,
+    31.8,
+    41.4,
+    34.8
+   ],
+   "github": [
+    7331,
+    7246,
+    7715,
+    11398,
+    9480,
+    7386,
+    10564,
+    10711
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    1,
+    1,
+    1,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Material UI": {
+   "docs": {
+    "url": "https://mui.com/material-ui/getting-started/"
+   },
+   "index": [
+    100.0,
+    169.2,
+    44.1,
+    44.8,
+    103.4,
+    41.2,
+    80.8,
+    36.8
+   ],
+   "github": [
+    12163,
+    13080,
+    14519,
+    17991,
+    18291,
+    20699,
+    21711,
+    24438
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    6,
+    0,
+    0,
+    2,
+    0,
+    1,
+    0
+   ]
+  },
+  "MobX": {
+   "docs": {
+    "url": "https://mobx.js.org/README.html"
+   },
+   "index": [
+    100.0,
+    119.7,
+    104.9,
+    150.1,
+    303.8,
+    297.2,
+    136.6,
+    101.2
+   ],
+   "github": [
+    397,
+    488,
+    541,
+    943,
+    1988,
+    2337,
+    1178,
+    1053
+   ],
+   "hasStackoverflow": false
+  },
+  "MongoDB": {
+   "docs": {
+    "url": "https://www.mongodb.com/docs/"
+   },
+   "videos": [
+    {
+     "id": "M1dKYQ7GsTg",
+     "title": "MongoDB Crash Course 2026 (with Handbook)",
+     "channel": "CodeWithHarry",
+     "views": 448241,
+     "seconds": 4150
+    },
+    {
+     "id": "XnRS82MWFyc",
+     "title": "Introduction To MongoDB | MongoDB Tutorial For Beginners | Learn MongoDB | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 3633,
+     "seconds": 1348
+    },
+    {
+     "id": "x1-naBN7e84",
+     "title": "MongoDB Zero to Hero in 83 Minutes | Complete course with Realtime Projects",
+     "channel": "Abhishek.Veeramalla",
+     "views": 42100,
+     "seconds": 4957
+    }
+   ],
+   "index": [
+    100.0,
+    92.3,
+    125.1,
+    151.2,
+    114.2,
+    147.7,
+    83.0,
+    32.5
+   ],
+   "github": [
+    29272,
+    31542,
+    42198,
+    42798,
+    46272,
+    49823,
+    50908,
+    51618
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    17,
+    13,
+    16,
+    21,
+    12,
+    15,
+    6,
+    1
+   ]
+  },
+  "MongoDB Atlas": {
+   "docs": {
+    "url": "https://www.mongodb.com/docs/atlas/"
+   },
+   "videos": [
+    {
+     "id": "HtkjlXIIejg",
+     "title": "MongoDB Atlas Tutorial: Deploying Your Database to the Cloud (Step-by-Step Tutorial) | Part #95",
+     "channel": "procademy",
+     "views": 1401,
+     "seconds": 931
+    },
+    {
+     "id": "2r3zvYHSKA0",
+     "title": "How to Create a MongoDB Atlas Database | For Free MongoDB Cloud | #mongodb #database",
+     "channel": "The Coding Monk",
+     "views": 80592,
+     "seconds": 834
+    },
+    {
+     "id": "-AQZuPL1hD0",
+     "title": "How to Connect MongoDB Atlas to Node.js in 2025 (Full Setup + Mongoose)",
+     "channel": "Octacoder",
+     "views": 69022,
+     "seconds": 309
+    }
+   ],
+   "index": [
+    100.0,
+    115.5,
+    135.7,
+    2301.5,
+    1278.1,
+    1174.8,
+    117.6,
+    87.7
+   ],
+   "github": [
+    868,
+    1029,
+    1530,
+    2141,
+    5806,
+    3222,
+    2218,
+    1995
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    0,
+    3,
+    1,
+    1,
+    0,
+    0
+   ]
+  },
+  "MySQL": {
+   "docs": {
+    "url": "https://dev.mysql.com/doc/"
+   },
+   "videos": [
+    {
+     "id": "Cz3WcZLRaWc",
+     "title": "MySQL - The Basics // Learn SQL in 23 Easy Steps",
+     "channel": "Fireship",
+     "views": 1245272,
+     "seconds": 1037
+    },
+    {
+     "id": "wgRwITQHszU",
+     "title": "Installing MySQL and Creating Databases | MySQL for Beginners",
+     "channel": "Alex The Analyst",
+     "views": 1731724,
+     "seconds": 724
+    },
+    {
+     "id": "yE6tIle64tU",
+     "title": "SQL Tutorial for Beginners (Complete Course using MySQL)",
+     "channel": "CodeWithHarry",
+     "views": 3841550,
+     "seconds": 14274
+    }
+   ],
+   "index": [
+    100.0,
+    90.3,
+    109.9,
+    142.0,
+    103.7,
+    143.5,
+    90.6,
+    127.1
+   ],
+   "github": [
+    27166,
+    30472,
+    39113,
+    62291,
+    52065,
+    60247,
+    58495,
+    73431
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    19,
+    14,
+    15,
+    19,
+    11,
+    15,
+    7,
+    8
+   ]
+  },
+  "NCCL": {
+   "docs": {
+    "url": "https://docs.nvidia.com/deeplearning/nccl/"
+   },
+   "index": [
+    100.0,
+    112.3,
+    84.1,
+    110.2,
+    113.5,
+    107.8,
+    709.9,
+    114.0
+   ],
+   "github": [
+    1724,
+    1988,
+    1883,
+    3007,
+    3225,
+    3683,
+    3781,
+    5151
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Neo4j": {
+   "docs": {
+    "url": "https://neo4j.com/docs/"
+   },
+   "index": [
+    100.0,
+    178.4,
+    46.7,
+    140.5,
+    60.6,
+    177.0,
+    228.0,
+    66.7
+   ],
+   "github": [
+    3121,
+    3454,
+    4559,
+    6904,
+    7514,
+    9399,
+    14447,
+    13142
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    2,
+    0,
+    1,
+    0,
+    1,
+    1,
+    0
+   ]
+  },
+  "NestJS": {
+   "docs": {
+    "url": "https://docs.nestjs.com/"
+   },
+   "index": [
+    100.0,
+    104.9,
+    149.8,
+    169.0,
+    57.3,
+    157.0,
+    29.5,
+    61.0
+   ],
+   "github": [
+    10415,
+    13424,
+    16737,
+    21831,
+    26455,
+    26324,
+    26460,
+    28988
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    6,
+    8,
+    9,
+    1,
+    6,
+    0,
+    1
+   ]
+  },
+  "NetSuite": {
+   "docs": {
+    "url": "https://docs.oracle.com/en/cloud/saas/netsuite/"
+   },
+   "index": [
+    100.0,
+    221.2,
+    664.1,
+    4.4,
+    168.5,
+    6.4,
+    232.8,
+    7.9
+   ],
+   "github": [
+    232,
+    196,
+    297,
+    325,
+    389,
+    587,
+    632,
+    959
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    2,
+    5,
+    0,
+    1,
+    0,
+    1,
+    0
+   ]
+  },
+  "Next.js": {
+   "docs": {
+    "url": "https://nextjs.org/docs"
+   },
+   "videos": [
+    {
+     "id": "_EgI9WH8q1A",
+     "title": "Learn Next.js 15 in 1 hour - Beginner Tutorial",
+     "channel": "Codevolution",
+     "views": 281982,
+     "seconds": 3565
+    },
+    {
+     "id": "Sklc_fQBmcs",
+     "title": "Next.js in 100 Seconds // Plus Full Beginner's Tutorial",
+     "channel": "Fireship",
+     "views": 1522030,
+     "seconds": 712
+    },
+    {
+     "id": "jZInNd6djz4",
+     "title": "Next.js Tutorial 2026 (UPDATED) - Full Course - Start Your Next.js Journey Here",
+     "channel": "ByteGrad",
+     "views": 57641,
+     "seconds": 5303
+    }
+   ],
+   "index": [
+    100.0,
+    87.0,
+    75.7,
+    70.3,
+    66.5,
+    66.0,
+    64.1,
+    41.4
+   ],
+   "github": [
+    189452,
+    150229,
+    136535,
+    185639,
+    181769,
+    206899,
+    176622,
+    217605
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    49,
+    41,
+    33,
+    27,
+    21,
+    19,
+    17,
+    6
+   ]
+  },
+  "Nginx": {
+   "docs": {
+    "url": "https://nginx.org/en/docs/"
+   },
+   "index": [
+    100.0,
+    149.7,
+    137.3,
+    115.7,
+    116.0,
+    122.9,
+    172.8,
+    105.7
+   ],
+   "github": [
+    23867,
+    25661,
+    34099,
+    42925,
+    46240,
+    54504,
+    51923,
+    65341
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    10,
+    7,
+    5,
+    4,
+    4,
+    6,
+    2
+   ]
+  },
+  "Nix": {
+   "docs": {
+    "url": "https://nixos.org/manual/nix/stable/"
+   },
+   "index": [
+    100.0,
+    117.2,
+    128.2,
+    135.6,
+    143.0,
+    117.7,
+    203.6,
+    124.7
+   ],
+   "github": [
+    23858,
+    28718,
+    31806,
+    41356,
+    43772,
+    55611,
+    59908,
+    77985
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    1,
+    1,
+    1,
+    0,
+    2,
+    0
+   ]
+  },
+  "Node.js": {
+   "docs": {
+    "url": "https://nodejs.org/en/docs"
+   },
+   "videos": [
+    {
+     "id": "KOutPbKc9UM",
+     "title": "Intro to Backend Web Development – Node.js & Express Tutorial for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 259308,
+     "seconds": 8782
+    },
+    {
+     "id": "TlB_eWDSMt4",
+     "title": "Node.js Tutorial for Beginners: Learn Node in 1 Hour",
+     "channel": "Programming with Mosh",
+     "views": 6607188,
+     "seconds": 4696
+    },
+    {
+     "id": "ENrzD9HAZK4",
+     "title": "Node.js Ultimate Beginner’s Guide in 7 Easy Steps",
+     "channel": "Fireship",
+     "views": 2162783,
+     "seconds": 980
+    }
+   ],
+   "index": [
+    100.0,
+    66.0,
+    60.4,
+    60.2,
+    68.0,
+    64.6,
+    60.1,
+    43.8
+   ],
+   "github": [
+    596811,
+    334734,
+    330239,
+    459245,
+    472615,
+    405532,
+    601381,
+    554690
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    84,
+    62,
+    54,
+    47,
+    49,
+    49,
+    29,
+    15
+   ]
+  },
+  "NumPy": {
+   "docs": {
+    "url": "https://numpy.org/doc/"
+   },
+   "index": [
+    100.0,
+    80.8,
+    151.1,
+    86.4,
+    148.5,
+    75.7,
+    91.6,
+    103.6
+   ],
+   "github": [
+    24884,
+    28041,
+    30512,
+    40371,
+    40932,
+    43908,
+    56249,
+    109749
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    19,
+    12,
+    23,
+    11,
+    18,
+    7,
+    7,
+    5
+   ]
+  },
+  "Objective-C": {
+   "docs": {
+    "url": "https://developer.apple.com/documentation/objectivec"
+   },
+   "index": [
+    100.0,
+    56.5,
+    139.7,
+    102.8,
+    152.4,
+    129.4,
+    143.7,
+    68.3
+   ],
+   "github": [
+    1471,
+    3285,
+    10862,
+    8722,
+    9071,
+    9237,
+    4876,
+    5064
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    2,
+    4,
+    3,
+    4,
+    3,
+    3,
+    1
+   ]
+  },
+  "Okta": {
+   "docs": {
+    "url": "https://developer.okta.com/docs/"
+   },
+   "videos": [
+    {
+     "id": "ljOhSbcoCIU",
+     "title": "Starting with Okta Workflows: Create User Onboarding Automation",
+     "channel": "Okta",
+     "views": 5379,
+     "seconds": 3171
+    },
+    {
+     "id": "R91a5ze6JHE",
+     "title": "Okta Tutorial For Beginners (2024 Guide)",
+     "channel": "DeepLaughs",
+     "views": 15090,
+     "seconds": 544
+    },
+    {
+     "id": "Aa6RG6bVe4w",
+     "title": "Okta Tutorial for Beginners | Step-by-Step Guide to Identity Management 2026",
+     "channel": "How to Simple",
+     "views": 1651,
+     "seconds": 587
+    }
+   ],
+   "index": [
+    100.0,
+    34.4,
+    41.2,
+    41.4,
+    9.3,
+    9.4,
+    65.6,
+    9.2
+   ],
+   "github": [
+    1402,
+    1555,
+    2236,
+    2624,
+    2910,
+    3543,
+    4303,
+    4569
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    1,
+    1,
+    1,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "OpenAI Codex": {
+   "docs": {
+    "url": "https://developers.openai.com/codex/"
+   },
+   "videos": [
+    {
+     "id": "EwVs3O2Zm6I",
+     "title": "Master OpenAI Codex in 26 minutes",
+     "channel": "Keith AI",
+     "views": 76912,
+     "seconds": 1605
+    },
+    {
+     "id": "tIb_TzVNbDM",
+     "title": "OpenAI Codex Tutorial #1 - Introduction & Setup",
+     "channel": "Net Ninja",
+     "views": 342535,
+     "seconds": 569
+    },
+    {
+     "id": "0TitiOk7hbI",
+     "title": "The Ultimate Codex Tutorial: How To Use Codex For Beginners 2026",
+     "channel": "Charlie Chang",
+     "views": 145892,
+     "seconds": 830
+    }
+   ],
+   "index": [
+    100.0,
+    143.0,
+    894.7,
+    552.5,
+    1037.3,
+    601.4,
+    1366.0,
+    1229.8
+   ],
+   "github": [
+    2753,
+    4041,
+    8189,
+    14245,
+    22110,
+    32799,
+    36081,
+    51763
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    3,
+    1,
+    2,
+    0,
+    2,
+    1
+   ]
+  },
+  "OpenShift": {
+   "docs": {
+    "url": "https://docs.openshift.com/"
+   },
+   "index": [
+    100.0,
+    125.3,
+    101.2,
+    99.7,
+    126.7,
+    123.3,
+    79.3,
+    141.1
+   ],
+   "github": [
+    20475,
+    21189,
+    26904,
+    32293,
+    30275,
+    33019,
+    35280,
+    38749
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    0,
+    0,
+    1,
+    1,
+    0,
+    1
+   ]
+  },
+  "OpenTelemetry": {
+   "docs": {
+    "url": "https://opentelemetry.io/docs/"
+   },
+   "index": [
+    100.0,
+    148.7,
+    161.6,
+    103.4,
+    85.6,
+    58.9,
+    92.9,
+    79.6
+   ],
+   "github": [
+    30545,
+    62693,
+    81227,
+    70892,
+    74115,
+    71647,
+    78158,
+    91091
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    6,
+    6,
+    3,
+    1,
+    0,
+    2,
+    1
+   ]
+  },
+  "PHP": {
+   "docs": {
+    "url": "https://www.php.net/docs.php"
+   },
+   "index": [
+    100.0,
+    104.3,
+    97.6,
+    136.4,
+    118.2,
+    141.3,
+    106.6,
+    115.6
+   ],
+   "github": [
+    89416,
+    108166,
+    121493,
+    201852,
+    149092,
+    173305,
+    175402,
+    200011
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    64,
+    56,
+    44,
+    61,
+    46,
+    51,
+    30,
+    25
+   ]
+  },
+  "Pandas": {
+   "docs": {
+    "url": "https://pandas.pydata.org/docs/"
+   },
+   "videos": [
+    {
+     "id": "vtgDGrUiUKk",
+     "title": "Pandas Full Course (2025) | Python Pandas Tutorial For Beginners | Python Pandas Course |Intellipaat",
+     "channel": "Intellipaat",
+     "views": 326735,
+     "seconds": 3994
+    },
+    {
+     "id": "VXtjG_GzO7Q",
+     "title": "Learn Pandas in 1 hour! 🐼",
+     "channel": "Bro Code",
+     "views": 410439,
+     "seconds": 3600
+    },
+    {
+     "id": "EXIgjIBu4EU",
+     "title": "Learn Pandas in 30 Minutes - Python Pandas Tutorial",
+     "channel": "Tech With Tim",
+     "views": 290931,
+     "seconds": 1837
+    }
+   ],
+   "index": [
+    100.0,
+    89.7,
+    84.7,
+    107.2,
+    146.8,
+    95.9,
+    187.0,
+    88.4
+   ],
+   "github": [
+    13266,
+    21286,
+    20147,
+    22866,
+    28936,
+    29939,
+    24997,
+    30935
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    29,
+    21,
+    17,
+    22,
+    25,
+    14,
+    24,
+    8
+   ]
+  },
+  "Perl": {
+   "docs": {
+    "url": "https://perldoc.perl.org/"
+   },
+   "index": [
+    100.0,
+    64.9,
+    181.3,
+    126.2,
+    174.6,
+    146.3,
+    174.5,
+    229.3
+   ],
+   "github": [
+    5043,
+    6186,
+    7518,
+    11611,
+    16037,
+    14844,
+    15755,
+    20186
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    8,
+    4,
+    11,
+    7,
+    8,
+    6,
+    6,
+    6
+   ]
+  },
+  "Plotly": {
+   "docs": {
+    "url": "https://plotly.com/python/"
+   },
+   "index": [
+    100.0,
+    80.4,
+    98.3,
+    74.5,
+    63.3,
+    68.4,
+    186.1,
+    151.1
+   ],
+   "github": [
+    3340,
+    3917,
+    6250,
+    5612,
+    6092,
+    6337,
+    6221,
+    6923
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    4,
+    4,
+    3,
+    2,
+    2,
+    5,
+    3
+   ]
+  },
+  "PostgreSQL": {
+   "docs": {
+    "url": "https://www.postgresql.org/docs/"
+   },
+   "videos": [
+    {
+     "id": "gySEbKmkvEU",
+     "title": "PostgreSQL Crash Course - Beginner Tutorial",
+     "channel": "NeuralNine",
+     "views": 35578,
+     "seconds": 3589
+    },
+    {
+     "id": "evJuky1ZtD8",
+     "title": "PostgreSQL Tutorial | What Is PostgreSQL? | PostgreSQL Tutorial For Beginners | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 31262,
+     "seconds": 1227
+    },
+    {
+     "id": "SpfIwlAYaKk",
+     "title": "PostgreSQL Tutorial for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 554588,
+     "seconds": 10407
+    }
+   ],
+   "index": [
+    100.0,
+    91.8,
+    133.5,
+    108.9,
+    109.6,
+    92.5,
+    106.7,
+    106.7
+   ],
+   "github": [
+    81496,
+    99693,
+    122006,
+    173891,
+    194405,
+    257933,
+    271588,
+    424746
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    64,
+    47,
+    64,
+    46,
+    37,
+    24,
+    25,
+    16
+   ]
+  },
+  "Postman": {
+   "docs": {
+    "url": "https://learning.postman.com/docs/"
+   },
+   "index": [
+    100.0,
+    86.5,
+    93.9,
+    68.6,
+    112.9,
+    123.0,
+    189.2,
+    28.0
+   ],
+   "github": [
+    6943,
+    7577,
+    8706,
+    12057,
+    12529,
+    15137,
+    14407,
+    14808
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    2,
+    2,
+    1,
+    2,
+    2,
+    3,
+    0
+   ]
+  },
+  "Power BI": {
+   "docs": {
+    "url": "https://learn.microsoft.com/power-bi/"
+   },
+   "index": [
+    100.0,
+    54.6,
+    130.6,
+    75.6,
+    101.7,
+    92.3,
+    57.2,
+    151.0
+   ],
+   "github": [
+    618,
+    1022,
+    992,
+    1802,
+    1648,
+    2159,
+    2517,
+    2892
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    17,
+    8,
+    16,
+    9,
+    10,
+    8,
+    4,
+    8
+   ]
+  },
+  "Prometheus": {
+   "docs": {
+    "url": "https://prometheus.io/docs/"
+   },
+   "videos": [
+    {
+     "id": "VwDEn97-J6I",
+     "title": "Prometheus And Grafana Explained In Tamil | DevOps Tutorial For Beginners",
+     "channel": "BTree Systems",
+     "views": 32677,
+     "seconds": 3303
+    },
+    {
+     "id": "h4Sl21AKiDg",
+     "title": "How Prometheus Monitoring works | Prometheus Architecture explained",
+     "channel": "TechWorld with Nana",
+     "views": 1248885,
+     "seconds": 1291
+    },
+    {
+     "id": "DXZUunEeHqM",
+     "title": "Easiest Prometheus & Grafana Tutorial For DevOps on Kubernetes | Observability in Hindi",
+     "channel": "TrainWithShubham",
+     "views": 108297,
+     "seconds": 2414
+    }
+   ],
+   "index": [
+    100.0,
+    148.2,
+    188.7,
+    136.5,
+    129.0,
+    89.0,
+    99.4,
+    78.3
+   ],
+   "github": [
+    34559,
+    60824,
+    82485,
+    64209,
+    67259,
+    76471,
+    70844,
+    88985
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    1,
+    3,
+    3,
+    2,
+    0,
+    1,
+    0
+   ]
+  },
+  "Pulumi": {
+   "docs": {
+    "url": "https://www.pulumi.com/docs/"
+   },
+   "videos": [
+    {
+     "id": "hK8wf18SasY",
+     "title": "Kubernetes and EKS for Beginners – Crash Course with Pulumi",
+     "channel": "freeCodeCamp.org",
+     "views": 62014,
+     "seconds": 3957
+    },
+    {
+     "id": "vIjeiDcsR3Q",
+     "title": "Pulumi - IaC in your favorite programming language!",
+     "channel": "TechWorld with Nana",
+     "views": 128842,
+     "seconds": 1181
+    },
+    {
+     "id": "R5Z8MTT1PNA",
+     "title": "What is Pulumi ? Explained in 30 minutes with Demo",
+     "channel": "Abhishek.Veeramalla",
+     "views": 10469,
+     "seconds": 1632
+    }
+   ],
+   "index": [
+    100.0,
+    62.5,
+    54.2,
+    47.1,
+    52.5,
+    56.7,
+    44.6,
+    42.7
+   ],
+   "github": [
+    6711,
+    7127,
+    7831,
+    8275,
+    9618,
+    12474,
+    10759,
+    12432
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Puppet": {
+   "docs": {
+    "url": "https://www.puppet.com/docs"
+   },
+   "index": [
+    100.0,
+    472.7,
+    178.4,
+    111.8,
+    85.9,
+    81.1,
+    75.0,
+    85.9
+   ],
+   "github": [
+    1544,
+    2330,
+    3578,
+    2732,
+    2186,
+    2479,
+    2516,
+    3474
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "PyTest": {
+   "docs": {
+    "url": "https://docs.pytest.org/"
+   },
+   "index": [
+    100.0,
+    110.2,
+    141.7,
+    178.2,
+    242.6,
+    263.9,
+    250.2,
+    238.3
+   ],
+   "github": [
+    85746,
+    96313,
+    158462,
+    242411,
+    350988,
+    523239,
+    538879,
+    645415
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    4,
+    4,
+    5,
+    5,
+    1,
+    1,
+    0
+   ]
+  },
+  "PyTorch": {
+   "docs": {
+    "url": "https://pytorch.org/docs/stable/index.html"
+   },
+   "videos": [
+    {
+     "id": "r1bquDz5GGA",
+     "title": "PyTorch in 1 Hour",
+     "channel": "Zachary Huang",
+     "views": 191223,
+     "seconds": 3769
+    },
+    {
+     "id": "o5gPABcGZwc",
+     "title": "PyTorch Tutorial",
+     "channel": "MIT OpenCourseWare",
+     "views": 41400,
+     "seconds": 1740
+    },
+    {
+     "id": "uq7sbUlIDR8",
+     "title": "PyTorch Crash Course:  Deep Learning in Python",
+     "channel": "NeuralNine",
+     "views": 37449,
+     "seconds": 1950
+    }
+   ],
+   "index": [
+    100.0,
+    105.9,
+    134.8,
+    104.1,
+    128.8,
+    57.1,
+    131.0,
+    93.8
+   ],
+   "github": [
+    26903,
+    28718,
+    27775,
+    35228,
+    35064,
+    37207,
+    36346,
+    43729
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    15,
+    14,
+    17,
+    12,
+    13,
+    4,
+    10,
+    5
+   ]
+  },
+  "Python": {
+   "docs": {
+    "url": "https://docs.python.org/3/"
+   },
+   "videos": [
+    {
+     "id": "Ro_MScTDfU4",
+     "title": "Learn Python in Only 30 Minutes (Beginner Tutorial)",
+     "channel": "Indently",
+     "views": 1012429,
+     "seconds": 1842
+    },
+    {
+     "id": "YYXdXT2l-Gg",
+     "title": "Python Tutorial for Beginners 1: Install and Setup for Mac and Windows",
+     "channel": "Corey Schafer",
+     "views": 4267786,
+     "seconds": 929
+    },
+    {
+     "id": "K5KVEU3aaeQ",
+     "title": "Python Full Course for Beginners",
+     "channel": "Programming with Mosh",
+     "views": 7245501,
+     "seconds": 7341
+    }
+   ],
+   "index": [
+    100.0,
+    106.5,
+    101.9,
+    114.2,
+    102.9,
+    105.0,
+    118.2,
+    104.8
+   ],
+   "github": [
+    468810,
+    546255,
+    670189,
+    891478,
+    848302,
+    1066404,
+    1062315,
+    1324175
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    492,
+    452,
+    355,
+    394,
+    290,
+    260,
+    250,
+    160
+   ]
+  },
+  "R": {
+   "docs": {
+    "url": "https://cran.r-project.org/manuals.html"
+   },
+   "videos": [
+    {
+     "id": "g_3IKHG-rfA",
+     "title": "Harvard CS50’s Intro to R Programming – Full University Course",
+     "channel": "freeCodeCamp.org",
+     "views": 116565,
+     "seconds": 31728
+    },
+    {
+     "id": "fDRa82lxzaU",
+     "title": "R Programming For Beginners | R Language Tutorial | R Tutorial For Beginners | Edureka",
+     "channel": "edureka!",
+     "views": 1180098,
+     "seconds": 4256
+    },
+    {
+     "id": "BvKETZ6kr9Q",
+     "title": "RStudio Tutorial for Beginners: Introduction to R Studio and Basics of R",
+     "channel": "Maxime Rivest",
+     "views": 790331,
+     "seconds": 2985
+    }
+   ],
+   "index": [
+    100.0,
+    86.4,
+    110.8,
+    92.5,
+    135.8,
+    83.5,
+    90.2,
+    148.0
+   ],
+   "github": [
+    861,
+    976,
+    1376,
+    1557,
+    1636,
+    2039,
+    2383,
+    2285
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    119,
+    90,
+    95,
+    78,
+    94,
+    51,
+    45,
+    55
+   ]
+  },
+  "REST": {
+   "docs": {
+    "url": "https://restfulapi.net/",
+    "note": "개념성 항목이라 공식 스펙 없음; 참고 사이트로 대체"
+   },
+   "videos": [
+    {
+     "id": "Ha3ls0EAtW8",
+     "title": "Build a REST API in Python | API Crash Course",
+     "channel": "Code with Josh",
+     "views": 50835,
+     "seconds": 2681
+    },
+    {
+     "id": "LzOtbUw6f_o",
+     "title": "A Beginner's Guide to REST APIs in Under 10 Minutes!",
+     "channel": "Cloudmancer",
+     "views": 62980,
+     "seconds": 546
+    },
+    {
+     "id": "qbLc5a9jdXo",
+     "title": "REST API Crash Course - Introduction + Full Python API Tutorial",
+     "channel": "Caleb Curry",
+     "views": 1371521,
+     "seconds": 3117
+    }
+   ],
+   "index": [
+    100.0,
+    87.3,
+    111.0,
+    119.7,
+    125.6,
+    139.3,
+    129.4,
+    130.8
+   ],
+   "github": [
+    102777,
+    120963,
+    167082,
+    219376,
+    235304,
+    376061,
+    390993,
+    477517
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    23,
+    12,
+    16,
+    17,
+    15,
+    11,
+    8,
+    6
+   ]
+  },
+  "RabbitMQ": {
+   "docs": {
+    "url": "https://www.rabbitmq.com/docs"
+   },
+   "index": [
+    100.0,
+    152.3,
+    173.7,
+    183.3,
+    79.9,
+    324.4,
+    401.3,
+    494.4
+   ],
+   "github": [
+    5626,
+    5356,
+    6761,
+    9447,
+    13206,
+    13509,
+    19005,
+    19046
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    2,
+    2,
+    2,
+    0,
+    3,
+    3,
+    3
+   ]
+  },
+  "React": {
+   "docs": {
+    "url": "https://react.dev/"
+   },
+   "videos": [
+    {
+     "id": "x4rFhThSX04",
+     "title": "Learn React JS - Full Beginner’s Tutorial & Practice Projects",
+     "channel": "freeCodeCamp.org",
+     "views": 1092505,
+     "seconds": 56454
+    },
+    {
+     "id": "SqcY0GlETPk",
+     "title": "React Tutorial for Beginners",
+     "channel": "Programming with Mosh",
+     "views": 6026562,
+     "seconds": 4804
+    },
+    {
+     "id": "TtPXvEcE11E",
+     "title": "React Tutorial Full Course - Beginner to Pro (React 19, 2025)",
+     "channel": "SuperSimpleDev",
+     "views": 1292365,
+     "seconds": 41524
+    }
+   ],
+   "index": [
+    100.0,
+    92.7,
+    94.6,
+    80.8,
+    71.0,
+    72.4,
+    75.1,
+    79.5
+   ],
+   "github": [
+    621080,
+    569586,
+    859763,
+    771956,
+    718749,
+    940754,
+    957161,
+    1132651
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    59,
+    52,
+    28,
+    36,
+    25,
+    19,
+    21,
+    19
+   ]
+  },
+  "React Native": {
+   "docs": {
+    "url": "https://reactnative.dev/docs/getting-started"
+   },
+   "index": [
+    100.0,
+    113.1,
+    77.2,
+    84.4,
+    69.5,
+    81.9,
+    41.7,
+    56.4
+   ],
+   "github": [
+    31625,
+    33589,
+    35541,
+    53328,
+    49349,
+    52455,
+    70465,
+    80199
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    62,
+    62,
+    34,
+    36,
+    24,
+    26,
+    9,
+    10
+   ]
+  },
+  "Redis": {
+   "docs": {
+    "url": "https://redis.io/docs/"
+   },
+   "videos": [
+    {
+     "id": "Hbt56gFj998",
+     "title": "Redis Crash Course Tutorial",
+     "channel": "Traversy Media",
+     "views": 486560,
+     "seconds": 2375
+    },
+    {
+     "id": "OqCK95AS-YE",
+     "title": "Redis Crash Course - the What, Why and How to use Redis as your primary database",
+     "channel": "TechWorld with Nana",
+     "views": 574136,
+     "seconds": 1417
+    },
+    {
+     "id": "XCsS_NVAa1g",
+     "title": "Redis Course - In-Memory Database Tutorial",
+     "channel": "freeCodeCamp.org",
+     "views": 230037,
+     "seconds": 5219
+    }
+   ],
+   "index": [
+    100.0,
+    127.1,
+    108.3,
+    114.8,
+    103.3,
+    124.5,
+    114.2,
+    156.7
+   ],
+   "github": [
+    66807,
+    70023,
+    83539,
+    100518,
+    108857,
+    128105,
+    140115,
+    160932
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    10,
+    6,
+    7,
+    4,
+    6,
+    4,
+    6
+   ]
+  },
+  "Redshift": {
+   "docs": {
+    "url": "https://docs.aws.amazon.com/redshift/"
+   },
+   "index": [
+    100.0,
+    315.3,
+    471.4,
+    98.1,
+    89.8,
+    421.4,
+    464.4,
+    83.5
+   ],
+   "github": [
+    5091,
+    6155,
+    7369,
+    7903,
+    7537,
+    8538,
+    5744,
+    11138
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    2,
+    3,
+    0,
+    0,
+    2,
+    2,
+    0
+   ]
+  },
+  "Redux": {
+   "docs": {
+    "url": "https://redux.js.org/"
+   },
+   "index": [
+    100.0,
+    235.7,
+    105.9,
+    181.8,
+    88.5,
+    199.3,
+    77.0,
+    69.1
+   ],
+   "github": [
+    7714,
+    8338,
+    10612,
+    12366,
+    11252,
+    13469,
+    12905,
+    13962
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    2,
+    0,
+    1,
+    0,
+    1,
+    0,
+    0
+   ]
+  },
+  "Ruby": {
+   "docs": {
+    "url": "https://www.ruby-lang.org/en/documentation/"
+   },
+   "videos": [
+    {
+     "id": "VRd8belO1zE",
+     "title": "Absolute Beginners Guide to Ruby on Rails 8.1",
+     "channel": "Deanin",
+     "views": 7029,
+     "seconds": 4971
+    },
+    {
+     "id": "EtPhAfMAQfU",
+     "title": "Ruby Mobile Legends Full Guide – Passive, Skills, Combos, Build & Advanced Tips",
+     "channel": "Rickfil ML",
+     "views": 32524,
+     "seconds": 555
+    },
+    {
+     "id": "xyDoP5a_dvo",
+     "title": "Masterclass | Ruby Programming in 1 video | Beginners Ruby HandsOn Crash Course  Interview FAQs |",
+     "channel": "Automation Step by Step",
+     "views": 49804,
+     "seconds": 2975
+    }
+   ],
+   "index": [
+    100.0,
+    110.5,
+    79.5,
+    118.1,
+    74.8,
+    76.4,
+    80.4,
+    69.2
+   ],
+   "github": [
+    73904,
+    77531,
+    76465,
+    87633,
+    104163,
+    124599,
+    137185,
+    116103
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    7,
+    8,
+    4,
+    11,
+    2,
+    2,
+    2,
+    2
+   ]
+  },
+  "Ruby on Rails": {
+   "docs": {
+    "url": "https://guides.rubyonrails.org/"
+   },
+   "index": [
+    100.0,
+    264.4,
+    184.0,
+    164.0,
+    127.4,
+    203.0,
+    40.6,
+    159.2
+   ],
+   "github": [
+    429,
+    570,
+    681,
+    907,
+    6438,
+    6079,
+    842,
+    1070
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    14,
+    8,
+    7,
+    4,
+    6,
+    1,
+    3
+   ]
+  },
+  "Rust": {
+   "docs": {
+    "url": "https://doc.rust-lang.org/book/"
+   },
+   "videos": [
+    {
+     "id": "MsocPEZBd-M",
+     "title": "Rust Programming Course for Beginners - Tutorial",
+     "channel": "freeCodeCamp.org",
+     "views": 361390,
+     "seconds": 5137
+    },
+    {
+     "id": "0y6RKiIk6cs",
+     "title": "Rust for Dummies in 12 Minutes",
+     "channel": "Let's Get Rusty",
+     "views": 359154,
+     "seconds": 750
+    },
+    {
+     "id": "PWydVB42t00",
+     "title": "Rust from Scratch (Beginner)",
+     "channel": "Daniel Hirsch",
+     "views": 35265,
+     "seconds": 5357
+    }
+   ],
+   "index": [
+    100.0,
+    94.9,
+    105.4,
+    120.6,
+    96.4,
+    88.0,
+    111.0,
+    119.6
+   ],
+   "github": [
+    88316,
+    113725,
+    175435,
+    216696,
+    243956,
+    297806,
+    357193,
+    480577
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    63,
+    47,
+    41,
+    49,
+    27,
+    20,
+    23,
+    18
+   ]
+  },
+  "SAS": {
+   "docs": {
+    "url": "https://documentation.sas.com/"
+   },
+   "index": [
+    100.0,
+    78.3,
+    91.4,
+    45.1,
+    69.0,
+    34.1,
+    64.2,
+    45.4
+   ],
+   "github": [
+    27450,
+    12030,
+    8596,
+    9370,
+    8788,
+    10520,
+    11048,
+    11417
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    4,
+    5,
+    2,
+    3,
+    1,
+    2,
+    1
+   ]
+  },
+  "SQL": {
+   "docs": {
+    "url": "https://www.iso.org/standard/76583.html",
+    "note": "표준 스펙이라 유료; 대신 W3Schools SQL 튜토리얼 추천 가능"
+   },
+   "videos": [
+    {
+     "id": "yE6tIle64tU",
+     "title": "SQL Tutorial for Beginners (Complete Course using MySQL)",
+     "channel": "CodeWithHarry",
+     "views": 3841550,
+     "seconds": 14274
+    },
+    {
+     "id": "kbKty5ZVKMY",
+     "title": "Learn Basic SQL in 15 Minutes | Business Intelligence For Beginners | SQL Tutorial For Beginners 1/3",
+     "channel": "Adam Finer - Learn BI",
+     "views": 3401417,
+     "seconds": 1060
+    },
+    {
+     "id": "h0nxCDiD-zg",
+     "title": "SQL Tutorial for Beginners",
+     "channel": "Kevin Stratvert",
+     "views": 3002081,
+     "seconds": 2697
+    }
+   ],
+   "index": [
+    100.0,
+    115.2,
+    125.8,
+    131.4,
+    131.3,
+    112.2,
+    112.5,
+    150.1
+   ],
+   "github": [
+    187427,
+    198146,
+    234280,
+    304495,
+    345919,
+    435581,
+    446306,
+    563924
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    54,
+    59,
+    58,
+    59,
+    46,
+    30,
+    26,
+    30
+   ]
+  },
+  "SQLite": {
+   "docs": {
+    "url": "https://www.sqlite.org/docs.html"
+   },
+   "index": [
+    100.0,
+    168.9,
+    117.9,
+    215.8,
+    158.8,
+    164.0,
+    204.3,
+    212.9
+   ],
+   "github": [
+    44615,
+    55831,
+    74672,
+    115496,
+    134076,
+    174524,
+    194621,
+    260672
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    8,
+    16,
+    6,
+    16,
+    6,
+    5,
+    7,
+    5
+   ]
+  },
+  "Salesforce": {
+   "docs": {
+    "url": "https://developer.salesforce.com/docs"
+   },
+   "videos": [
+    {
+     "id": "PXo7rsILcVg",
+     "title": "Salesforce Explained: The Ultimate Beginner's Guide | Salesforce Tutorial for Beginners | Edureka",
+     "channel": "edureka!",
+     "views": 6380,
+     "seconds": 3583
+    },
+    {
+     "id": "a5oxfjdoJOg",
+     "title": "Salesforce CRM FULL Tutorial For Beginners | Complete Training Masterclass 2026",
+     "channel": "Drew Brockbank | Brockbank Consulting",
+     "views": 58315,
+     "seconds": 2651
+    },
+    {
+     "id": "q7oBPhN7vTg",
+     "title": "Salesforce CRM Tutorial for Beginners | How to Use Salesforce CRM (2026)",
+     "channel": "Tutorial Stack",
+     "views": 1787,
+     "seconds": 627
+    }
+   ],
+   "index": [
+    100.0,
+    334.3,
+    81.3,
+    250.4,
+    307.4,
+    114.3,
+    130.9,
+    165.0
+   ],
+   "github": [
+    2716,
+    3393,
+    4230,
+    6353,
+    8443,
+    9108,
+    9940,
+    12852
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    7,
+    1,
+    4,
+    4,
+    1,
+    1,
+    1
+   ]
+  },
+  "Sass": {
+   "docs": {
+    "url": "https://sass-lang.com/documentation/"
+   },
+   "index": [
+    100.0,
+    150.6,
+    86.7,
+    161.7,
+    111.8,
+    61.5,
+    39.1,
+    179.2
+   ],
+   "github": [
+    17881,
+    29067,
+    24097,
+    22067,
+    52904,
+    43210,
+    30150,
+    55809
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    5,
+    2,
+    7,
+    1,
+    0,
+    0,
+    3
+   ]
+  },
+  "Scala": {
+   "docs": {
+    "url": "https://docs.scala-lang.org/"
+   },
+   "videos": [
+    {
+     "id": "DzFt0YkZo8M",
+     "title": "Scala Tutorial",
+     "channel": "Derek Banas",
+     "views": 620380,
+     "seconds": 4481
+    },
+    {
+     "id": "QqOayce68EI",
+     "title": "What is Scala? | Scala Programming Tutorial for Beginners | Apache Spark Training | Edureka",
+     "channel": "edureka!",
+     "views": 33366,
+     "seconds": 2144
+    },
+    {
+     "id": "i9o70PMqMGY",
+     "title": "Scala Tutorial Full Course",
+     "channel": "Telusko",
+     "views": 269815,
+     "seconds": 5049
+    }
+   ],
+   "index": [
+    100.0,
+    132.1,
+    142.4,
+    104.6,
+    37.1,
+    169.1,
+    64.1,
+    32.3
+   ],
+   "github": [
+    15623,
+    20074,
+    22001,
+    22981,
+    23020,
+    24173,
+    29626,
+    31888
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    6,
+    6,
+    4,
+    0,
+    6,
+    1,
+    0
+   ]
+  },
+  "Selenium": {
+   "docs": {
+    "url": "https://www.selenium.dev/documentation/"
+   },
+   "index": [
+    100.0,
+    70.0,
+    105.6,
+    84.7,
+    31.8,
+    71.4,
+    62.0,
+    34.9
+   ],
+   "github": [
+    8938,
+    9726,
+    7967,
+    6166,
+    11110,
+    12150,
+    10726,
+    10747
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    19,
+    11,
+    15,
+    12,
+    3,
+    7,
+    5,
+    2
+   ]
+  },
+  "Slurm": {
+   "docs": {
+    "url": "https://slurm.schedmd.com/documentation.html"
+   },
+   "index": [
+    100.0,
+    103.5,
+    32.6,
+    162.5,
+    142.9,
+    87.6,
+    103.4,
+    30.9
+   ],
+   "github": [
+    5464,
+    4831,
+    6034,
+    7222,
+    8654,
+    7767,
+    9233,
+    11536
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    2,
+    0,
+    3,
+    2,
+    1,
+    1,
+    0
+   ]
+  },
+  "Snowflake": {
+   "docs": {
+    "url": "https://docs.snowflake.com/"
+   },
+   "videos": [
+    {
+     "id": "2t-ls6ekA8E",
+     "title": "Learn Snowflake – Full 1-Hour Crash Course for Complete Beginners",
+     "channel": "Tom Bailey",
+     "views": 98114,
+     "seconds": 3470
+    },
+    {
+     "id": "h78-o40MnRM",
+     "title": "What is Snowflake? Learn Snowflake in 30 Minutes",
+     "channel": "codebasics",
+     "views": 85675,
+     "seconds": 1876
+    },
+    {
+     "id": "7QisFjITGlI",
+     "title": "Learn Snowflake with ONE Project",
+     "channel": "Tech With Tim",
+     "views": 56443,
+     "seconds": 2687
+    }
+   ],
+   "index": [
+    100.0,
+    129.3,
+    108.3,
+    94.4,
+    88.8,
+    95.2,
+    65.0,
+    69.0
+   ],
+   "github": [
+    107234,
+    116896,
+    128944,
+    163719,
+    158649,
+    166849,
+    178344,
+    183492
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    8,
+    14,
+    9,
+    5,
+    4,
+    6,
+    1,
+    2
+   ]
+  },
+  "Snyk": {
+   "docs": {
+    "url": "https://docs.snyk.io/"
+   },
+   "index": [
+    100.0,
+    163.1,
+    96.2,
+    22.6,
+    18.7,
+    14.1,
+    15.2,
+    13.3
+   ],
+   "github": [
+    151038,
+    252927,
+    188680,
+    54023,
+    46554,
+    42071,
+    49720,
+    52830
+   ],
+   "hasStackoverflow": false
+  },
+  "SolidJS": {
+   "docs": {
+    "url": "https://www.solidjs.com/docs/latest"
+   },
+   "index": [
+    100.0,
+    68.0,
+    87.5,
+    140.1,
+    67.1,
+    68.7,
+    69.4,
+    81.8
+   ],
+   "github": [
+    1910,
+    1333,
+    2171,
+    4234,
+    2113,
+    2600,
+    2879,
+    4092
+   ],
+   "hasStackoverflow": false
+  },
+  "Solidity": {
+   "docs": {
+    "url": "https://docs.soliditylang.org/"
+   },
+   "index": [
+    100.0,
+    133.2,
+    73.1,
+    157.8,
+    68.6,
+    57.3,
+    183.9,
+    50.5
+   ],
+   "github": [
+    3205,
+    5238,
+    7223,
+    9177,
+    8599,
+    8629,
+    7582,
+    10061
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    1,
+    0,
+    1,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Splunk": {
+   "docs": {
+    "url": "https://docs.splunk.com/"
+   },
+   "videos": [
+    {
+     "id": "-SXddlIZkUs",
+     "title": "You need to learn Splunk in 2026",
+     "channel": "David Bombal",
+     "views": 212971,
+     "seconds": 2108
+    },
+    {
+     "id": "4D-vq481gug",
+     "title": "Splunk Tutorial for Beginners (Top Cyber Security Tools)",
+     "channel": "SkillsBuild Security",
+     "views": 30804,
+     "seconds": 1409
+    },
+    {
+     "id": "5U8FSgc47Js",
+     "title": "Splunk Basics Tutorial for Beginners | Cyber Security",
+     "channel": "Tech with Jono",
+     "views": 167289,
+     "seconds": 827
+    }
+   ],
+   "index": [
+    100.0,
+    42.3,
+    49.2,
+    140.2,
+    59.1,
+    49.4,
+    41.4,
+    29.8
+   ],
+   "github": [
+    1463,
+    2548,
+    3752,
+    3191,
+    5713,
+    5738,
+    5276,
+    4587
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "Spring": {
+   "docs": {
+    "url": "https://docs.spring.io/spring-framework/reference/"
+   },
+   "index": [
+    100.0,
+    73.3,
+    82.2,
+    73.4,
+    67.6,
+    83.4,
+    66.6,
+    52.6
+   ],
+   "github": [
+    49895,
+    56653,
+    65390,
+    85592,
+    87546,
+    96775,
+    98335,
+    93948
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    65,
+    38,
+    37,
+    31,
+    23,
+    27,
+    17,
+    10
+   ]
+  },
+  "Starlark": {
+   "docs": {
+    "url": "https://bazel.build/rules/language",
+    "note": "Bazel 문서 내 포함"
+   },
+   "index": [
+    100.0,
+    109.0,
+    120.8,
+    148.2,
+    103.8,
+    158.2,
+    153.1,
+    94.8
+   ],
+   "github": [
+    539,
+    603,
+    846,
+    1264,
+    922,
+    1689,
+    1792,
+    1339
+   ],
+   "hasStackoverflow": false
+  },
+  "Storybook": {
+   "docs": {
+    "url": "https://storybook.js.org/docs"
+   },
+   "index": [
+    100.0,
+    117.9,
+    120.4,
+    104.7,
+    95.6,
+    85.0,
+    118.7,
+    92.1
+   ],
+   "github": [
+    30203,
+    31411,
+    39306,
+    50022,
+    47596,
+    50859,
+    55093,
+    72925
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    1,
+    1,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Streamlit": {
+   "docs": {
+    "url": "https://docs.streamlit.io/"
+   },
+   "index": [
+    100.0,
+    112.6,
+    46.9,
+    65.0,
+    69.5,
+    101.8,
+    110.6,
+    143.5
+   ],
+   "github": [
+    9869,
+    11114,
+    16736,
+    18421,
+    18998,
+    21469,
+    20404,
+    29433
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    4,
+    0,
+    1,
+    1,
+    2,
+    2,
+    2
+   ]
+  },
+  "Svelte": {
+   "docs": {
+    "url": "https://svelte.dev/docs"
+   },
+   "index": [
+    100.0,
+    106.0,
+    110.1,
+    124.2,
+    127.4,
+    103.5,
+    114.0,
+    174.9
+   ],
+   "github": [
+    30156,
+    36493,
+    52451,
+    64385,
+    62899,
+    80995,
+    95445,
+    108004
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    3,
+    2,
+    3,
+    3,
+    1,
+    1,
+    3
+   ]
+  },
+  "Swift": {
+   "docs": {
+    "url": "https://www.swift.org/documentation/"
+   },
+   "videos": [
+    {
+     "id": "-VC3hIEL7eQ",
+     "title": "SwiftUI Course for Beginners – Create an iOS App from Scratch",
+     "channel": "freeCodeCamp.org",
+     "views": 389002,
+     "seconds": 14214
+    },
+    {
+     "id": "ayn9CdqbI_Y",
+     "title": "Getting started with SwiftUI with Xcode 26 for beginners (2026)",
+     "channel": "Noah Does Coding",
+     "views": 25252,
+     "seconds": 3984
+    },
+    {
+     "id": "comQ1-x2a1Q",
+     "title": "Swift Tutorial - Full Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 568624,
+     "seconds": 11398
+    }
+   ],
+   "index": [
+    100.0,
+    86.5,
+    106.8,
+    72.4,
+    77.3,
+    84.5,
+    86.6,
+    68.3
+   ],
+   "github": [
+    27618,
+    36023,
+    49682,
+    73771,
+    85942,
+    106346,
+    110762,
+    156159
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    98,
+    72,
+    74,
+    46,
+    40,
+    39,
+    33,
+    18
+   ]
+  },
+  "SwiftUI": {
+   "docs": {
+    "url": "https://developer.apple.com/documentation/swiftui/"
+   },
+   "index": [
+    100.0,
+    91.3,
+    97.7,
+    103.5,
+    65.2,
+    65.9,
+    70.4,
+    59.4
+   ],
+   "github": [
+    2883,
+    4608,
+    6718,
+    10497,
+    11565,
+    16040,
+    17208,
+    24565
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    73,
+    58,
+    51,
+    53,
+    27,
+    24,
+    21,
+    13
+   ]
+  },
+  "SystemVerilog": {
+   "index": [
+    100.0,
+    82.9,
+    56.8,
+    241.1,
+    348.3,
+    324.5,
+    80.3,
+    2.6
+   ],
+   "github": [
+    282,
+    1153,
+    2019,
+    2342,
+    2555,
+    1805,
+    734,
+    904
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    2,
+    1,
+    5,
+    6,
+    5,
+    1,
+    0
+   ]
+  },
+  "Tableau": {
+   "docs": {
+    "url": "https://help.tableau.com/"
+   },
+   "index": [
+    100.0,
+    35.3,
+    40.9,
+    47.0,
+    49.7,
+    56.4,
+    232.8,
+    84.2
+   ],
+   "github": [
+    1816,
+    2254,
+    3300,
+    4628,
+    5091,
+    6942,
+    8640,
+    13722
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    0,
+    0,
+    0,
+    0,
+    1,
+    0
+   ]
+  },
+  "Tailwind CSS": {
+   "docs": {
+    "url": "https://tailwindcss.com/docs"
+   },
+   "index": [
+    100.0,
+    149.7,
+    112.1,
+    118.4,
+    85.0,
+    87.1,
+    57.2,
+    75.3
+   ],
+   "github": [
+    46341,
+    45929,
+    60202,
+    80962,
+    76629,
+    87919,
+    89447,
+    104400
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    10,
+    18,
+    9,
+    9,
+    4,
+    4,
+    1,
+    2
+   ]
+  },
+  "TanStack": {
+   "docs": {
+    "url": "https://tanstack.com/query/latest/docs/framework/react/overview",
+    "note": "TanStack Query 기준"
+   },
+   "index": [
+    100.0,
+    113.3,
+    89.7,
+    104.0,
+    112.4,
+    129.6,
+    110.8,
+    106.7
+   ],
+   "github": [
+    20628,
+    23991,
+    24038,
+    33961,
+    38208,
+    52951,
+    49631,
+    57702
+   ],
+   "hasStackoverflow": false
+  },
+  "TeamCity": {
+   "docs": {
+    "url": "https://www.jetbrains.com/help/teamcity/"
+   },
+   "index": [
+    100.0,
+    130.9,
+    139.2,
+    1153.1,
+    1304.0,
+    118.5,
+    88.8,
+    84.2
+   ],
+   "github": [
+    1273,
+    1711,
+    2301,
+    3580,
+    2400,
+    2989,
+    2455,
+    2809
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    0,
+    2,
+    2,
+    0,
+    0,
+    0
+   ]
+  },
+  "TensorFlow": {
+   "docs": {
+    "url": "https://www.tensorflow.org/api_docs"
+   },
+   "videos": [
+    {
+     "id": "72s6hJwyfDg",
+     "title": "Tensorflow Crash Course - Deep Learning in Python For Beginners",
+     "channel": "NeuralNine",
+     "views": 20652,
+     "seconds": 2569
+    },
+    {
+     "id": "tPYj3fFJGjk",
+     "title": "TensorFlow 2.0 Complete Course - Python Neural Networks for Beginners Tutorial",
+     "channel": "freeCodeCamp.org",
+     "views": 3482365,
+     "seconds": 24728
+    },
+    {
+     "id": "gWvwu7qLjJs",
+     "title": "TensorFlow Crash Course for Beginners (2026) | Daniel Bourke",
+     "channel": "Zero To Mastery",
+     "views": 86467,
+     "seconds": 82609
+    }
+   ],
+   "index": [
+    100.0,
+    132.5,
+    94.6,
+    81.6,
+    96.3,
+    73.8,
+    125.4,
+    86.0
+   ],
+   "github": [
+    10060,
+    11595,
+    10931,
+    10892,
+    10964,
+    11134,
+    10444,
+    10938
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    10,
+    12,
+    7,
+    6,
+    6,
+    4,
+    6,
+    3
+   ]
+  },
+  "Terraform": {
+   "docs": {
+    "url": "https://developer.hashicorp.com/terraform/docs"
+   },
+   "videos": [
+    {
+     "id": "l5k1ai_GBDE",
+     "title": "Terraform explained in 15 mins | Terraform Tutorial for Beginners",
+     "channel": "TechWorld with Nana",
+     "views": 2145880,
+     "seconds": 1095
+    },
+    {
+     "id": "8yJk-RDfKw0",
+     "title": "Terraform Explained in Tamil | Complete Infrastructure as Code (IaC) Tutorial for Beginners",
+     "channel": "Simply Byte - Tamil",
+     "views": 27949,
+     "seconds": 729
+    },
+    {
+     "id": "FeT1gv0Nj8o",
+     "title": "TerraForm Full Course 2026 | TerraForm Tutorial for Beginners | TerraForm Training | Simplilearn",
+     "channel": "Simplilearn",
+     "views": 2600,
+     "seconds": 2967
+    }
+   ],
+   "index": [
+    100.0,
+    123.6,
+    141.3,
+    98.0,
+    137.2,
+    137.5,
+    128.2,
+    78.7
+   ],
+   "github": [
+    42394,
+    44312,
+    54271,
+    69550,
+    78310,
+    88513,
+    96924,
+    105529
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    4,
+    5,
+    1,
+    3,
+    3,
+    2,
+    0
+   ]
+  },
+  "Transformers": {
+   "docs": {
+    "url": "https://huggingface.co/docs/transformers",
+    "note": "Hugging Face Transformers"
+   },
+   "videos": [
+    {
+     "id": "tDSooiD9YWg",
+     "title": "Transformers Explained for Beginners in Tamil | The Simple Guide to Transformers | Karthik's show",
+     "channel": "Karthik's Show",
+     "views": 10964,
+     "seconds": 980
+    },
+    {
+     "id": "ZhAz268Hdpw",
+     "title": "Transformers Explained | Simple Explanation of Transformers",
+     "channel": "codebasics",
+     "views": 461036,
+     "seconds": 3451
+    },
+    {
+     "id": "wjZofJX0v4M",
+     "title": "Transformers, the tech behind LLMs | Deep Learning Chapter 5",
+     "channel": "3Blue1Brown",
+     "views": 10925670,
+     "seconds": 1634
+    }
+   ],
+   "index": [
+    100.0,
+    89.2,
+    53.2,
+    96.4,
+    96.5,
+    73.1,
+    55.1,
+    63.9
+   ],
+   "github": [
+    20789,
+    23706,
+    21639,
+    26010,
+    30672,
+    28007,
+    28378,
+    34689
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    5,
+    3,
+    1,
+    4,
+    3,
+    2,
+    1,
+    1
+   ]
+  },
+  "Trino": {
+   "docs": {
+    "url": "https://trino.io/docs/current/"
+   },
+   "videos": [
+    {
+     "id": "K2UcC1Y4f_A",
+     "title": "Trino/Presto - SQL On Everything | Distributed Systems Deep Dives With Ex-Google SWE",
+     "channel": "Jordan has no life",
+     "views": 5617,
+     "seconds": 2098
+    },
+    {
+     "id": "SnvSBYhRZLg",
+     "title": "Getting started with Trino and SQL",
+     "channel": "Trino",
+     "views": 27012,
+     "seconds": 4679
+    },
+    {
+     "id": "aJOT4JbrH1M",
+     "title": "How does Trino work? | Starburst DevCenter",
+     "channel": "Starburst",
+     "views": 8921,
+     "seconds": 368
+    }
+   ],
+   "index": [
+    100.0,
+    18.6,
+    228.6,
+    128.8,
+    22.4,
+    169.3,
+    23.4,
+    270.0
+   ],
+   "github": [
+    1448,
+    1119,
+    1498,
+    2104,
+    2160,
+    2646,
+    2978,
+    4439
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    2,
+    1,
+    0,
+    1,
+    0,
+    1
+   ]
+  },
+  "Triton Inference Server": {
+   "docs": {
+    "url": "https://docs.nvidia.com/deeplearning/triton-inference-server/"
+   },
+   "index": [
+    100.0,
+    90.8,
+    149.9,
+    84.1,
+    103.1,
+    64.9,
+    73.7,
+    76.3
+   ],
+   "github": [
+    133,
+    124,
+    259,
+    177,
+    226,
+    171,
+    213,
+    266
+   ],
+   "hasStackoverflow": false
+  },
+  "TypeScript": {
+   "docs": {
+    "url": "https://www.typescriptlang.org/docs/"
+   },
+   "videos": [
+    {
+     "id": "ZvZ7gvcmPmI",
+     "title": "Learn TypeScript – Crash Course for Beginners",
+     "channel": "freeCodeCamp.org",
+     "views": 112549,
+     "seconds": 3634
+    },
+    {
+     "id": "d56mG7DezGs",
+     "title": "TypeScript Tutorial for Beginners",
+     "channel": "Programming with Mosh",
+     "views": 2140879,
+     "seconds": 3868
+    },
+    {
+     "id": "DTR2p7D6tjk",
+     "title": "Learn TypeScript in 40 Minutes (Full Course)",
+     "channel": "RoadsideCoder",
+     "views": 63490,
+     "seconds": 2440
+    }
+   ],
+   "index": [
+    100.0,
+    107.2,
+    96.6,
+    92.7,
+    98.8,
+    94.2,
+    71.1,
+    107.3
+   ],
+   "github": [
+    292248,
+    379425,
+    463334,
+    580729,
+    608097,
+    663608,
+    641433,
+    889075
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    95,
+    78,
+    54,
+    47,
+    44,
+    39,
+    20,
+    30
+   ]
+  },
+  "UIKit": {
+   "docs": {
+    "url": "https://developer.apple.com/documentation/uikit"
+   },
+   "index": [
+    100.0,
+    46.1,
+    88.0,
+    107.4,
+    47.5,
+    52.2,
+    91.9,
+    84.1
+   ],
+   "github": [
+    1274,
+    1765,
+    2051,
+    3078,
+    3607,
+    3757,
+    4410,
+    6515
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    8,
+    3,
+    5,
+    6,
+    2,
+    2,
+    3,
+    2
+   ]
+  },
+  "VBA": {
+   "docs": {
+    "url": "https://learn.microsoft.com/office/vba/api/overview/"
+   },
+   "index": [
+    100.0,
+    85.7,
+    86.8,
+    74.2,
+    98.9,
+    87.8,
+    89.6,
+    88.4
+   ],
+   "github": [
+    415,
+    471,
+    510,
+    861,
+    736,
+    1252,
+    1515,
+    2525
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    40,
+    30,
+    25,
+    21,
+    23,
+    18,
+    15,
+    11
+   ]
+  },
+  "Vanta": {
+   "docs": {
+    "url": "https://developer.vanta.com/docs"
+   },
+   "index": [
+    100.0,
+    93.8,
+    138.6,
+    150.9,
+    175.7,
+    229.2,
+    813.0,
+    261.8
+   ],
+   "github": [
+    165,
+    159,
+    297,
+    394,
+    478,
+    749,
+    2914,
+    1132
+   ],
+   "hasStackoverflow": false
+  },
+  "Vault": {
+   "docs": {
+    "url": "https://developer.hashicorp.com/vault/docs"
+   },
+   "index": [
+    100.0,
+    95.4,
+    110.3,
+    186.8,
+    177.5,
+    177.8,
+    172.8,
+    194.5
+   ],
+   "github": [
+    23123,
+    26952,
+    31488,
+    51883,
+    68078,
+    96963,
+    103295,
+    140281
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    0,
+    1,
+    3,
+    1,
+    0,
+    0,
+    0
+   ]
+  },
+  "Vercel": {
+   "docs": {
+    "url": "https://vercel.com/docs"
+   },
+   "index": [
+    100.0,
+    100.6,
+    92.2,
+    105.6,
+    106.9,
+    112.8,
+    107.7,
+    105.0
+   ],
+   "github": [
+    557497,
+    583578,
+    680940,
+    931983,
+    988805,
+    1267986,
+    1345122,
+    1582414
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    4,
+    2,
+    1,
+    3,
+    2,
+    1,
+    0,
+    0
+   ]
+  },
+  "Vertex AI": {
+   "docs": {
+    "url": "https://cloud.google.com/vertex-ai/docs"
+   },
+   "index": [
+    100.0,
+    248.8,
+    300.9,
+    140.6,
+    277.0,
+    289.1,
+    54.8,
+    239.1
+   ],
+   "github": [
+    3102,
+    3679,
+    5522,
+    6873,
+    9304,
+    9014,
+    8930,
+    10052
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    3,
+    3,
+    1,
+    2,
+    2,
+    0,
+    1
+   ]
+  },
+  "Vite": {
+   "docs": {
+    "url": "https://vite.dev/guide/"
+   },
+   "index": [
+    100.0,
+    98.4,
+    105.1,
+    138.0,
+    155.0,
+    111.9,
+    145.4,
+    188.3
+   ],
+   "github": [
+    110923,
+    113774,
+    160010,
+    259441,
+    368573,
+    345932,
+    471595,
+    512195
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    12,
+    10,
+    8,
+    10,
+    4,
+    1,
+    2,
+    8
+   ]
+  },
+  "Vue.js": {
+   "docs": {
+    "url": "https://vuejs.org/guide/introduction.html"
+   },
+   "index": [
+    100.0,
+    96.5,
+    69.2,
+    70.5,
+    56.8,
+    87.5,
+    44.9,
+    39.7
+   ],
+   "github": [
+    2183,
+    4839,
+    1826,
+    2446,
+    5539,
+    7000,
+    2431,
+    1590
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    16,
+    13,
+    8,
+    8,
+    5,
+    7,
+    3,
+    2
+   ]
+  },
+  "WebAssembly": {
+   "docs": {
+    "url": "https://webassembly.org/getting-started/developers-guide/"
+   },
+   "index": [
+    100.0,
+    99.6,
+    105.4,
+    270.9,
+    147.8,
+    215.4,
+    268.1,
+    457.5
+   ],
+   "github": [
+    6531,
+    6016,
+    7035,
+    7572,
+    14152,
+    12698,
+    18052,
+    20197
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    1,
+    1,
+    1,
+    4,
+    1,
+    2,
+    2,
+    3
+   ]
+  },
+  "Webpack": {
+   "docs": {
+    "url": "https://webpack.js.org/concepts/"
+   },
+   "index": [
+    100.0,
+    45.0,
+    125.8,
+    32.3,
+    29.3,
+    34.9,
+    28.4,
+    21.4
+   ],
+   "github": [
+    203192,
+    79386,
+    337684,
+    90824,
+    79587,
+    132698,
+    110570,
+    121457
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    3,
+    4,
+    2,
+    2,
+    2,
+    1,
+    1,
+    0
+   ]
+  },
+  "XGBoost": {
+   "docs": {
+    "url": "https://xgboost.readthedocs.io/"
+   },
+   "index": [
+    100.0,
+    62.8,
+    72.6,
+    78.9,
+    21.3,
+    180.5,
+    16.3,
+    14.1
+   ],
+   "github": [
+    1871,
+    1718,
+    2138,
+    3511,
+    3754,
+    4203,
+    3789,
+    3956
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    1,
+    1,
+    1,
+    0,
+    2,
+    0,
+    0
+   ]
+  },
+  "Zendesk": {
+   "docs": {
+    "url": "https://developer.zendesk.com/documentation/"
+   },
+   "index": [
+    100.0,
+    133.2,
+    107.2,
+    104.3,
+    97.0,
+    125.3,
+    118.4,
+    111.7
+   ],
+   "github": [
+    1015,
+    1388,
+    1413,
+    1676,
+    1623,
+    2519,
+    2611,
+    2971
+   ],
+   "hasStackoverflow": false
+  },
+  "Zig": {
+   "docs": {
+    "url": "https://ziglang.org/documentation/master/"
+   },
+   "index": [
+    100.0,
+    240.3,
+    218.8,
+    66.0,
+    70.8,
+    190.7,
+    185.3,
+    354.4
+   ],
+   "github": [
+    12074,
+    14302,
+    18443,
+    12604,
+    14086,
+    28624,
+    25784,
+    38224
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    3,
+    2,
+    0,
+    0,
+    1,
+    1,
+    2
+   ]
+  },
+  "Zookeeper": {
+   "docs": {
+    "url": "https://zookeeper.apache.org/doc/current/"
+   },
+   "index": [
+    100.0,
+    106.2,
+    550.3,
+    110.4,
+    123.2,
+    221.4,
+    195.6,
+    113.0
+   ],
+   "github": [
+    1359,
+    1482,
+    1779,
+    2374,
+    2759,
+    5960,
+    5775,
+    4025
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    1,
+    0,
+    0,
+    0,
+    0,
+    0
+   ]
+  },
+  "dbt": {
+   "docs": {
+    "url": "https://docs.getdbt.com/"
+   },
+   "videos": [
+    {
+     "id": "ia9aPgbYYjQ",
+     "title": "DBT (Data Build Tool) Course || Step-by-Step Tutorial for Beginners to Advanced",
+     "channel": "Visualpath Pro",
+     "views": 11507,
+     "seconds": 3567
+    },
+    {
+     "id": "C6BNAfaeqXY",
+     "title": "dbt(Data Build Tool) crash course for beginners: Zero to Hero",
+     "channel": "Data Tech",
+     "views": 128883,
+     "seconds": 5029
+    },
+    {
+     "id": "C9wEdUjTNk8",
+     "title": "dbt (data build tool) - Overview for Data Engineering & Modelling",
+     "channel": "BugBytes",
+     "views": 60052,
+     "seconds": 1453
+    }
+   ],
+   "index": [
+    100.0,
+    114.0,
+    134.7,
+    37.3,
+    42.7,
+    46.4,
+    123.5,
+    19.3
+   ],
+   "github": [
+    3996,
+    4617,
+    5614,
+    8127,
+    8938,
+    10962,
+    13184,
+    15352
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    6,
+    6,
+    6,
+    1,
+    1,
+    1,
+    3,
+    0
+   ]
+  },
+  "gRPC": {
+   "docs": {
+    "url": "https://grpc.io/docs/"
+   },
+   "videos": [
+    {
+     "id": "AMNWLz_f6qM",
+     "title": "REST vs gRPC in Microservices | Which One Should You Use? (Explained Clearly)",
+     "channel": "ByteMonk",
+     "views": 177366,
+     "seconds": 871
+    },
+    {
+     "id": "1yjAUY1ifUg",
+     "title": "gRPC for Beginners 🔥 | What, Why & How gRPC ? | Must-Know Basics! @Javatechie",
+     "channel": "Java Techie",
+     "views": 80750,
+     "seconds": 1088
+    },
+    {
+     "id": "4v_udyD6fnQ",
+     "title": "gRPC Explained - Architecture, Speed & Use Cases | Learn gRPC | Hindi | Day 78/100",
+     "channel": "Coder's Gyan",
+     "views": 20096,
+     "seconds": 2462
+    }
+   ],
+   "index": [
+    100.0,
+    130.6,
+    203.9,
+    185.9,
+    181.7,
+    130.9,
+    132.6,
+    181.9
+   ],
+   "github": [
+    26886,
+    27220,
+    38984,
+    75527,
+    81912,
+    75560,
+    79992,
+    96227
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    2,
+    4,
+    7,
+    3,
+    2,
+    1,
+    1,
+    2
+   ]
+  },
+  "iOS": {
+   "docs": {
+    "url": "https://developer.apple.com/documentation/"
+   },
+   "videos": [
+    {
+     "id": "-VC3hIEL7eQ",
+     "title": "SwiftUI Course for Beginners – Create an iOS App from Scratch",
+     "channel": "freeCodeCamp.org",
+     "views": 389002,
+     "seconds": 14214
+    },
+    {
+     "id": "AIluP0TvTug",
+     "title": "GarageBand iPad/iPhone Tutorial For Brand New Beginners! // How To Make A Song In GarageBand iOS",
+     "channel": "The Songwriting Studio",
+     "views": 722381,
+     "seconds": 1097
+    },
+    {
+     "id": "VEJ9tkqUYVw",
+     "title": "How To Use Your iPhone 16! (Complete Beginners Guide)",
+     "channel": "Simple Alpaca",
+     "views": 530739,
+     "seconds": 669
+    }
+   ],
+   "index": [
+    100.0,
+    88.8,
+    101.8,
+    93.6,
+    84.0,
+    80.8,
+    85.0,
+    90.3
+   ],
+   "github": [
+    57602,
+    75776,
+    83119,
+    143726,
+    148663,
+    178925,
+    188964,
+    250590
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    128,
+    95,
+    93,
+    79,
+    57,
+    48,
+    42,
+    33
+   ]
+  },
+  "scikit-learn": {
+   "docs": {
+    "url": "https://scikit-learn.org/stable/documentation.html"
+   },
+   "index": [
+    100.0,
+    548.5,
+    76.4,
+    636.1,
+    366.9,
+    730.2,
+    333.0,
+    423.8
+   ],
+   "github": [
+    7757,
+    7538,
+    7698,
+    9312,
+    9470,
+    10333,
+    10504,
+    12223
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    7,
+    0,
+    7,
+    3,
+    6,
+    2,
+    2
+   ]
+  },
+  "styled-components": {
+   "docs": {
+    "url": "https://styled-components.com/docs"
+   },
+   "index": [
+    100.0,
+    140.9,
+    137.9,
+    281.7,
+    146.6,
+    325.1,
+    371.3,
+    65.1
+   ],
+   "github": [
+    3826,
+    5534,
+    6854,
+    7232,
+    9244,
+    7663,
+    8050,
+    6526
+   ],
+   "hasStackoverflow": true,
+   "stackoverflow": [
+    0,
+    0,
+    0,
+    1,
+    0,
+    1,
+    1,
+    0
+   ]
+  }
+ }
+}

@@ -14,15 +14,15 @@ import { getTechPostings } from "@/lib/api";
  * 잠깐 비치는 일도 없다.
  */
 export function useTechPostings(skillCode, enabled) {
-  const [result, setResult] = useState({ key: null, postings: [] });
+  const [result, setResult] = useState({ key: null, postings: [], isSample: false });
   const key = enabled && skillCode ? skillCode : null;
 
   useEffect(() => {
     if (!key) return;
 
     let cancelled = false;
-    getTechPostings(key).then((rows) => {
-      if (!cancelled) setResult({ key, postings: rows });
+    getTechPostings(key).then(({ items, isSample }) => {
+      if (!cancelled) setResult({ key, postings: items, isSample });
     });
 
     return () => {
@@ -34,5 +34,6 @@ export function useTechPostings(skillCode, enabled) {
   return {
     postings: ready ? result.postings : [],
     loading: Boolean(key) && !ready,
+    isSample: ready && result.isSample,
   };
 }

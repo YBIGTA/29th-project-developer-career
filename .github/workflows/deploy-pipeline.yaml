@@ -95,18 +95,17 @@ jobs:
         run: |
           set -euo pipefail
 
-          overrides=$(aws cloudformation describe-stacks \
+          mapfile -t overrides < <(aws cloudformation describe-stacks \
             --stack-name "$CFN_STACK_NAME" \
             --query 'Stacks[0].Parameters' --output json \
             | jq -r --arg key "$PARAM_KEY" --arg val "$PARAM_VALUE" '
-                map(if .ParameterKey == $key
+                .[] | if .ParameterKey == $key
                     then "\(.ParameterKey)=\($val)"
-                    else "\(.ParameterKey)=\(.ParameterValue)" end)
-                | join(" ")')
+                    else "\(.ParameterKey)=\(.ParameterValue)" end')
 
           aws cloudformation deploy \
             --stack-name "$CFN_STACK_NAME" \
             --template-file infra/aws/jobs-workflow.yaml \
-            --parameter-overrides $overrides \
+            --parameter-overrides "${overrides[@]}" \
             --capabilities CAPABILITY_NAMED_IAM \
             --no-fail-on-empty-changeset

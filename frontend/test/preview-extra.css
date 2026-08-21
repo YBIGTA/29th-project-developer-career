@@ -1,0 +1,57 @@
+/* ==========================================================================
+   미리보기에서만 필요한 것들.
+   preview.css(= 앱의 base.css + globals.css)를 건드리지 않고 여기서만 더한다.
+   - 실제 앱에서는 React 컴포넌트가 만들던 구조를 정적 HTML로 대신하면서
+     빠진 껍데기 몇 개
+   - 미리보기임을 알리는 배너
+   ========================================================================== */
+
+.preview-flag {
+  position: fixed;
+  left: 50%;
+  bottom: 16px;
+  z-index: 200;
+  transform: translateX(-50%);
+  padding: 7px 14px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: var(--accent-ink);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  box-shadow: 0 10px 24px -12px rgba(40, 34, 24, 0.5);
+  pointer-events: none;
+}
+
+/* 실제 앱의 FilterBar 자리. 미리보기에서는 직군 필터를 넣지 않았으므로
+   결과 수만 보여주는 얇은 줄로 둔다. */
+.filter-bar {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  margin-bottom: 4px;
+}
+
+.filter-bar__label {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.filter-bar__note {
+  font-size: 0.76rem;
+  color: var(--text-muted);
+}
+
+/* 상단바가 fixed라 본문이 그 아래로 깔린다. 앱에서는 히어로가 이 자리를
+   만들어줬는데 히어로를 없앴으므로 여기서 직접 띄운다.
+   .dict가 이미 갖고 있는 112px과 같은 값을 써야 지도 <-> 사전을 오갈 때
+   본문이 위아래로 튀지 않는다. */
+.page__main {
+  padding-top: 112px;
+}
+
+/* 사전 항목: 앱의 DetailedEntry/BriefEntry 중 접힌 상태만 쓴다. */
+.dict-entry__head--static {
+  cursor: default;
+}

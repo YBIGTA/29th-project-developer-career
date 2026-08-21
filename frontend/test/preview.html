@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DevCompass — 지도 (개선안 미리보기)</title>
+
+<!-- 실제 앱은 next/font로 Geist를 받지만 여기서는 시스템 폰트로 대체한다.
+     한글 본문용 Pretendard만 CDN으로 붙인다(앱과 같은 방식). -->
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+  :root {
+    --font-geist-sans: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+    --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+</style>
+<link rel="stylesheet" href="preview.css" />
+<link rel="stylesheet" href="preview-extra.css" />
+</head>
+<body>
+
+<div class="preview-flag">미리보기 · 실제 서비스에 반영되지 않음</div>
+
+<div class="page">
+  <nav class="topbar" data-solid="true">
+    <a class="topbar__brand" href="preview.html">DevCompass</a>
+
+    <div class="topbar__toggle" data-active="map">
+      <span class="topbar__toggle-thumb" aria-hidden="true"></span>
+      <a class="topbar__toggle-item" href="preview.html" aria-current="page">지도</a>
+      <a class="topbar__toggle-item" href="dictionary.html">기술 사전</a>
+    </div>
+  </nav>
+
+  <main class="page__main">
+    <section class="quadrant-map">
+      <div class="quadrant-map__stage">
+        <div class="filter-bar">
+          <div class="filter-bar__label">직군</div>
+          <div class="filter-bar__note" id="result-count"></div>
+        </div>
+
+        <div class="quadrant-map__pinwrap">
+          <div class="map-section__grid">
+            <div class="chart-panel">
+              <div class="chart-panel__head">
+                <div class="chart-panel__title">생태계 × 채용 수요</div>
+                <div class="chart-panel__limits" role="group" aria-label="지도에 표시할 기술 수">
+                  <button type="button" class="chart-panel__limit" data-limit="30" aria-pressed="false">30개</button>
+                  <button type="button" class="chart-panel__limit" data-limit="60" aria-pressed="true">60개</button>
+                  <button type="button" class="chart-panel__limit" data-limit="all" aria-pressed="false">전체</button>
+                </div>
+              </div>
+
+              <div class="gap-map" data-revealed="true">
+                <div class="gap-map__frame">
+                  <div class="gap-map__axis gap-map__axis--y">
+                    <span class="gap-map__axis-cap">높음</span>
+                    <span class="gap-map__axis-name">채용 시장 수요</span>
+                    <span class="gap-map__axis-cap">낮음</span>
+                  </div>
+
+                  <!-- 판은 사분면 배경이 둥근 모서리 밖으로 새지 않게 overflow:hidden이다.
+                       이름표·툴팁·구역 설명은 판 밖으로 나가도 잘리면 안 되므로
+                       같은 좌표계를 쓰는 래퍼에 그린다 (실제 앱과 같은 구조). -->
+                  <div class="gap-map__plane-wrap" id="plane-wrap">
+                    <div class="gap-map__plane" id="plane"></div>
+                  </div>
+
+                  <div class="gap-map__axis gap-map__axis--x">
+                    <span class="gap-map__axis-cap">낮음</span>
+                    <span class="gap-map__axis-name">개발 생태계 활동</span>
+                    <span class="gap-map__axis-cap">높음</span>
+                  </div>
+                </div>
+
+                <div class="gap-map__legend">
+                  <span class="legend-item">
+                    <span class="legend-swatch legend-swatch--early-mover"></span>
+                    <span class="legend-item__label">선점 후보</span>
+                    <span class="legend-item__note">채운 원 · 생태계 높고 채용 낮음</span>
+                  </span>
+                  <span class="legend-item">
+                    <span class="legend-swatch legend-swatch--essential"></span>
+                    <span class="legend-item__label">필수</span>
+                    <span class="legend-item__note">채운 원 · 둘 다 높음</span>
+                  </span>
+                  <span class="legend-item">
+                    <span class="legend-swatch legend-swatch--niche"></span>
+                    <span class="legend-item__label">희소가치</span>
+                    <span class="legend-item__note">점선 원 · 채용 수요 높음</span>
+                  </span>
+                  <span class="legend-item">
+                    <span class="legend-swatch legend-swatch--minimal"></span>
+                    <span class="legend-item__label">저관심</span>
+                    <span class="legend-item__note">빈 원 · 둘 다 낮음</span>
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            <aside>
+              <div class="detail-panel" id="detail-panel"></div>
+            </aside>
+          </div>
+        </div>
+
+        <div class="gap-map__watchlist" data-revealed="true">
+          <div class="gap-map__watchlist-title">목록에서 선택</div>
+          <div class="gap-map__chips" id="watchlist"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">DevCompass</span>
+    <span id="footer-note"></span>
+  </footer>
+</div>
+
+<script src="preview-data.js"></script>
+<script src="preview-common.js"></script>
+<script src="preview-map.js"></script>
+</body>
+</html>

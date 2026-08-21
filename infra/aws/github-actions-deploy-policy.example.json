@@ -61,6 +61,31 @@
         "cloudformation:GetTemplateSummary"
       ],
       "Resource": "arn:aws:cloudformation:ap-northeast-2:<ACCOUNT_ID>:stack/devcompass-jobs-workflow/*"
+    },
+    {
+      "Sid": "ValidateNetworkParameters",
+      "Effect": "Allow",
+      "Action": [
+        "ec2:DescribeSubnets",
+        "ec2:DescribeSecurityGroups"
+      ],
+      "Resource": "*"
+    },
+    {
+      "Sid": "ManageStateMachineRolePolicies",
+      "Effect": "Allow",
+      "Action": [
+        "iam:GetRolePolicy",
+        "iam:PutRolePolicy",
+        "iam:DeleteRolePolicy"
+      ],
+      "Resource": "arn:aws:iam::<ACCOUNT_ID>:role/*-devcompass-jobs-step-functions"
+    },
+    {
+      "Sid": "DescribeLogGroupForStateMachine",
+      "Effect": "Allow",
+      "Action": "logs:DescribeLogGroups",
+      "Resource": "*"
     }
   ]
 }

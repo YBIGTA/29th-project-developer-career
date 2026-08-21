@@ -57,7 +57,8 @@
         "cloudformation:DescribeChangeSet",
         "cloudformation:ExecuteChangeSet",
         "cloudformation:DeleteChangeSet",
-        "cloudformation:GetTemplate"
+        "cloudformation:GetTemplate",
+        "cloudformation:GetTemplateSummary"
       ],
       "Resource": "arn:aws:cloudformation:ap-northeast-2:<ACCOUNT_ID>:stack/devcompass-jobs-workflow/*"
     }

@@ -2179,6 +2179,168 @@ a {
   word-break: keep-all;
 }
 
+/* ---- 공식 문서 링크. 배지 줄 끝에 붙는 강조 알약이라, 배지의 크기를 그대로
+   따르고 색만 강조색으로 간다. 탭 밖이라 어느 탭에서도 보인다. ---- */
+.detail-panel__docs {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 5px 11px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: var(--accent-soft);
+  color: var(--accent);
+  font-size: 0.74rem;
+  font-weight: 600;
+  text-decoration: none;
+  transition: background 160ms var(--ease-out), color 160ms var(--ease-out);
+}
+
+.detail-panel__docs:hover {
+  background: var(--accent);
+  color: var(--accent-ink);
+}
+
+/* 통계 격자의 네 번째 칸(전월 대비)만 부호에 따라 색이 바뀐다. ±1% 미만은
+   숫자를 강조할 만한 변화가 아니라 회색으로 둔다. */
+.detail-panel__stat-value[data-tone="up"] {
+  color: var(--status-good-text);
+}
+
+.detail-panel__stat-value[data-tone="down"] {
+  color: var(--status-error-text);
+}
+
+.detail-panel__stat-value[data-tone="flat"] {
+  color: var(--text-secondary);
+}
+
+/* ---- 생태계 활동 추이 스파크라인 ---- */
+.detail-panel__trend {
+  margin-top: 24px;
+}
+
+.detail-panel__trend-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.detail-panel__trend-head .detail-panel__section-title {
+  margin-top: 0;
+}
+
+.detail-panel__trend-range {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+.detail-panel__trend-body {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+/* preserveAspectRatio="none"이라 가로로 늘어난다. 선 굵기는 컴포넌트에서
+   vector-effect="non-scaling-stroke"로 지킨다. */
+.detail-panel__spark {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 44px;
+  display: block;
+}
+
+.detail-panel__trend-figures {
+  flex: none;
+  text-align: right;
+}
+
+.detail-panel__trend-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.detail-panel__trend-sub {
+  margin-top: 2px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-panel__trend-note {
+  margin: 8px 0 0;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  word-break: keep-all;
+}
+
+/* ---- 학습 탭의 추천 영상 ---- */
+.detail-panel__videos {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-panel__video-link {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink-850);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out);
+}
+
+.detail-panel__video-link:hover {
+  border-color: var(--line-strong);
+  background: var(--ink-800);
+}
+
+.detail-panel__video-thumb {
+  flex: none;
+  width: 104px;
+  height: 59px;
+  object-fit: cover;
+  border-radius: 8px;
+  background: var(--ink-950);
+}
+
+.detail-panel__video-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  min-width: 0;
+}
+
+.detail-panel__video-title {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.detail-panel__video-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
 @media (max-width: 1000px) {
   .detail-panel {
     position: static;
@@ -2767,6 +2929,9 @@ a {
   flex-direction: column;
   gap: 3px;
   text-align: right;
+  /* 값 자릿수가 행마다 달라도(919 대 2,412) 열이 흔들리지 않게 바닥 너비를
+     준다. 위의 배지 순서 조정과 함께 있어야 세 칸이 실제로 줄을 맞춘다. */
+  min-width: 58px;
 }
 
 .dict-score__label {

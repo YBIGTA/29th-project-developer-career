@@ -15,7 +15,7 @@
           "token.actions.githubusercontent.com:aud": "sts.amazonaws.com"
         },
         "StringLike": {
-          "token.actions.githubusercontent.com:sub": "repo:YBIGTA/29th-project-developer-career:*"
+          "token.actions.githubusercontent.com:sub": "repo:YBIGTA@16025679/29th-project-developer-career@1329814426:*"
         }
       }
     }

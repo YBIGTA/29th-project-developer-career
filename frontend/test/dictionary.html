@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>DevCompass — 기술 사전 (개선안 미리보기)</title>
+
+<link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin />
+<link rel="stylesheet"
+  href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable-dynamic-subset.min.css" />
+<style>
+  :root {
+    --font-geist-sans: -apple-system, "Apple SD Gothic Neo", "Malgun Gothic", "맑은 고딕", system-ui, sans-serif;
+    --font-geist-mono: ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+</style>
+<link rel="stylesheet" href="preview.css" />
+<link rel="stylesheet" href="preview-extra.css" />
+</head>
+<body>
+
+<div class="preview-flag">미리보기 · 실제 서비스에 반영되지 않음</div>
+
+<div class="page">
+  <nav class="topbar" data-solid="true">
+    <a class="topbar__brand" href="preview.html">DevCompass</a>
+
+    <!-- 사전 페이지라 알약이 오른쪽 칸에 가 있다. 페이지 이동이므로 미끄러지는
+         전환은 안 보이지만, 실제 앱도 라우트 이동이라 동작이 같다. -->
+    <div class="topbar__toggle" data-active="dictionary">
+      <span class="topbar__toggle-thumb" aria-hidden="true"></span>
+      <a class="topbar__toggle-item" href="preview.html">지도</a>
+      <a class="topbar__toggle-item" href="dictionary.html" aria-current="page">기술 사전</a>
+    </div>
+  </nav>
+
+  <main class="dict">
+    <header class="dict__head">
+      <h1 class="dict__title">전체 기술 목록</h1>
+      <a class="dict__back" href="preview.html">
+        <svg viewBox="0 0 16 16" aria-hidden="true" width="15" height="15">
+          <path d="M12.8 8H3.2M7.2 4l-4 4 4 4" fill="none" stroke="currentColor"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+        지도로 돌아가기
+      </a>
+    </header>
+
+    <p class="dict__lead">
+      기술 <span id="dict-total"></span>개를 이름·분류로 찾아보고, 각각이 채용공고에 얼마나
+      나오는지 확인하세요.
+    </p>
+
+    <div class="dict-toolbar">
+      <div class="dict-search">
+        <svg class="dict-search__icon" viewBox="0 0 16 16" aria-hidden="true" width="16" height="16">
+          <circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" stroke-width="1.5" />
+          <path d="m10.5 10.5 3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
+        </svg>
+        <input type="search" class="dict-search__input" id="dict-search"
+          placeholder="기술 이름, 분류로 찾기" aria-label="기술 검색" />
+      </div>
+
+      <div class="dict-filters dict-filters--cat" role="group" aria-label="분류로 거르기" id="dict-cats"></div>
+
+      <div class="dict-toolbar__row">
+        <div class="dict-filters" role="group" aria-label="사분면으로 거르기" id="dict-filters"></div>
+        <div class="dict-sort" role="group" aria-label="정렬 기준" id="dict-sort">
+          <button type="button" class="dict-sort__btn" data-sort="dict" data-selected="true">사전순</button>
+          <button type="button" class="dict-sort__btn" data-sort="postings" data-selected="false">공고 언급순</button>
+          <button type="button" class="dict-sort__btn" data-sort="ecosystem" data-selected="false">생태계순</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dict-count" id="dict-count"></div>
+
+    <div class="dict-body" id="dict-body" data-rail="true">
+      <nav class="dict-rail" id="dict-rail" aria-label="첫 글자로 이동"></nav>
+      <div class="dict-list" id="dict-list"></div>
+    </div>
+  </main>
+
+  <footer class="page__footer">
+    <span class="page__footer-brand">DevCompass</span>
+    <span id="footer-note"></span>
+  </footer>
+</div>
+
+<script src="preview-data.js"></script>
+<script src="preview-common.js"></script>
+<script src="preview-dict.js"></script>
+</body>
+</html>

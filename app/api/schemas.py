@@ -1,4 +1,4 @@
-from datetime import datetime
+from datetime import date, datetime
 
 from pydantic import BaseModel
 
@@ -79,6 +79,30 @@ class Posting(BaseModel):
 
 class PostingsResponse(BaseModel):
     items: list[Posting]
+
+
+class ClusterNeighbor(BaseModel):
+    tech: str
+    score: float
+    companies: int
+
+
+class ClusterResponse(BaseModel):
+    asOfDate: date
+    clusterId: int | None
+    clusterSize: int | None
+    membershipQuality: str | None
+    evidenceLabel: str | None
+    jobCount: int
+    companyCount: int
+    coherence: float | None
+    stability: float | None
+    marginRatio: float | None
+    neighborCompanyShare: float | None
+    dominantCompany: str | None
+    dominantCompanyShare: float | None
+    neighbors: list[ClusterNeighbor]
+    globalNeighbors: list[ClusterNeighbor]
 
 
 class TimeSeriesItem(BaseModel):

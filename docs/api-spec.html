@@ -1,0 +1,817 @@
+<title>DevCompass API 명세서</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600;700&display=swap">
+
+<style>
+  :root {
+    --paper:   #F2F5F7;
+    --surface: #FFFFFF;
+    --sunk:    #EDF1F4;
+    --text:    #151C24;
+    --muted:   #5A6572;
+    --faint:   #8A94A0;
+    --line:    #DCE2E8;
+    --accent:  #0B6F79;
+
+    --supporting: #256F4E;
+    --weak:       #8A5D0C;
+    --neutral-tier: #5A6572;
+
+    --sans: "IBM Plex Sans KR", -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", sans-serif;
+    --mono: "IBM Plex Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper:   #0D1218;
+      --surface: #151C24;
+      --sunk:    #111820;
+      --text:    #E1E7ED;
+      --muted:   #8B96A3;
+      --faint:   #6A757F;
+      --line:    #252E38;
+      --accent:  #46B4BD;
+
+      --supporting: #55BE8A;
+      --weak:       #D5A044;
+      --neutral-tier: #8B96A3;
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper:   #0D1218;
+    --surface: #151C24;
+    --sunk:    #111820;
+    --text:    #E1E7ED;
+    --muted:   #8B96A3;
+    --faint:   #6A757F;
+    --line:    #252E38;
+    --accent:  #46B4BD;
+
+    --supporting: #55BE8A;
+    --weak:       #D5A044;
+    --neutral-tier: #8B96A3;
+  }
+
+  * { box-sizing: border-box; }
+
+  body {
+    margin: 0;
+    background: var(--paper);
+    color: var(--text);
+    font-family: var(--sans);
+    font-size: 15px;
+    line-height: 1.7;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 980px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+    display: flex;
+    flex-direction: column;
+    gap: 56px;
+  }
+
+  .eyebrow {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin: 0;
+  }
+
+  h1 {
+    font-size: clamp(30px, 5vw, 42px);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.2;
+    text-wrap: balance;
+    margin: 10px 0 0;
+  }
+
+  h2 {
+    font-size: 21px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+    margin: 0;
+  }
+
+  h3 { font-size: 15px; font-weight: 600; margin: 0; }
+
+  p { margin: 0; max-width: 68ch; }
+  .lede { color: var(--muted); font-size: 16px; margin-top: 14px; }
+
+  header { border-bottom: 1px solid var(--line); padding-bottom: 40px; }
+
+  .meta-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(190px, 1fr));
+    gap: 20px 32px;
+    margin-top: 32px;
+  }
+  .meta-grid dt {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+  }
+  .meta-grid dd {
+    margin: 4px 0 0;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--text);
+    word-break: break-all;
+  }
+
+  section { display: flex; flex-direction: column; gap: 20px; }
+  .section-head { display: flex; flex-direction: column; gap: 8px; }
+
+  .endpoint {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .endpoint-head {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    padding: 16px 20px;
+    border-bottom: 1px solid var(--line);
+    background: var(--sunk);
+  }
+  .verb {
+    font-family: var(--mono);
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    border: 1px solid var(--accent);
+    border-radius: 3px;
+    padding: 1px 7px;
+  }
+  .path {
+    font-family: var(--mono);
+    font-size: 14px;
+    font-weight: 500;
+    word-break: break-all;
+  }
+  .path .param { color: var(--accent); }
+  .when { margin-left: auto; font-size: 12.5px; color: var(--muted); }
+  .endpoint-body { padding: 20px; display: flex; flex-direction: column; gap: 18px; }
+  .note { font-size: 13.5px; color: var(--muted); max-width: 68ch; }
+
+  .wire {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    border-radius: 3px;
+    padding: 2px 7px;
+    border: 1px solid var(--line);
+    color: var(--faint);
+    white-space: nowrap;
+  }
+  .wire.live { color: var(--supporting); border-color: var(--supporting); }
+
+  .spec {
+    background: var(--sunk);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 16px 18px;
+    overflow-x: auto;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    line-height: 2;
+    white-space: pre;
+  }
+  .spec .k { color: var(--accent); font-weight: 500; }
+  .spec .d { color: var(--text); }
+  .spec .s { color: var(--faint); }
+  .spec .p { color: var(--faint); }
+  .spec .c { color: var(--faint); }
+
+  .spec-label {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--faint);
+    margin: 0 0 -8px;
+  }
+
+  code {
+    font-family: var(--mono);
+    font-size: 0.9em;
+    background: var(--sunk);
+    border: 1px solid var(--line);
+    border-radius: 3px;
+    padding: 1px 5px;
+  }
+
+  .legend {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1px;
+    background: var(--line);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .legend > div {
+    background: var(--surface);
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+  .legend h3 { font-family: var(--mono); font-size: 12px; font-weight: 600; }
+  .legend p { font-size: 12.5px; color: var(--muted); line-height: 1.6; }
+  .legend .tables { font-family: var(--mono); font-size: 11.5px; color: var(--faint); line-height: 1.9; }
+
+  .tiers { display: flex; flex-direction: column; gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: 4px; overflow: hidden; }
+  .tier { background: var(--surface); padding: 16px 18px 16px 20px; border-left: 3px solid var(--tone); display: flex; flex-direction: column; gap: 5px; }
+  .tier-head { display: flex; align-items: baseline; gap: 12px; flex-wrap: wrap; }
+  .tier-key { font-family: var(--mono); font-size: 12.5px; font-weight: 600; color: var(--tone); }
+  .tier-ui { font-size: 13.5px; font-weight: 600; }
+  .tier p { font-size: 13px; color: var(--muted); }
+  .t-sup  { --tone: var(--supporting); }
+  .t-weak { --tone: var(--weak); }
+  .t-ins  { --tone: var(--neutral-tier); }
+  .t-null { --tone: var(--line); }
+  .t-null .tier-key { color: var(--faint); }
+
+  .table-scroll { overflow-x: auto; border: 1px solid var(--line); border-radius: 4px; }
+  table { border-collapse: collapse; width: 100%; font-size: 13px; background: var(--surface); }
+  th, td { text-align: left; padding: 11px 16px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th {
+    font-family: var(--mono);
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--faint);
+    font-weight: 500;
+    background: var(--sunk);
+    white-space: nowrap;
+  }
+  tr:last-child td { border-bottom: none; }
+  td.mono { font-family: var(--mono); font-size: 12px; white-space: nowrap; }
+  td.muted { color: var(--muted); }
+  td.ok { color: var(--supporting); font-weight: 600; }
+  td.no { color: var(--faint); }
+
+  .callout {
+    border: 1px solid var(--line);
+    border-left: 3px solid var(--accent);
+    background: var(--surface);
+    border-radius: 4px;
+    padding: 16px 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  .callout h3 { font-size: 14px; }
+  .callout p { font-size: 13.5px; color: var(--muted); }
+
+  footer {
+    border-top: 1px solid var(--line);
+    padding-top: 24px;
+    font-size: 12.5px;
+    color: var(--faint);
+  }
+  footer p { max-width: none; }
+
+  @media (max-width: 620px) {
+    .wrap { padding: 44px 18px 72px; gap: 44px; }
+    .when { margin-left: 0; width: 100%; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header>
+    <p class="eyebrow">DevCompass · Backend</p>
+    <h1>API 명세서</h1>
+    <p class="lede">
+      개발자 생태계 활동과 실제 채용 수요의 괴리를 보여주는 지도 API. 엔드포인트 5개이며,
+      모든 필드에 어느 테이블에서 온 값인지 표기했다.
+    </p>
+    <dl class="meta-grid">
+      <div><dt>Base URL</dt><dd>NEXT_PUBLIC_API_URL</dd></div>
+      <div><dt>Prefix</dt><dd>/api/v1</dd></div>
+      <div><dt>Method</dt><dd>GET (전부)</dd></div>
+      <div><dt>인증</dt><dd>없음</dd></div>
+    </dl>
+  </header>
+
+  <!-- ─────────────── 데이터 출처 ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Data sources</p>
+      <h2>값이 어디서 오는가</h2>
+      <p class="note">
+        명세의 괄호 안 이름이 아래 넷 중 하나다. 갱신 주기가 서로 달라서, 한 응답 안에서도
+        필드마다 신선도가 다르다.
+      </p>
+    </div>
+    <div class="legend">
+      <div>
+        <h3>Task A · 채용공고</h3>
+        <p>ATS 30곳에서 매일 자정 수집. 공고 수·직무 분포의 원천.</p>
+        <p class="tables">vw_active_job_skill<br>vw_monthly_job_skill<br>job_posting</p>
+      </div>
+      <div>
+        <h3>Task B · 생태계</h3>
+        <p>GitHub·Stack Overflow 지표를 매일 자정 수집. 180일 누적과 월별 두 벌.</p>
+        <p class="tables">vw_latest_ecosystem_skill<br>ecosystem_monthly_github_metrics<br>ecosystem_monthly_stackoverflow_metrics</p>
+      </div>
+      <div>
+        <h3>사전</h3>
+        <p>시드로 미리 넣는 참조 데이터. 수집 대상이 아니다.</p>
+        <p class="tables">skill · skill_alias<br>skill_category · job_role</p>
+      </div>
+      <div>
+        <h3>군집 분석</h3>
+        <p>노트북 수동 실행 결과. <strong>자동 갱신되지 않는다.</strong></p>
+        <p class="tables">total_skill_cluster<br>skill_cluster_snapshot<br>candidate_skill_evidence</p>
+      </div>
+    </div>
+    <p class="note">
+      출처가 <code>계산값</code>인 필드는 테이블에 없다. <code>app/api/routes.py</code>가 응답을
+      만들 때 조립한다.
+    </p>
+  </section>
+
+  <!-- ─────────────── /gapmap ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Endpoint 01</p>
+      <h2>괴리 지도</h2>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-head">
+        <span class="verb">GET</span>
+        <span class="path">/api/v1/gapmap</span>
+        <span class="wire live">프론트 연결됨</span>
+        <span class="when">지도 첫 로드에 1회</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="note">
+          채용 수요와 생태계 점수를 둘 다 가진 기술만 내려간다. 양쪽 수집이 모두 성공한 기술만
+          조인되므로 실제로는 200개가 아니라 164개다.
+        </p>
+
+        <p class="spec-label">meta</p>
+<div class="spec">{
+  <span class="k">fromDate</span> <span class="p">:</span> <span class="d">"수집된 공고 중 가장 이른 게시일</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">toDate</span> <span class="p">:</span> <span class="d">"수집된 공고 중 가장 늦은 게시일</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">totalTechs</span> <span class="p">:</span> <span class="d">"지도에 오른 기술 수</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">mappedTechs</span> <span class="p">:</span> <span class="d">"좌표가 계산된 기술 수, 현재 totalTechs와 같음</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">detailedTechs</span> <span class="p">:</span> <span class="d">"상세 정보를 가진 기술 수, 현재 totalTechs와 같음</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">totalPostings</span> <span class="p">:</span> <span class="d">"활성 공고 총 건수, 점유율 분모</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">mapLimit</span> <span class="p">:</span> <span class="d">"지도에 한 번에 그릴 최대 기술 수, 상수 60</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">roles</span> <span class="p">:</span> <span class="d">"공고 수 많은 순 직무 목록, 필터 드롭다운용</span><span class="s">(job_role)</span><span class="d">"</span>
+}</div>
+
+        <p class="spec-label">items[]</p>
+<div class="spec">{
+  <span class="k">tech</span> <span class="p">:</span> <span class="d">"기술 표시명</span><span class="s">(skill.skill_name)</span><span class="d">"</span>
+  <span class="k">skillCode</span> <span class="p">:</span> <span class="d">"기술 코드, 상세 API 호출 키</span><span class="s">(skill.skill_code)</span><span class="d">"</span>
+  <span class="k">category</span> <span class="p">:</span> <span class="d">"대표 카테고리, 없으면 '기타'</span><span class="s">(skill_category.category_name)</span><span class="d">"</span>
+  <span class="k">kind</span> <span class="p">:</span> <span class="d">"category와 같은 값, 구버전 프론트 호환용</span><span class="s">(skill_category.category_name)</span><span class="d">"</span>
+  <span class="k">aliases</span> <span class="p">:</span> <span class="d">"검색용 별칭 배열</span><span class="s">(skill_alias.alias_text)</span><span class="d">"</span>
+  <span class="k">roles</span> <span class="p">:</span> <span class="d">"수요 상위 직무 2개</span><span class="s">(job_role.role_name)</span><span class="d">"</span>
+
+  <span class="k">demand</span> <span class="p">:</span> <span class="d">"채용 수요 백분위 0~100, 공고 수의 순위 환산</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">demandRank</span> <span class="p">:</span> <span class="d">"공고 수 기준 등수, 동점은 같은 등수</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">ecosystemScore</span> <span class="p">:</span> <span class="d">"생태계 종합 점수 0~100, 지표 3종 백분위 평균</span><span class="s">(vw_latest_ecosystem_skill)</span><span class="d">"</span>
+  <span class="k">quadrant</span> <span class="p">:</span> <span class="d">"필수 | 희소가치 | 선점 후보 | 저관심, 두 점수 50 기준</span><span class="s">(계산값)</span><span class="d">"</span>
+
+  <span class="k">postings</span> <span class="p">:</span> <span class="d">"이 기술을 요구하는 활성 공고 수</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">postingsShare</span> <span class="p">:</span> <span class="d">"전체 공고 대비 비율 %</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">postingsNote</span> <span class="p">:</span> <span class="d">"공고 수를 문장으로 조립한 것</span><span class="s">(계산값)</span><span class="d">"</span>
+
+  <span class="k">roleBreakdown</span> <span class="p">:</span> <span class="c">[ 아래 참조 ]</span>
+  <span class="k">ecosystem</span> <span class="p">:</span> <span class="c">{ 아래 참조 }</span>
+  <span class="k">signals</span> <span class="p">:</span> <span class="c">[ 아래 참조 ]</span>
+}</div>
+
+        <p class="spec-label">items[].roleBreakdown[] — 직무별 수요 분해</p>
+<div class="spec">{
+  <span class="k">role</span> <span class="p">:</span> <span class="d">"직무명</span><span class="s">(job_role.role_name)</span><span class="d">"</span>
+  <span class="k">count</span> <span class="p">:</span> <span class="d">"그 직무에서 이 기술을 요구한 공고 수</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">demand</span> <span class="p">:</span> <span class="d">"직무 안에서의 수요 백분위, 전체 기준이 아님</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">rank</span> <span class="p">:</span> <span class="d">"직무 안에서의 등수</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">quadrant</span> <span class="p">:</span> <span class="d">"그 직무 기준으로 다시 계산한 사분면</span><span class="s">(계산값)</span><span class="d">"</span>
+}</div>
+
+        <p class="spec-label">items[].ecosystem — 생태계 지표 3종</p>
+<div class="spec">{
+  <span class="k">githubRepo</span> <span class="p">:</span> { <span class="k">score</span> <span class="p">:</span> <span class="d">"저장소 수 백분위"</span>, <span class="k">raw</span> <span class="p">:</span> <span class="d">"저장소 수 원값"</span> } <span class="s">(vw_latest_ecosystem_skill)</span>
+  <span class="k">githubActivity</span> <span class="p">:</span> { <span class="k">score</span> <span class="p">:</span> <span class="d">"이슈·PR 백분위"</span>, <span class="k">raw</span> <span class="p">:</span> <span class="d">"최근 180일 이슈+PR 합"</span> } <span class="s">(vw_latest_ecosystem_skill)</span>
+  <span class="k">stackoverflow</span> <span class="p">:</span> { <span class="k">score</span> <span class="p">:</span> <span class="d">"질문 수 백분위"</span>, <span class="k">raw</span> <span class="p">:</span> <span class="d">"최근 180일 질문 수"</span> } <span class="s">(vw_latest_ecosystem_skill)</span>
+}</div>
+
+        <p class="spec-label">items[].signals[] — 상세 패널 요약 문장</p>
+<div class="spec">{
+  <span class="k">meta</span> <span class="p">:</span> <span class="d">"출처 라벨, 예: '생태계 · GitHub'</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">title</span> <span class="p">:</span> <span class="d">"숫자를 넣어 조립한 한 문장</span><span class="s">(계산값)</span><span class="d">"</span>
+}</div>
+
+        <div class="callout">
+          <h3>evidenceLabel은 여기 없다</h3>
+          <p>
+            군집 근거 라벨을 이 응답에 실었다가 뺐다. <code>/gapmap</code>과 <code>/skills</code>가
+            같은 <code>load_data()</code>를 쓰기 때문에, 손으로 만든 군집 테이블 하나가 사라지면
+            앱의 핵심 두 화면이 동시에 500이 났다. 지금은 <code>/tech/{skill_code}/cluster</code>에만
+            있고, 장애 범위가 그 엔드포인트 안에 갇혀 있다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── /skills ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Endpoint 02</p>
+      <h2>기술 사전</h2>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-head">
+        <span class="verb">GET</span>
+        <span class="path">/api/v1/skills</span>
+        <span class="wire live">프론트 연결됨</span>
+        <span class="when">사전 페이지 진입 시</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="note">
+          지도와 달리 <strong>모든 기술</strong>을 내려준다. 공고가 0건이거나 생태계 지표가 없는
+          기술도 포함된다. 지도에 오르지 못한 기술은 <code>detailed: false</code>로 구분한다.
+        </p>
+
+        <p class="spec-label">meta</p>
+<div class="spec">{
+  <span class="k">totalSkills</span> <span class="p">:</span> <span class="d">"활성 기술 총 개수</span><span class="s">(skill)</span><span class="d">"</span>
+  <span class="k">detailedSkills</span> <span class="p">:</span> <span class="d">"생태계 지표까지 있는 기술 수</span><span class="s">(vw_latest_ecosystem_skill)</span><span class="d">"</span>
+  <span class="k">taggedSkills</span> <span class="p">:</span> <span class="d">"공고가 1건 이상 붙은 기술 수</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">totalPostings</span> <span class="p">:</span> <span class="d">"활성 공고 총 건수</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">categories</span> <span class="p">:</span> <span class="d">"카테고리 목록, 가나다순</span><span class="s">(skill_category)</span><span class="d">"</span>
+}</div>
+
+        <p class="spec-label">items[]</p>
+<div class="spec">{
+  <span class="k">tech</span> <span class="p">:</span> <span class="d">"기술 표시명</span><span class="s">(skill.skill_name)</span><span class="d">"</span>
+  <span class="k">skillCode</span> <span class="p">:</span> <span class="d">"기술 코드</span><span class="s">(skill.skill_code)</span><span class="d">"</span>
+  <span class="k">category</span> <span class="p">:</span> <span class="d">"대표 카테고리</span><span class="s">(skill_category.category_name)</span><span class="d">"</span>
+  <span class="k">aliases</span> <span class="p">:</span> <span class="d">"검색용 별칭 배열</span><span class="s">(skill_alias.alias_text)</span><span class="d">"</span>
+  <span class="k">roles</span> <span class="p">:</span> <span class="d">"수요 상위 직무 2개</span><span class="s">(job_role.role_name)</span><span class="d">"</span>
+  <span class="k">postings</span> <span class="p">:</span> <span class="d">"활성 공고 수, 없으면 0</span><span class="s">(vw_active_job_skill)</span><span class="d">"</span>
+  <span class="k">postingsShare</span> <span class="p">:</span> <span class="d">"전체 공고 대비 비율 %</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">rank</span> <span class="p">:</span> <span class="d">"공고 수 등수, 공고 0건이면 null</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">detailed</span> <span class="p">:</span> <span class="d">"지도에 오를 수 있는지, 생태계 지표 보유 여부</span><span class="s">(vw_latest_ecosystem_skill)</span><span class="d">"</span>
+}</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── /postings ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Endpoint 03</p>
+      <h2>기술별 채용공고</h2>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-head">
+        <span class="verb">GET</span>
+        <span class="path">/api/v1/tech/<span class="param">{skill_code}</span>/postings</span>
+        <span class="wire live">프론트 연결됨</span>
+        <span class="when">상세 패널 · 공고 탭</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="note">
+          쿼리 파라미터 <code>limit</code>은 기본 5, 범위 1~50. 공고 탭을 열 때만 호출한다 —
+          지도 첫 로드에 딸려오면 낭비다.
+        </p>
+
+        <p class="spec-label">items[]</p>
+<div class="spec">{
+  <span class="k">company</span> <span class="p">:</span> <span class="d">"회사명</span><span class="s">(ats_board.company_name)</span><span class="d">"</span>
+  <span class="k">title</span> <span class="p">:</span> <span class="d">"공고 제목</span><span class="s">(job_posting.title)</span><span class="d">"</span>
+  <span class="k">location</span> <span class="p">:</span> <span class="d">"근무지, 없을 수 있음</span><span class="s">(job_posting.location)</span><span class="d">"</span>
+  <span class="k">employmentType</span> <span class="p">:</span> <span class="d">"고용 형태, 없을 수 있음</span><span class="s">(job_posting.employment_type)</span><span class="d">"</span>
+  <span class="k">publishedAt</span> <span class="p">:</span> <span class="d">"게시 일시, 없을 수 있음</span><span class="s">(job_posting.published_at)</span><span class="d">"</span>
+  <span class="k">applyUrl</span> <span class="p">:</span> <span class="d">"지원 링크, 없을 수 있음</span><span class="s">(job_posting.apply_url)</span><span class="d">"</span>
+}</div>
+
+        <div class="callout">
+          <h3>프론트에서 한 가지</h3>
+          <p>
+            <code>lib/api.js</code>의 <code>getTechPostings()</code>는 <code>{ items, isSample }</code>을
+            돌려준다. API 실패로 <code>mockPostings.json</code>이 쓰였을 때만 <code>isSample</code>이
+            true다. "예시 공고입니다" 각주는 이 값이 true일 때만 띄운다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── /cluster ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Endpoint 04</p>
+      <h2>기술 군집과 산업 연결 근거</h2>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-head">
+        <span class="verb">GET</span>
+        <span class="path">/api/v1/tech/<span class="param">{skill_code}</span>/cluster</span>
+        <span class="wire">프론트 미연결</span>
+        <span class="when">상세 패널 열 때 (예정)</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="note">
+          공고 동시출현으로 만든 군집 안에서 이 기술이 어디에 있는지 알려준다.
+          선점기술을 판정하는 게 아니라, 사분면이 뽑은 후보를 해석할 근거를 준다.
+          군집 데이터가 없는 기술이면 응답 본문이 <code>null</code>이다 (HTTP 200).
+        </p>
+
+        <p class="spec-label">응답 본문 (null 가능)</p>
+<div class="spec">{
+  <span class="k">asOfDate</span> <span class="p">:</span> <span class="d">"이 군집 분석의 기준일</span><span class="s">(total_skill_cluster.as_of_date)</span><span class="d">"</span>
+  <span class="k">evidenceLabel</span> <span class="p">:</span> <span class="d">"산업 연결 근거 3단계, 선점후보가 아니면 null</span><span class="s">(candidate_skill_evidence)</span><span class="d">"</span>
+
+  <span class="k">clusterId</span> <span class="p">:</span> <span class="d">"배정된 군집 번호, 군집 대상이 아니면 null</span><span class="s">(total_skill_cluster.cluster_id)</span><span class="d">"</span>
+  <span class="k">clusterSize</span> <span class="p">:</span> <span class="d">"그 군집에 속한 기술 개수</span><span class="s">(skill_cluster_snapshot.skill_count)</span><span class="d">"</span>
+  <span class="k">membershipQuality</span> <span class="p">:</span> <span class="d">"core_member | boundary_member | cluster_outlier</span><span class="s">(total_skill_cluster)</span><span class="d">"</span>
+
+  <span class="k">jobCount</span> <span class="p">:</span> <span class="d">"군집 분석 시점의 공고 수, 5 미만이면 분석 제외</span><span class="s">(total_skill_cluster.job_count)</span><span class="d">"</span>
+  <span class="k">companyCount</span> <span class="p">:</span> <span class="d">"이 기술이 등장한 기업 수</span><span class="s">(total_skill_cluster.company_count)</span><span class="d">"</span>
+  <span class="k">stability</span> <span class="p">:</span> <span class="d">"seed를 바꿔도 같은 군집에 남는 비율 0~1</span><span class="s">(total_skill_cluster.membership_stability)</span><span class="d">"</span>
+  <span class="k">marginRatio</span> <span class="p">:</span> <span class="d">"다음으로 가까운 군집과의 거리 여유, 낮으면 경계</span><span class="s">(total_skill_cluster.centroid_margin_ratio)</span><span class="d">"</span>
+  <span class="k">coherence</span> <span class="p">:</span> <span class="d">"군집 내부 연결 강도</span><span class="s">(total_skill_cluster.cluster_coherence)</span><span class="d">"</span>
+  <span class="k">neighborCompanyShare</span> <span class="p">:</span> <span class="d">"최강 연결 관계에서 한 기업이 차지하는 비율 0~1</span><span class="s">(total_skill_cluster.same_cluster_top_company_share)</span><span class="d">"</span>
+
+  <span class="k">dominantCompany</span> <span class="p">:</span> <span class="d">"이 군집에 가장 많이 기여한 기업</span><span class="s">(skill_cluster_snapshot.dominant_company)</span><span class="d">"</span>
+  <span class="k">dominantCompanyShare</span> <span class="p">:</span> <span class="d">"그 기업의 비율 0~1, 높으면 군집 자체를 의심</span><span class="s">(skill_cluster_snapshot.top_company_share)</span><span class="d">"</span>
+
+  <span class="k">neighbors</span> <span class="p">:</span> <span class="d">"같은 군집 안에서 가장 강하게 연결된 기술 3개</span><span class="s">(total_skill_cluster.same_cluster_strongest_neighbors)</span><span class="d">"</span>
+  <span class="k">globalNeighbors</span> <span class="p">:</span> <span class="d">"전체 기술 중 가장 강하게 연결된 기술 3개</span><span class="s">(total_skill_cluster.global_strongest_neighbors)</span><span class="d">"</span>
+}</div>
+
+        <p class="spec-label">neighbors[] · globalNeighbors[]</p>
+<div class="spec">{
+  <span class="k">tech</span> <span class="p">:</span> <span class="d">"함께 등장하는 기술명</span><span class="s">(total_skill_cluster, 문자열 파싱)</span><span class="d">"</span>
+  <span class="k">score</span> <span class="p">:</span> <span class="d">"연결 강도 0~1, company-balanced Jaccard</span><span class="s">(total_skill_cluster, 문자열 파싱)</span><span class="d">"</span>
+  <span class="k">companies</span> <span class="p">:</span> <span class="d">"그 조합이 관측된 기업 수</span><span class="s">(total_skill_cluster, 문자열 파싱)</span><span class="d">"</span>
+}</div>
+
+        <p class="note">
+          이웃 3종은 DB에 <code>"React (score=0.412, companies=7), …"</code> 한 덩어리 문자열로
+          저장돼 있다. 노트북이 그렇게 내보내서, <code>routes.py</code>가 정규식으로 쪼갠 뒤 배열로
+          만든다.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── /timeseries ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Endpoint 05</p>
+      <h2>월별 시계열</h2>
+    </div>
+
+    <div class="endpoint">
+      <div class="endpoint-head">
+        <span class="verb">GET</span>
+        <span class="path">/api/v1/timeseries</span>
+        <span class="wire">프론트 미연결</span>
+        <span class="when">추이 스파크라인 (예정)</span>
+      </div>
+      <div class="endpoint-body">
+        <p class="note">
+          기술별 월간 공고 수와 생태계 활동을 함께 내려준다. 기술 하나가 아니라
+          <strong>기간 안의 모든 기술 × 모든 달</strong>이 한 번에 온다.
+          쿼리 파라미터는 <code>from</code>(기본 <code>2025-12-01</code>)과
+          <code>to</code>(기본 <code>2026-08-01</code>)이며, <code>to</code>는 <strong>미포함</strong>이다.
+        </p>
+
+        <p class="spec-label">meta</p>
+<div class="spec">{
+  <span class="k">from</span> <span class="p">:</span> <span class="d">"요청한 시작 월, 그대로 되돌려줌</span><span class="s">(계산값)</span><span class="d">"</span>
+  <span class="k">to</span> <span class="p">:</span> <span class="d">"요청한 종료 월, 미포함 경계</span><span class="s">(계산값)</span><span class="d">"</span>
+}</div>
+
+        <p class="spec-label">items[]</p>
+<div class="spec">{
+  <span class="k">month</span> <span class="p">:</span> <span class="d">"해당 월 1일, 공고 게시일을 월 단위로 자른 것</span><span class="s">(vw_monthly_job_skill.metric_month)</span><span class="d">"</span>
+  <span class="k">skillCode</span> <span class="p">:</span> <span class="d">"기술 코드</span><span class="s">(skill.skill_code)</span><span class="d">"</span>
+  <span class="k">skillName</span> <span class="p">:</span> <span class="d">"기술 표시명</span><span class="s">(skill.skill_name)</span><span class="d">"</span>
+  <span class="k">postingCount</span> <span class="p">:</span> <span class="d">"그 달 이 기술을 요구한 공고 수</span><span class="s">(vw_monthly_job_skill.posting_count)</span><span class="d">"</span>
+  <span class="k">githubIssueCount</span> <span class="p">:</span> <span class="d">"그 달 GitHub 이슈 수, 없으면 0</span><span class="s">(ecosystem_monthly_github_metrics)</span><span class="d">"</span>
+  <span class="k">githubPullRequestCount</span> <span class="p">:</span> <span class="d">"그 달 GitHub PR 수, 없으면 0</span><span class="s">(ecosystem_monthly_github_metrics)</span><span class="d">"</span>
+  <span class="k">stackoverflowQuestionCount</span> <span class="p">:</span> <span class="d">"그 달 Stack Overflow 질문 수, 없으면 0</span><span class="s">(ecosystem_monthly_stackoverflow_metrics)</span><span class="d">"</span>
+}</div>
+
+        <div class="callout">
+          <h3>덜 찬 달은 0으로 나온다</h3>
+          <p>
+            생태계 조인에 <code>is_partial_period = FALSE</code> 조건이 걸려 있다. 아직 진행 중인
+            달은 매칭되지 않고 <code>COALESCE</code>로 <strong>0</strong>이 된다. "활동이 없는 달"과
+            "아직 안 끝난 달"이 응답에서 같은 값으로 보이므로, 화면에서 마지막 달을 그대로 그리면
+            급락처럼 읽힌다.
+          </p>
+        </div>
+
+        <div class="callout">
+          <h3>정적 JSON을 대체하는 엔드포인트다</h3>
+          <p>
+            상세 패널의 8개월 추이는 지금도 화면에 보이지만 API가 아니라
+            <code>frontend/lib/techExtras.json</code>(9084줄)에서 읽는다. 이 엔드포인트를 붙이면
+            그 파일과 <code>scripts/build_tech_extras.py</code>를 지울 수 있다.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ─────────────── evidence ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Enum</p>
+      <h2>evidenceLabel 네 가지 상태</h2>
+      <p class="note">
+        <code>/tech/{skill_code}/cluster</code> 응답에만 있다. 내부 라벨을 화면에 그대로 쓰지 않는다.
+        셋 다 "선점 가치가 있다·없다"가 아니라 "산업적 연결을 설명할 근거가 있는가"에 대한 답이다.
+      </p>
+    </div>
+
+    <div class="tiers">
+      <div class="tier t-sup">
+        <div class="tier-head">
+          <span class="tier-key">supporting_evidence</span>
+          <span class="tier-ui">산업 연결 근거 있음</span>
+        </div>
+        <p>여러 기업에서 같은 군집 기술과 함께 등장하고, 군집 소속도 안정적이다. 판정 조건 6개를 모두 통과했다. 현재 15개.</p>
+      </div>
+      <div class="tier t-weak">
+        <div class="tier-head">
+          <span class="tier-key">weak_evidence</span>
+          <span class="tier-ui">산업 연결 근거 빈약함</span>
+        </div>
+        <p>군집에는 들어갔지만 조건 하나 이상에서 걸렸다. 등장 기업이 적거나, 특정 기업 편향이 크거나, 군집 경계에 있다. 현재 5개.</p>
+      </div>
+      <div class="tier t-ins">
+        <div class="tier-head">
+          <span class="tier-key">insufficient_evidence</span>
+          <span class="tier-ui">판단할 채용 데이터 부족</span>
+        </div>
+        <p>공고가 5건 미만이라 군집 분석 자체를 돌리지 않았다. <strong>근거가 약한 게 아니라 판단을 보류한 것</strong>이므로 weak과 같은 톤으로 묶으면 안 된다. 현재 14개.</p>
+      </div>
+      <div class="tier t-null">
+        <div class="tier-head">
+          <span class="tier-key">null</span>
+          <span class="tier-ui">배지를 그리지 않음</span>
+        </div>
+        <p>선점기술 후보가 아니어서 판정 대상이 아니다. 기술 대부분이 여기 해당한다. 부정적인 표시를 붙이면 안 된다.</p>
+      </div>
+    </div>
+
+    <div class="callout">
+      <h3>membershipQuality와 헷갈리지 말 것</h3>
+      <p>
+        <code>membershipQuality</code>는 "군집 안에서 얼마나 중심적인가",
+        <code>evidenceLabel</code>은 "선점 후보로서 산업적 근거가 있는가"다. 서로 다른 축이라
+        <code>core_member</code>인데 <code>weak_evidence</code>인 경우가 실제로 있다. UI에서 섞으면 안 된다.
+      </p>
+    </div>
+  </section>
+
+  <!-- ─────────────── 연결 현황 ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Wiring</p>
+      <h2>프론트 연결 현황</h2>
+      <p class="note">
+        백엔드가 내려주는 것과 화면에 보이는 것이 다르다. 아래 둘은 API만 있고 부르는 코드가 없다.
+      </p>
+    </div>
+    <div class="table-scroll">
+      <table>
+        <thead>
+          <tr>
+            <th>엔드포인트</th>
+            <th>프론트 함수</th>
+            <th>부르는 곳</th>
+            <th>화면</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="mono">/gapmap</td>
+            <td class="mono">getGapMapData</td>
+            <td class="muted">컴포넌트 4곳</td>
+            <td class="ok">보임</td>
+          </tr>
+          <tr>
+            <td class="mono">/skills</td>
+            <td class="mono">getSkillIndex</td>
+            <td class="muted">컴포넌트 2곳</td>
+            <td class="ok">보임</td>
+          </tr>
+          <tr>
+            <td class="mono">/tech/{code}/postings</td>
+            <td class="mono">getTechPostings</td>
+            <td class="muted">useTechPostings.js</td>
+            <td class="ok">보임</td>
+          </tr>
+          <tr>
+            <td class="mono">/tech/{code}/cluster</td>
+            <td class="mono">getTechCluster</td>
+            <td class="no">없음</td>
+            <td class="no">안 보임</td>
+          </tr>
+          <tr>
+            <td class="mono">/timeseries</td>
+            <td class="no">없음</td>
+            <td class="no">없음</td>
+            <td class="no">안 보임</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note">
+      <code>/cluster</code>는 <code>lib/api.js</code>에 <code>getTechCluster()</code>까지 있고 부르는
+      컴포넌트만 없다. <code>/timeseries</code>는 fetch 함수부터 없어서 한 단계 더 뒤에 있다.
+    </p>
+  </section>
+
+  <!-- ─────────────── 주의 ─────────────── -->
+  <section>
+    <div class="section-head">
+      <p class="eyebrow">Caveats</p>
+      <h2>알고 있어야 할 것</h2>
+    </div>
+
+    <div class="callout">
+      <h3>군집 데이터만 자동 갱신되지 않는다</h3>
+      <p>
+        다른 엔드포인트가 쓰는 테이블은 매일 자정 배치가 채운다. 군집 3테이블은 노트북을 손으로
+        돌려 넣은 것이라 <code>asOfDate</code>가 고정돼 있다. 노트북 입력 CSV 경로가 개인 로컬에
+        박혀 있어 현재는 재실행도 안 되고, DDL도 저장소에 없다.
+      </p>
+    </div>
+
+    <div class="callout">
+      <h3>배포 전 두 가지를 확인할 것</h3>
+      <p>
+        <code>total_skill_cluster</code>와 <code>candidate_skill_evidence</code>의
+        <code>max(as_of_date)</code>가 다르면 <code>/cluster</code>의 <code>evidenceLabel</code>이
+        전부 null로 나온다. 그리고 <code>vw_monthly_job_skill</code>이 RDS에 없으면
+        <code>/timeseries</code>가 500이 난다. RDS가 사설 IP라 로컬에서 확인이 불가능해
+        둘 다 미검증 상태다.
+      </p>
+    </div>
+
+    <div class="callout">
+      <h3>지도 기술 수가 사전보다 적다</h3>
+      <p>
+        <code>/gapmap</code>은 GitHub과 Stack Overflow 수집이 <strong>양쪽 다 성공</strong>한
+        기술만 내려준다. 한쪽이라도 실패하면 조인에서 빠진다. <code>/skills</code>의
+        <code>detailed</code> 필드가 그 차이를 나타낸다.
+      </p>
+    </div>
+
+    <div class="callout">
+      <h3>임계값은 응답에 없다</h3>
+      <p>
+        evidence 판정 기준(기업 3곳, 안정성 0.80, 기업 편향 0.70 등)은 분석 노트북 상수라
+        API에도 프론트에도 없다. 옮겨 적으면 두 곳에서 관리하게 된다.
+        <code>neighborCompanyShare</code> 같은 원값을 그대로 보여주면 임계값 없이도 의미가 전달된다.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <p>
+      정의 위치 — 쿼리와 응답 조립 <code>app/api/routes.py</code> ·
+      응답 스키마 <code>app/api/schemas.py</code> ·
+      프론트 호출부 <code>frontend/lib/api.js</code> <code>frontend/lib/skills.js</code> ·
+      테이블 DDL <code>db/jobs/</code> <code>db/ecosystem/</code>
+    </p>
+  </footer>
+
+</div>

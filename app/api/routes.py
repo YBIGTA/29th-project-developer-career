@@ -1,3 +1,4 @@
+import re
 from collections import defaultdict
 
 from fastapi import APIRouter, Depends, Query
@@ -5,6 +6,7 @@ from sqlalchemy import text
 from sqlalchemy.orm import Session
 
 from app.api.schemas import (
+    ClusterResponse,
     GapMapResponse,
     PostingsResponse,
     SkillsResponse,
@@ -80,6 +82,38 @@ POSTINGS_SQL = text("""
     ORDER BY v.job_id, v.published_at DESC NULLS LAST
     LIMIT :limit
 """)
+
+CLUSTER_SQL = text("""
+    WITH latest AS (SELECT max(as_of_date) AS as_of_date FROM total_skill_cluster)
+    SELECT t.as_of_date,
+           t.cluster_id, t.membership_quality, t.eligible_for_clustering,
+           t.job_count, t.company_count,
+           t.cluster_coherence, t.membership_stability, t.centroid_margin_ratio,
+           t.same_cluster_top_company_share,
+           t.same_cluster_strongest_neighbors, t.global_strongest_neighbors,
+           snap.skill_count, snap.dominant_company, snap.top_company_share,
+           ev.evidence_label
+    FROM latest
+    JOIN total_skill_cluster t ON t.as_of_date = latest.as_of_date
+    JOIN skill s ON s.skill_id = t.skill_id
+    LEFT JOIN skill_cluster_snapshot snap
+      ON snap.as_of_date = t.as_of_date AND snap.cluster_id = t.cluster_id
+    LEFT JOIN candidate_skill_evidence ev
+      ON ev.as_of_date = t.as_of_date AND ev.skill_id = t.skill_id
+    WHERE s.skill_code = :skill_code
+""")
+
+# 노트북이 이웃을 "React (score=0.412, companies=7), ..." 한 덩어리 문자열로
+# 내보낸다. 항목 안에도 쉼표가 있어서 ", " 단순 분리는 깨진다.
+NEIGHBOR_RE = re.compile(r"(.+?) \(score=([\d.]+), companies=(\d+)\)(?:, |$)")
+
+
+def neighbors(blob: str | None) -> list[dict]:
+    return [
+        {"tech": tech, "score": float(score), "companies": int(companies)}
+        for tech, score, companies in NEIGHBOR_RE.findall(blob or "")
+    ]
+
 
 TIMESERIES_SQL = text("""
         SELECT
@@ -263,6 +297,30 @@ def get_tech_postings(
     return {"items": [dict(row) for row in db.execute(
         POSTINGS_SQL, {"skill_code": skill_code, "limit": limit}
     ).mappings()]}
+
+
+@router.get("/tech/{skill_code}/cluster", response_model=ClusterResponse | None)
+def get_tech_cluster(skill_code: str, db: Session = Depends(get_db)):
+    row = db.execute(CLUSTER_SQL, {"skill_code": skill_code}).mappings().one_or_none()
+    if row is None:
+        return None
+    return {
+        "asOfDate": row["as_of_date"],
+        "clusterId": row["cluster_id"],
+        "clusterSize": row["skill_count"],
+        "membershipQuality": row["membership_quality"],
+        "evidenceLabel": row["evidence_label"],
+        "jobCount": row["job_count"],
+        "companyCount": row["company_count"],
+        "coherence": row["cluster_coherence"],
+        "stability": row["membership_stability"],
+        "marginRatio": row["centroid_margin_ratio"],
+        "neighborCompanyShare": row["same_cluster_top_company_share"],
+        "dominantCompany": row["dominant_company"],
+        "dominantCompanyShare": row["top_company_share"],
+        "neighbors": neighbors(row["same_cluster_strongest_neighbors"]),
+        "globalNeighbors": neighbors(row["global_strongest_neighbors"]),
+    }
 
 
 @router.get("/timeseries", response_model=TimeSeriesResponse)

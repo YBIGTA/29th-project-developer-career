@@ -53,24 +53,160 @@
     }
   }
 
+  // ---- 펼침 패널용 임의 지표 -------------------------------------------------
+  // 목업이라 실제 GitHub/SO 수치가 없다. 기술명으로 씨앗을 잡아 매번 같은 값이
+  // 나오게 한다 (다시 그려도 숫자가 안 흔들린다).
+  const seedOf = (str) => {
+    let h = 2166136261;
+    for (const c of str) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
+    return h >>> 0;
+  };
+  const jitter = (name, i, spread) => ((seedOf(name + i) % 1000) / 1000 - 0.5) * spread;
+  const clamp = (n) => Math.max(0, Math.min(100, n));
+  const compact = (n) =>
+    n >= 10000 ? `${Math.round(n / 10000).toLocaleString("ko-KR")}만` : n.toLocaleString("ko-KR");
+
+  function metricsOf(d) {
+    const base = d.ecosystemScore ?? 40;
+    const rows = [
+      { label: "GitHub 저장소", score: clamp(base + jitter(d.tech, 1, 8)), unit: "개", scale: 1 },
+      { label: "GitHub 이슈·PR", score: clamp(base + jitter(d.tech, 2, 10)), unit: "건", scale: 1.4 },
+      { label: "Stack Overflow 질문", score: clamp(base + jitter(d.tech, 3, 14)), unit: "개", scale: 0.0002 },
+    ];
+    return rows.map((r) => ({
+      ...r,
+      score: Math.round(r.score * 10) / 10,
+      raw: Math.max(1, Math.round((r.score ** 3) * 0.4 * r.scale * (1 + jitter(d.tech, r.label, 0.5)))),
+    }));
+  }
+
+  // 학습 자료. 목업이라 검색 링크로 건다 — 눌러도 죽은 링크가 아니게.
+  function learnOf(d) {
+    const q = encodeURIComponent(d.tech);
+    const hours = 1 + (seedOf(d.tech) % 6);
+    return [
+      { kind: "영상", title: `${d.tech} 입문 — ${hours}시간 완성`, meta: "YouTube · 한국어 자막",
+        href: `https://www.youtube.com/results?search_query=${q}+tutorial` },
+      { kind: "문서", title: `${d.tech} 공식 문서`, meta: "레퍼런스 · 영어",
+        href: `https://www.google.com/search?q=${q}+official+documentation` },
+      { kind: "로드맵", title: `${d.tech}를 어디서부터 볼지`, meta: "roadmap.sh · 학습 순서",
+        href: "https://roadmap.sh/" },
+      { kind: "실습", title: `${d.tech}로 만든 것들`, meta: `GitHub · ${d.skillCode || d.tech} 토픽`,
+        href: `https://github.com/topics/${encodeURIComponent(d.skillCode || d.tech.toLowerCase())}` },
+    ];
+  }
+
+  // 머리말 요약 — 사분면 설명 대신 이 기술이 공고에서 어떻게 나오는지로 바꾼다.
+  function summaryOf(d, m) {
+    const roles = d.roleBreakdown || [];
+    if (!d.postings) return m.description;
+    const share = ((d.postings / DATA.meta.totalPostings) * 100).toFixed(1);
+    let out = `활성 공고 ${d.postings.toLocaleString("ko-KR")}건(${share}%)에서 요구됩니다.`;
+    if (roles.length) {
+      out += ` ${roles[0].role} 직군에서 가장 많이 쓰이고(${roles[0].count}건), ` +
+        `${roles.length}개 직군에 걸쳐 요구됩니다.`;
+    }
+    return out;
+  }
+
+  function panelHTML(d, m) {
+    const color = `var(--quad-${m.slug})`;
+    const mt = metricsOf(d);
+
+    const metrics = mt.map((r) => `
+      <div>
+        <div class="dict-entry__metric-row">
+          <span>${r.label}</span>
+          <span>
+            <span class="dict-entry__metric-value">${r.score.toFixed(1)}</span>
+            <span class="dict-entry__metric-raw">${compact(r.raw)}${r.unit}</span>
+          </span>
+        </div>
+        <div class="dict-entry__metric-track">
+          <div class="dict-entry__metric-fill" style="width:${r.score}%;background:${color}"></div>
+        </div>
+      </div>`).join("");
+
+    const signals = [
+      ["채용", `활성 공고 ${(d.postings ?? 0).toLocaleString("ko-KR")}건에서 요구됩니다.`],
+      ["생태계 · GitHub", `저장소 ${mt[0].raw.toLocaleString("ko-KR")}개 기준 백분위 ${mt[0].score.toFixed(1)}점입니다.`],
+      ["생태계 · GitHub 활동", `최근 180일 이슈·PR ${mt[1].raw.toLocaleString("ko-KR")}건 기준 백분위 ${mt[1].score.toFixed(1)}점입니다.`],
+      ["생태계 · Stack Overflow", `최근 180일 질문 ${mt[2].raw.toLocaleString("ko-KR")}개 기준 백분위 ${mt[2].score.toFixed(1)}점입니다.`],
+    ].map(([meta, title]) => `
+      <div class="dict-entry__signal">
+        <span class="dict-entry__signal-dot" style="background:${color}"></span>
+        <span class="dict-entry__signal-meta">${meta}</span>
+        <span class="dict-entry__signal-title">${title}</span>
+      </div>`).join("");
+
+    const learn = learnOf(d).map((l) => `
+      <a class="dict-learn__item" href="${l.href}" target="_blank" rel="noopener noreferrer">
+        <span class="dict-learn__kind" style="color:${color};border-color:${color}">${l.kind}</span>
+        <span class="dict-learn__body">
+          <span class="dict-learn__title">${l.title}</span>
+          <span class="dict-learn__meta">${l.meta}</span>
+        </span>
+        <svg class="dict-learn__arrow" viewBox="0 0 16 16" width="13" height="13" aria-hidden="true">
+          <path d="M5.5 10.5 10.5 5.5M6 5.5h4.5V10" fill="none" stroke="currentColor"
+            stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+        </svg>
+      </a>`).join("");
+
+    return `
+      <div class="dict-entry__panel" style="border-top-color:${color}">
+        <div class="dict-entry__cols">
+          <div>
+            <div class="dict-entry__sub">생태계 지표</div>
+            <div class="dict-entry__metrics">${metrics}</div>
+          </div>
+          <div>
+            <div class="dict-entry__sub">이 자리에 있는 이유</div>
+            <div class="dict-entry__signals">${signals}</div>
+          </div>
+        </div>
+
+        <div class="dict-learn">
+          <div class="dict-entry__sub">어떻게 배우나</div>
+          <div class="dict-learn__grid">${learn}</div>
+        </div>
+      </div>`;
+  }
+
   function entryHTML(d) {
     const m = metaOf(d.quadrant);
+    const roles = (d.roleBreakdown || []).slice(0, 2)
+      .map((r) => `<span class="dict-entry__role">${r.role}</span>`).join("");
     return `
-      <article class="dict-entry dict-entry--${m.slug}">
-        <div class="dict-entry__head dict-entry__head--static">
+      <article class="dict-entry dict-entry--${m.slug}" data-open="false" data-tech="${d.tech}">
+        <button type="button" class="dict-entry__head" aria-expanded="false">
           <span class="dict-entry__title-row">
             <span class="dict-entry__name">${d.tech}</span>
             <span class="dict-entry__kind">${d.kind || d.category || ""}</span>
             <span class="dict-entry__quad"><span class="legend-swatch legend-swatch--${m.slug}"></span>${m.label}</span>
+            ${roles}
           </span>
-          <span class="dict-entry__summary">${m.description}</span>
+          <span class="dict-entry__summary">${summaryOf(d, m)}</span>
           <span class="dict-entry__scores">
             <span class="dict-score"><span class="dict-score__label">생태계</span><span class="dict-score__value">${d.ecosystemScore}</span></span>
             <span class="dict-score"><span class="dict-score__label">채용 수요</span><span class="dict-score__value">${d.demand}</span></span>
             <span class="dict-score"><span class="dict-score__label">공고 언급</span><span class="dict-score__value">${(d.postings ?? 0).toLocaleString("ko-KR")}</span></span>
           </span>
-        </div>
+          <svg class="dict-entry__chevron" viewBox="0 0 16 16" width="15" height="15" aria-hidden="true">
+            <path d="m4 6 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6"
+              stroke-linecap="round" stroke-linejoin="round" />
+          </svg>
+        </button>
       </article>`;
+  }
+
+  // 패널은 누를 때 만든다. 185개를 미리 그려두면 DOM만 무거워진다.
+  function toggle(entry) {
+    const open = entry.dataset.open !== "true";
+    entry.dataset.open = String(open);
+    entry.querySelector(".dict-entry__head").setAttribute("aria-expanded", String(open));
+    if (!open) { entry.querySelector(".dict-entry__panel")?.remove(); return; }
+    const d = DATA.items.find((x) => x.tech === entry.dataset.tech);
+    if (d) entry.insertAdjacentHTML("beforeend", panelHTML(d, metaOf(d.quadrant)));
   }
 
   function render() {
@@ -167,6 +303,17 @@
     for (const s of secs) if (s.getBoundingClientRect().top <= 200) current = s;
     markRail(current.id.replace("dict-", ""));
   }
+
+  $("#dict-list").addEventListener("click", (e) => {
+    const head = e.target.closest(".dict-entry__head");
+    if (head) toggle(head.closest(".dict-entry"));
+  });
+
+  // Esc — 펼쳐둔 것을 전부 접는다 (지도 쪽 Esc 동작과 같은 감각).
+  document.addEventListener("keydown", (e) => {
+    if (e.key !== "Escape") return;
+    document.querySelectorAll('.dict-entry[data-open="true"]').forEach(toggle);
+  });
 
   $("#dict-search").addEventListener("input", (e) => { query = e.target.value; render(); });
 

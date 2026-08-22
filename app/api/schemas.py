@@ -79,3 +79,18 @@ class Posting(BaseModel):
 
 class PostingsResponse(BaseModel):
     items: list[Posting]
+
+
+class TimeSeriesItem(BaseModel):
+    month: str
+    skillCode: str
+    skillName: str
+    postingCount: int
+    githubIssueCount: int
+    githubPullRequestCount: int
+    stackoverflowQuestionCount: int
+
+
+class TimeSeriesResponse(BaseModel):
+    meta: dict[str, str | None]
+    items: list[TimeSeriesItem]

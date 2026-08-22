@@ -1,10 +1,16 @@
+import re
 from collections import defaultdict
 
 from fastapi import APIRouter, Depends, Query
 from sqlalchemy import text
 from sqlalchemy.orm import Session
 
-from app.api.schemas import GapMapResponse, PostingsResponse, SkillsResponse
+from app.api.schemas import (
+    ClusterResponse,
+    GapMapResponse,
+    PostingsResponse,
+    SkillsResponse,
+)
 from app.db.database import get_db
 
 router = APIRouter(prefix="/api/v1")
@@ -76,6 +82,43 @@ POSTINGS_SQL = text("""
     LIMIT :limit
 """)
 
+CLUSTER_SQL = text("""
+    WITH latest AS (SELECT max(as_of_date) AS as_of_date FROM total_skill_cluster)
+    SELECT t.as_of_date,
+           t.cluster_id, t.membership_quality, t.eligible_for_clustering,
+           t.job_count, t.company_count,
+           t.cluster_coherence, t.membership_stability, t.centroid_margin_ratio,
+           t.same_cluster_top_company_share,
+           t.same_cluster_strongest_neighbors, t.global_strongest_neighbors,
+           snap.skill_count, snap.dominant_company, snap.top_company_share,
+           ev.evidence_label
+    FROM latest
+    JOIN total_skill_cluster t ON t.as_of_date = latest.as_of_date
+    JOIN skill s ON s.skill_id = t.skill_id
+    LEFT JOIN skill_cluster_snapshot snap
+      ON snap.as_of_date = t.as_of_date AND snap.cluster_id = t.cluster_id
+    LEFT JOIN candidate_skill_evidence ev
+      ON ev.as_of_date = t.as_of_date AND ev.skill_id = t.skill_id
+    WHERE s.skill_code = :skill_code
+""")
+
+EVIDENCE_SQL = text("""
+    SELECT ev.skill_id, ev.evidence_label
+    FROM candidate_skill_evidence ev
+    WHERE ev.as_of_date = (SELECT max(as_of_date) FROM candidate_skill_evidence)
+""")
+
+# 노트북이 이웃을 "React (score=0.412, companies=7), ..." 한 덩어리 문자열로
+# 내보낸다. 항목 안에도 쉼표가 있어서 ", " 단순 분리는 깨진다.
+NEIGHBOR_RE = re.compile(r"(.+?) \(score=([\d.]+), companies=(\d+)\)(?:, |$)")
+
+
+def neighbors(blob: str | None) -> list[dict]:
+    return [
+        {"tech": tech, "score": float(score), "companies": int(companies)}
+        for tech, score, companies in NEIGHBOR_RE.findall(blob or "")
+    ]
+
 
 def percentile(values: list[int]) -> dict[int, float]:
     if len(values) < 2:
@@ -111,11 +154,17 @@ def load_data(db: Session):
         row["skill_id"]: dict(row) for row in db.execute(ECOSYSTEM_SQL).mappings()
     }
     period = dict(db.execute(PERIOD_SQL).mappings().one())
-    return skills, role_counts, ecosystem, period
+    # 선점후보 34개에만 있다. 나머지 기술은 키가 없어 None이 된다 — "근거 없음"이
+    # 아니라 "판정 대상이 아님"이므로 화면에서 구분해야 한다.
+    evidence = {
+        row["skill_id"]: row["evidence_label"]
+        for row in db.execute(EVIDENCE_SQL).mappings()
+    }
+    return skills, role_counts, ecosystem, period, evidence
 
 
 def map_items(db: Session) -> tuple[list[dict], dict]:
-    skills, role_counts, ecosystem, period = load_data(db)
+    skills, role_counts, ecosystem, period, evidence = load_data(db)
     skills = [
         skill
         for skill in skills
@@ -155,6 +204,7 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
             "demandRank": demand_ranks[skill["postings"]],
             "ecosystemScore": ecosystem_score,
             "quadrant": quadrant(demand, ecosystem_score),
+            "evidenceLabel": evidence.get(skill["skill_id"]),
             "postings": skill["postings"], "postingsShare": share,
             "postingsNote": f"활성 채용공고 {total:,}건 중 {skill['postings']:,}건({share}%)에서 요구",
             "ecosystem": {
@@ -200,7 +250,7 @@ def get_gapmap(db: Session = Depends(get_db)):
 
 @router.get("/skills", response_model=SkillsResponse)
 def get_skills(db: Session = Depends(get_db)):
-    skills, role_counts, ecosystem, period = load_data(db)
+    skills, role_counts, ecosystem, period, _ = load_data(db)
     ranks = rank([skill["postings"] for skill in skills if skill["postings"]])
     total = period["total_postings"] or 0
     items = []
@@ -233,3 +283,27 @@ def get_tech_postings(
     return {"items": [dict(row) for row in db.execute(
         POSTINGS_SQL, {"skill_code": skill_code, "limit": limit}
     ).mappings()]}
+
+
+@router.get("/tech/{skill_code}/cluster", response_model=ClusterResponse | None)
+def get_tech_cluster(skill_code: str, db: Session = Depends(get_db)):
+    row = db.execute(CLUSTER_SQL, {"skill_code": skill_code}).mappings().one_or_none()
+    if row is None:
+        return None
+    return {
+        "asOfDate": row["as_of_date"],
+        "clusterId": row["cluster_id"],
+        "clusterSize": row["skill_count"],
+        "membershipQuality": row["membership_quality"],
+        "evidenceLabel": row["evidence_label"],
+        "jobCount": row["job_count"],
+        "companyCount": row["company_count"],
+        "coherence": row["cluster_coherence"],
+        "stability": row["membership_stability"],
+        "marginRatio": row["centroid_margin_ratio"],
+        "neighborCompanyShare": row["same_cluster_top_company_share"],
+        "dominantCompany": row["dominant_company"],
+        "dominantCompanyShare": row["top_company_share"],
+        "neighbors": neighbors(row["same_cluster_strongest_neighbors"]),
+        "globalNeighbors": neighbors(row["global_strongest_neighbors"]),
+    }

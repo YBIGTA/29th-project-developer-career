@@ -98,3 +98,40 @@ export async function getTechPostings(skillCode, limit = 5) {
     return { items: (mockPostings[skillCode] ?? []).slice(0, limit), isSample: true };
   }
 }
+
+// 내부 라벨을 화면에 그대로 쓰지 않는다. 이 셋은 "선점 가치가 있다/없다"가
+// 아니라 "산업적 연결을 설명할 근거가 있는가"에 대한 답이다.
+export const EVIDENCE_LABELS = {
+  supporting_evidence: "산업 연결 근거 있음",
+  weak_evidence: "산업 연결 근거 빈약함",
+  insufficient_evidence: "판단할 채용 데이터 부족",
+};
+
+/**
+ * 해당 기술의 군집 소속과 함께 등장하는 기술을 가져온다. 상세 화면에서 필요할
+ * 때만 호출한다. mock이 없으므로 API_URL이 없으면 그냥 null이다 — 화면은
+ * null이면 섹션 자체를 그리지 않는다.
+ *
+ * 반환 형태: null | { asOfDate, clusterId, clusterSize, membershipQuality,
+ *   evidenceLabel, jobCount, companyCount, coherence, stability, marginRatio,
+ *   neighborCompanyShare, dominantCompany, dominantCompanyShare,
+ *   neighbors [{ tech, score, companies }], globalNeighbors [...] }
+ *
+ * evidenceLabel은 EVIDENCE_LABELS로 번역해서 쓴다. membershipQuality(군집 안에서
+ * 얼마나 중심적인가)와는 다른 축이라 UI에서 섞으면 안 된다 — core_member인데
+ * weak_evidence인 경우가 실제로 있다.
+ */
+export async function getTechCluster(skillCode) {
+  if (!skillCode || !API_URL) return null;
+
+  try {
+    const res = await fetch(`${API_URL}/api/v1/tech/${skillCode}/cluster`);
+    if (!res.ok) {
+      throw new Error(`군집 정보를 불러오지 못했습니다 (status: ${res.status})`);
+    }
+    return await res.json();
+  } catch (error) {
+    console.error("[getTechCluster] 요청 실패, 군집 섹션을 숨깁니다:", error);
+    return null;
+  }
+}

@@ -28,7 +28,6 @@ class GapItem(BaseModel):
     demandRank: int
     ecosystemScore: float
     quadrant: str
-    evidenceLabel: str | None
     postings: int
     postingsShare: float
     postingsNote: str

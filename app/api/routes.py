@@ -103,12 +103,6 @@ CLUSTER_SQL = text("""
     WHERE s.skill_code = :skill_code
 """)
 
-EVIDENCE_SQL = text("""
-    SELECT ev.skill_id, ev.evidence_label
-    FROM candidate_skill_evidence ev
-    WHERE ev.as_of_date = (SELECT max(as_of_date) FROM candidate_skill_evidence)
-""")
-
 # 노트북이 이웃을 "React (score=0.412, companies=7), ..." 한 덩어리 문자열로
 # 내보낸다. 항목 안에도 쉼표가 있어서 ", " 단순 분리는 깨진다.
 NEIGHBOR_RE = re.compile(r"(.+?) \(score=([\d.]+), companies=(\d+)\)(?:, |$)")
@@ -181,17 +175,11 @@ def load_data(db: Session):
         row["skill_id"]: dict(row) for row in db.execute(ECOSYSTEM_SQL).mappings()
     }
     period = dict(db.execute(PERIOD_SQL).mappings().one())
-    # 선점후보 34개에만 있다. 나머지 기술은 키가 없어 None이 된다 — "근거 없음"이
-    # 아니라 "판정 대상이 아님"이므로 화면에서 구분해야 한다.
-    evidence = {
-        row["skill_id"]: row["evidence_label"]
-        for row in db.execute(EVIDENCE_SQL).mappings()
-    }
-    return skills, role_counts, ecosystem, period, evidence
+    return skills, role_counts, ecosystem, period
 
 
 def map_items(db: Session) -> tuple[list[dict], dict]:
-    skills, role_counts, ecosystem, period, evidence = load_data(db)
+    skills, role_counts, ecosystem, period = load_data(db)
     skills = [
         skill
         for skill in skills
@@ -231,7 +219,6 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
             "demandRank": demand_ranks[skill["postings"]],
             "ecosystemScore": ecosystem_score,
             "quadrant": quadrant(demand, ecosystem_score),
-            "evidenceLabel": evidence.get(skill["skill_id"]),
             "postings": skill["postings"], "postingsShare": share,
             "postingsNote": f"활성 채용공고 {total:,}건 중 {skill['postings']:,}건({share}%)에서 요구",
             "ecosystem": {
@@ -277,7 +264,7 @@ def get_gapmap(db: Session = Depends(get_db)):
 
 @router.get("/skills", response_model=SkillsResponse)
 def get_skills(db: Session = Depends(get_db)):
-    skills, role_counts, ecosystem, period, _ = load_data(db)
+    skills, role_counts, ecosystem, period = load_data(db)
     ranks = rank([skill["postings"] for skill in skills if skill["postings"]])
     total = period["total_postings"] or 0
     items = []

@@ -51,3 +51,43 @@ WHERE jp.is_active = TRUE;
 
 COMMENT ON VIEW public.vw_active_job_skill IS
     'One row per active posting and detected skill from the latest successful enrichment.';
+
+-- Monthly demand read model based on the latest successful skill enrichment.
+-- Keep partial-month filtering in the consuming query so the view retains
+-- the complete observed range.
+CREATE OR REPLACE VIEW public.vw_monthly_job_skill AS
+SELECT
+    DATE_TRUNC('month', jp.published_at)::DATE AS metric_month,
+    s.skill_id,
+    s.skill_code,
+    s.skill_name,
+    COUNT(DISTINCT jp.job_id)::INTEGER AS posting_count
+FROM job_posting AS jp
+JOIN job_posting_history AS h
+  ON h.job_id = jp.job_id
+ AND h.valid_to IS NULL
+JOIN LATERAL (
+    SELECT candidate.*
+    FROM job_enrichment_result AS candidate
+    WHERE candidate.history_id = h.history_id
+      AND candidate.processing_status = 'success'
+      AND candidate.skill_status = 'success'
+    ORDER BY
+        candidate.processed_at DESC NULLS LAST,
+        candidate.enrichment_id DESC
+    LIMIT 1
+) AS er
+  ON TRUE
+JOIN job_skill AS js
+  ON js.enrichment_id = er.enrichment_id
+JOIN skill AS s
+  ON s.skill_id = js.skill_id
+WHERE jp.published_at IS NOT NULL
+GROUP BY
+    DATE_TRUNC('month', jp.published_at)::DATE,
+    s.skill_id,
+    s.skill_code,
+    s.skill_name;
+
+COMMENT ON VIEW public.vw_monthly_job_skill IS
+  'Monthly distinct published posting counts by canonical skill, including closed jobs.';

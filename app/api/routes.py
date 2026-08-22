@@ -10,6 +10,7 @@ from app.api.schemas import (
     GapMapResponse,
     PostingsResponse,
     SkillsResponse,
+    TimeSeriesResponse,
 )
 from app.db.database import get_db
 
@@ -118,6 +119,32 @@ def neighbors(blob: str | None) -> list[dict]:
         {"tech": tech, "score": float(score), "companies": int(companies)}
         for tech, score, companies in NEIGHBOR_RE.findall(blob or "")
     ]
+
+
+TIMESERIES_SQL = text("""
+        SELECT
+                j.metric_month AS month,
+                s.skill_code AS "skillCode",
+                s.skill_name AS "skillName",
+                j.posting_count AS "postingCount",
+                COALESCE(g.issue_count, 0)::INTEGER AS "githubIssueCount",
+                COALESCE(g.pull_request_count, 0)::INTEGER AS "githubPullRequestCount",
+                COALESCE(so.question_count, 0)::INTEGER AS "stackoverflowQuestionCount"
+        FROM vw_monthly_job_skill AS j
+        JOIN skill AS s
+            ON s.skill_id = j.skill_id
+        LEFT JOIN ecosystem_monthly_github_metrics AS g
+            ON g.metric_month = j.metric_month
+         AND g.skill_id = j.skill_id
+         AND g.is_partial_period = FALSE
+        LEFT JOIN ecosystem_monthly_stackoverflow_metrics AS so
+            ON so.metric_month = j.metric_month
+         AND so.skill_id = j.skill_id
+         AND so.is_partial_period = FALSE
+        WHERE j.metric_month >= :from_month
+            AND j.metric_month < :to_month
+        ORDER BY j.metric_month, s.skill_name
+""")
 
 
 def percentile(values: list[int]) -> dict[int, float]:
@@ -306,4 +333,23 @@ def get_tech_cluster(skill_code: str, db: Session = Depends(get_db)):
         "dominantCompanyShare": row["top_company_share"],
         "neighbors": neighbors(row["same_cluster_strongest_neighbors"]),
         "globalNeighbors": neighbors(row["global_strongest_neighbors"]),
+    }
+
+
+@router.get("/timeseries", response_model=TimeSeriesResponse)
+def get_timeseries(
+    from_month: str = Query(default="2025-12-01", alias="from"),
+    to_month: str = Query(default="2026-08-01", alias="to"),
+    db: Session = Depends(get_db),
+):
+    rows = [dict(row) for row in db.execute(
+        TIMESERIES_SQL,
+        {"from_month": from_month, "to_month": to_month},
+    ).mappings()]
+    for row in rows:
+        if row["month"] is not None:
+            row["month"] = row["month"].isoformat()
+    return {
+        "meta": {"from": from_month, "to": to_month},
+        "items": rows,
     }

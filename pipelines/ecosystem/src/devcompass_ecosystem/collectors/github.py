@@ -69,3 +69,22 @@ class GitHubCollector:
             activity_query=updated_query,
         )
 
+    def collect_activity(self, skill: Skill, from_date: date, to_date: date):
+        _repository_query, activity_query = self.queries_for(skill.skill_name)
+        updated_query = "{} updated:{}..{}".format(
+            activity_query,
+            from_date.isoformat(),
+            to_date.isoformat(),
+        )
+        return GitHubCounts(
+            repository_count=None,
+            issue_count=self._search_count(
+                "/search/issues", "{} is:issue".format(updated_query)
+            ),
+            pull_request_count=self._search_count(
+                "/search/issues", "{} is:pr".format(updated_query)
+            ),
+            repository_query=None,
+            activity_query=updated_query,
+        )
+

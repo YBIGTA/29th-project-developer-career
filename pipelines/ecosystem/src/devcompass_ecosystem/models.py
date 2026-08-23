@@ -11,10 +11,10 @@ class Skill:
 
 @dataclass(frozen=True)
 class GitHubCounts:
-    repository_count: int
+    repository_count: int | None
     issue_count: int
     pull_request_count: int
-    repository_query: str
+    repository_query: str | None
     activity_query: str
 
 

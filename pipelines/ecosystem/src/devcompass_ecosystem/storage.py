@@ -192,3 +192,95 @@ class EcosystemRepository:
             failed_skills=failed_skills,
             status=status,
         )
+
+    def upsert_daily_github(self, metric_date, skill, counts, activity_query, source):
+        with self.connection.transaction():
+            self.connection.execute(
+                """
+                INSERT INTO ecosystem_daily_github_metrics (
+                    metric_date, skill_id, github_issue_count, github_pr_count,
+                    activity_query, period_start, period_end, is_partial_period,
+                    source, status, error_message, collected_at
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, FALSE, %s, 'success', NULL, NOW()
+                )
+                ON CONFLICT (metric_date, skill_id) DO UPDATE SET
+                    github_issue_count = EXCLUDED.github_issue_count,
+                    github_pr_count = EXCLUDED.github_pr_count,
+                    activity_query = EXCLUDED.activity_query,
+                    source = EXCLUDED.source,
+                    status = 'success',
+                    error_message = NULL,
+                    collected_at = NOW()
+                """,
+                (metric_date, skill.skill_id, counts.issue_count,
+                 counts.pull_request_count, activity_query,
+                 metric_date, metric_date, source),
+            )
+
+    def write_daily_github_failure(self, metric_date, skill, error_message, source):
+        with self.connection.transaction():
+            self.connection.execute(
+                """
+                INSERT INTO ecosystem_daily_github_metrics (
+                    metric_date, skill_id, period_start, period_end,
+                    is_partial_period, source, status, error_message, collected_at
+                ) VALUES (
+                    %s, %s, %s, %s, FALSE, %s, 'failed', %s, NOW()
+                )
+                ON CONFLICT (metric_date, skill_id) DO UPDATE SET
+                    source = EXCLUDED.source,
+                    status = 'failed',
+                    error_message = EXCLUDED.error_message,
+                    collected_at = NOW()
+                WHERE ecosystem_daily_github_metrics.status <> 'success'
+                """,
+                (metric_date, skill.skill_id, metric_date, metric_date,
+                 source, error_message[:4000]),
+            )
+
+    def upsert_daily_stackoverflow(self, metric_date, skill, counts, source):
+        with self.connection.transaction():
+            self.connection.execute(
+                """
+                INSERT INTO ecosystem_daily_stackoverflow_metrics (
+                    metric_date, skill_id, stackoverflow_tag, tag_source,
+                    question_count, period_start, period_end, is_partial_period,
+                    source_file, status, error_message, imported_at
+                ) VALUES (
+                    %s, %s, %s, %s, %s, %s, %s, FALSE, %s, 'success', NULL, NOW()
+                )
+                ON CONFLICT (metric_date, skill_id) DO UPDATE SET
+                    stackoverflow_tag = EXCLUDED.stackoverflow_tag,
+                    tag_source = EXCLUDED.tag_source,
+                    question_count = EXCLUDED.question_count,
+                    source_file = EXCLUDED.source_file,
+                    status = 'success',
+                    error_message = NULL,
+                    imported_at = NOW()
+                """,
+                (metric_date, skill.skill_id, counts.tag, counts.tag_source,
+                 counts.question_count, metric_date, metric_date, source),
+            )
+
+    def write_daily_stackoverflow_failure(self, metric_date, skill, error_message, source):
+        with self.connection.transaction():
+            self.connection.execute(
+                """
+                INSERT INTO ecosystem_daily_stackoverflow_metrics (
+                    metric_date, skill_id, period_start, period_end,
+                    is_partial_period, source_file, status, error_message,
+                    imported_at
+                ) VALUES (
+                    %s, %s, %s, %s, FALSE, %s, 'failed', %s, NOW()
+                )
+                ON CONFLICT (metric_date, skill_id) DO UPDATE SET
+                    source_file = EXCLUDED.source_file,
+                    status = 'failed',
+                    error_message = EXCLUDED.error_message,
+                    imported_at = NOW()
+                WHERE ecosystem_daily_stackoverflow_metrics.status <> 'success'
+                """,
+                (metric_date, skill.skill_id, metric_date, metric_date,
+                 source, error_message[:4000]),
+            )

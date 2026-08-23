@@ -125,11 +125,7 @@ class TimeSeriesDailyItem(BaseModel):
     skillCode: str
     skillName: str
     stackoverflowQuestionCount: int
-    # 30일 이동평균 -- DB에는 원시값만 있고, 여기서 window 함수로 계산한다.
     stackoverflowRollingAvg30d: float
-    # 요청 구간(from~to) 전체 평균 점유율을 100으로 놓은 지수. 그 구간 내내
-    # 질문이 0개였던 기술은 기준점을 잡을 수 없어 None이 온다 -- 이때
-    # hasIndexBaseline이 False이므로 프론트에서 0으로 오해하면 안 된다.
     stackoverflowIndex: float | None
     hasIndexBaseline: bool
 

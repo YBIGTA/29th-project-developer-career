@@ -142,12 +142,6 @@ TIMESERIES_SQL = text("""
 """)
 
 
-# 일별 Stack Overflow 지표는 원본이 노이즈가 커서(200개 기술 중 활성일수
-# 중앙값이 180일 중 11일뿐) 30일 이동합/이동평균 기반으로 집계한다. DB에는
-# 원시 question_count만 있으므로 window 함수로 여기서 계산한다.
-#   - stackoverflowRollingAvg30d: 오늘 포함 최근 30일(부족하면 있는 만큼) 평균
-#   - stackoverflowIndex: 요청 구간(from~to) 전체 평균 점유율을 100으로 놓은 지수.
-#     1일차=100 기준은 니치 기술 대부분에서 기준일 자체가 0이라 못 쓴다.
 TIMESERIES_DAILY_SQL = text("""
     WITH so AS (
         SELECT

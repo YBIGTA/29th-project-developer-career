@@ -91,3 +91,21 @@ GROUP BY
 
 COMMENT ON VIEW public.vw_monthly_job_skill IS
   'Monthly distinct published posting counts by canonical skill, including closed jobs.';
+
+-- ---------------------------------------------------------------------------
+-- 이 파일이 만들지 않는, 다른 사람이 소유한 뷰 (참고용 기록)
+--
+--   vw_skill_adoption_breadth
+--     skill_id, skill_code, skill_name,
+--     job_count, company_count, sample_company_count,
+--     coverage_rate, hhi, effective_company_count
+--
+--     "이 기술의 수요가 몇 개 회사에 퍼져 있는가"를 재는 뷰다. vw_active_job_skill
+--     의 공고 수는 한 회사가 비슷한 공고를 여럿 올려도 그대로 늘어나므로, 건수만
+--     보면 회사 하나의 스택이 시장 수요처럼 보인다. hhi(허핀달 지수)와
+--     effective_company_count가 그 집중도를 갈라준다 — 40건이 30개 회사에
+--     흩어진 것과 한 회사에서 나온 것이 구분된다.
+--
+--     프론트는 아직 이 뷰를 쓰지 않는다. 지금 지도의 y축(채용 수요)은 공고 건수
+--     백분위 하나뿐이다.
+-- ---------------------------------------------------------------------------

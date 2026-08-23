@@ -78,7 +78,7 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
     setTab("overview");
   }
 
-  const { postings, loading: postingsLoading } = useTechPostings(
+  const { postings, loading: postingsLoading, isSample } = useTechPostings(
     tech?.skillCode,
     open && tab === "postings"
   );
@@ -301,7 +301,11 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                     그대로 가져옵니다.
                   </p>
                   <PostingList postings={postings} loading={postingsLoading} techName={tech.tech} />
-                  <p className="mv-sheet__footnote">채용 API 연결 전이라 예시 공고가 표시됩니다.</p>
+                  {isSample && (
+                    <p className="mv-sheet__footnote">
+                      채용 API에서 공고를 받지 못해 예시 공고를 대신 표시합니다.
+                    </p>
+                  )}
                 </>
               )}
             </>

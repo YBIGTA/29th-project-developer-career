@@ -424,7 +424,10 @@ function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
           {tech.summary ?? tech.signals?.[0]?.title}
         </span>
 
+        {/* 배지가 점수보다 앞에 온다. 뒤에 두면 배지가 있는 행에서만 점수
+            세 칸이 배지 너비만큼 왼쪽으로 밀려 행끼리 줄이 어긋난다. */}
         <span className="dict-entry__scores">
+          {offMap && <span className="dict-score__offmap">지도 미표시</span>}
           <span className="dict-score">
             <span className="dict-score__label">생태계</span>
             <span className="dict-score__value">{tech.ecosystemScore}</span>
@@ -437,7 +440,6 @@ function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
             <span className="dict-score__label">공고 언급</span>
             <span className="dict-score__value">{tech.postings.toLocaleString("ko-KR")}</span>
           </span>
-          {offMap && <span className="dict-score__offmap">지도 미표시</span>}
         </span>
 
         <span className="dict-entry__chevron" aria-hidden="true">
@@ -557,6 +559,7 @@ function BriefEntry({ tech }) {
         </span>
 
         <span className="dict-entry__scores">
+          <span className="dict-score__offmap">생태계 미수집</span>
           <span className="dict-score">
             <span className="dict-score__label">공고 언급</span>
             <span className="dict-score__value">{tech.postings.toLocaleString("ko-KR")}</span>
@@ -565,7 +568,6 @@ function BriefEntry({ tech }) {
             <span className="dict-score__label">사전 순위</span>
             <span className="dict-score__value">{untagged ? "—" : tech.rank}</span>
           </span>
-          <span className="dict-score__offmap">생태계 미수집</span>
         </span>
       </div>
     </article>

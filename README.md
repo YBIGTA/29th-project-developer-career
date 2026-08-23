@@ -4,26 +4,23 @@
 
 ## 구성
 
-- `app/api`, `app/main.py` — FastAPI 서빙 레이어 (API 서버 VM에 배포)
-- `app/batch` — 배치 파이프라인 (배치 서버 VM에 별도 배포)
-- `app/db`, `app/core` — API·배치 공통 코드
+- `app/api`, `app/main.py` — FastAPI 서빙 레이어 (API 서버에 배포)
+- `app/db`, `app/core` — API 공통 코드
+- `pipelines/jobs`, `pipelines/ecosystem` — 채용공고·생태계 데이터 수집 파이프라인 (각각 독립 이미지, Fargate에 배포)
 - `frontend/` — Next.js 프론트엔드
-- `requirements/` — 서비스별 의존성 분리 (`base.txt` 공통, `api.txt`, `batch.txt`, `dev.txt`)
-- `Dockerfile.api`, `Dockerfile.batch` — 서비스별 이미지
-- `deploy/` — 배치 서버 VM 배포용 compose/crontab
+- `requirements/` — 서비스별 의존성 분리 (`base.txt` 공통, `api.txt`, `dev.txt`)
+- `Dockerfile.api` — API 서버 이미지
 - `tests/` — pytest 테스트
 - `scripts/` — 운영/초기화 스크립트
 - `docs/` — 협업 및 아키텍처 문서
 
 ## 배포 구조
 
-API 서버와 배치 서버는 서로 다른 VM에서 독립적으로 뜨고, 같은 DB를 공유한다.
+API 서버와 데이터 수집 파이프라인은 서로 다른 곳에서 독립적으로 뜨고, 같은 DB를 공유한다.
 
-- **API VM**: `Dockerfile.api`로 빌드, 상시 구동 (uvicorn)
-- **배치 VM**: `Dockerfile.batch`로 빌드, cron/systemd timer로 주기 실행 (상시 구동 아님)
-- 두 VM 모두 `.env`의 `DATABASE_URL`이 실제 DB에 접근 가능한 호스트를 가리켜야 함 (`localhost` 금지)
-
-자세한 배치 서버 배포 절차는 `deploy/docker-compose.batch.yml`, `deploy/crontab.example` 참고.
+- **API 서버**: `Dockerfile.api`로 빌드, 상시 구동 (uvicorn)
+- **데이터 수집**: `pipelines/jobs`(채용공고), `pipelines/ecosystem`(생태계 지표) 각각 별도 이미지로 빌드해 Fargate에서 하루 한 번 병렬 실행. 자세한 워크플로우는 `infra/aws/README.md`, 각 파이프라인 빌드/실행법은 `pipelines/jobs/README.md`, `pipelines/ecosystem/README.md` 참고.
+- API 서버는 `.env`의 `DATABASE_URL`이 실제 DB에 접근 가능한 호스트를 가리켜야 함 (`localhost` 금지)
 
 ## 실행법
 
@@ -54,15 +51,14 @@ npm install
 npm run dev
 ```
 
-### 배치 파이프라인 로컬 실행
+### 데이터 수집 파이프라인 로컬 실행
 
 ```bash
-pip install -r requirements/batch.txt
-python -m app.batch.run
-
-# 또는 배치 이미지로
-docker compose --profile batch run --rm batch
+docker compose --profile jobs run --rm jobs
+docker compose --profile ecosystem run --rm ecosystem
 ```
+
+`docker compose up`으로는 뜨지 않는 1회성 컨테이너다. 필요한 환경변수는 `pipelines/jobs/README.md`, `pipelines/ecosystem/README.md` 참고.
 
 ### 테스트
 
@@ -71,47 +67,16 @@ pip install -r requirements.txt
 pytest
 ```
 
-## 배치 팀 가이드: 수집 데이터 DB 저장
+## 데이터 수집 파이프라인 가이드
 
-배치 파이프라인은 `app/batch/collect/*.py`에서 소스별로 데이터를 수집하고, `app/batch/run.py`가 이를 모아 DB에 저장하는 구조다.
+채용공고 수집(Task A)과 생태계 지표 수집(Task B)은 각각 `pipelines/jobs`, `pipelines/ecosystem`에 독립 패키지로 구현되어 있고, Fargate에서 하루 한 번 병렬 실행된다.
 
-1. **수집 함수 작성**: `app/batch/collect/adzuna.py`, `remoteok.py`처럼 소스별 파일에 `collect() -> list[dict]` 형태로 작성한다. 외부 API 응답을 그대로 반환하지 말고, `models.py`의 컬럼명에 맞춘 dict 리스트로 정리해서 반환한다.
+- 소스 추가/수정: `pipelines/jobs/src/devcompass/collectors/*.py`(greenhouse, lever, ashby), `pipelines/ecosystem/src/devcompass_ecosystem/collectors/*.py`
+- DB 저장: 각 패키지의 `storage.py`가 담당. 대상 스키마는 `db/jobs/schema.sql`, `db/ecosystem/schema.sql`
+- 빌드/실행/환경변수: `pipelines/jobs/README.md`, `pipelines/ecosystem/README.md`
+- Fargate 배포/워크플로우: `infra/aws/README.md`
 
-   ```python
-   # app/batch/collect/adzuna.py
-   def collect() -> list[dict]:
-       # 외부 API 호출 후 아래 형태로 정리해서 반환
-       return [
-           {"title": "...", "company": "...", "source": "adzuna", "url": "...", "raw_text": "..."},
-           ...
-       ]
-   ```
-
-2. **DB 저장은 `app/batch/run.py`에서 처리**: 수집 함수는 순수하게 데이터만 반환하고, DB 세션/커밋은 `run.py`에서 일괄 담당한다. `app/db/database.py`의 `SessionLocal`과 `app/db/models.py`의 모델을 사용한다.
-
-   ```python
-   # app/batch/run.py
-   from app.db.database import SessionLocal
-   from app.db.models import JobPosting
-   from app.batch.collect import adzuna, remoteok
-
-   def main():
-       db = SessionLocal()
-       try:
-           postings = adzuna.collect() + remoteok.collect()
-           for p in postings:
-               db.add(JobPosting(**p))
-           db.commit()
-       finally:
-           db.close()
-
-   if __name__ == "__main__":
-       main()
-   ```
-
-3. **새 컬럼/테이블이 필요하면** `app/db/models.py`를 수정하고 `python scripts/init_db.py`로 스키마를 반영한다 (별도 마이그레이션 도구는 없음, `create_all` 기반이라 기존 테이블 컬럼 변경은 직접 DB에서 처리하거나 테이블을 새로 만들어야 함).
-4. **중복 저장 주의**: 현재 `job_postings.url`에 unique 제약이 없다. 배치를 여러 번 돌려도 중복이 쌓이지 않게 하려면 저장 전에 `db.query(JobPosting).filter_by(url=p["url"]).first()`로 존재 여부를 확인하거나, 모델에 unique 제약을 추가하는 방향을 논의해서 반영한다.
-5. 로컬에서 확인은 위 [DB 접속 방법 (DBeaver)](#db-접속-방법-dbeaver) 또는 파이썬 스니펫으로 한다.
+> `app/db/models.py`는 초기 프로토타입 시절 플레이스홀더로, 위 스키마와 무관하다. API가 실제로 읽는 것은 `db/jobs`, `db/ecosystem`의 뷰다.
 
 ## 프론트엔드 ↔ API 계약
 
@@ -236,7 +201,7 @@ GET {NEXT_PUBLIC_API_URL}/api/v1/tech/{skillCode}/postings?limit=5
 
 ## 프론트엔드 배포 (Vercel)
 
-`frontend/`는 Next.js 프로젝트로, Vercel에 별도 배포한다 (API/배치 서버 VM과는 독립).
+`frontend/`는 Next.js 프로젝트로, Vercel에 별도 배포한다 (API 서버/데이터 수집 파이프라인과는 독립).
 
 1. **Vercel 프로젝트 생성**
    - [vercel.com](https://vercel.com)에서 GitHub 레포 import
@@ -263,9 +228,8 @@ GET {NEXT_PUBLIC_API_URL}/api/v1/tech/{skillCode}/postings?limit=5
 | --- | --- | --- |
 | `db` | `5432:5432` | Postgres 16, 데이터는 `db_data` 볼륨에 저장 |
 | `api` | `8000:8000` | FastAPI (uvicorn) |
-| `batch` | 없음 | 상시 구동 아님, `--profile batch run`으로 1회 실행 |
 
-배치 서버 VM(`deploy/docker-compose.batch.yml`)에는 DB/API 컨테이너가 없고, `.env`의 `DATABASE_URL`로 API 서버 VM의 DB에 원격 접속한다.
+`pipelines/jobs`, `pipelines/ecosystem`은 로컬 compose에 포함되지 않는다. `.env`의 `DATABASE_URL`(또는 `DEVCOMPASS_DSN`)로 접근 가능한 DB를 가리키게 하고 개별 빌드해서 실행한다.
 
 ## DB 접속 방법 (DBeaver)
 
@@ -293,7 +257,7 @@ GET {NEXT_PUBLIC_API_URL}/api/v1/tech/{skillCode}/postings?limit=5
 SELECT * FROM job_postings;
 ```
 
-> 배치 서버 VM에서 접속할 때는 Host를 `localhost`가 아니라 API 서버 VM의 실제 접근 가능한 호스트/IP로 넣어야 한다 (`.env`의 `DATABASE_URL`과 동일한 값).
+> 원격(Fargate 등)에서 접속할 때는 Host를 `localhost`가 아니라 DB의 실제 접근 가능한 호스트/IP로 넣어야 한다 (`.env`의 `DATABASE_URL`과 동일한 값).
 
 **파이썬 코드에서 조회**
 

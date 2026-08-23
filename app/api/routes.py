@@ -104,8 +104,6 @@ CLUSTER_SQL = text("""
     WHERE s.skill_code = :skill_code
 """)
 
-# 노트북이 이웃을 "React (score=0.412, companies=7), ..." 한 덩어리 문자열로
-# 내보낸다. 항목 안에도 쉼표가 있어서 ", " 단순 분리는 깨진다.
 NEIGHBOR_RE = re.compile(r"(.+?) \(score=([\d.]+), companies=(\d+)\)(?:, |$)")
 
 
@@ -140,7 +138,6 @@ TIMESERIES_SQL = text("""
             AND j.metric_month < :to_month
         ORDER BY j.metric_month, s.skill_name
 """)
-
 
 TIMESERIES_DAILY_SQL = text("""
     WITH so AS (
@@ -259,7 +256,6 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
     role_percentiles = {role: percentile(values) for role, values in by_role.items()}
     role_ranks = {role: rank(values) for role, values in by_role.items()}
     total = period["total_postings"] or 0
-
     items = []
     for skill in skills:
         eco = ecosystem[skill["skill_id"]]

@@ -33,7 +33,7 @@ CREATE INDEX IF NOT EXISTS idx_ecosystem_run_latest_success
 ON ecosystem_run (finished_at DESC, run_id DESC)
 WHERE status = 'success';
 
-CREATE TABLE IF NOT EXISTS github_skill_counts (
+CREATE TABLE IF NOT EXISTS ecosystem_github_metrics (
     run_id TEXT NOT NULL REFERENCES ecosystem_run(run_id) ON DELETE CASCADE,
     skill_id BIGINT NOT NULL REFERENCES skill(skill_id) ON DELETE RESTRICT,
     github_repository_count BIGINT CHECK (github_repository_count >= 0),
@@ -64,10 +64,10 @@ CREATE TABLE IF NOT EXISTS github_skill_counts (
     )
 );
 
-CREATE INDEX IF NOT EXISTS idx_github_skill_counts_skill_run
-ON github_skill_counts (skill_id, run_id);
+CREATE INDEX IF NOT EXISTS idx_ecosystem_github_metrics_skill_run
+ON ecosystem_github_metrics (skill_id, run_id);
 
-CREATE TABLE IF NOT EXISTS stackoverflow_skill_counts (
+CREATE TABLE IF NOT EXISTS ecosystem_stackoverflow_metrics (
     run_id TEXT NOT NULL REFERENCES ecosystem_run(run_id) ON DELETE CASCADE,
     skill_id BIGINT NOT NULL REFERENCES skill(skill_id) ON DELETE RESTRICT,
     stackoverflow_tag TEXT,
@@ -92,13 +92,60 @@ CREATE TABLE IF NOT EXISTS stackoverflow_skill_counts (
     )
 );
 
-CREATE INDEX IF NOT EXISTS idx_stackoverflow_skill_counts_skill_run
-ON stackoverflow_skill_counts (skill_id, run_id);
+CREATE INDEX IF NOT EXISTS idx_ecosystem_stackoverflow_metrics_skill_run
+ON ecosystem_stackoverflow_metrics (skill_id, run_id);
+
+-- Monthly ecosystem activity imported from source-specific CSV snapshots.
+-- These tables are independent of ecosystem_run because their grain is
+-- (metric_month, skill_id), not (run_id, skill_id).
+
+CREATE TABLE IF NOT EXISTS ecosystem_monthly_stackoverflow_metrics (
+    metric_month DATE NOT NULL,
+    skill_id BIGINT NOT NULL REFERENCES skill(skill_id) ON DELETE RESTRICT,
+    stackoverflow_tag TEXT NOT NULL,
+    tag_source VARCHAR(20) NOT NULL
+        CHECK (tag_source IN ('manual', 'inferred')),
+    question_count BIGINT NOT NULL CHECK (question_count >= 0),
+    period_start DATE NOT NULL,
+    period_end DATE NOT NULL,
+    is_partial_period BOOLEAN NOT NULL DEFAULT FALSE,
+    source_file TEXT NOT NULL,
+    imported_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (metric_month, skill_id),
+    CHECK (period_end >= period_start),
+    CHECK (metric_month = DATE_TRUNC('month', period_start)::DATE)
+);
+
+CREATE INDEX IF NOT EXISTS idx_ecosystem_monthly_so_skill_month
+ON ecosystem_monthly_stackoverflow_metrics (skill_id, metric_month);
+
+CREATE TABLE IF NOT EXISTS ecosystem_monthly_github_metrics (
+    metric_month DATE NOT NULL,
+    skill_id BIGINT NOT NULL REFERENCES skill(skill_id) ON DELETE RESTRICT,
+    issue_count BIGINT NOT NULL CHECK (issue_count >= 0),
+    pull_request_count BIGINT NOT NULL CHECK (pull_request_count >= 0),
+    activity_query TEXT NOT NULL,
+    period_start DATE NOT NULL,
+    period_end DATE NOT NULL,
+    is_partial_period BOOLEAN NOT NULL DEFAULT FALSE,
+    source_file TEXT NOT NULL,
+    imported_at TIMESTAMPTZ NOT NULL DEFAULT NOW(),
+    PRIMARY KEY (metric_month, skill_id),
+    CHECK (period_end >= period_start),
+    CHECK (metric_month = DATE_TRUNC('month', period_start)::DATE)
+);
+
+CREATE INDEX IF NOT EXISTS idx_ecosystem_monthly_github_skill_month
+ON ecosystem_monthly_github_metrics (skill_id, metric_month);
 
 COMMENT ON TABLE ecosystem_run IS
     'One Task B snapshot. Only status=success runs are exposed to the API.';
-COMMENT ON TABLE github_skill_counts IS
+COMMENT ON TABLE ecosystem_github_metrics IS
     'Versioned raw GitHub Search API counts per run and canonical skill.';
-COMMENT ON TABLE stackoverflow_skill_counts IS
+COMMENT ON TABLE ecosystem_stackoverflow_metrics IS
     'Versioned raw Stack Overflow question counts per run and canonical skill.';
+COMMENT ON TABLE ecosystem_monthly_stackoverflow_metrics IS
+    'Monthly Stack Overflow question counts by canonical skill; partial periods are retained and flagged.';
+COMMENT ON TABLE ecosystem_monthly_github_metrics IS
+    'Monthly GitHub issue and pull-request counts by canonical skill; partial periods are retained and flagged.';
 

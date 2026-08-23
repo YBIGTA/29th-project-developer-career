@@ -22,8 +22,10 @@ waits for their containers to finish.
 - Revision-pinned ECS task definitions are registered for both images.
 - The task definitions inject RDS credentials and API secrets from Secrets
   Manager or SSM Parameter Store.
-- Private subnets can reach RDS and have internet egress for ATS, GitHub, and
-  Stack Exchange APIs.
+- `PrivateSubnetIds` are public subnets (route to an Internet Gateway) — tasks
+  run with `AssignPublicIp: ENABLED` and get a public IP for outbound access to
+  RDS, ATS, GitHub, and Stack Exchange APIs. No inbound rule is opened, so
+  tasks stay unreachable from the internet despite the public IP.
 - The ECS task execution role can pull images and read configured secrets.
 - The security groups allow PostgreSQL traffic to the RDS security group.
 
@@ -58,6 +60,25 @@ aws cloudformation deploy \
 The schedule is `DISABLED` by default. Start the state machine manually, inspect
 both container logs and RDS run records, and enable the schedule only after the
 full workflow succeeds.
+
+## Continuous deployment
+
+`.github/workflows/deploy-jobs.yaml` and `deploy-ecosystem.yaml` push to `main`
+under `pipelines/jobs/**` or `pipelines/ecosystem/**` and redeploy this stack:
+build the image, push to ECR, register a new task definition revision by
+cloning the current live definition and swapping only the image, then update
+this stack's `TaskATaskDefinitionArn`/`TaskBTaskDefinitionArn` parameter to the
+new revision ARN (both call the shared `deploy-pipeline.yaml` workflow).
+
+Task definitions stay revision-pinned by design — a new revision only takes
+effect once this step updates the stack parameter, it is never picked up
+implicitly.
+
+Requires an `AWS_DEPLOY_ROLE_ARN` repository secret: an IAM role trusted for
+GitHub Actions OIDC with permission to push to both ECR repositories,
+`ecs:DescribeTaskDefinition` / `RegisterTaskDefinition`, and
+`cloudformation:DescribeStacks` / `CreateChangeSet` / `ExecuteChangeSet` on this
+stack (plus `iam:PassRole` for `TaskExecutionRoleArn` and `TaskRoleArn`).
 
 ## Runtime contract
 

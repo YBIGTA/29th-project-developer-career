@@ -21,9 +21,9 @@ WITH latest_run AS (
         g.github_activity_count_180d,
         so.stackoverflow_question_count_180d
     FROM latest_run r
-    JOIN github_skill_counts g
+    JOIN ecosystem_github_metrics g
       ON g.run_id = r.run_id AND g.status = 'success'
-    JOIN stackoverflow_skill_counts so
+    JOIN ecosystem_stackoverflow_metrics so
       ON so.run_id = r.run_id
      AND so.skill_id = g.skill_id
      AND so.status = 'success'
@@ -62,13 +62,10 @@ FROM scored;
 COMMENT ON VIEW public.vw_latest_ecosystem_skill IS
     'Raw counts and percentile scores from the latest successful Task B run.';
 
--- Backward-compatible name for deployments that still query only Stack Overflow.
-CREATE OR REPLACE VIEW public.vw_stackoverflow_ecosystem_skill AS
-SELECT
-    skill_name AS skill,
-    stackoverflow_question_count_180d,
-    stackoverflow_score AS ecosystem_score
-FROM public.vw_latest_ecosystem_skill;
+-- vw_stackoverflow_ecosystem_skill is intentionally not (re)created here: a
+-- teammate already owns that name against the legacy CSV-imported tables, and
+-- app/api/routes.py reads vw_latest_ecosystem_skill instead, so nothing here
+-- needs to touch it.
 
 -- This is a demand aggregate from Task A data, not a Task B-owned physical table.
 CREATE OR REPLACE VIEW public.vw_stackoverflow_job_role_skill_counts AS

@@ -1,0 +1,111 @@
+name: Deploy Data Pipeline (reusable)
+
+# jobs/ecosystem 파이프라인이 공유하는 배포 절차:
+#   이미지 빌드 -> ECR push -> 현재 태스크 정의를 복제해 이미지만 교체한 새 리비전 등록
+#   -> infra/aws/jobs-workflow.yaml 스택의 해당 파라미터를 새 리비전 ARN으로 갱신
+# Step Functions는 "revision-pinned" ARN만 받으므로(설계상 의도), 새 리비전을 등록해도
+# 이 마지막 단계 없이는 실제 실행에 반영되지 않는다.
+on:
+  workflow_call:
+    inputs:
+      pipeline_dir:
+        required: true
+        type: string
+      ecr_repository:
+        required: true
+        type: string
+      ecs_task_family:
+        required: true
+        type: string
+      ecs_container_name:
+        required: true
+        type: string
+      cfn_parameter_key:
+        required: true
+        type: string
+    secrets:
+      AWS_DEPLOY_ROLE_ARN:
+        required: true
+
+env:
+  AWS_REGION: ap-northeast-2
+  CFN_STACK_NAME: devcompass-jobs-workflow
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configure AWS credentials
+        uses: aws-actions/configure-aws-credentials@v4
+        with:
+          role-to-assume: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}
+          aws-region: ${{ env.AWS_REGION }}
+
+      - name: Log in to ECR
+        id: ecr-login
+        uses: aws-actions/amazon-ecr-login@v2
+
+      - name: Build and push image
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          REPOSITORY: ${{ inputs.ecr_repository }}
+          IMAGE_TAG: ${{ github.sha }}
+        run: |
+          docker build -t "$REGISTRY/$REPOSITORY:$IMAGE_TAG" "${{ inputs.pipeline_dir }}"
+          docker push "$REGISTRY/$REPOSITORY:$IMAGE_TAG"
+
+      - name: Register new task definition revision
+        id: task-def
+        env:
+          REGISTRY: ${{ steps.ecr-login.outputs.registry }}
+          REPOSITORY: ${{ inputs.ecr_repository }}
+          IMAGE_TAG: ${{ github.sha }}
+          TASK_FAMILY: ${{ inputs.ecs_task_family }}
+          CONTAINER_NAME: ${{ inputs.ecs_container_name }}
+        run: |
+          set -euo pipefail
+
+          aws ecs describe-task-definition \
+            --task-definition "$TASK_FAMILY" \
+            --query 'taskDefinition' \
+            --output json \
+            | jq 'del(.taskDefinitionArn, .revision, .status, .requiresAttributes, .compatibilities, .registeredAt, .registeredBy)' \
+            > task-def.json
+
+          jq --arg image "$REGISTRY/$REPOSITORY:$IMAGE_TAG" --arg name "$CONTAINER_NAME" \
+            '.containerDefinitions |= map(if .name == $name then .image = $image else . end)' \
+            task-def.json > task-def.new.json
+
+          new_arn=$(aws ecs register-task-definition \
+            --cli-input-json file://task-def.new.json \
+            --query 'taskDefinition.taskDefinitionArn' \
+            --output text)
+
+          echo "arn=$new_arn" >> "$GITHUB_OUTPUT"
+
+      - name: Update Step Functions workflow stack
+        env:
+          PARAM_KEY: ${{ inputs.cfn_parameter_key }}
+          PARAM_VALUE: ${{ steps.task-def.outputs.arn }}
+        run: |
+          set -euo pipefail
+
+          mapfile -t overrides < <(aws cloudformation describe-stacks \
+            --stack-name "$CFN_STACK_NAME" \
+            --query 'Stacks[0].Parameters' --output json \
+            | jq -r --arg key "$PARAM_KEY" --arg val "$PARAM_VALUE" '
+                .[] | if .ParameterKey == $key
+                    then "\(.ParameterKey)=\($val)"
+                    else "\(.ParameterKey)=\(.ParameterValue)" end')
+
+          aws cloudformation deploy \
+            --stack-name "$CFN_STACK_NAME" \
+            --template-file infra/aws/jobs-workflow.yaml \
+            --parameter-overrides "${overrides[@]}" \
+            --capabilities CAPABILITY_NAMED_IAM \
+            --no-fail-on-empty-changeset

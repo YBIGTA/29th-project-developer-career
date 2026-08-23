@@ -1,0 +1,31 @@
+name: Deploy Task B (Ecosystem)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - pipelines/ecosystem/**
+      - infra/aws/jobs-workflow.yaml
+      - .github/workflows/deploy-ecosystem.yaml
+      - .github/workflows/deploy-pipeline.yaml
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: devcompass-jobs-workflow-stack
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy-pipeline.yaml
+    with:
+      pipeline_dir: pipelines/ecosystem
+      ecr_repository: devcompass-ecosystem
+      ecs_task_family: devcompass-ecosystem
+      ecs_container_name: devcompass-ecosystem
+      cfn_parameter_key: TaskBTaskDefinitionArn
+    secrets:
+      AWS_DEPLOY_ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}

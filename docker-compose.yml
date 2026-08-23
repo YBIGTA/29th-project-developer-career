@@ -1,5 +1,5 @@
-# 로컬 개발용. 실제 배포에서는 API 서버와 배치 서버가 서로 다른 VM에서 각자 뜬다.
-# API 서버는 Dockerfile.api로, 배치 서버는 deploy/docker-compose.batch.yml + Dockerfile.batch로 별도 배포한다.
+# 로컬 개발용. 실제 배포에서는 API 서버(Dockerfile.api)와 데이터 수집 파이프라인
+# (pipelines/jobs, pipelines/ecosystem, Fargate)이 서로 다른 곳에서 각자 뜬다.
 services:
   db:
     image: postgres:16
@@ -26,18 +26,30 @@ services:
     ports:
       - "8000:8000"
 
-  # 로컬에서 배치를 한 번 돌려보고 싶을 때만 사용. `docker compose --profile batch run batch`
-  # 실제 배치 서버는 다른 VM에서 deploy/docker-compose.batch.yml로 운영한다.
-  batch:
+  # 1회성 배치 컨테이너. `docker compose up`으로는 뜨지 않고 profile로만 실행된다.
+  #   docker compose --profile jobs run --rm jobs
+  #   docker compose --profile ecosystem run --rm ecosystem
+  # DB 접속 호스트는 compose 네트워크 안이므로 .env의 DATABASE_URL/DEVCOMPASS_DSN이
+  # localhost가 아니라 db(서비스명)를 가리켜야 한다.
+  jobs:
     build:
-      context: .
-      dockerfile: Dockerfile.batch
+      context: pipelines/jobs
     env_file:
       - .env
     depends_on:
       - db
     profiles:
-      - batch
+      - jobs
+
+  ecosystem:
+    build:
+      context: pipelines/ecosystem
+    env_file:
+      - .env
+    depends_on:
+      - db
+    profiles:
+      - ecosystem
 
 volumes:
   db_data:

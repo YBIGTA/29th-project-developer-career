@@ -40,7 +40,9 @@ Parameters:
 
   PrivateSubnetIds:
     Type: List<AWS::EC2::Subnet::Id>
-    Description: Private subnets with routes to RDS and internet egress.
+    Description: Subnets with routes to RDS and internet egress. Tasks run with
+      AssignPublicIp ENABLED, so these must be public subnets (route to an
+      Internet Gateway) for outbound internet access to succeed.
 
   SecurityGroupIds:
     Type: List<AWS::EC2::SecurityGroup::Id>
@@ -173,7 +175,7 @@ Resources:
       LoggingConfiguration:
         Destinations:
           - CloudWatchLogsLogGroup:
-              LogGroupArn: !Sub ${WorkflowLogGroup.Arn}:*
+              LogGroupArn: !GetAtt WorkflowLogGroup.Arn
         IncludeExecutionData: true
         Level: ALL
       Definition:
@@ -197,7 +199,7 @@ Resources:
                       TaskDefinition: !Ref TaskATaskDefinitionArn
                       NetworkConfiguration:
                         AwsvpcConfiguration:
-                          AssignPublicIp: DISABLED
+                          AssignPublicIp: ENABLED
                           Subnets: !Ref PrivateSubnetIds
                           SecurityGroups: !Ref SecurityGroupIds
                       Overrides:
@@ -262,7 +264,7 @@ Resources:
                       TaskDefinition: !Ref TaskBTaskDefinitionArn
                       NetworkConfiguration:
                         AwsvpcConfiguration:
-                          AssignPublicIp: DISABLED
+                          AssignPublicIp: ENABLED
                           Subnets: !Ref PrivateSubnetIds
                           SecurityGroups: !Ref SecurityGroupIds
                       Overrides:

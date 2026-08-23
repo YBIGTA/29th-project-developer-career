@@ -7,8 +7,8 @@ SELECT
     COUNT(g.skill_id) FILTER (WHERE g.status = 'success') AS github_success_rows,
     COUNT(so.skill_id) FILTER (WHERE so.status = 'success') AS stackoverflow_success_rows
 FROM ecosystem_run r
-LEFT JOIN github_skill_counts g ON g.run_id = r.run_id
-LEFT JOIN stackoverflow_skill_counts so
+LEFT JOIN ecosystem_github_metrics g ON g.run_id = r.run_id
+LEFT JOIN ecosystem_stackoverflow_metrics so
   ON so.run_id = r.run_id AND so.skill_id = g.skill_id
 GROUP BY r.run_id
 ORDER BY r.started_at DESC;

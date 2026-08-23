@@ -47,9 +47,9 @@ class EcosystemRepository:
                 COALESCE(g.status = 'success', FALSE) AS github_done,
                 COALESCE(so.status = 'success', FALSE) AS stackoverflow_done
             FROM skill s
-            LEFT JOIN github_skill_counts g
+            LEFT JOIN ecosystem_github_metrics g
               ON g.skill_id = s.skill_id AND g.run_id = %s
-            LEFT JOIN stackoverflow_skill_counts so
+            LEFT JOIN ecosystem_stackoverflow_metrics so
               ON so.skill_id = s.skill_id AND so.run_id = %s
             WHERE s.is_active = TRUE
             """,
@@ -64,7 +64,7 @@ class EcosystemRepository:
         with self.connection.transaction():
             self.connection.execute(
                 """
-                INSERT INTO github_skill_counts (
+                INSERT INTO ecosystem_github_metrics (
                     run_id, skill_id, github_repository_count,
                     github_issue_count_180d, github_pr_count_180d,
                     repository_query, activity_query, from_date, to_date,
@@ -99,7 +99,7 @@ class EcosystemRepository:
         with self.connection.transaction():
             self.connection.execute(
                 """
-                INSERT INTO stackoverflow_skill_counts (
+                INSERT INTO ecosystem_stackoverflow_metrics (
                     run_id, skill_id, stackoverflow_tag, tag_source,
                     stackoverflow_question_count_180d, from_date, to_date,
                     status, error_message, collected_at
@@ -125,8 +125,8 @@ class EcosystemRepository:
 
     def write_failure(self, source, run_id, skill, error_message, from_date, to_date):
         table = {
-            "github": "github_skill_counts",
-            "stackoverflow": "stackoverflow_skill_counts",
+            "github": "ecosystem_github_metrics",
+            "stackoverflow": "ecosystem_stackoverflow_metrics",
         }.get(source)
         if table is None:
             raise ValueError("Unknown ecosystem source: {}".format(source))
@@ -158,8 +158,8 @@ class EcosystemRepository:
                         WHERE g.status = 'success' AND so.status = 'success'
                     )::INTEGER
                 FROM ecosystem_run r
-                LEFT JOIN github_skill_counts g ON g.run_id = r.run_id
-                LEFT JOIN stackoverflow_skill_counts so
+                LEFT JOIN ecosystem_github_metrics g ON g.run_id = r.run_id
+                LEFT JOIN ecosystem_stackoverflow_metrics so
                   ON so.run_id = r.run_id AND so.skill_id = g.skill_id
                 WHERE r.run_id = %s
                 GROUP BY r.target_skills

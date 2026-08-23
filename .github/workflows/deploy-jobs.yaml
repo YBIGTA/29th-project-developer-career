@@ -1,0 +1,31 @@
+name: Deploy Task A (Jobs)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - pipelines/jobs/**
+      - infra/aws/jobs-workflow.yaml
+      - .github/workflows/deploy-jobs.yaml
+      - .github/workflows/deploy-pipeline.yaml
+  workflow_dispatch:
+
+permissions:
+  id-token: write
+  contents: read
+
+concurrency:
+  group: devcompass-jobs-workflow-stack
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    uses: ./.github/workflows/deploy-pipeline.yaml
+    with:
+      pipeline_dir: pipelines/jobs
+      ecr_repository: devcompass-jobs
+      ecs_task_family: devcompass-batch
+      ecs_container_name: devcompass-batch
+      cfn_parameter_key: TaskATaskDefinitionArn
+    secrets:
+      AWS_DEPLOY_ROLE_ARN: ${{ secrets.AWS_DEPLOY_ROLE_ARN }}

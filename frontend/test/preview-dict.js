@@ -5,10 +5,18 @@
 (() => {
   "use strict";
 
-  const { $, QUADRANTS, metaOf, fillFooter, formatCount, esc } = window.PV;
+  const { $, QUADRANTS, metaOf, fillFooter, formatCount, formatDuration,
+          ecosystemBars, normalizeVideos, docHost, esc } = window.PV;
   const DATA = window.PREVIEW;
 
   let query = "", quadFilter = "all", catFilter = "all", sort = "dict";
+
+  // 검색 대상 문자열. 별칭까지 넣어야 "K8s", "Golang" 같은 표기로도 찾힌다.
+  // 앱의 lib/skills.js skillHaystack과 같다.
+  const haystack = (d) => [
+    d.tech, d.category, d.kind, ...(d.aliases ?? []), ...(d.roles ?? []),
+    d.summary, ...(d.stack ?? []),
+  ].filter(Boolean).join(" ").toLowerCase();
 
   // 표제어의 첫 글자. 기술명은 대부분 로마자라 A-Z로 묶고 나머지는 #으로 보낸다.
   const initialOf = (name) => {
@@ -53,48 +61,14 @@
     }
   }
 
-  // ---- 펼침 패널용 임의 지표 -------------------------------------------------
-  // 목업이라 실제 GitHub/SO 수치가 없다. 기술명으로 씨앗을 잡아 매번 같은 값이
-  // 나오게 한다 (다시 그려도 숫자가 안 흔들린다).
-  const seedOf = (str) => {
-    let h = 2166136261;
-    for (const c of str) { h ^= c.charCodeAt(0); h = Math.imul(h, 16777619); }
-    return h >>> 0;
-  };
-  const jitter = (name, i, spread) => ((seedOf(name + i) % 1000) / 1000 - 0.5) * spread;
-  const clamp = (n) => Math.max(0, Math.min(100, n));
-  const compact = (n) =>
-    n >= 10000 ? `${Math.round(n / 10000).toLocaleString("ko-KR")}만` : n.toLocaleString("ko-KR");
-
-  function metricsOf(d) {
-    const base = d.ecosystemScore ?? 40;
-    const rows = [
-      { label: "GitHub 저장소", score: clamp(base + jitter(d.tech, 1, 8)), unit: "개", scale: 1 },
-      { label: "GitHub 이슈·PR", score: clamp(base + jitter(d.tech, 2, 10)), unit: "건", scale: 1.4 },
-      { label: "Stack Overflow 질문", score: clamp(base + jitter(d.tech, 3, 14)), unit: "개", scale: 0.0002 },
-    ];
-    return rows.map((r) => ({
-      ...r,
-      score: Math.round(r.score * 10) / 10,
-      raw: Math.max(1, Math.round((r.score ** 3) * 0.4 * r.scale * (1 + jitter(d.tech, r.label, 0.5)))),
-    }));
-  }
-
   // 학습 자료. 공식 문서 1개 + 추천 영상 3개를, 모두 썸네일이 보이는 카드로 건다.
-  // 값은 preview-data.js에 이미 들어 있다(앱의 lib/techExtras.json 사본).
-  // 영상은 200개 중 87개에만 있고, 문서는 198개에 있다 — 없으면 그 카드를
-  // 만들지 않는다. 빈 껍데기를 그리느니 개수가 줄어드는 편이 낫다.
-  const formatDuration = (seconds) => {
-    const total = Math.round(seconds / 60);
-    const h = Math.floor(total / 60), m = total % 60;
-    return h ? `${h}시간 ${m}분` : `${m}분`;
-  };
-
+  // 없는 자료는 카드를 만들지 않는다 — 빈 껍데기를 그리느니 장수가 주는 편이 낫다.
+  // URL만 있어도 카드가 서게 하는 헬퍼는 preview-common.js에 있다(지도와 공용).
   // 문서 카드에는 쓸 썸네일 이미지가 없다. 그 사이트의 파비콘을 얹고, 못 받아오면
   // (onerror로 스스로 지워져) 뒤에 깔린 머리글자 타일이 그대로 보인다.
   function docCard(d, color) {
-    if (!d.docs?.url) return "";
-    const host = new URL(d.docs.url).host.replace(/^www\./, "");
+    const host = docHost(d.docs);
+    if (!host) return "";
     return `
       <a class="dict-learn__item" href="${esc(d.docs.url)}" target="_blank" rel="noopener noreferrer"
         ${d.docs.note ? `title="${esc(d.docs.note)}"` : ""}>
@@ -112,63 +86,57 @@
   }
 
   function videoCards(d, color) {
-    return (d.videos ?? []).slice(0, 3).map((v) => `
+    return normalizeVideos(d.videos).map((v, i) => `
       <a class="dict-learn__item" href="https://www.youtube.com/watch?v=${esc(v.id)}"
         target="_blank" rel="noopener noreferrer">
         <span class="dict-learn__thumb">
           <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy" />
-          <span class="dict-learn__duration">${formatDuration(v.seconds)}</span>
+          ${typeof v.seconds === "number"
+            ? `<span class="dict-learn__duration">${formatDuration(v.seconds)}</span>` : ""}
         </span>
         <span class="dict-learn__body">
           <span class="dict-learn__kind" style="color:${color}">영상</span>
-          <span class="dict-learn__title dict-learn__title--clamp">${esc(v.title)}</span>
-          <span class="dict-learn__meta">${esc(v.channel)} · 조회 ${formatCount(v.views)}회</span>
+          <span class="dict-learn__title dict-learn__title--clamp">${esc(v.title || `${d.tech} 입문 영상 ${i + 1}`)}</span>
+          ${(() => {
+            const meta = [v.channel, typeof v.views === "number" ? `조회 ${formatCount(v.views)}회` : null]
+              .filter(Boolean).join(" · ");
+            return meta ? `<span class="dict-learn__meta">${esc(meta)}</span>` : "";
+          })()}
         </span>
       </a>`).join("");
   }
 
-  // 머리말 요약 — 사분면 설명 대신 이 기술이 공고에서 어떻게 나오는지로 바꾼다.
-  function summaryOf(d, m) {
-    const roles = d.roleBreakdown || [];
-    if (!d.postings) return m.description;
-    const share = ((d.postings / DATA.meta.totalPostings) * 100).toFixed(1);
-    let out = `활성 공고 ${d.postings.toLocaleString("ko-KR")}건(${share}%)에서 요구됩니다.`;
-    if (roles.length) {
-      out += ` ${roles[0].role} 직군에서 가장 많이 쓰이고(${roles[0].count}건), ` +
-        `${roles.length}개 직군에 걸쳐 요구됩니다.`;
-    }
-    return out;
-  }
 
   function panelHTML(d, m) {
     const color = `var(--quad-${m.slug})`;
-    const mt = metricsOf(d);
 
-    const metrics = mt.map((r) => `
+    // 지표도 근거 문장도 응답에 실려 온 실측값이다. 예전에는 여기서 기술명을
+    // 씨앗 삼아 난수로 지어냈는데, preview-data.js가 앱과 같은 필드를 갖게
+    // 되면서 지어낼 이유가 없어졌다. ecosystemBars는 응답에 있는 지표만
+    // 돌려주므로 세 개가 다 오지 않아도 그대로 그린다.
+    const metrics = ecosystemBars(d).map((bar) => `
       <div>
         <div class="dict-entry__metric-row">
-          <span>${r.label}</span>
-          <span>
-            <span class="dict-entry__metric-value">${r.score.toFixed(1)}</span>
-            <span class="dict-entry__metric-raw">${compact(r.raw)}${r.unit}</span>
-          </span>
+          <span>${esc(bar.label)}</span>
+          <span class="dict-entry__metric-value">${bar.score}<span class="dict-entry__metric-raw">${esc(bar.rawText)}</span></span>
         </div>
         <div class="dict-entry__metric-track">
-          <div class="dict-entry__metric-fill" style="width:${r.score}%;background:${color}"></div>
+          <div class="dict-entry__metric-fill" style="width:${bar.score}%;background:${color}"></div>
         </div>
       </div>`).join("");
 
-    const signals = [
-      ["채용", `활성 공고 ${(d.postings ?? 0).toLocaleString("ko-KR")}건에서 요구됩니다.`],
-      ["생태계 · GitHub", `저장소 ${mt[0].raw.toLocaleString("ko-KR")}개 기준 백분위 ${mt[0].score.toFixed(1)}점입니다.`],
-      ["생태계 · GitHub 활동", `최근 180일 이슈·PR ${mt[1].raw.toLocaleString("ko-KR")}건 기준 백분위 ${mt[1].score.toFixed(1)}점입니다.`],
-      ["생태계 · Stack Overflow", `최근 180일 질문 ${mt[2].raw.toLocaleString("ko-KR")}개 기준 백분위 ${mt[2].score.toFixed(1)}점입니다.`],
-    ].map(([meta, title]) => `
+    const signals = (d.signals ?? []).map((s) => `
       <div class="dict-entry__signal">
         <span class="dict-entry__signal-dot" style="background:${color}"></span>
-        <span class="dict-entry__signal-meta">${meta}</span>
-        <span class="dict-entry__signal-title">${title}</span>
+        <span class="dict-entry__signal-meta">${esc(s.meta)}</span>
+        <span class="dict-entry__signal-title">${esc(s.title)}</span>
       </div>`).join("");
+
+    // 칩을 누르면 그 기술로 검색이 걸린다. 앱의 onPickStack과 같은 동작이다.
+    const stack = d.stack?.length ? `
+      <div class="dict-entry__sub">함께 요구되는 기술</div>
+      <div class="dict-entry__stack">${d.stack.map((t) =>
+        `<button type="button" class="dict-entry__chip" data-stack="${esc(t)}">${esc(t)}</button>`).join("")}</div>` : "";
 
     const learn = docCard(d, color) + videoCards(d, color);
 
@@ -182,6 +150,7 @@
           <div>
             <div class="dict-entry__sub">이 자리에 있는 이유</div>
             <div class="dict-entry__signals">${signals}</div>
+            ${stack}
           </div>
         </div>
 
@@ -206,7 +175,7 @@
             <span class="dict-entry__quad"><span class="legend-swatch legend-swatch--${m.slug}"></span>${m.label}</span>
             ${roles}
           </span>
-          <span class="dict-entry__summary">${summaryOf(d, m)}</span>
+          <span class="dict-entry__summary">${esc(d.summary ?? d.signals?.[0]?.title ?? m.description)}</span>
           <span class="dict-entry__scores">
             <span class="dict-score"><span class="dict-score__label">생태계</span><span class="dict-score__value">${d.ecosystemScore}</span></span>
             <span class="dict-score"><span class="dict-score__label">채용 수요</span><span class="dict-score__value">${d.demand}</span></span>
@@ -229,6 +198,15 @@
     const d = DATA.items.find((x) => x.tech === entry.dataset.tech);
     if (!d) return;
     entry.insertAdjacentHTML("beforeend", panelHTML(d, metaOf(d.quadrant)));
+
+    // 연관 기술 칩 -> 그 기술로 검색. 앱의 onPickStack과 같은 동작이다.
+    entry.querySelectorAll(".dict-entry__chip").forEach((b) => {
+      b.addEventListener("click", () => {
+        query = b.dataset.stack;
+        $("#dict-search").value = query;
+        render();
+      });
+    });
   }
 
   function render() {
@@ -236,9 +214,13 @@
 
     const q = query.trim().toLowerCase();
     const rows = DATA.items.filter((d) =>
-      (!q || d.tech.toLowerCase().includes(q) || (d.category || "").toLowerCase().includes(q)) &&
+      (!q || haystack(d).includes(q)) &&
       (quadFilter === "all" || d.quadrant === quadFilter) &&
       (catFilter === "all" || d.category === catFilter));
+
+    $("#dict-count").innerHTML = `${rows.length}개 표제어` +
+      (query ? `<span class="dict-count__q"> · &ldquo;${esc(query)}&rdquo; 검색 결과</span>` : "");
+    $("#dict-clear").hidden = !query;
 
     if (sort === "postings") rows.sort((a, b) => (b.postings ?? 0) - (a.postings ?? 0));
     else if (sort === "ecosystem") rows.sort((a, b) => (b.ecosystemScore ?? -1) - (a.ecosystemScore ?? -1));
@@ -260,7 +242,13 @@
         <div class="dict-status dict-status--empty">
           <div class="dict-status__title">찾는 기술이 없습니다</div>
           <p class="dict-status__text">다른 이름으로 검색하거나, 필터를 전체로 되돌려보세요.</p>
+          <button type="button" class="dict-status__btn" id="dict-reset">조건 초기화</button>
         </div>`;
+      $("#dict-reset").addEventListener("click", () => {
+        query = ""; quadFilter = "all"; catFilter = "all";
+        $("#dict-search").value = "";
+        render();
+      });
       return;
     }
 
@@ -338,6 +326,13 @@
   });
 
   $("#dict-search").addEventListener("input", (e) => { query = e.target.value; render(); });
+
+  $("#dict-clear").addEventListener("click", () => {
+    query = "";
+    $("#dict-search").value = "";
+    $("#dict-search").focus();
+    render();
+  });
 
   document.querySelectorAll("#dict-sort .dict-sort__btn").forEach((b) => {
     b.addEventListener("click", () => {

@@ -23,14 +23,6 @@
   pointer-events: none;
 }
 
-/* 상단바가 fixed라 본문이 그 아래로 깔린다. 앱에서는 히어로가 이 자리를
-   만들어줬는데 히어로를 없앴으므로 여기서 직접 띄운다.
-   .dict가 이미 갖고 있는 112px과 같은 값을 써야 지도 <-> 사전을 오갈 때
-   본문이 위아래로 튀지 않는다. */
-.page__main {
-  padding-top: 112px;
-}
-
 /* 사전 항목: 앱의 DetailedEntry/BriefEntry 중 접힌 상태만 쓴다. */
 .dict-entry__head--static {
   cursor: default;

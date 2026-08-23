@@ -94,29 +94,70 @@ for (const t of PREVIEW.items) {
     assert.ok(html.includes(PV.esc(t.tech)), `${t.tech}: 이름이 안 보인다`);
 
     if (tab === "overview") {
-      // 스크린샷에 있는 배포본의 다섯 블록.
+      // 배포본 개요 탭의 블록들.
       for (const section of ["생태계 활동 추이", "이 자리에 있는 이유", "채용 공고 언급", "생태계 종합"]) {
         assert.ok(html.includes(section), `${t.tech}: '${section}' 블록이 없다`);
       }
       assert.ok(html.includes("Esc 키로 닫을 수 있습니다"), `${t.tech}: 각주가 없다`);
+      // 배지 줄에서 없앤 공식 문서 알약.
+      assert.ok(!html.includes("detail-panel__docs"), `${t.tech}: 없앤 공식 문서 알약이 되살아났다`);
       if (t.stack?.length) assert.ok(html.includes("함께 요구되는 기술"), `${t.tech}: 연관 기술이 없다`);
-      if (t.verdict) assert.ok(html.includes("지금 배운다면"), `${t.tech}: 조언 카드가 없다`);
+      assert.ok(!html.includes("지금 배운다면"), `${t.tech}: 없앤 조언 카드가 되살아났다`);
       // 생태계 3분해 막대는 응답에 있는 지표만 그린다.
       const bars = PV.ecosystemBars(t);
       for (const bar of bars) assert.ok(html.includes(bar.label), `${t.tech}: ${bar.label} 막대가 없다`);
     }
 
-    if (tab === "learn" && t.videos?.length) {
+    if (tab === "learn" && (t.videos?.length || t.docs?.url)) {
       withVideos++;
-      assert.ok(html.includes("youtube.com/watch"), `${t.tech}: 영상 링크가 없다`);
+      // 배지 줄의 공식 문서 알약을 없앴으므로, 문서로 가는 통로는 이 탭뿐이다.
+      if (t.docs?.url) assert.ok(html.includes(t.docs.url), `${t.tech}: 공식 문서 카드가 없다`);
+      if (t.videos?.length) {
+        assert.equal(html.split("i.ytimg.com/vi/").length - 1, 3, `${t.tech}: 영상 썸네일이 3개가 아니다`);
+      }
     }
   }
 }
 
-// 영상이 없는 기술은 학습 탭 자체를 만들지 않는다.
-const noVideo = PREVIEW.items.find((t) => !t.videos?.length);
-window.__previewSelect(noVideo, "learn");
-assert.ok(!panel.innerHTML.includes(">학습<"), "영상이 없는데 학습 탭이 생겼다");
+// 문서도 영상도 없는 기술만 학습 탭을 안 만든다. 영상만 없는 기술은 문서
+// 카드 한 장 때문에 탭이 남아야 한다 — 알약을 없앤 뒤로 여기가 유일한 통로다.
+const nothing = PREVIEW.items.find((t) => !t.videos?.length && !t.docs?.url);
+window.__previewSelect(nothing, "learn");
+assert.ok(!panel.innerHTML.includes(">학습<"), "자료가 없는데 학습 탭이 생겼다");
 assert.ok(panel.innerHTML.includes("생태계 활동 추이"), "학습 탭이 없으면 개요로 되돌아와야 한다");
 
-console.log(`통과 — 기술 ${PREVIEW.items.length}개 × 3탭, 학습 자료 ${withVideos}개`);
+const docOnly = PREVIEW.items.find((t) => !t.videos?.length && t.docs?.url);
+window.__previewSelect(docOnly, "learn");
+assert.ok(panel.innerHTML.includes(">학습<"), "문서만 있는 기술에 학습 탭이 없다");
+assert.ok(panel.innerHTML.includes(docOnly.docs.url), "문서만 있는 기술의 문서 카드가 없다");
+
+// 주소만 있어도 카드가 완성되는가. 팀원이 DB에 URL만 올릴 수 있어서, 제목·채널·
+// 조회수·재생시간이 전부 없는 경우가 이 화면의 기본값이 될 수 있다.
+const urlOnly = {
+  ...docOnly,
+  docs: { url: "https://example.com/docs" },
+  videos: [
+    "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+    { url: "https://youtu.be/aaaaaaaaaaa" },
+    { url: "https://www.youtube.com/embed/bbbbbbbbbbb" },
+  ],
+};
+window.__previewSelect(urlOnly, "learn");
+const bare = panel.innerHTML;
+for (const id of ["dQw4w9WgXcQ", "aaaaaaaaaaa", "bbbbbbbbbbb"]) {
+  assert.ok(bare.includes(`i.ytimg.com/vi/${id}/`), `주소만 있을 때 ${id} 썸네일이 없다`);
+  assert.ok(bare.includes(`youtube.com/watch?v=${id}`), `주소만 있을 때 ${id} 링크가 없다`);
+}
+assert.ok(bare.includes("example.com"), "주소만 있을 때 문서 호스트가 안 보인다");
+assert.ok(bare.includes("입문 영상 1"), "제목이 없을 때 순번 이름이 안 붙는다");
+for (const bad of ["undefined", "NaN"]) {
+  assert.ok(!bare.includes(bad), `주소만 있을 때 ${bad}가 샜다`);
+}
+
+// summary는 손으로 쓴 설명 한 문장 + 데이터로 조립한 통계 문장이다. 설명이
+// 없는 기술도 통계 문장은 반드시 있어야 한다.
+for (const t of PREVIEW.items) {
+  assert.ok(t.summary.includes("활성 공고 "), `${t.tech}: 요약에 통계 문장이 없다`);
+}
+
+console.log(`통과 — 기술 ${PREVIEW.items.length}개 × 3탭, 학습 자료 ${withVideos}개 (주소만 있는 경우 포함)`);

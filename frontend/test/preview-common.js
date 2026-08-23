@@ -59,6 +59,43 @@ window.PV = (() => {
     return `아래 ${count}개 지표(각 0~100)의 평균입니다.`;
   }
 
+  // ---- 학습 자료 (지도 상세 패널 · 사전 펼침 패널 공용) ---------------------
+  // **URL 하나만 있어도 카드가 완성되게 만든다.** 이 값들은 곧 DB에서 오는데
+  // 올라가는 것이 주소뿐일 수 있다. 그래서 화면에 꼭 필요한 것은 전부 주소에서
+  // 뽑는다 — 영상 썸네일은 video id로, 문서 카드의 이름과 파비콘은 호스트로.
+  // 제목·채널·조회수·재생시간은 있으면 얹고 없으면 그 줄을 그리지 않는다.
+  const YOUTUBE_ID = /(?:youtu\.be\/|[?&]v=|\/embed\/|\/shorts\/)([A-Za-z0-9_-]{11})/;
+
+  const youtubeId = (url) => (String(url ?? "").match(YOUTUBE_ID) || [])[1] || null;
+
+  /** {id,...} · {url,...} · "https://..." 셋 다 받는다. id를 못 뽑으면 버린다. */
+  function normalizeVideos(videos) {
+    return (videos ?? [])
+      .map((v) => {
+        const item = typeof v === "string" ? { url: v } : v ?? {};
+        const id = item.id || youtubeId(item.url);
+        return id ? { ...item, id } : null;
+      })
+      .filter(Boolean)
+      .slice(0, 3);
+  }
+
+  /** 문서 카드에 쓸 도메인. 주소가 깨져 있으면 카드를 만들지 않는다. */
+  function docHost(docs) {
+    try {
+      return docs?.url ? new URL(docs.url).host.replace(/^www\./, "") : null;
+    } catch {
+      return null;
+    }
+  }
+
+  /** 1842초 -> "30분", 7341초 -> "2시간 2분". */
+  function formatDuration(seconds) {
+    const total = Math.round(seconds / 60);
+    const h = Math.floor(total / 60), m = total % 60;
+    return h ? `${h}시간 ${m}분` : `${m}분`;
+  }
+
   // innerHTML로 그리므로 데이터에서 온 문자열은 한 번 막아둔다.
   const esc = (v) =>
     String(v ?? "").replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -72,5 +109,6 @@ window.PV = (() => {
       `미리보기용 정적 사본입니다. 생태계·채용 수요 지표는 ${m.fromDate} ~ ${m.toDate} 기준 목업 데이터입니다.`;
   }
 
-  return { $, QUADRANTS, metaOf, fillFooter, formatCount, ecosystemBars, ecosystemNote, esc };
+  return { $, QUADRANTS, metaOf, fillFooter, formatCount, formatDuration,
+           ecosystemBars, ecosystemNote, normalizeVideos, docHost, esc };
 })();

@@ -6,7 +6,8 @@
 (() => {
   "use strict";
 
-  const { $, QUADRANTS, metaOf, fillFooter, formatCount, ecosystemBars, ecosystemNote, esc } = window.PV;
+  const { $, QUADRANTS, metaOf, fillFooter, formatCount, formatDuration,
+          ecosystemBars, ecosystemNote, normalizeVideos, docHost, esc } = window.PV;
   const DATA = window.PREVIEW;
   const PREVIEW_POSTINGS = window.PREVIEW_POSTINGS;
 
@@ -300,13 +301,6 @@
 
   const SPARK_W = 100, SPARK_H = 44, SPARK_PAD = 5;
 
-  /** 1842초 -> "30분", 7341초 -> "2시간 2분". */
-  function formatDuration(seconds) {
-    const total = Math.round(seconds / 60);
-    const h = Math.floor(total / 60), m = total % 60;
-    return h ? `${h}시간 ${m}분` : `${m}분`;
-  }
-
   /**
    * 최근 8개월 생태계 활동 추이. 그리는 값은 원시 건수가 아니라 점유율
    * 지수다 — 원시값을 쓰면 GitHub는 거의 다 상승, Stack Overflow는 거의 다
@@ -357,30 +351,63 @@
           </div>
         </div>
         <p class="detail-panel__trend-note">${months[0]} = 100 기준 · ${months[months.length - 1]} ${rawText}</p>
-        <p class="detail-panel__trend-note">
-          채용 공고가 아니라 GitHub·Stack Overflow 활동량입니다. 같은 달 전체 기술 합계에서
-          차지하는 비중을 지수로 만들어, 플랫폼 전체가 커지거나 줄어드는 효과를 걷어냈습니다.
-          집계가 진행 중인 이번 달은 제외했습니다.${
-            hasStackoverflow ? "" : " 이 기술은 Stack Overflow 질문이 없어 GitHub만으로 계산했습니다."}
-        </p>
+        <p class="detail-panel__trend-note">${
+          hasStackoverflow ? "GitHub·Stack Overflow 활동량" : "GitHub 활동량"}</p>
       </div>`;
   }
 
-  function videosHtml(videos) {
-    return `<ul class="detail-panel__videos">${videos.map((v) => `
-      <li class="detail-panel__video">
-        <a class="detail-panel__video-link" href="https://www.youtube.com/watch?v=${esc(v.id)}"
-          target="_blank" rel="noopener noreferrer">
-          <img class="detail-panel__video-thumb" src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg"
-            alt="" loading="lazy" width="120" height="68" />
-          <span class="detail-panel__video-body">
-            <span class="detail-panel__video-title">${esc(v.title)}</span>
-            <span class="detail-panel__video-meta">
-              ${esc(v.channel)} · 조회 ${formatCount(v.views)}회 · ${formatDuration(v.seconds)}
-            </span>
+  // 학습 자료 카드. 헬퍼는 preview-common.js에 있다(사전과 공용).
+  function learnHtml(t) {
+    const videos = normalizeVideos(t.videos);
+    const host = docHost(t.docs);
+    if (!host && !videos.length) return "";
+
+    // 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트
+    // 파비콘을 얹는다. 못 받아오면 img가 스스로 지워지고 타일만 남는다.
+    const doc = host ? `
+      <li>
+        <a class="detail-panel__learn-link" href="${esc(t.docs.url)}" target="_blank"
+          rel="noopener noreferrer"${t.docs.note ? ` title="${esc(t.docs.note)}"` : ""}>
+          <span class="detail-panel__learn-thumb detail-panel__learn-thumb--doc">
+            <span class="detail-panel__learn-initial">${esc(t.tech.slice(0, 2))}</span>
+            <img class="detail-panel__learn-favicon" src="https://${esc(host)}/favicon.ico"
+              alt="" loading="lazy" onerror="this.remove()" />
+          </span>
+          <span class="detail-panel__learn-body">
+            <span class="detail-panel__learn-kind">공식 문서</span>
+            <span class="detail-panel__learn-title">${esc(t.tech)} 공식 문서</span>
+            <span class="detail-panel__learn-meta">${esc(host)}</span>
           </span>
         </a>
-      </li>`).join("")}</ul>`;
+      </li>` : "";
+
+    const clips = videos.map((v, i) => {
+      // 제목이 없으면 주소만 있는 것이다. 순번으로 최소한의 이름을 만든다 —
+      // 카드 넷이 전부 "영상"이면 무엇을 눌렀는지 되짚을 수 없다.
+      const title = v.title || `${t.tech} 입문 영상 ${i + 1}`;
+      const meta = [
+        v.channel,
+        typeof v.views === "number" ? `조회 ${formatCount(v.views)}회` : null,
+      ].filter(Boolean).join(" · ");
+      return `
+      <li>
+        <a class="detail-panel__learn-link" href="https://www.youtube.com/watch?v=${esc(v.id)}"
+          target="_blank" rel="noopener noreferrer">
+          <span class="detail-panel__learn-thumb">
+            <img src="https://i.ytimg.com/vi/${esc(v.id)}/hqdefault.jpg" alt="" loading="lazy" />
+            ${typeof v.seconds === "number"
+              ? `<span class="detail-panel__learn-duration">${formatDuration(v.seconds)}</span>` : ""}
+          </span>
+          <span class="detail-panel__learn-body">
+            <span class="detail-panel__learn-kind">영상</span>
+            <span class="detail-panel__learn-title">${esc(title)}</span>
+            ${meta ? `<span class="detail-panel__learn-meta">${esc(meta)}</span>` : ""}
+          </span>
+        </a>
+      </li>`;
+    }).join("");
+
+    return `<ul class="detail-panel__learn">${doc}${clips}</ul>`;
   }
 
   // 앱은 /api/v1/tech/{code}/postings를 부르고 실패하면 mockPostings.json으로
@@ -434,8 +461,10 @@
     const delta = t.trend?.delta;
     // 영상은 200개 중 87개 기술에만 있다. 없으면 탭 자체를 만들지 않는다 —
     // 공식 문서 링크는 배지 줄에 따로 있어서 탭이 없어도 잃는 것이 없다.
-    const hasVideos = t.videos?.length > 0;
-    if (detailTab === "learn" && !hasVideos) detailTab = "overview";
+    // 배지 줄에 있던 공식 문서 알약을 없앴으므로, 문서로 가는 통로는 이제
+    // 학습 탭 하나뿐이다. 영상이 없어도 문서만 있으면 탭을 만든다.
+    const learnCards = learnHtml(t);
+    if (detailTab === "learn" && !learnCards) detailTab = "overview";
 
     const deltaTone = !delta || Math.abs(delta.pct) < 1 ? "flat" : delta.pct > 0 ? "up" : "down";
     const tabBtn = (key, label) =>
@@ -502,12 +531,6 @@
         <div class="detail-panel__stack">${t.stack.map((s) =>
           `<span class="detail-panel__chip">${esc(s)}</span>`).join("")}</div>` : ""}
 
-      ${t.verdict ? `
-        <div class="detail-panel__verdict" style="background: ${m.tint}">
-          <div class="detail-panel__eyebrow">지금 배운다면</div>
-          <div class="detail-panel__verdict-text">${esc(t.verdict)}</div>
-        </div>` : ""}
-
       <p class="detail-panel__footnote">
         생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된
         공고에서 추출한 기술 태그 빈도의 백분위 순위입니다. Esc 키로 닫을 수 있습니다.
@@ -515,11 +538,11 @@
 
     const learn = `
       <p class="detail-panel__summary">
-        ${esc(t.tech)}을(를) 처음 배울 때 볼 만한 영상입니다.${t.docs?.url ? " 위의 공식 문서와 함께 보세요." : ""}
+        ${esc(t.tech)}을(를) 처음 배울 때 볼 만한 공식 문서와 영상입니다.
       </p>
-      ${hasVideos ? videosHtml(t.videos) : ""}
+      ${learnCards}
       <p class="detail-panel__footnote">
-        조회수와 평가를 함께 반영해 고른 영어 입문 강의입니다. 유튜브에서 열립니다.
+        영상은 조회수와 평가를 함께 반영해 고른 영어 입문 강의입니다. 새 탭에서 열립니다.
       </p>`;
 
     const postings = `
@@ -550,13 +573,11 @@
             <span class="detail-panel__badge-dot" style="background: ${color}"></span>${m.label}
           </span>
           ${(t.roles ?? []).map((r) => `<span class="detail-panel__badge">${esc(r)}</span>`).join("")}
-          ${t.docs?.url ? `<a class="detail-panel__docs" href="${esc(t.docs.url)}" target="_blank"
-            rel="noopener noreferrer"${t.docs.note ? ` title="${esc(t.docs.note)}"` : ""}>공식 문서${EXT_ICON}</a>` : ""}
         </div>
 
         <div class="detail-panel__tabs" role="tablist" aria-label="상세 정보 보기">
           ${tabBtn("overview", "개요")}
-          ${hasVideos ? tabBtn("learn", "학습") : ""}
+          ${learnCards ? tabBtn("learn", "학습") : ""}
           ${tabBtn("postings", "채용 공고")}
         </div>
 

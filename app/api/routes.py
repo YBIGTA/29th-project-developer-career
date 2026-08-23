@@ -10,6 +10,7 @@ from app.api.schemas import (
     GapMapResponse,
     PostingsResponse,
     SkillsResponse,
+    TimeSeriesDailyResponse,
     TimeSeriesResponse,
 )
 from app.db.database import get_db
@@ -103,8 +104,6 @@ CLUSTER_SQL = text("""
     WHERE s.skill_code = :skill_code
 """)
 
-# 노트북이 이웃을 "React (score=0.412, companies=7), ..." 한 덩어리 문자열로
-# 내보낸다. 항목 안에도 쉼표가 있어서 ", " 단순 분리는 깨진다.
 NEIGHBOR_RE = re.compile(r"(.+?) \(score=([\d.]+), companies=(\d+)\)(?:, |$)")
 
 
@@ -138,6 +137,69 @@ TIMESERIES_SQL = text("""
         WHERE j.metric_month >= :from_month
             AND j.metric_month < :to_month
         ORDER BY j.metric_month, s.skill_name
+""")
+
+TIMESERIES_DAILY_SQL = text("""
+    WITH so AS (
+        SELECT
+            d.metric_date,
+            d.skill_id,
+            d.question_count,
+            AVG(d.question_count) OVER (
+                PARTITION BY d.skill_id ORDER BY d.metric_date
+                ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+            ) AS rolling_avg_30d,
+            SUM(d.question_count) OVER (
+                PARTITION BY d.skill_id ORDER BY d.metric_date
+                ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+            ) AS skill_rolling_sum_30d
+        FROM ecosystem_daily_stackoverflow_metrics d
+        WHERE d.metric_date >= :from_date AND d.metric_date < :to_date
+    ), totals AS (
+        SELECT metric_date, SUM(question_count) AS total_count
+        FROM ecosystem_daily_stackoverflow_metrics
+        WHERE metric_date >= :from_date AND metric_date < :to_date
+        GROUP BY metric_date
+    ), totals_rolling AS (
+        SELECT
+            metric_date,
+            SUM(total_count) OVER (
+                ORDER BY metric_date
+                ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
+            ) AS total_rolling_sum_30d
+        FROM totals
+    ), shared AS (
+        SELECT
+            so.metric_date,
+            so.skill_id,
+            so.question_count,
+            so.rolling_avg_30d,
+            CASE WHEN tr.total_rolling_sum_30d > 0
+                 THEN so.skill_rolling_sum_30d::NUMERIC / tr.total_rolling_sum_30d
+                 ELSE 0
+            END AS share
+        FROM so
+        JOIN totals_rolling tr ON tr.metric_date = so.metric_date
+    ), baseline AS (
+        SELECT skill_id, AVG(share) AS avg_share
+        FROM shared
+        GROUP BY skill_id
+    )
+    SELECT
+        shared.metric_date AS date,
+        s.skill_code AS "skillCode",
+        s.skill_name AS "skillName",
+        shared.question_count AS "stackoverflowQuestionCount",
+        ROUND(shared.rolling_avg_30d::NUMERIC, 3) AS "stackoverflowRollingAvg30d",
+        CASE WHEN baseline.avg_share > 0
+             THEN ROUND((shared.share / baseline.avg_share * 100)::NUMERIC, 2)
+             ELSE NULL
+        END AS "stackoverflowIndex",
+        (baseline.avg_share > 0) AS "hasIndexBaseline"
+    FROM shared
+    JOIN baseline ON baseline.skill_id = shared.skill_id
+    JOIN skill s ON s.skill_id = shared.skill_id AND s.is_active = TRUE
+    ORDER BY shared.metric_date, s.skill_name
 """)
 
 
@@ -194,7 +256,6 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
     role_percentiles = {role: percentile(values) for role, values in by_role.items()}
     role_ranks = {role: rank(values) for role, values in by_role.items()}
     total = period["total_postings"] or 0
-
     items = []
     for skill in skills:
         eco = ecosystem[skill["skill_id"]]
@@ -338,5 +399,24 @@ def get_timeseries(
             row["month"] = row["month"].isoformat()
     return {
         "meta": {"from": from_month, "to": to_month},
+        "items": rows,
+    }
+
+
+@router.get("/timeseries/daily", response_model=TimeSeriesDailyResponse)
+def get_timeseries_daily(
+    from_date: str = Query(default="2026-02-24", alias="from"),
+    to_date: str = Query(default="2026-08-23", alias="to"),
+    db: Session = Depends(get_db),
+):
+    rows = [dict(row) for row in db.execute(
+        TIMESERIES_DAILY_SQL,
+        {"from_date": from_date, "to_date": to_date},
+    ).mappings()]
+    for row in rows:
+        if row["date"] is not None:
+            row["date"] = row["date"].isoformat()
+    return {
+        "meta": {"from": from_date, "to": to_date},
         "items": rows,
     }

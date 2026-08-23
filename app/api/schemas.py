@@ -118,3 +118,18 @@ class TimeSeriesItem(BaseModel):
 class TimeSeriesResponse(BaseModel):
     meta: dict[str, str | None]
     items: list[TimeSeriesItem]
+
+
+class TimeSeriesDailyItem(BaseModel):
+    date: str
+    skillCode: str
+    skillName: str
+    stackoverflowQuestionCount: int
+    stackoverflowRollingAvg30d: float
+    stackoverflowIndex: float | None
+    hasIndexBaseline: bool
+
+
+class TimeSeriesDailyResponse(BaseModel):
+    meta: dict[str, str | None]
+    items: list[TimeSeriesDailyItem]

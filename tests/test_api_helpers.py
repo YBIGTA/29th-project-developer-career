@@ -70,3 +70,53 @@ def test_build_trends_matches_the_json_the_frontend_used_to_carry():
         assert got["delta"]["pct"] == round(
             (extra["index"][-1] / extra["index"][-2] - 1) * 100, 1
         ), name
+
+
+def test_build_stacks_orders_by_similarity_and_drops_unknown_names():
+    """함께 요구되는 기술이 화면에 그대로 실릴 수 있는 모양으로 나오는지.
+
+    이웃 문자열은 노트북이 찍어둔 것이라 그 뒤로 사라진 기술이 섞일 수 있다.
+    화면에서 이 값은 누르면 검색이 걸리는 칩이므로, 응답에 없는 이름이 새면
+    결과 0건짜리 막다른 길이 된다.
+    """
+    from app.api.routes import STACK_LIMIT, build_stacks
+
+    rows = [
+        {
+            "skill_name": "AWS",
+            # 유사도 내림차순으로 이미 정렬돼 온다. 순서를 그대로 지켜야 한다.
+            "same_cluster_strongest_neighbors": (
+                "Docker (score=0.612, companies=31), "
+                "Terraform (score=0.544, companies=18), "
+                "AWS CloudFormation (score=0.501, companies=9), "
+                "폐기된기술 (score=0.480, companies=2), "
+                "Kubernetes (score=0.470, companies=22), "
+                "Linux (score=0.455, companies=14), "
+                "Ansible (score=0.401, companies=6)"
+            ),
+        },
+        # 자기 자신이 이웃으로 섞여 오면 뺀다.
+        {"skill_name": "Vue", "same_cluster_strongest_neighbors": "Vue (score=1.0, companies=3)"},
+        # 군집 대상이지만 이웃이 비어 있는 기술은 아예 키를 만들지 않는다.
+        {"skill_name": "COBOL", "same_cluster_strongest_neighbors": None},
+    ]
+
+    class StubResult:
+        def mappings(self):
+            return rows
+
+    class StubSession:
+        def execute(self, *args, **kwargs):
+            return StubResult()
+
+    known = {"AWS", "Docker", "Terraform", "AWS CloudFormation", "Kubernetes", "Linux",
+             "Ansible", "Vue", "COBOL"}
+    stacks = build_stacks(StubSession(), known)
+
+    # 이름에 공백이 있는 항목도 온전히 살아야 한다 — 이웃 문자열은 ", "로 단순
+    # 분리하면 깨지므로 정규식으로 판다.
+    assert stacks["AWS"] == ["Docker", "Terraform", "AWS CloudFormation", "Kubernetes", "Linux"]
+    assert len(stacks["AWS"]) == STACK_LIMIT
+    assert "폐기된기술" not in stacks["AWS"]
+    assert "Vue" not in stacks
+    assert "COBOL" not in stacks

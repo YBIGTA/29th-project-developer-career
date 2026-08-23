@@ -314,7 +314,7 @@ export default function MobileDictionary() {
 
 /**
  * 생태계 지표까지 수집된 200개. 펼치면 지표 3분해와 근거를 보여준다.
- * 손으로 쓴 해설(summary / stack / verdict)은 그중 일부에만 있어서 조건부로 그린다.
+ * 손으로 쓴 설명 문장(summary)은 그중 일부에만 있어서 조건부로 그린다.
  */
 function MobileDetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
   const meta = getQuadrantMeta(tech.quadrant);
@@ -422,12 +422,6 @@ function MobileDetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
             )}
           </div>
 
-          {tech.verdict && (
-            <div className="mv-dict-entry__verdict" style={{ background: meta.tint }}>
-              <div className="mv-dict-entry__sub">지금 배운다면</div>
-              <p className="mv-dict-entry__verdict-text">{tech.verdict}</p>
-            </div>
-          )}
         </div>
       )}
     </article>

@@ -4,7 +4,8 @@ import { useEffect, useMemo, useState } from "react";
 import Link from "next/link";
 import TopBar from "@/components/TopBar";
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
-import { ecosystemBars, formatCount, formatDuration } from "@/lib/ecosystem";
+import { ecosystemBars, formatDuration } from "@/lib/ecosystem";
+import { docHost, normalizeVideos, videoMeta, videoThumb, videoTitle, videoUrl } from "@/lib/learn";
 import { mapCodeSet } from "@/lib/mapPoints";
 import { getGapMapData } from "@/lib/api";
 import { getSkillIndex, mergeSkills, skillHaystack } from "@/lib/skills";
@@ -36,17 +37,9 @@ function matches(skill, query) {
  * 그리느니 장수가 줄어드는 편이 낫다.
  */
 function LearnCards({ tech, color }) {
-  const videos = (tech.videos ?? []).slice(0, 3);
-  if (!tech.docs?.url && !videos.length) return null;
-
-  // 문서 카드에는 쓸 썸네일 이미지가 없다. 그 사이트의 파비콘을 얹고, 못
-  // 받아오면 (onError로 스스로 지워져) 뒤에 깔린 머리글자 타일이 보인다.
-  let host = null;
-  try {
-    if (tech.docs?.url) host = new URL(tech.docs.url).host.replace(/^www\./, "");
-  } catch {
-    host = null;
-  }
+  const videos = normalizeVideos(tech.videos);
+  const host = docHost(tech.docs);
+  if (!host && !videos.length) return null;
 
   return (
     <div className="dict-learn">
@@ -60,10 +53,12 @@ function LearnCards({ tech, color }) {
             rel="noopener noreferrer"
             title={tech.docs.note || undefined}
           >
+            {/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트
+                파비콘을 얹는다. 못 받아오면 img가 스스로 지워지고 타일만 남는다. */}
             <span className="dict-learn__thumb dict-learn__thumb--doc" style={{ color }}>
               <span className="dict-learn__initial">{tech.tech.slice(0, 2)}</span>
-              {/* next/image를 쓰려면 도메인 159개를 remotePatterns에 등록해야 한다.
-                  저장소가 의존성 3개를 유지하고 있어 평범한 img로 둔다. */}
+              {/* next/image를 쓰려면 문서 도메인 159곳을 remotePatterns에 등록해야
+                  한다. 저장소가 의존성 3개를 유지하고 있어 평범한 img로 둔다. */}
               {/* eslint-disable-next-line @next/next/no-img-element */}
               <img
                 className="dict-learn__favicon"
@@ -83,30 +78,35 @@ function LearnCards({ tech, color }) {
           </a>
         )}
 
-        {videos.map((v) => (
-          <a
-            key={v.id}
-            className="dict-learn__item"
-            href={`https://www.youtube.com/watch?v=${v.id}`}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <span className="dict-learn__thumb">
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`} alt="" loading="lazy" />
-              <span className="dict-learn__duration">{formatDuration(v.seconds)}</span>
-            </span>
-            <span className="dict-learn__body">
-              <span className="dict-learn__kind" style={{ color }}>
-                영상
+        {videos.map((v, i) => {
+          const meta = videoMeta(v);
+          return (
+            <a
+              key={v.id}
+              className="dict-learn__item"
+              href={videoUrl(v.id)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="dict-learn__thumb">
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={videoThumb(v.id)} alt="" loading="lazy" />
+                {typeof v.seconds === "number" && (
+                  <span className="dict-learn__duration">{formatDuration(v.seconds)}</span>
+                )}
               </span>
-              <span className="dict-learn__title dict-learn__title--clamp">{v.title}</span>
-              <span className="dict-learn__meta">
-                {v.channel} · 조회 {formatCount(v.views)}회
+              <span className="dict-learn__body">
+                <span className="dict-learn__kind" style={{ color }}>
+                  영상
+                </span>
+                <span className="dict-learn__title dict-learn__title--clamp">
+                  {videoTitle(v, tech.tech, i)}
+                </span>
+                {meta && <span className="dict-learn__meta">{meta}</span>}
               </span>
-            </span>
-          </a>
-        ))}
+            </a>
+          );
+        })}
       </div>
     </div>
   );
@@ -502,7 +502,7 @@ export default function DictionaryClient() {
 
 /**
  * 생태계 지표까지 수집된 200개. 펼치면 지표 3분해와 근거를 보여준다.
- * 손으로 쓴 해설(summary / stack / verdict)은 그중 일부에만 있어서 조건부로 그린다.
+ * 손으로 쓴 설명 문장(summary)은 그중 일부에만 있어서 조건부로 그린다.
  */
 function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
   const meta = getQuadrantMeta(tech.quadrant);
@@ -625,12 +625,6 @@ function DetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
             </div>
           </div>
 
-          {tech.verdict && (
-            <div className="dict-entry__verdict" style={{ background: meta.tint }}>
-              <div className="dict-entry__sub">지금 배운다면</div>
-              <p className="dict-entry__verdict-text">{tech.verdict}</p>
-            </div>
-          )}
 
           <LearnCards tech={tech} color={color} />
         </div>

@@ -1758,20 +1758,6 @@ a {
   color: var(--text-secondary);
 }
 
-.detail-panel__verdict {
-  margin-top: 22px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-}
-
-.detail-panel__verdict-text {
-  margin-top: 9px;
-  font-size: 0.86rem;
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
 .detail-panel__footnote {
   margin-top: 16px;
   font-size: 0.7rem;
@@ -2489,18 +2475,6 @@ a {
   transform: scale(0.96);
 }
 
-.dict-entry__verdict {
-  margin-top: 24px;
-  padding: 18px 20px;
-  border-radius: 12px;
-}
-
-.dict-entry__verdict-text {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
 /* ---------- status & skeleton ---------- */
 
 .dict-status {
@@ -3070,6 +3044,26 @@ a {
   display: block;
 }
 
+.detail-panel__trend-figures {
+  flex: none;
+  text-align: right;
+}
+
+.detail-panel__trend-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.detail-panel__trend-sub {
+  margin-top: 2px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
 .detail-panel__trend-note {
   margin: 8px 0 0;
   font-size: 0.68rem;
@@ -3078,42 +3072,10 @@ a {
   word-break: keep-all;
 }
 
-.detail-panel__docs {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 0.74rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 160ms var(--ease-out), color 160ms var(--ease-out);
-}
-.detail-panel__docs:hover {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-.detail-panel__trend-figures {
-  flex: none;
-  text-align: right;
-}
-.detail-panel__trend-value {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
-}
-.detail-panel__trend-sub {
-  margin-top: 2px;
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-.detail-panel__videos {
+/* ---- 학습 탭: 공식 문서 1장 + 영상 3장 ----
+   배지 줄의 공식 문서 알약을 없애면서 문서가 이 탭으로 들어왔다. 두 종류가
+   같은 목록에 서므로 카드 모양을 하나로 쓴다. 패널이 좁아 가로 배치다. */
+.detail-panel__learn {
   list-style: none;
   margin: 16px 0 0;
   padding: 0;
@@ -3121,7 +3083,8 @@ a {
   flex-direction: column;
   gap: 10px;
 }
-.detail-panel__video-link {
+
+.detail-panel__learn-link {
   display: flex;
   gap: 12px;
   padding: 8px;
@@ -3132,26 +3095,89 @@ a {
   text-decoration: none;
   transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out);
 }
-.detail-panel__video-link:hover {
+
+.detail-panel__learn-link:hover {
   border-color: var(--line-strong);
   background: var(--ink-800);
 }
-.detail-panel__video-thumb {
+
+/* 유튜브 hqdefault는 4:3 판에 16:9 그림이 담겨 오므로 cover로 위아래를 자른다.
+   자리는 이미지가 늦게 와도 흔들리지 않게 고정폭이다. */
+.detail-panel__learn-thumb {
+  position: relative;
   flex: none;
   width: 104px;
   height: 59px;
-  object-fit: cover;
   border-radius: 8px;
-  background: var(--ink-950);
+  overflow: hidden;
+  background: var(--ink-800);
 }
-.detail-panel__video-body {
+
+.detail-panel__learn-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트 파비콘을
+   얹는다. 파비콘을 못 받아오면 img가 스스로 지워지고 타일만 남는다. */
+.detail-panel__learn-thumb--doc {
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.detail-panel__learn-initial {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.detail-panel__learn-favicon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  background: var(--ink-850);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.detail-panel__learn-duration {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-panel__learn-body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 5px;
+  gap: 3px;
   min-width: 0;
 }
-.detail-panel__video-title {
+
+.detail-panel__learn-kind {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* 제목은 길다. 한 줄로 자르면 무슨 자료인지 안 남아서 두 줄까지 준다. */
+.detail-panel__learn-title {
   font-size: 0.8rem;
   line-height: 1.4;
   font-weight: 500;
@@ -3161,9 +3187,13 @@ a {
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
-.detail-panel__video-meta {
+
+.detail-panel__learn-meta {
   font-size: 0.68rem;
   color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 

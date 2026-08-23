@@ -26,7 +26,7 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  *             (lib/ecosystem.js 참고),
  *           sampleRepositories, signals,
  *           summary(항상 있음 — 매 응답마다 lib/notes.js가 데이터로 새로 조립한다),
- *           verdict, stack — 손으로 쓴 해설이 있는 기술에만 있다 (lib/techNotes.json),
+ *           stack — 같은 군집에서 가까운 기술 (API가 계산, 없으면 lib/techNotes.json),
  *           docs { url, note? } — 공식 문서 (198개 기술),
  *           videos [{ id, title, channel, views, seconds }] — 입문 영상 3편 (87개 기술),
  *           trend { months, index, github, stackoverflow, hasStackoverflow, delta }

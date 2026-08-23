@@ -3,6 +3,7 @@
 import { useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
 import { ecosystemBars, ecosystemNote, formatCount, formatDuration } from "@/lib/ecosystem";
+import { docHost, normalizeVideos, videoMeta, videoThumb, videoTitle, videoUrl } from "@/lib/learn";
 import { useTechPostings } from "@/lib/useTechPostings";
 
 function ExternalIcon() {
@@ -171,47 +172,87 @@ function TrendSpark({ trend }) {
         {months[0]} = 100 기준 · {months[months.length - 1]} {rawText}
       </p>
       <p className="detail-panel__trend-note">
-        채용 공고가 아니라 GitHub·Stack Overflow 활동량입니다. 같은 달 전체 기술 합계에서 차지하는
-        비중을 지수로 만들어, 플랫폼 전체가 커지거나 줄어드는 효과를 걷어냈습니다. 집계가 진행
-        중인 이번 달은 제외했습니다.
-        {!hasStackoverflow && " 이 기술은 Stack Overflow 질문이 없어 GitHub만으로 계산했습니다."}
+        {hasStackoverflow ? "GitHub·Stack Overflow 활동량" : "GitHub 활동량"}
       </p>
     </div>
   );
 }
 
-function VideoList({ videos }) {
+/**
+ * 학습 탭의 자료 카드 — 공식 문서 1장 + 영상 3장.
+ *
+ * 배지 줄에 있던 공식 문서 알약을 없애면서 문서가 이 탭으로 들어왔다. 두
+ * 종류가 같은 목록에 서므로 카드 모양을 하나로 쓴다.
+ *
+ * 값이 URL뿐이어도 카드가 서게 하는 규칙은 lib/learn.js에 있다.
+ */
+function LearnList({ tech }) {
+  const videos = normalizeVideos(tech.videos);
+  const host = docHost(tech.docs);
+  if (!host && !videos.length) return null;
+
   return (
-    <ul className="detail-panel__videos">
-      {videos.map((v) => (
-        <li className="detail-panel__video" key={v.id}>
+    <ul className="detail-panel__learn">
+      {host && (
+        <li>
           <a
-            className="detail-panel__video-link"
-            href={`https://www.youtube.com/watch?v=${v.id}`}
+            className="detail-panel__learn-link"
+            href={tech.docs.url}
             target="_blank"
             rel="noopener noreferrer"
+            title={tech.docs.note || undefined}
           >
-            {/* next/image를 쓰려면 i.ytimg.com을 next.config.mjs의 remotePatterns에
-                등록해야 한다. 저장소가 의존성 3개를 유지하고 있고 다른 어디서도
-                next/image를 쓰지 않으므로 평범한 img로 둔다. */}
-            {/* eslint-disable-next-line @next/next/no-img-element */}
-            <img
-              className="detail-panel__video-thumb"
-              src={`https://i.ytimg.com/vi/${v.id}/hqdefault.jpg`}
-              alt=""
-              loading="lazy"
-              width={120}
-              height={68}
-            />
-            <span className="detail-panel__video-body">
-              <span className="detail-panel__video-title">{v.title}</span>
-              <span className="detail-panel__video-meta">
-                {v.channel} · 조회 {formatCount(v.views)}회 · {formatDuration(v.seconds)}
-              </span>
+            {/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트
+                파비콘을 얹는다. 못 받아오면 img가 스스로 지워지고 타일만 남는다. */}
+            <span className="detail-panel__learn-thumb detail-panel__learn-thumb--doc">
+              <span className="detail-panel__learn-initial">{tech.tech.slice(0, 2)}</span>
+              {/* eslint-disable-next-line @next/next/no-img-element */}
+              <img
+                className="detail-panel__learn-favicon"
+                src={`https://${host}/favicon.ico`}
+                alt=""
+                loading="lazy"
+                onError={(e) => e.currentTarget.remove()}
+              />
+            </span>
+            <span className="detail-panel__learn-body">
+              <span className="detail-panel__learn-kind">공식 문서</span>
+              <span className="detail-panel__learn-title">{tech.tech} 공식 문서</span>
+              <span className="detail-panel__learn-meta">{host}</span>
             </span>
           </a>
         </li>
-      ))}
+      )}
+
+      {videos.map((v, i) => {
+        const meta = videoMeta(v);
+        return (
+          <li key={v.id}>
+            <a
+              className="detail-panel__learn-link"
+              href={videoUrl(v.id)}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <span className="detail-panel__learn-thumb">
+                {/* next/image를 쓰려면 i.ytimg.com과 문서 도메인 159곳을
+                    next.config.mjs의 remotePatterns에 등록해야 한다. 저장소가
+                    의존성 3개를 유지하고 있으므로 평범한 img로 둔다. */}
+                {/* eslint-disable-next-line @next/next/no-img-element */}
+                <img src={videoThumb(v.id)} alt="" loading="lazy" />
+                {typeof v.seconds === "number" && (
+                  <span className="detail-panel__learn-duration">{formatDuration(v.seconds)}</span>
+                )}
+              </span>
+              <span className="detail-panel__learn-body">
+                <span className="detail-panel__learn-kind">영상</span>
+                <span className="detail-panel__learn-title">{videoTitle(v, tech.tech, i)}</span>
+                {meta && <span className="detail-panel__learn-meta">{meta}</span>}
+              </span>
+            </a>
+          </li>
+        );
+      })}
     </ul>
   );
 }
@@ -255,9 +296,13 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
   const color = `var(--quad-${meta.slug})`;
   const bars = ecosystemBars(tech);
   const delta = tech.trend?.delta;
-  // 영상은 200개 중 87개 기술에만 있다. 없으면 탭 자체를 만들지 않는다 —
-  // 공식 문서 링크는 배지 줄에 따로 있어서 탭이 없어도 잃는 것이 없다.
-  const hasVideos = tech.videos?.length > 0;
+  // 배지 줄에 있던 공식 문서 알약을 없앴으므로, 문서로 가는 통로는 이제 학습
+  // 탭 하나뿐이다. 영상이 없어도 문서만 있으면 탭을 만든다 — 그러지 않으면
+  // 영상이 없는 기술은 공식 문서에 닿을 길이 아예 사라진다.
+  const hasLearning = Boolean(docHost(tech.docs)) || normalizeVideos(tech.videos).length > 0;
+
+  // 자료가 없는 기술로 옮겨 왔는데 학습 탭이 열려 있으면 빈 화면이 된다.
+  const activeTab = tab === "learn" && !hasLearning ? "overview" : tab;
 
   const deltaTone =
     !delta || Math.abs(delta.pct) < 1 ? "flat" : delta.pct > 0 ? "up" : "down";
@@ -288,18 +333,6 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
               {r}
             </span>
           ))}
-          {tech.docs?.url && (
-            <a
-              className="detail-panel__docs"
-              href={tech.docs.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              title={tech.docs.note || undefined}
-            >
-              공식 문서
-              <ExternalIcon />
-            </a>
-          )}
         </div>
 
         <div className="detail-panel__tabs" role="tablist" aria-label="상세 정보 보기">
@@ -307,17 +340,17 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
             type="button"
             role="tab"
             className="detail-panel__tab"
-            aria-selected={tab === "overview"}
+            aria-selected={activeTab === "overview"}
             onClick={() => setTab("overview")}
           >
             개요
           </button>
-          {hasVideos && (
+          {hasLearning && (
             <button
               type="button"
               role="tab"
               className="detail-panel__tab"
-              aria-selected={tab === "learn"}
+              aria-selected={activeTab === "learn"}
               onClick={() => setTab("learn")}
             >
               학습
@@ -327,14 +360,14 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
             type="button"
             role="tab"
             className="detail-panel__tab"
-            aria-selected={tab === "postings"}
+            aria-selected={activeTab === "postings"}
             onClick={() => setTab("postings")}
           >
             채용 공고
           </button>
         </div>
 
-        {tab === "overview" && (
+        {activeTab === "overview" && (
           <>
             {tech.summary && <p className="detail-panel__summary">{tech.summary}</p>}
 
@@ -436,13 +469,6 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
               </>
             )}
 
-            {tech.verdict && (
-              <div className="detail-panel__verdict" style={{ background: meta.tint }}>
-                <div className="detail-panel__eyebrow">지금 배운다면</div>
-                <div className="detail-panel__verdict-text">{tech.verdict}</div>
-              </div>
-            )}
-
             <p className="detail-panel__footnote">
               생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된
               공고에서 추출한 기술 태그 빈도의 백분위 순위입니다. Esc 키로 닫을 수 있습니다.
@@ -450,20 +476,19 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
           </>
         )}
 
-        {tab === "learn" && hasVideos && (
+        {activeTab === "learn" && (
           <>
             <p className="detail-panel__summary">
-              {tech.tech}을(를) 처음 배울 때 볼 만한 영상입니다.
-              {tech.docs?.url && " 위의 공식 문서와 함께 보세요."}
+              {tech.tech}을(를) 처음 배울 때 볼 만한 공식 문서와 영상입니다.
             </p>
-            <VideoList videos={tech.videos} />
+            <LearnList tech={tech} />
             <p className="detail-panel__footnote">
-              조회수와 평가를 함께 반영해 고른 영어 입문 강의입니다. 유튜브에서 열립니다.
+              영상은 조회수와 평가를 함께 반영해 고른 영어 입문 강의입니다. 새 탭에서 열립니다.
             </p>
           </>
         )}
 
-        {tab === "postings" && (
+        {activeTab === "postings" && (
           <>
             <p className="detail-panel__summary">
               {tech.tech}을(를) 요구하는 공고입니다. 회사명과 지원 링크는 수집된 채용공고에서

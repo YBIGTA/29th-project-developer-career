@@ -115,6 +115,45 @@ def neighbors(blob: str | None) -> list[dict]:
     ]
 
 
+# 함께 요구되는 기술. 손으로 27개만 채워져 있던 값을 군집 분석으로 대체한다.
+#
+# 군집 결과는 as_of_date 한 벌이 한 번의 수동 실행이라, 항상 가장 최근 것만
+# 본다. cluster_id가 없는 기술(군집 대상 미달)은 애초에 이웃이 없다.
+CLUSTER_STACK_SQL = text("""
+    WITH latest AS (SELECT max(as_of_date) AS as_of_date FROM total_skill_cluster)
+    SELECT s.skill_name, t.same_cluster_strongest_neighbors
+    FROM latest
+    JOIN total_skill_cluster t ON t.as_of_date = latest.as_of_date
+    JOIN skill s ON s.skill_id = t.skill_id AND s.is_active = true
+    WHERE t.cluster_id IS NOT NULL
+""")
+
+STACK_LIMIT = 5
+
+
+def build_stacks(db: Session, known: set[str]) -> dict[str, list[str]]:
+    """기술별 "함께 요구되는 기술".
+
+    same_cluster_strongest_neighbors는 같은 군집 안에서 유사도가 높은 순으로
+    이미 정렬돼 있다. 군집 전체를 그냥 나열하지 않는 이유: 그러면 같은 군집에
+    속한 기술들이 전부 똑같은 목록을 보여주게 된다. 이 컬럼은 기술마다 다르다.
+
+    `known`으로 한 번 거른다. 이웃 이름은 노트북이 찍어둔 문자열이라 그 뒤로
+    이름이 바뀌었거나 비활성화된 기술이 섞일 수 있는데, 화면에서 이 값은
+    누르면 검색이 걸리는 칩이라 결과가 0건이 되면 막다른 길이 된다.
+    """
+    stacks: dict[str, list[str]] = {}
+    for row in db.execute(CLUSTER_STACK_SQL).mappings():
+        names = [
+            neighbor["tech"]
+            for neighbor in neighbors(row["same_cluster_strongest_neighbors"])
+            if neighbor["tech"] in known and neighbor["tech"] != row["skill_name"]
+        ]
+        if names:
+            stacks[row["skill_name"]] = names[:STACK_LIMIT]
+    return stacks
+
+
 TIMESERIES_SQL = text("""
         SELECT
                 j.metric_month AS month,
@@ -352,6 +391,14 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
         if trend:
             item["trend"] = trend
         items.append(item)
+    # 이웃 이름을 지금 응답에 실린 기술로만 거른다. build_stacks가 이 집합을
+    # 넘겨받아야 화면에서 검색 결과 0건인 칩이 나오지 않는다.
+    stacks = build_stacks(db, {item["tech"] for item in items})
+    for item in items:
+        stack = stacks.get(item["tech"])
+        if stack:
+            item["stack"] = stack
+
     items.sort(key=lambda item: (-item["postings"], item["tech"]))
     return items, period
 

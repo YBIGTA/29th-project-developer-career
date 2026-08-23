@@ -47,6 +47,8 @@ class GapItem(BaseModel):
     signals: list[dict[str, str]]
     # 월별 수집이 있는 기술에만 붙는다. 프론트는 없으면 스파크라인을 안 그린다.
     trend: Trend | None = None
+    # 같은 군집에서 가장 가까운 기술들. 군집 대상이 아니면 없다.
+    stack: list[str] | None = None
 
 
 class GapMeta(BaseModel):

@@ -1456,20 +1456,6 @@
   color: var(--text-secondary);
 }
 
-.mv-sheet__verdict {
-  margin-top: 20px;
-  padding: 14px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-}
-
-.mv-sheet__verdict-text {
-  margin-top: 8px;
-  font-size: 0.84rem;
-  line-height: 1.66;
-  word-break: keep-all;
-}
-
 .mv-sheet__footnote {
   margin-top: 14px;
   font-size: 0.68rem;
@@ -1986,18 +1972,6 @@
   font-family: var(--font-mono);
   font-size: 0.7rem;
   color: var(--text-secondary);
-}
-
-.mv-dict-entry__verdict {
-  padding: 12px;
-  border-radius: 12px;
-}
-
-.mv-dict-entry__verdict-text {
-  margin-top: 6px;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  word-break: keep-all;
 }
 
 /* ---------- shared keyframes ---------- */

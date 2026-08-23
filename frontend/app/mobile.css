@@ -1,8 +1,52 @@
 /* ==========================================================================
    모바일 전용 셸 (/m, /m/dictionary)
-   모든 선택자는 .mv 아래로 스코프한다. 색/폰트/이징 토큰은 globals.css의
-   :root 변수를 그대로 참조하며 여기서 새로 정의하지 않는다.
+   모든 선택자는 .mv 아래로 스코프한다. 폰트·이징 토큰은 globals.css의 :root를
+   그대로 쓰고, 색 토큰만 아래에서 다크로 되박는다.
    ========================================================================== */
+
+/* ---- 모바일은 남색 다크를 유지한다 ----------------------------------------
+   데스크톱을 라이트 테마로 바꾸면서 globals.css의 :root 토큰이 종이색이 됐다.
+   모바일 화면은 이번 개편 대상이 아니므로, 여기서 예전 값을 그대로 되박아
+   /m 이 지금까지와 똑같이 보이게 한다. 모바일까지 라이트로 옮길 때 이
+   블록을 지우면 된다. */
+.mv {
+  color-scheme: dark;
+
+  --ink-950: #060c1c;
+  --ink-900: #0e1832;
+  --ink-850: #182244;
+  --ink-800: #27345e;
+  --line: rgba(138, 172, 214, 0.18);
+  --line-strong: rgba(154, 188, 230, 0.42);
+
+  --text-primary: #f4fafd;
+  --text-secondary: #b7c9e0;
+  --text-muted: #8ba0bd;
+
+  --quad-essential: #a6caf9;
+  --quad-essential-bg: rgba(166, 202, 249, 0.12);
+  --quad-early-mover: #5bc0be;
+  --quad-early-mover-bg: rgba(91, 192, 190, 0.15);
+  --quad-niche: #e0b478;
+  --quad-niche-bg: rgba(224, 180, 120, 0.11);
+  --quad-minimal: #8296b6;
+  --quad-minimal-bg: rgba(130, 150, 182, 0.1);
+  --quad-unknown: #8296b6;
+  --quad-unknown-bg: rgba(130, 150, 182, 0.1);
+
+  --accent: #5bc0be;
+  --accent-bright: #6fffe9;
+  --accent-soft: rgba(91, 192, 190, 0.14);
+  --accent-ink: #06222b;
+
+  --status-good-text: #5fd3bd;
+  --status-error-text: #ee8d8d;
+  --status-error-bg: rgba(238, 141, 141, 0.12);
+
+  /* body 배경은 .mv 밖(globals.css)에서 칠해지므로 여기서 다시 덮는다. */
+  background: var(--ink-950);
+  color: var(--text-primary);
+}
 
 .mv {
   position: relative;

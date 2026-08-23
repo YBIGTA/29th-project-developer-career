@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
-import { ecosystemBars, ecosystemNote, formatCount } from "@/lib/ecosystem";
+import { ecosystemBars, ecosystemNote, formatCount, formatDuration } from "@/lib/ecosystem";
 import { useTechPostings } from "@/lib/useTechPostings";
 
 function ExternalIcon() {
@@ -57,14 +57,6 @@ function PostingList({ postings, loading, techName }) {
       ))}
     </ul>
   );
-}
-
-/** 1842초 -> "30분", 7341초 -> "2시간 2분". */
-function formatDuration(seconds) {
-  const total = Math.round(seconds / 60);
-  const h = Math.floor(total / 60);
-  const m = total % 60;
-  return h ? `${h}시간 ${m}분` : `${m}분`;
 }
 
 const SPARK_W = 100;

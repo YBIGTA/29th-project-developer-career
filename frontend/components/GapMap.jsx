@@ -1,15 +1,8 @@
 "use client";
 
-import { useCallback, useMemo, useState } from "react";
+import { useMemo, useState } from "react";
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
-import {
-  plot,
-  labelFlipsUp,
-  makeAxisScale,
-  makeRankScale,
-  fitLabels,
-  LABEL_LIMIT,
-} from "@/lib/mapPoints";
+import { plot, labelFlipsUp, makeAxisScale, makeRankScale } from "@/lib/mapPoints";
 
 const LEGEND = [
   {
@@ -22,28 +15,31 @@ const LEGEND = [
   { slug: "minimal", label: "저관심", note: "빈 원 · 둘 다 낮음" },
 ];
 
+// 상자를 자기 높이 기준으로 놓는다(--tip-y). 높이를 상수로 어림해서 빼면
+// 글자 수에 따라 상자 윗변이 점에 붙었다 떨어졌다 한다.
+const TIP_GAP = 26;
+
 function GapMapTooltip({ tech, scaleX, yOf }) {
   const meta = getQuadrantMeta(tech.quadrant);
   const filled = meta.slug === "early-mover" || meta.slug === "essential";
-  const low = yOf(tech) < 45;
+  const above = yOf(tech) < 45;
 
   // 판 가장자리의 점에서는 상자를 가운데 정렬로 두면 절반이 판 밖으로 나간다.
   // Python(생태계 98.5)처럼 오른쪽 끝에 있는 점이 그렇다. 그래서 왼쪽 끝에서는
   // 점을 상자의 왼쪽 모서리에, 오른쪽 끝에서는 오른쪽 모서리에 맞춘다.
   const x = plot(scaleX(tech.ecosystemScore));
-  const anchorX = x <= 18 ? "0" : x >= 82 ? "-100%" : "-50%";
+  const y = plot(yOf(tech));
 
   return (
     <div
       className="gap-map__tooltip"
       style={{
         left: `${x}%`,
-        bottom: low
-          ? `calc(${plot(yOf(tech))}% + 28px)`
-          : `calc(${plot(yOf(tech))}% - 104px)`,
+        bottom: above ? `calc(${y}% + ${TIP_GAP}px)` : `calc(${y}% - ${TIP_GAP}px)`,
         // 등장 애니메이션도 transform을 쓰기 때문에 인라인 transform은 덮인다.
         // 정렬 기준을 커스텀 속성으로 넘겨 keyframes 안에서 함께 읽게 한다.
-        "--tip-x": anchorX,
+        "--tip-x": x <= 18 ? "0" : x >= 82 ? "-100%" : "-50%",
+        "--tip-y": above ? "0px" : "100%",
       }}
     >
       <div className="tooltip__row">
@@ -70,8 +66,7 @@ function GapMapTooltip({ tech, scaleX, yOf }) {
           보여준다. 좌표와 다른 모집단의 숫자를 나란히 두지 않기 위해서다. */}
       {tech.roleContext ? (
         <div className="tooltip__postings">
-          {tech.roleContext.role}{" "}
-          {tech.roleContext.count.toLocaleString("ko-KR")}건
+          {tech.roleContext.role} {tech.roleContext.count.toLocaleString("ko-KR")}건
         </div>
       ) : (
         tech.postings > 0 && (
@@ -85,23 +80,67 @@ function GapMapTooltip({ tech, scaleX, yOf }) {
 }
 
 /**
+ * 구역 설명 팝오버.
+ *
+ * 예전에는 사분면 설명이 판 위를 통째로 덮는 2×2 카드였고, 스크롤로 걷어야
+ * 지도가 보였다. 설명을 읽는 동안 정작 그 구역에 무엇이 있는지는 못 봤다.
+ * 이제 모서리 이름표를 누른 그 구역 위에만 뜬다 — 뒤로 판이 계속 보이고,
+ * 대표 기술을 누르면 바로 그 점이 선택된다.
+ */
+function ZonePopover({ quad, members, onPickTech, onClose }) {
+  const samples = members
+    .slice()
+    .sort((a, b) => b.ecosystemScore + b.demand - (a.ecosystemScore + a.demand))
+    .slice(0, 2);
+
+  return (
+    <div className={`gap-map__zone-pop gap-map__zone-pop--${quad.zone}`} role="dialog">
+      <div className="gap-map__zone-pop-head">
+        <span className={`legend-swatch legend-swatch--${quad.slug}`} />
+        <span className="gap-map__zone-pop-label">{quad.label}</span>
+        <span className="gap-map__zone-pop-count">{members.length}개</span>
+        <button
+          type="button"
+          className="gap-map__zone-pop-close"
+          aria-label="설명 닫기"
+          onClick={onClose}
+        >
+          <svg viewBox="0 0 16 16" aria-hidden="true" width="11" height="11">
+            <path
+              d="m4.5 4.5 7 7m0-7-7 7"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="1.6"
+              strokeLinecap="round"
+            />
+          </svg>
+        </button>
+      </div>
+      <p className="gap-map__zone-pop-desc">{quad.description}</p>
+      <div className="gap-map__zone-pop-samples">
+        {samples.map((s) => (
+          <button
+            key={s.skillCode}
+            type="button"
+            className="gap-map__zone-pop-tag"
+            onClick={() => onPickTech(s)}
+          >
+            {s.tech}
+          </button>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+/**
  * 판 아래의 "목록에서 선택" 칩 목록.
  *
- * GapMap 안에 있었는데 밖으로 뺐다. 지도를 한 화면에 고정하려면 고정 구간이
- * 화면 높이에 들어와야 하는데, 칩 60개가 145px를 먹어 예산을 넘겼다. 기능은
- * 없앨 수 없다 — 이름표 충돌로 이름이 가려진 기술을 고르는 유일한 통로다.
- *
- * data-revealed를 자기 자신에게 단다. 예전에는 부모를 타고
- * `.gap-map[data-revealed] .gap-map__watchlist`로 걸렸는데, .gap-map 밖으로
- * 나오면서 그 선택자가 닿지 않게 됐다.
+ * 이름표가 고른 점 하나에만 붙으므로, 이름으로 기술을 찾는 통로는 여기다.
  */
-export function GapMapWatchlist({ data, selectedTech, onSelectPoint, revealed }) {
+export function GapMapWatchlist({ data, selectedTech, onSelectPoint }) {
   return (
-    <div
-      className="gap-map__watchlist"
-      data-revealed={revealed}
-      style={{ "--reveal-delay": "1400ms" }}
-    >
+    <div className="gap-map__watchlist" data-revealed="true">
       <div className="gap-map__watchlist-title">목록에서 선택</div>
       <div className="gap-map__chips">
         {data.map((d) => {
@@ -131,64 +170,20 @@ export default function GapMap({
   onSelectPoint,
   loading,
   error,
-  revealed,
+  // 구역 설명은 여기서 열지만 상태는 페이지가 들고 있다. Esc가 "열린 설명 →
+  // 고른 기술" 순으로 하나씩 닫으려면 한 곳에서 판단해야 한다.
+  openZone,
+  onZoneChange,
 }) {
   const [hoverTech, setHoverTech] = useState(null);
+  const setOpenZone = onZoneChange;
 
   // 지금 찍는 점들만 놓고 축을 다시 편다. 데이터가 바뀌면 스케일도 바뀐다.
-  const scaleX = useMemo(
-    () => makeAxisScale(data.map((d) => d.ecosystemScore)),
-    [data],
-  );
+  const scaleX = useMemo(() => makeAxisScale(data.map((d) => d.ecosystemScore)), [data]);
   // y는 값이 아니라 순위로 편다 — 공고 건수가 같은 기술이 많아 값으로 두면
-  // 이름표가 한 줄에 겹쳐 못 읽는다 (lib/mapPoints.js의 makeRankScale 참고).
+  // 점이 한 줄에 가로로 쌓인다 (lib/mapPoints.js의 makeRankScale 참고).
   const yPos = useMemo(() => makeRankScale(data), [data]);
   const yOf = useMemo(() => (d) => yPos.get(d.skillCode) ?? 0, [yPos]);
-
-  // 이름표 충돌 판정은 판의 실제 픽셀 크기를 알아야 한다. 판은 clamp()로
-  // 뷰포트 폭에 따라 크기가 바뀌므로 창 크기 변화도 따라간다.
-  //
-  // useEffect가 아니라 콜백 ref를 쓴다. 로딩 중에는 판이 렌더되지 않아 ref가
-  // 비어 있고, 나중에 판이 붙어도 effect는 그 시점을 알지 못해 관찰이 영영
-  // 걸리지 않았다. 콜백 ref는 노드가 실제로 붙고 떨어지는 순간에 호출된다.
-  const [planeSize, setPlaneSize] = useState({ w: 0, h: 0 });
-
-  const planeRef = useCallback((el) => {
-    if (!el) return undefined;
-    const observer = new ResizeObserver(([entry]) => {
-      const { width, height } = entry.contentRect;
-      setPlaneSize({ w: width, h: height });
-    });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
-  const visibleLabels = useMemo(
-    () =>
-      fitLabels(
-        data.map((d) => {
-          const yDot = plot(yOf(d));
-          // 이름표는 점 위가 아니라 점에서 26px 아래에 그려지고, 바닥에 붙은
-          // 점은 위로 뒤집혀 14px 위에 그려진다. 충돌 계산은 점이 아니라
-          // 글자가 실제로 놓이는 자리를 봐야 한다.
-          //
-          // labelFlipsUp에는 반드시 plot()을 거치지 않은 값을 넘긴다 — 아래
-          // data-flip 속성이 그렇게 판정하기 때문이다. 둘이 어긋나면 뒤집힌
-          // 이름표의 자리를 40px이나 잘못 짚는다.
-          const offsetPx = labelFlipsUp(yOf(d)) ? 14 : -26;
-          return {
-            skillCode: d.skillCode,
-            tech: d.tech,
-            demand: d.demand,
-            x: plot(scaleX(d.ecosystemScore)),
-            y: planeSize.h ? yDot + (offsetPx / planeSize.h) * 100 : yDot,
-          };
-        }),
-        planeSize.w,
-        planeSize.h,
-      ),
-    [data, scaleX, yOf, planeSize.w, planeSize.h],
-  );
 
   if (loading) {
     return (
@@ -196,11 +191,7 @@ export default function GapMap({
         <span className="sr-only">지도 데이터를 불러오는 중입니다.</span>
         <div className="gap-map__skeleton-plane">
           {Array.from({ length: 9 }, (_, i) => (
-            <span
-              key={i}
-              className="gap-map__skeleton-dot"
-              style={{ "--i": i }}
-            />
+            <span key={i} className="gap-map__skeleton-dot" style={{ "--i": i }} />
           ))}
         </div>
         <div className="gap-map__skeleton-bar" />
@@ -211,9 +202,7 @@ export default function GapMap({
   if (error) {
     return (
       <div className="gap-map__status gap-map__status--error" role="alert">
-        <div className="gap-map__status-title">
-          데이터를 불러오지 못했습니다
-        </div>
+        <div className="gap-map__status-title">데이터를 불러오지 못했습니다</div>
         <p className="gap-map__status-text">
           수집 서버 응답이 없습니다. 잠시 후 페이지를 새로고침해주세요.
         </p>
@@ -225,19 +214,20 @@ export default function GapMap({
     return (
       <div className="gap-map__status gap-map__status--empty">
         <div className="gap-map__status-title">조건에 맞는 기술이 없습니다</div>
-        <p className="gap-map__status-text">
-          직군 필터를 전체로 되돌리면 다시 표시됩니다.
-        </p>
+        <p className="gap-map__status-text">직군 필터를 전체로 되돌리면 다시 표시됩니다.</p>
       </div>
     );
   }
 
-  const activeZone = selectedTech
-    ? getQuadrantMeta(selectedTech.quadrant).zone
-    : null;
+  // 고른 기술이 지금 판에 없으면(30 <-> 60 전환 등) 고리도 이름표도 그리지
+  // 않는다. 좌표 계산이 지금 찍힌 점들 기준이라, 판에 없는 기술의 자리는
+  // 아무 뜻도 없는 값이 된다.
+  const onMap = selectedTech && data.some((d) => d.skillCode === selectedTech.skillCode);
+  const activeZone = selectedTech ? getQuadrantMeta(selectedTech.quadrant).zone : null;
+  const openQuad = openZone ? QUADRANTS.find((q) => q.zone === openZone) : null;
 
   return (
-    <div className="gap-map" data-revealed={revealed}>
+    <div className="gap-map" data-revealed="true">
       <div className="gap-map__frame">
         <div className="gap-map__axis gap-map__axis--y">
           <span className="gap-map__axis-cap">높음</span>
@@ -246,36 +236,38 @@ export default function GapMap({
         </div>
 
         {/* 판(.gap-map__plane)은 사분면 배경이 둥근 모서리 밖으로 새지 않게
-            overflow: hidden이다. 툴팁을 그 안에 두면 가장자리 점에서 상자가
-            잘리므로, 같은 좌표계를 쓰되 잘리지 않는 형제 레이어에 그린다. */}
-        <div className="gap-map__plane-wrap" ref={planeRef}>
+            overflow: hidden이다. 이름표·툴팁·구역 설명을 그 안에 두면 가장자리
+            에서 잘리므로, 같은 좌표계를 쓰되 잘리지 않는 형제 레이어에 그린다. */}
+        <div className="gap-map__plane-wrap">
           <div className="gap-map__plane">
-            {QUADRANTS.map((q, i) => (
+            {QUADRANTS.map((q) => (
               <span
                 key={q.key}
                 className={`gap-map__zone gap-map__zone--${q.zone} gap-map__zone--${q.slug}`}
-                data-active={activeZone === q.zone}
-                style={{ "--reveal-delay": `${180 + i * 90}ms` }}
+                data-active={activeZone === q.zone || openZone === q.zone}
               />
             ))}
 
             <span className="gap-map__crossline gap-map__crossline--x" />
             <span className="gap-map__crossline gap-map__crossline--y" />
 
-            {QUADRANTS.map((q, i) => (
-              <span
+            {/* 모서리 이름표가 곧 구역 설명 버튼이다. 구역 바닥 전체를 누르게
+                하면 점을 고르려다 빗나갈 때마다 설명이 열려 거슬린다. */}
+            {QUADRANTS.map((q) => (
+              <button
                 key={q.key}
+                type="button"
                 className={`gap-map__corner gap-map__corner--${q.zone}`}
-                style={{ "--reveal-delay": `${520 + i * 70}ms` }}
+                data-open={openZone === q.zone}
+                aria-expanded={openZone === q.zone}
+                onClick={() => setOpenZone(openZone === q.zone ? null : q.zone)}
               >
-                <span
-                  className={`gap-map__corner-swatch gap-map__corner-swatch--${q.slug}`}
-                />
+                <span className={`gap-map__corner-swatch gap-map__corner-swatch--${q.slug}`} />
                 {q.label}
-              </span>
+              </button>
             ))}
 
-            {selectedTech && (
+            {onMap && (
               <span
                 className="gap-map__ring"
                 style={{
@@ -285,7 +277,7 @@ export default function GapMap({
               />
             )}
 
-            {data.map((d, i) => {
+            {data.map((d) => {
               const meta = getQuadrantMeta(d.quadrant);
               const isSelected = selectedTech?.tech === d.tech;
               return (
@@ -300,7 +292,6 @@ export default function GapMap({
                   style={{
                     left: `${plot(scaleX(d.ecosystemScore))}%`,
                     bottom: `${plot(yOf(d))}%`,
-                    "--reveal-delay": `${780 + i * 55}ms`,
                   }}
                   onClick={() => onSelectPoint?.(d)}
                   onMouseEnter={() => setHoverTech(d)}
@@ -310,34 +301,39 @@ export default function GapMap({
                 />
               );
             })}
-
           </div>
 
-          {/* 이름표와 툴팁은 판 밖으로 나가도 잘리면 안 되므로 래퍼에 그린다.
-              판 왼쪽 끝의 점은 이름이 점보다 넓어 판 안에 두면 앞글자가 잘린다.
-              좌표계는 래퍼와 판이 같으므로 위치 계산은 그대로다. */}
-          {data.length <= LABEL_LIMIT &&
-            data.map((d, i) =>
-              // 자리가 없어 밀린 이름표는 그리지 않는다. 다 그리면 서로 겹쳐
-              // 아무것도 못 읽는다 — 잘린 이름은 호버 툴팁과 아래 칩 목록에서
-              // 확인할 수 있다 (lib/mapPoints.js의 fitLabels 참고).
-              visibleLabels.has(d.skillCode) ? (
-                <span
-                  key={d.tech}
-                  className={`gap-map__dot-label gap-map__dot-label--${getQuadrantMeta(d.quadrant).slug}`}
-                  data-flip={labelFlipsUp(yOf(d)) ? "up" : undefined}
-                  style={{
-                    left: `${plot(scaleX(d.ecosystemScore))}%`,
-                    bottom: `${plot(yOf(d))}%`,
-                    "--reveal-delay": `${840 + i * 55}ms`,
-                  }}
-                >
-                  {d.tech}
-                </span>
-              ) : null,
-            )}
+          {/* 이름표는 고른 점 하나에만 붙는다. 점마다 달면 60개가 서로 겹쳐
+              아무것도 못 읽는다 — 나머지 이름은 호버 툴팁과 아래 칩 목록에서
+              확인한다. */}
+          {onMap && (
+            <span
+              className={`gap-map__dot-label gap-map__dot-label--${
+                getQuadrantMeta(selectedTech.quadrant).slug
+              }`}
+              data-flip={labelFlipsUp(yOf(selectedTech)) ? "up" : undefined}
+              style={{
+                left: `${plot(scaleX(selectedTech.ecosystemScore))}%`,
+                bottom: `${plot(yOf(selectedTech))}%`,
+              }}
+            >
+              {selectedTech.tech}
+            </span>
+          )}
 
           {hoverTech && <GapMapTooltip tech={hoverTech} scaleX={scaleX} yOf={yOf} />}
+
+          {openQuad && (
+            <ZonePopover
+              quad={openQuad}
+              members={data.filter((d) => d.quadrant === openQuad.key)}
+              onPickTech={(tech) => {
+                setOpenZone(null);
+                onSelectPoint?.(tech);
+              }}
+              onClose={() => setOpenZone(null)}
+            />
+          )}
         </div>
 
         <div className="gap-map__axis gap-map__axis--x">
@@ -348,19 +344,14 @@ export default function GapMap({
       </div>
 
       <div className="gap-map__legend">
-        {LEGEND.map((item, i) => (
-          <span
-            className="legend-item"
-            key={item.slug}
-            style={{ "--reveal-delay": `${1120 + i * 60}ms` }}
-          >
+        {LEGEND.map((item) => (
+          <span className="legend-item" key={item.slug}>
             <span className={`legend-swatch legend-swatch--${item.slug}`} />
             <span className="legend-item__label">{item.label}</span>
             <span className="legend-item__note">{item.note}</span>
           </span>
         ))}
       </div>
-
     </div>
   );
 }

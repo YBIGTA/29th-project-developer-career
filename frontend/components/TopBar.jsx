@@ -1,46 +1,37 @@
 import Link from "next/link";
 
 /**
- * 두 페이지(메인 / 기술 사전)가 함께 쓰는 상단바.
- * solid=false면 배경이 투명해 히어로 위에 겹쳐 보인다.
+ * 두 페이지(지도 / 기술 사전)가 함께 쓰는 상단바.
+ *
+ * 예전에는 페이지마다 링크 구성이 달랐다(메인은 앵커 두 개 + 사전 버튼, 사전은
+ * 돌아가기 링크). 어디에 있는지, 갈 수 있는 곳이 어디인지가 화면마다 달라
+ * 읽히지 않았다. 이제 목적지가 둘뿐이므로 알약 토글 하나로 합친다 — 지금 있는
+ * 칸에 표시가 얹혀 있고, 누르면 그쪽으로 간다.
  */
-export default function TopBar({ links, solid = true, searchActive = false }) {
+export default function TopBar({ active = "map" }) {
   return (
-    <nav className="topbar" data-solid={solid}>
+    <nav className="topbar" data-solid="true">
       <Link className="topbar__brand" href="/">
-        <span className="topbar__brand-mark" />
         DevCompass
       </Link>
 
-      <div className="topbar__nav">
-        <div className="topbar__links">
-          {links.map((l) => (
-            <a key={l.href} href={l.href}>
-              {l.label}
-            </a>
-          ))}
-        </div>
-
-        {/* 아이콘만 두면 무엇으로 가는 버튼인지 알 수 없어 사전 페이지가
-            묻힌다. 이름을 함께 적는다. 좁은 화면에서는 CSS가 글자를 숨겨
-            원래의 원형 아이콘 버튼으로 되돌린다. */}
+      {/* 표시(thumb)는 별도 요소다. 배경을 활성 항목에 직접 칠하면 페이지를
+          오갈 때 그냥 켜졌다 꺼지지만, 따로 두면 CSS가 좌우로 미끄러뜨린다. */}
+      <div className="topbar__toggle" data-active={active}>
+        <span className="topbar__toggle-thumb" aria-hidden="true" />
         <Link
-          className="topbar__search"
-          href="/dictionary"
-          data-active={searchActive}
-          aria-current={searchActive ? "page" : undefined}
+          className="topbar__toggle-item"
+          href="/"
+          aria-current={active === "map" ? "page" : undefined}
         >
-          <svg viewBox="0 0 16 16" aria-hidden="true" width="15" height="15">
-            <circle cx="7" cy="7" r="4.6" fill="none" stroke="currentColor" strokeWidth="1.5" />
-            <path
-              d="m10.5 10.5 3 3"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-            />
-          </svg>
-          <span className="topbar__search-text">기술 사전</span>
+          지도
+        </Link>
+        <Link
+          className="topbar__toggle-item"
+          href="/dictionary"
+          aria-current={active === "dictionary" ? "page" : undefined}
+        >
+          기술 사전
         </Link>
       </div>
     </nav>

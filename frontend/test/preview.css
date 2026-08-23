@@ -44,6 +44,8 @@
   --quad-niche-bg: rgba(154, 109, 41, 0.1);
   --quad-minimal: #7d7870;
   --quad-minimal-bg: rgba(125, 120, 112, 0.09);
+  --series-hiring: #3d6da6;
+  --series-eco: #9a6d29;
   --quad-unknown: #7d7870;
   --quad-unknown-bg: rgba(125, 120, 112, 0.09);
 
@@ -2062,22 +2064,10 @@ a {
   font-weight: 600;
 }
 
-.dict-count {
-  margin-top: 28px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.dict-count__q {
-  font-family: var(--font-sans);
-}
-
 /* ---------- layout: index rail + list ---------- */
 
 .dict-body {
-  margin-top: 18px;
+  margin-top: 28px;
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 28px;
@@ -2923,4 +2913,280 @@ a {
   margin-left: auto;
   color: var(--text-muted);
   transition: color 180ms ease;
+}
+
+/* ---------- 추세선 (펼침 패널 가운데) ----------
+   채용 언급과 생태계 열기는 원 단위가 다르다. 축을 둘로 나누면 두 선이 만나는
+   자리가 아무 뜻도 없는 그림이 되므로, 둘 다 백분위 한 축에 얹는다. */
+.dict-trend {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.dict-trend__unit {
+  font-weight: 400;
+  color: var(--text-muted);
+}
+
+.dict-trend__frame {
+  position: relative;
+}
+
+.dict-trend__svg {
+  display: block;
+  height: auto;
+  touch-action: none;
+}
+
+/* 값이 앞, 이름이 뒤. 읽는 사람은 어느 선인지 이미 알고 숫자를 찾는다. */
+.dict-trend__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 16px;
+}
+
+/* 판 위에 띄우면 선 끝 이름표와 자리를 다툰다. 제목 줄 오른쪽이 늘 비어 있다. */
+.dict-trend__readout {
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 7px 12px;
+  border: 1px solid var(--line);
+  border-radius: 10px;
+  background: var(--ink-900);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  pointer-events: none;
+}
+
+/* display:flex 는 hidden 속성을 이긴다. 사전 레일과 같은 함정. */
+.dict-trend__readout[hidden] {
+  display: none;
+}
+
+.dict-trend__readout-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.dict-trend__readout b {
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+/* 툴팁 밀도에서 채운 사각형은 이름표가 할 일에 데이터 무게의 잉크를 쓴다. */
+.dict-trend__key {
+  width: 12px;
+  height: 2px;
+  border-radius: 999px;
+}
+
+.trend__grid {
+  stroke: var(--line);
+  stroke-width: 1;
+}
+
+.trend__tick {
+  fill: var(--text-muted);
+  font-size: 13px;
+  font-family: var(--font-mono);
+}
+
+.trend__line {
+  fill: none;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.trend__end-label {
+  font-size: 14px;
+}
+
+.trend__hair {
+  stroke: var(--line-strong);
+  stroke-width: 1;
+}
+
+/* 커서 점에 배경색 링을 둘러, 두 선이 겹치는 달에도 잉크가 뭉치지 않게 한다. */
+.trend__cursor {
+  stroke: var(--ink-900);
+  stroke-width: 2;
+}
+
+.dict-trend__table {
+  margin-top: 12px;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+}
+
+.dict-trend__table summary {
+  width: fit-content;
+  cursor: pointer;
+}
+
+.dict-trend__table table {
+  margin-top: 10px;
+  border-collapse: collapse;
+  font-family: var(--font-mono);
+  font-variant-numeric: tabular-nums;
+}
+
+.dict-trend__table th,
+.dict-trend__table td {
+  padding: 5px 16px 5px 0;
+  text-align: left;
+  font-weight: 400;
+}
+
+.dict-trend__table thead th {
+  color: var(--text-secondary);
+  border-bottom: 1px solid var(--line);
+}
+
+/* ---------- 맨 위로 ----------
+   href="#" + html 의 scroll-behavior: smooth 로 굴러간다. 스크립트는 보임/숨김만
+   맡는다. 표제어가 200개라 아래쪽에서 상단바까지 거리가 멀다. */
+.to-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--ink-900);
+  color: var(--text-secondary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: opacity 200ms ease, transform 200ms var(--ease-out),
+    color 180ms ease, border-color 180ms ease;
+}
+
+/* 안 보일 때는 눌리지도 않아야 한다. opacity만 0으로 두면 투명한 버튼이 남는다. */
+.to-top[data-show="false"] {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .to-top:hover {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
+  }
+}
+
+.to-top:active {
+  transform: scale(0.94);
+}
+
+/* 꼬리말 위에 겹치지 않게 — 좁은 화면에서는 오른쪽 여백이 줄어든다. */
+@media (max-width: 720px) {
+  .to-top {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+/* ---- 전월 대비 타일: 부호에 따라 색이 바뀐다 ----
+   ±1% 미만은 강조할 만한 변화가 아니라 회색으로 둔다. */
+.detail-panel__stat-value[data-tone="up"] {
+  color: var(--status-good-text);
+}
+
+.detail-panel__stat-value[data-tone="down"] {
+  color: var(--status-error-text);
+}
+
+.detail-panel__stat-value[data-tone="flat"] {
+  color: var(--text-secondary);
+}
+
+/* ---- 채용 공고 추이 스파크라인 ----
+   좁은 패널이라 축을 그리지 않는다. 기준선(100)과 마지막 값만 있으면
+   "시장 평균보다 빨리 늘고 있나"는 읽힌다. */
+.detail-panel__trend {
+  margin-top: 24px;
+  padding-top: 18px;
+  border-top: 1px solid var(--line);
+}
+
+.detail-panel__trend-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.detail-panel__section-title {
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.detail-panel__trend-range {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.detail-panel__trend-body {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-top: 12px;
+}
+
+.detail-panel__spark {
+  flex: 1;
+  height: 40px;
+  min-width: 0;
+}
+
+.detail-panel__trend-read {
+  flex: none;
+  text-align: right;
+}
+
+.detail-panel__trend-index {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 1rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-panel__trend-delta {
+  display: block;
+  margin-top: 2px;
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.detail-panel__trend-delta[data-tone="up"] {
+  color: var(--status-good-text);
+}
+
+.detail-panel__trend-delta[data-tone="down"] {
+  color: var(--status-error-text);
+}
+
+.detail-panel__trend-note {
+  margin-top: 10px;
+  font-size: 0.7rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  word-break: keep-all;
+}
+
+.detail-panel__footnote code {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
 }

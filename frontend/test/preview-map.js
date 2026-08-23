@@ -6,7 +6,7 @@
 (() => {
   "use strict";
 
-  const { $, QUADRANTS, metaOf, fillFooter } = window.PV;
+  const { $, QUADRANTS, metaOf, fillFooter, indexSeries } = window.PV;
   const DATA = window.PREVIEW;
 
   // ------------------------------------------------- 좌표 (lib/mapPoints.js)
@@ -304,17 +304,64 @@
     }
 
     const m = metaOf(selected.quadrant);
-    const bar = (label, value) => `
-      <div>
-        <div class="detail-panel__metric-row">
-          <span class="detail-panel__metric-label">${label}</span>
-          <span class="detail-panel__metric-value">${value}</span>
-        </div>
-        <div class="detail-panel__metric-track">
-          <div class="detail-panel__metric-fill"
-               style="width: ${Math.max(0, Math.min(100, value))}%; background: var(--quad-${m.slug})"></div>
-        </div>
+
+    // 채용 수요는 백분위라 "몇 위인지"가 붙어야 읽힌다. 목업엔 순위가 없어 센다.
+    const rank = DATA.items.filter((d) => (d.demand ?? 0) > (selected.demand ?? 0)).length + 1;
+    const share = DATA.meta.totalPostings
+      ? ((selected.postings ?? 0) / DATA.meta.totalPostings) * 100 : 0;
+
+    const hiring = indexSeries(selected.tech, "hiring");
+    const eco = indexSeries(selected.tech, "eco");
+
+    const toneOf = (pct) => (Math.abs(pct) < 1 ? "flat" : pct > 0 ? "up" : "down");
+    const signed = (pct) => `${pct > 0 ? "+" : ""}${pct}%`;
+
+    // 공고가 적은 기술에서 전월 대비 %는 추세가 아니라 우연이다. 200개 중
+    // 절반이 전 기간 12건 이하 — 월 2건짜리가 3건이 되면 +50%로 찍힌다.
+    // 그래서 문턱을 넘지 못하면 숫자를 아예 내주지 않는다.
+    const MIN_POSTINGS = 30;
+    const thin = (selected.postings ?? 0) < MIN_POSTINGS;
+
+    const deltaStat = (label, series, unit, gated) => `
+      <div class="detail-panel__stat">
+        <div class="detail-panel__stat-label">${label}</div>
+        ${gated
+          ? `<div class="detail-panel__stat-value" data-tone="flat">판단 유보</div>
+             <div class="detail-panel__stat-note">
+               전 기간 공고 ${(selected.postings ?? 0).toLocaleString("ko-KR")}건 · 월 ${Math.round((selected.postings ?? 0) / 8)}건
+               수준이라 월별 증감을 추세로 읽지 않습니다.
+             </div>`
+          : `<div class="detail-panel__stat-value" data-tone="${toneOf(series.delta.pct)}">${signed(series.delta.pct)}</div>
+             <div class="detail-panel__stat-note">
+               ${series.delta.month} ${unit} ${series.delta.value} · 전월 ${series.delta.prevValue}에서
+               ${series.delta.pct > 0 ? "상승" : series.delta.pct < 0 ? "하락" : "보합"}
+             </div>`}
       </div>`;
+
+    // 스파크라인. viewBox를 가로로 늘려 쓰므로 선에 non-scaling-stroke를 준다.
+    // 같은 이유로 마지막 값 표시는 원이 아니라 세로 선이다 — 원은 찌그러진다.
+    const spark = (series, gated) => {
+      const W = 100, H = 40, PADY = 5;
+      const lo = Math.min(...series.index, 100), hi = Math.max(...series.index, 100);
+      const span = hi - lo;
+      const y = (v) => span === 0 ? H / 2 : H - PADY - ((v - lo) / span) * (H - PADY * 2);
+      const x = (i) => (i / (series.index.length - 1)) * W;
+      const rising = series.index[series.index.length - 1] >= 100;
+      const stroke = gated ? "var(--text-muted)"
+        : rising ? "var(--status-good-text)" : "var(--status-error-text)";
+      const pts = series.index.map((v, i) => `${x(i).toFixed(2)},${y(v).toFixed(2)}`).join(" ");
+      const lastY = y(series.index[series.index.length - 1]);
+      return `
+        <svg class="detail-panel__spark" viewBox="0 0 ${W} ${H}" preserveAspectRatio="none" role="img">
+          <title>${series.months[0]} 대비 ${series.delta.month} 지수 ${Math.round(series.delta.value)}</title>
+          <line x1="0" x2="${W}" y1="${y(100)}" y2="${y(100)}" stroke="var(--line-strong)"
+            stroke-width="1" stroke-dasharray="3 3" vector-effect="non-scaling-stroke" />
+          <polyline points="${pts}" fill="none" stroke="${stroke}" stroke-width="1.5"
+            stroke-linejoin="round" stroke-linecap="round" vector-effect="non-scaling-stroke" />
+          <line x1="${W}" x2="${W}" y1="${lastY - 3}" y2="${lastY + 3}" stroke="${stroke}"
+            stroke-width="2" vector-effect="non-scaling-stroke" />
+        </svg>`;
+    };
 
     el.innerHTML = `
       <div class="detail-panel__card">
@@ -334,12 +381,49 @@
           </span>
         </div>
         <p class="detail-panel__summary">${m.description}</p>
-        <div class="detail-panel__metrics">
-          ${bar("생태계 활동", selected.ecosystemScore)}
-          ${bar("채용 수요", selected.demand)}
+
+        <div class="detail-panel__stats">
+          <div class="detail-panel__stat">
+            <div class="detail-panel__stat-label">채용 수요</div>
+            <div class="detail-panel__stat-value">${selected.demand}</div>
+            <div class="detail-panel__stat-note">
+              활성 공고 ${(selected.postings ?? 0).toLocaleString("ko-KR")}건(${share.toFixed(1)}%)에서 요구
+              · ${DATA.items.length}개 중 ${rank}위
+            </div>
+          </div>
+          <div class="detail-panel__stat">
+            <div class="detail-panel__stat-label">생태계 종합</div>
+            <div class="detail-panel__stat-value">${selected.ecosystemScore}</div>
+            <div class="detail-panel__stat-note">GitHub 저장소·이슈·PR과 Stack Overflow 질문을 0~100으로 환산한 값입니다.</div>
+          </div>
+          ${deltaStat("전월 대비 채용 공고", hiring, "점유율 지수", thin)}
+          ${deltaStat("전월 대비 생태계 활동", eco, "점유율 지수", false)}
         </div>
+
+        <div class="detail-panel__trend">
+          <div class="detail-panel__trend-head">
+            <span class="detail-panel__section-title">채용 공고 추이</span>
+            <span class="detail-panel__trend-range">${hiring.months[0]} → ${hiring.delta.month}</span>
+          </div>
+          <div class="detail-panel__trend-body">
+            ${spark(hiring, thin)}
+            <div class="detail-panel__trend-read">
+              <span class="detail-panel__trend-index">지수 ${Math.round(hiring.delta.value)}</span>
+              ${thin
+                ? `<span class="detail-panel__trend-delta">판단 유보</span>`
+                : `<span class="detail-panel__trend-delta" data-tone="${toneOf(hiring.delta.pct)}">전월 대비 ${signed(hiring.delta.pct)}</span>`}
+            </div>
+          </div>
+          <p class="detail-panel__trend-note">
+            ${hiring.months[0]} = 100 기준 · 건수가 아니라 그 달 전체 공고에서 차지하는
+            비중입니다. 채용시장 전체가 커지거나 줄어드는 효과를 걷어냈습니다.${
+              thin ? ` 다만 이 기술은 표본이 ${MIN_POSTINGS}건에 못 미쳐 선을 회색으로 둡니다.` : ""}
+          </p>
+        </div>
+
         <div class="detail-panel__footnote">
-          공고 ${(selected.postings ?? 0).toLocaleString("ko-KR")}건에서 요구됩니다.
+          추세는 미리보기용 임의값입니다. 실데이터는 <code>/api/v1/timeseries</code>의
+          월별 공고 수에서 나옵니다.
         </div>
       </div>`;
 

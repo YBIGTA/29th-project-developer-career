@@ -109,6 +109,142 @@
     return out;
   }
 
+  // ---- 추세선 ---------------------------------------------------------------
+  // 채용 언급과 생태계 열기는 단위가 다르다(건수 vs 지표). 축을 둘로 나누면
+  // 기울기 비교가 거짓말이 되므로, 둘 다 백분위 0~100 한 축에 얹는다.
+  const MONTHS = ["2026-03", "2026-04", "2026-05", "2026-06", "2026-07", "2026-08"];
+
+  function seriesOf(d) {
+    // 끝점은 지금 카드에 찍힌 값 그대로. 거기서 거꾸로 걸어 나간다 — 표에 보이는
+    // 숫자와 선의 오른쪽 끝이 어긋나지 않게.
+    const walk = (end, seedKey) => {
+      const slope = jitter(d.tech, seedKey, 9);   // 월 평균 기울기
+      const out = [];
+      for (let i = MONTHS.length - 1; i >= 0; i--) {
+        const back = MONTHS.length - 1 - i;
+        out[i] = clamp(end - slope * back + jitter(d.tech, seedKey + i, 6));
+      }
+      out[MONTHS.length - 1] = clamp(end);
+      return out.map((v) => Math.round(v * 10) / 10);
+    };
+    return {
+      hiring: walk(d.demand ?? 0, "h"),
+      eco: walk(d.ecosystemScore ?? 0, "e"),
+      // 백분위 옆에 실제 건수도 같이 읽히게. 끝점이 지금 공고 수와 맞는다.
+      counts: walk(d.demand ?? 0, "h").map((v, i, a) =>
+        Math.max(0, Math.round((d.postings ?? 0) * (v / (a[a.length - 1] || 1))))),
+    };
+  }
+
+  const CHART = { w: 1000, h: 230, l: 44, r: 92, t: 18, b: 30 };
+
+  function trendHTML(d) {
+    const s = seriesOf(d);
+    const { w, h, l, r, t, b } = CHART;
+    const x = (i) => l + (i * (w - l - r)) / (MONTHS.length - 1);
+    const y = (v) => t + (1 - v / 100) * (h - t - b);
+    const path = (arr) => arr.map((v, i) => `${i ? "L" : "M"}${x(i).toFixed(1)} ${y(v).toFixed(1)}`).join(" ");
+
+    const grid = [0, 25, 50, 75, 100].map((v) => `
+      <line class="trend__grid" x1="${l}" x2="${w - r}" y1="${y(v)}" y2="${y(v)}" />
+      <text class="trend__tick" x="${l - 10}" y="${y(v) + 4}" text-anchor="end">${v}</text>`).join("");
+
+    const months = MONTHS.map((m, i) => `
+      <text class="trend__tick" x="${x(i)}" y="${h - 8}" text-anchor="middle">${m.slice(2)}</text>`).join("");
+
+    // 선 끝에 이름표를 직접 붙인다. 두 줄뿐이라 범례를 눈으로 왕복할 이유가 없다.
+    const lines = [
+      { key: "hiring", label: "채용 공고", color: "var(--series-hiring)", data: s.hiring },
+      { key: "eco", label: "생태계", color: "var(--series-eco)", data: s.eco },
+    ].map((ln) => `
+      <path class="trend__line" d="${path(ln.data)}" stroke="${ln.color}" />
+      <circle class="trend__end" cx="${x(MONTHS.length - 1)}" cy="${y(ln.data.at(-1))}" r="4.5" fill="${ln.color}" />
+      <text class="trend__end-label" x="${w - r + 12}" y="${y(ln.data.at(-1)) + 4}" fill="${ln.color}">${ln.label}</text>
+      <circle class="trend__cursor" data-series="${ln.key}" cx="0" cy="0" r="5.5" fill="${ln.color}" hidden />`).join("");
+
+    const rows = MONTHS.map((m, i) => `
+      <tr><th scope="row">${m}</th><td>${s.hiring[i].toFixed(1)}</td>
+      <td>${s.counts[i].toLocaleString("ko-KR")}건</td><td>${s.eco[i].toFixed(1)}</td></tr>`).join("");
+
+    return `
+      <div class="dict-trend">
+        <div class="dict-trend__head">
+          <div class="dict-entry__sub">최근 6개월 추세 <span class="dict-trend__unit">· 백분위(0–100), 200개 기술 안에서의 자리</span></div>
+          <div class="dict-trend__readout" hidden>
+            <span class="dict-trend__readout-month"></span>
+            <span class="dict-trend__readout-item">
+              <span class="dict-trend__key" style="background:var(--series-hiring)"></span>
+              <b class="dict-trend__readout-hiring"></b> <span class="dict-trend__readout-count"></span>
+            </span>
+            <span class="dict-trend__readout-item">
+              <span class="dict-trend__key" style="background:var(--series-eco)"></span>
+              <b class="dict-trend__readout-eco"></b>
+            </span>
+          </div>
+        </div>
+
+        <div class="dict-trend__frame">
+          <svg class="dict-trend__svg" viewBox="0 0 ${w} ${h}" width="100%" role="img"
+            aria-label="${d.tech} 최근 6개월 채용 공고·생태계 백분위 추세">
+            ${grid}${months}
+            <line class="trend__hair" x1="0" x2="0" y1="${t}" y2="${h - b}" hidden />
+            ${lines}
+          </svg>
+        </div>
+
+        <details class="dict-trend__table">
+          <summary>표로 보기</summary>
+          <table>
+            <thead><tr><th>월</th><th>채용 백분위</th><th>공고</th><th>생태계 백분위</th></tr></thead>
+            <tbody>${rows}</tbody>
+          </table>
+        </details>
+      </div>`;
+  }
+
+  // 포인터가 가장 가까운 달로 붙는다. 2px 선을 정확히 겨누게 하지 않는다.
+  function bindTrend(entry, d) {
+    const svg = entry.querySelector(".dict-trend__svg");
+    if (!svg) return;
+    const s = seriesOf(d);
+    const { w, l, r, t, b, h } = CHART;
+    const hair = svg.querySelector(".trend__hair");
+    const cursors = { hiring: svg.querySelector('[data-series="hiring"]'),
+                      eco: svg.querySelector('[data-series="eco"]') };
+    const box = entry.querySelector(".dict-trend__readout");
+    const q = (sel) => box.querySelector(sel);
+
+    const move = (e) => {
+      const rect = svg.getBoundingClientRect();
+      const ratio = (e.clientX - rect.left) / rect.width;          // 화면 → viewBox
+      const px = ratio * w;
+      const i = Math.max(0, Math.min(MONTHS.length - 1,
+        Math.round(((px - l) / (w - l - r)) * (MONTHS.length - 1))));
+      const cx = l + (i * (w - l - r)) / (MONTHS.length - 1);
+      const cy = (v) => t + (1 - v / 100) * (h - t - b);
+
+      hair.hidden = false; hair.setAttribute("x1", cx); hair.setAttribute("x2", cx);
+      cursors.hiring.hidden = false; cursors.hiring.setAttribute("cx", cx);
+      cursors.hiring.setAttribute("cy", cy(s.hiring[i]));
+      cursors.eco.hidden = false; cursors.eco.setAttribute("cx", cx);
+      cursors.eco.setAttribute("cy", cy(s.eco[i]));
+
+      box.hidden = false;
+      q(".dict-trend__readout-month").textContent = MONTHS[i];
+      q(".dict-trend__readout-hiring").textContent = s.hiring[i].toFixed(1);
+      q(".dict-trend__readout-count").textContent = `${s.counts[i].toLocaleString("ko-KR")}건`;
+      q(".dict-trend__readout-eco").textContent = s.eco[i].toFixed(1);
+    };
+
+    const leave = () => {
+      hair.hidden = true; cursors.hiring.hidden = true; cursors.eco.hidden = true;
+      box.hidden = true;
+    };
+
+    svg.addEventListener("pointermove", move);
+    svg.addEventListener("pointerleave", leave);
+  }
+
   function panelHTML(d, m) {
     const color = `var(--quad-${m.slug})`;
     const mt = metricsOf(d);
@@ -165,6 +301,8 @@
           </div>
         </div>
 
+        ${trendHTML(d)}
+
         <div class="dict-learn">
           <div class="dict-entry__sub">어떻게 배우나</div>
           <div class="dict-learn__grid">${learn}</div>
@@ -206,7 +344,9 @@
     entry.querySelector(".dict-entry__head").setAttribute("aria-expanded", String(open));
     if (!open) { entry.querySelector(".dict-entry__panel")?.remove(); return; }
     const d = DATA.items.find((x) => x.tech === entry.dataset.tech);
-    if (d) entry.insertAdjacentHTML("beforeend", panelHTML(d, metaOf(d.quadrant)));
+    if (!d) return;
+    entry.insertAdjacentHTML("beforeend", panelHTML(d, metaOf(d.quadrant)));
+    bindTrend(entry, d);
   }
 
   function render() {
@@ -221,9 +361,6 @@
     if (sort === "postings") rows.sort((a, b) => (b.postings ?? 0) - (a.postings ?? 0));
     else if (sort === "ecosystem") rows.sort((a, b) => (b.ecosystemScore ?? -1) - (a.ecosystemScore ?? -1));
     else rows.sort((a, b) => a.tech.localeCompare(b.tech, "en"));
-
-    $("#dict-count").innerHTML =
-      `${rows.length}개 표제어${q ? `<span class="dict-count__q"> · &ldquo;${query}&rdquo; 검색 결과</span>` : ""}`;
 
     // 사전순일 때만 첫 글자로 묶는다. 점수순에서는 묶음이 의미가 없다 (앱과 동일).
     const grouped = sort === "dict";
@@ -297,6 +434,9 @@
   // 스크롤하면 레일에서 지금 보고 있는 글자를 짚어준다. 경계 200px은 앱이
   // scroll-padding-top(88) + scroll-margin-top(108)으로 착지시키는 자리와 같다.
   function syncRail() {
+    // 한 화면 넘게 내려간 뒤에야 올라갈 곳이 생긴다. 그전엔 버튼이 방해만 된다.
+    $("#to-top").dataset.show = String(window.scrollY > window.innerHeight * 0.8);
+
     const secs = [...document.querySelectorAll("#dict-list .dict-group[id]")];
     if (!secs.length) return;
     let current = secs[0];

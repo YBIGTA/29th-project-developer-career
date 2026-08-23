@@ -40,11 +40,10 @@ open frontend/test/dictionary.html   # 기술 사전
   추천 영상이 있는 87개 기술에만 생깁니다
 - 상세 패널의 **생태계 활동 추이** — 최근 8개월 점유율 지수입니다. 기준선(100) 위면
   초록, 아래면 빨강
-- 사전에서 **표제어 누르기** — 생태계 지표 막대, 이 자리에 있는 이유, 6개월 추세선,
-  학습 자료가 펼쳐집니다 (지표·추세·자료 모두 임의값입니다. 학습 링크는 검색 결과로
-  걸어둬서 눌리기는 합니다)
-- 추세선 위에 **커서 올리기** — 세로선이 가장 가까운 달에 붙고, 제목 줄 오른쪽에
-  그 달의 두 값이 함께 뜹니다. `표로 보기`를 열면 같은 값을 표로도 읽습니다
+- 사전에서 **표제어 누르기** — 생태계 지표 막대, 이 자리에 있는 이유, `어떻게 배우나`가
+  펼쳐집니다. 학습 카드는 **공식 문서 1개 + 유튜브 영상 3개**이고 넷 다 썸네일이 보입니다
+  (영상은 유튜브 썸네일, 문서는 그 사이트 파비콘 — 파비콘을 못 받아오면 머리글자 타일이
+  남습니다). 주소와 제목은 실제 값이라 눌리면 진짜로 열립니다
 - 모서리의 **희소가치 / 필수 / 저관심 / 선점 후보** — 그 구역 설명이 뜹니다
 - 사전을 한 화면 넘게 내리면 **오른쪽 아래 ↑ 버튼** — 맨 위로 돌아갑니다
 - `Esc` — 열린 설명, 그다음 선택을 차례로 닫습니다 (사전에서는 펼친 표제어를 모두 접습니다)
@@ -61,13 +60,14 @@ preview-extra.css   미리보기에서만 필요한 것 (배너, 정적 HTML이�
 preview-common.js   두 페이지가 함께 쓰는 것 (사분면 메타 등)
 preview-map.js      지도 동작    — 앱의 GapMap.jsx / DetailPanel.jsx
 preview-dict.js     사전 동작    — 앱의 DictionaryClient.jsx
-                    (펼침 패널·추세선·학습 자료가 여기 있다)
+                    (펼침 패널·학습 카드가 여기 있다)
 preview-data.js     lib/ 의 mockData + techNotes + techExtras + mockPostings 를 앱과 같은
                     조립 순서(withNotes → withExtras)로 미리 합쳐 둔 사본 (200개)
 
 mapPoints.test.mjs  지도 좌표 계산 검사 (frontend/lib/mapPoints.js 를 읽기만 함)
 palette.test.mjs    팔레트 명암비 검사 (preview.css 의 토큰을 읽음)
 detailPanel.test.mjs 상세 패널 검사 (200개 기술 × 3탭을 실제로 그려본다)
+dictLearn.test.mjs  사전 학습 카드 검사 (썸네일·링크·빈 블록)
 ```
 
 검사 실행:
@@ -76,6 +76,7 @@ detailPanel.test.mjs 상세 패널 검사 (200개 기술 × 3탭을 실제로 �
 node frontend/test/mapPoints.test.mjs
 node frontend/test/palette.test.mjs
 node frontend/test/detailPanel.test.mjs
+node frontend/test/dictLearn.test.mjs
 ```
 
 ## 알려진 한계
@@ -83,16 +84,9 @@ node frontend/test/detailPanel.test.mjs
 - **모바일(`/m`) 화면은 없습니다.** 데스크톱만 옮겼습니다.
 - 공고 목록은 `lib/mockPostings.json` 의 예시 공고 27개 기술분입니다. 배포본도 API가
   응답하지 않으면 같은 파일로 떨어집니다.
-- 데이터는 목업입니다.
-
-## 추세선에 대해
-
-채용 공고 언급과 생태계 열기는 원 단위가 다릅니다(건수 vs 지표). 축을 왼쪽·오른쪽
-둘로 나누면 두 선이 만나고 갈라지는 자리가 아무 뜻도 없는 그림이 되므로, **둘 다
-백분위 0–100 한 축**에 얹었습니다. 실제 건수는 커서를 올렸을 때와 표에서 읽습니다.
-
-선 색(`--series-hiring` 파랑, `--series-eco` 앰버)은 색각 이상 조건에서 ΔE 19 이상으로
-갈라집니다. 값은 사분면 색과 같지만 뜻이 다르므로 토큰 이름을 따로 뒀습니다.
+- 지표·순위는 목업이고, 학습 자료(공식 문서·영상)와 생태계 활동 추이는 실제 값입니다.
+- 사전 펼침 패널의 지표 막대와 근거 문장은 아직 임의값입니다 — 상세 패널만 실측으로
+  바꿨습니다.
 
 ## 상세 패널
 

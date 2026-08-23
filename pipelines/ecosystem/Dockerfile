@@ -20,8 +20,10 @@ WORKDIR /app
 
 COPY pyproject.toml ./
 COPY src/ ./src/
-RUN pip install .
+COPY entrypoint.sh ./
+RUN pip install . \
+    && chmod +x entrypoint.sh
 
 USER devcompass
-ENTRYPOINT ["python", "-m", "devcompass_ecosystem.batch"]
+ENTRYPOINT ["./entrypoint.sh"]
 

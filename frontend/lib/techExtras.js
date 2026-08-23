@@ -29,7 +29,14 @@ function monthOverMonth(index) {
   };
 }
 
-/** getGapMapData()가 받아온 응답에 docs / videos / trend를 덧붙인다. */
+/**
+ * getGapMapData()가 받아온 응답에 docs / videos / trend를 덧붙인다.
+ *
+ * **응답이 이미 갖고 있는 필드는 건드리지 않는다.** 추이(trend)는 API가
+ * ecosystem_monthly_* 테이블에서 직접 계산해 내려주기 시작했다(app/api/routes.py의
+ * build_trends). 여기 있는 techExtras.json은 API가 그 필드를 못 줄 때만 쓰는
+ * 대체본이다 — 덮어쓰면 실측값이 스냅샷으로 되돌아간다.
+ */
 export function withExtras(gapMapData) {
   if (!gapMapData?.items) return gapMapData;
 
@@ -39,9 +46,9 @@ export function withExtras(gapMapData) {
 
     return {
       ...item,
-      ...(extra.docs && { docs: extra.docs }),
-      ...(extra.videos && { videos: extra.videos }),
-      ...(extra.index && {
+      ...(extra.docs && !item.docs && { docs: extra.docs }),
+      ...(extra.videos && !item.videos && { videos: extra.videos }),
+      ...(extra.index && !item.trend && {
         trend: {
           months,
           index: extra.index,

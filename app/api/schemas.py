@@ -16,6 +16,18 @@ class RoleBreakdown(BaseModel):
     quadrant: str
 
 
+class Trend(BaseModel):
+    """생태계 활동 추이. index는 원시 건수가 아니라 그 달 전체 합계 대비
+    점유율을 첫 달 100으로 잡은 지수다 (routes.build_trends 참고)."""
+
+    months: list[str]
+    index: list[float]
+    github: list[int]
+    stackoverflow: list[int] | None
+    hasStackoverflow: bool
+    delta: dict[str, float | str] | None
+
+
 class GapItem(BaseModel):
     tech: str
     skillCode: str
@@ -33,6 +45,8 @@ class GapItem(BaseModel):
     postingsNote: str
     ecosystem: dict[str, Score]
     signals: list[dict[str, str]]
+    # 월별 수집이 있는 기술에만 붙는다. 프론트는 없으면 스파크라인을 안 그린다.
+    trend: Trend | None = None
 
 
 class GapMeta(BaseModel):

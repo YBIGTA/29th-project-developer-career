@@ -37,7 +37,21 @@ export function pickMapPoints(items, limit = MAP_LIMIT) {
   const queues = [...groups.entries()]
     .map(([key, list]) => ({
       key,
-      list: [...list].sort((a, b) => b.demand - a.demand || a.tech.localeCompare(b.tech)),
+      // "선점 후보" 큐만 정렬 키가 다르다. 그 사분면(수요 낮음 · 생태계 높음)을
+      // 수요 내림차순으로 뽑으면 사분면 경계에 가장 가까운 기술이 위로 올라와,
+      // 생태계 비중이 줄고 있는 Next.js·GitHub Copilot 같은 것이 "선점 후보"로
+      // 찍힌다. earlyMoverScore는 서버가 그 사분면에만 실어 보내는 값이고
+      // (생태계 상승세 · 군집 근거 · 회사 확산 범위), 게이트를 통과하지 못한
+      // 기술은 -1이라 자동으로 뒤로 밀린다 — 빠지는 게 아니라 뒤로만 간다.
+      //
+      // 다른 세 사분면에는 이 값이 없다. `?? 0`으로 전부 무승부가 되어 두 번째
+      // 키인 demand가 순서를 정하므로, 지금까지와 똑같이 동작한다.
+      list: [...list].sort(
+        (a, b) =>
+          (b.earlyMoverScore ?? 0) - (a.earlyMoverScore ?? 0) ||
+          b.demand - a.demand ||
+          a.tech.localeCompare(b.tech)
+      ),
     }))
     .sort((a, b) => b.list.length - a.list.length || a.key.localeCompare(b.key));
 

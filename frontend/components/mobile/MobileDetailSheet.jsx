@@ -282,13 +282,6 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                     </>
                   )}
 
-                  {tech.verdict && (
-                    <div className="mv-sheet__verdict" style={{ background: meta.tint }}>
-                      <div className="mv-sheet__eyebrow">지금 배운다면</div>
-                      <div className="mv-sheet__verdict-text">{tech.verdict}</div>
-                    </div>
-                  )}
-
                   <p className="mv-sheet__footnote">
                     생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는
                     수집된 공고에서 추출한 기술 태그 빈도의 백분위 순위입니다.

@@ -1,45 +1,64 @@
+/* ==========================================================================
+   DevCompass 데스크톱 스타일 — 디자인 토큰(:root) + 리셋 + 컴포넌트.
+   모바일(/m)은 mobile.css가 이어받는다. 토큰은 여기서만 정의한다.
+   ========================================================================== */
+
+/* ==========================================================================
+   공유 베이스 — 디자인 토큰(:root 변수) + 리셋.
+   데스크톱/모바일 양쪽 레이아웃에서 항상 로드된다. 여기 없는 스타일(레이아웃별
+   컴포넌트 클래스)은 globals.css(데스크톱)/mobile.css(모바일)에 따로 있다.
+   ========================================================================== */
+
 :root {
-  color-scheme: dark;
+  color-scheme: light;
 
-  /* ---- surfaces. 0b132b -> 1c2541 -> 3a506b 축을 그대로 층으로 쓴다.
-     한 페이지 안에서 따뜻한 회색과 섞지 않는다. ---- */
-  --ink-950: #060c1c;
-  --ink-900: #0e1832;
-  --ink-850: #182244;
-  --ink-800: #27345e;
-  --line: rgba(138, 172, 214, 0.18);
-  --line-strong: rgba(154, 188, 230, 0.42);
+  /* ---- surfaces. 따뜻한 종이 톤. 층의 방향이 어두운 테마와 반대다 —
+     ink-950이 가장 밝은 페이지 바탕이고 위로 쌓일수록(900 -> 850) 흰색에
+     가까워진다. ink-800만 칩/트랙/툴팁처럼 "눌러 담은" 자리라 한 단 어둡다.
+     한 페이지 안에서 차가운 회색과 섞지 않는다. ---- */
+  --ink-950: #f5f4f1;
+  --ink-900: #fbfaf8;
+  --ink-850: #ffffff;
+  --ink-800: #eceae5;
+  --line: rgba(58, 53, 45, 0.14);
+  --line-strong: rgba(58, 53, 45, 0.3);
 
-  --text-primary: #f4fafd;
-  --text-secondary: #b7c9e0;
-  --text-muted: #8ba0bd;
+  --text-primary: #1b1916;
+  --text-secondary: #4e4941;
+  /* muted는 장식이 아니라 축 캡션·개수·주석에 쓰는 본문이다. 가장 밝은
+     배경(--ink-800, 칩/트랙) 위에서도 WCAG AA 4.5:1을 넘는 선까지만 흐리다. */
+  --text-muted: #6e6961;
 
   /* ---- quadrant colors — 라벨 <-> slug 매핑은 lib/quadrants.js 참고.
      색만으로 구분하지 않는다. 점의 채움 방식(채운 원 / 점선 / 빈 원)과
      범례가 같은 정보를 형태로도 다시 말해준다.
      필수와 선점 후보는 둘 다 '채운 원'이라 형태가 겹친다. 그래서 이 둘만은
-     색상(파랑 <-> 청록)에 더해 명도까지 벌려 구분이 무너지지 않게 한다. ---- */
-  --quad-essential: #a6caf9;
-  --quad-essential-bg: rgba(166, 202, 249, 0.12);
-  --quad-early-mover: #5bc0be;
-  --quad-early-mover-bg: rgba(91, 192, 190, 0.15);
-  --quad-niche: #e0b478;
-  --quad-niche-bg: rgba(224, 180, 120, 0.11);
-  --quad-minimal: #8296b6;
-  --quad-minimal-bg: rgba(130, 150, 182, 0.1);
-  --quad-unknown: #8296b6;
-  --quad-unknown-bg: rgba(130, 150, 182, 0.1);
+     색상(파랑 <-> 청록)에 더해 명도까지 벌려 구분이 무너지지 않게 한다.
+     밝은 바탕에서는 어두운 테마의 파스텔 톤이 전부 날아가므로 네 색 모두
+     명도를 낮춰 다시 잡았다. 채도는 올리지 않는다 — 미니멀 기조 유지. ---- */
+  --quad-essential: #3d6da6;
+  --quad-essential-bg: rgba(61, 109, 166, 0.1);
+  --quad-early-mover: #2c7d6f;
+  --quad-early-mover-bg: rgba(44, 125, 111, 0.12);
+  --quad-niche: #9a6d29;
+  --quad-niche-bg: rgba(154, 109, 41, 0.1);
+  --quad-minimal: #7d7870;
+  --quad-minimal-bg: rgba(125, 120, 112, 0.09);
+  --quad-unknown: #7d7870;
+  --quad-unknown-bg: rgba(125, 120, 112, 0.09);
 
-  /* 선점 후보 청록이 서비스의 유일한 강조색이다.
+  /* 모노크롬 강조. 청록/민트 계열을 전부 빼고 본문 잉크와 같은 무채색 축만
+     쓴다 — 강조는 색이 아니라 대비로 준다. 바탕이 밝으므로 accent가 어두운
+     쪽이고, accent-ink(강조 위에 얹는 글자색)만 밝다.
      --accent-bright는 hover/press처럼 순간적인 상태에만 쓴다. */
-  --accent: #5bc0be;
-  --accent-bright: #6fffe9;
-  --accent-soft: rgba(91, 192, 190, 0.14);
-  --accent-ink: #06222b;
+  --accent: #1b1916;
+  --accent-bright: #000000;
+  --accent-soft: rgba(27, 25, 22, 0.07);
+  --accent-ink: #faf9f7;
 
-  --status-good-text: #5fd3bd;
-  --status-error-text: #ee8d8d;
-  --status-error-bg: rgba(238, 141, 141, 0.12);
+  --status-good-text: #1f7a63;
+  --status-error-text: #a83c3c;
+  --status-error-bg: rgba(168, 60, 60, 0.09);
 
   /* 기본 CSS 이징은 힘이 약하다. 진입/이탈은 ease-out, 화면 안에서의
      이동은 ease-in-out. ease-in은 첫 프레임이 굼떠서 UI에는 쓰지 않는다. */
@@ -88,18 +107,6 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* 그레인은 고정 + pointer-events:none 오버레이에만 건다.
-   스크롤 컨테이너에 걸면 GPU 리페인트가 계속 발생한다. */
-body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  opacity: 0.035;
-  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-
 h1,
 h2,
 h3,
@@ -141,6 +148,11 @@ a {
   border: 0;
 }
 
+/* ==========================================================================
+   데스크톱 전용 컴포넌트 스타일. 토큰/리셋은 base.css로 옮겼다 — 이 파일은
+   app/(desktop)/layout.js에서만 로드되며 /m 라우트에는 내려가지 않는다.
+   ========================================================================== */
+
 /* ======================================================================
    topbar
    ====================================================================== */
@@ -161,10 +173,9 @@ a {
 }
 
 .topbar[data-solid="true"] {
-  background: rgba(6, 12, 28, 0.72);
-  backdrop-filter: blur(16px) saturate(150%);
+  background: rgba(245, 244, 241, 0.86);
+  backdrop-filter: blur(16px);
   border-bottom-color: var(--line);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05);
 }
 
 .topbar__brand {
@@ -176,328 +187,83 @@ a {
   letter-spacing: -0.02em;
 }
 
-.topbar__brand-mark {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--accent);
-  box-shadow: 0 0 0 4px var(--accent-soft);
-}
-
-.topbar__nav {
-  display: flex;
-  align-items: center;
-  gap: 22px;
-}
-
-.topbar__links {
-  display: flex;
-  gap: 26px;
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-}
-
-.topbar__links a {
-  transition: color 200ms ease;
-}
-
-.topbar__links a:hover {
-  color: var(--text-primary);
-}
-
-/* 사전으로 가는 유일한 상시 통로다. 아이콘만 두면 눈에 안 띄어 묻히므로
-   이름을 붙인 알약 버튼으로 두고 강조색을 준다. */
-.topbar__search {
+/* 지도 <-> 기술 사전 세그먼트 토글.
+   두 항목은 항상 같은 자리에 있고, 채워진 알약만 좌우로 미끄러져 지금 어느
+   쪽인지 알린다. */
+.topbar__toggle {
+  position: relative;
   display: inline-flex;
-  align-items: center;
-  gap: 7px;
-  height: 34px;
-  padding: 0 14px 0 12px;
-  border: 1px solid var(--accent);
+  padding: 4px;
+  border: 1px solid var(--line);
   border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
+  background: var(--ink-900);
+}
+
+/* 두 항목의 폭이 같아야 thumb의 translateX(100%)가 정확히 두 번째 자리에
+   떨어진다. 글자 수가 달라도(지도 2자 / 기술 사전 4자) min-width로 맞춘다. */
+.topbar__toggle-item {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  min-width: 82px;
+  padding: 7px 14px;
+  border-radius: 999px;
+  text-align: center;
   font-size: 0.8rem;
   font-weight: 600;
   white-space: nowrap;
-  transition: color 200ms ease, border-color 200ms ease, background 200ms ease,
-    transform 140ms var(--ease-out);
+  color: var(--text-secondary);
+  transition: color 220ms ease;
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .topbar__search:hover {
-    color: var(--accent-bright);
-    border-color: var(--accent-bright);
-    background: rgba(91, 192, 190, 0.22);
+  .topbar__toggle-item:hover {
+    color: var(--text-primary);
   }
 }
 
-.topbar__search:active {
-  transform: scale(0.94);
+/* 지금 있는 쪽은 thumb 위에 얹히므로 글자색을 뒤집는다. */
+.topbar__toggle-item[aria-current="page"] {
+  color: var(--accent-ink);
 }
 
-/* 사전 페이지에서는 현재 위치 표시로 배경을 더 채운다. */
-.topbar__search[data-active="true"] {
+@media (hover: hover) and (pointer: fine) {
+  .topbar__toggle-item[aria-current="page"]:hover {
+    color: var(--accent-ink);
+  }
+}
+
+.topbar__toggle-thumb {
+  position: absolute;
+  top: 4px;
+  bottom: 4px;
+  left: 4px;
+  /* 컨테이너 안쪽 폭의 절반. padding 4px를 양쪽에서 뺀 값이라 항목 폭과 같다. */
+  width: calc(50% - 4px);
+  border-radius: 999px;
   background: var(--accent);
-  border-color: var(--accent);
-  color: var(--accent-ink);
+  transition: transform 280ms var(--ease-out);
+}
+
+.topbar__toggle[data-active="dictionary"] .topbar__toggle-thumb {
+  transform: translateX(100%);
 }
 
 @media (max-width: 560px) {
-  .topbar__nav {
-    gap: 14px;
-  }
-  .topbar__links {
-    gap: 18px;
-    font-size: 0.8rem;
-  }
-  /* 좁은 화면에서는 상단바가 밀리므로 원형 아이콘 버튼으로 되돌린다.
-     display: none 대신 sr-only로 감춰야 버튼의 접근성 이름이 유지된다. */
-  .topbar__search {
-    width: 34px;
-    padding: 0;
-    justify-content: center;
-  }
-  .topbar__search-text {
-    position: absolute;
-    width: 1px;
-    height: 1px;
-    padding: 0;
-    overflow: hidden;
-    clip: rect(0 0 0 0);
-    white-space: nowrap;
-    border: 0;
+  .topbar__toggle-item {
+    min-width: 66px;
+    padding: 6px 10px;
+    font-size: 0.76rem;
   }
 }
 
-/* ======================================================================
-   hero
-   ====================================================================== */
-
-.hero-sentinel {
-  position: absolute;
-  top: 0;
-  height: 72vh;
-  width: 1px;
-  pointer-events: none;
-}
-
-.hero {
-  position: relative;
-  min-height: 100dvh;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 128px clamp(20px, 5vw, 56px) 96px;
-  overflow: hidden;
-}
-
-/* 강조색 글로우 — 아우터 글로우가 아니라 배경 조명에 가깝게 아주 옅게 */
-.hero::before {
-  content: "";
-  position: absolute;
-  top: -10%;
-  right: -12%;
-  width: min(920px, 90vw);
-  aspect-ratio: 1;
-  border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    rgba(91, 192, 190, 0.11) 0%,
-    rgba(91, 192, 190, 0.04) 38%,
-    transparent 68%
-  );
-  pointer-events: none;
-}
-
-.hero__inner {
-  position: relative;
-  z-index: 1;
-  width: 100%;
-  max-width: var(--shell);
-  margin: 0 auto;
-  display: grid;
-  grid-template-columns: minmax(0, 1.12fr) minmax(0, 0.88fr);
-  align-items: center;
-  gap: clamp(32px, 5vw, 72px);
-}
-
-.hero__eyebrow {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 7px 14px 7px 11px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.025);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.06);
-  font-size: 0.76rem;
-  font-weight: 500;
-  letter-spacing: 0.01em;
-  color: var(--text-secondary);
-  animation: riseIn 0.7s var(--ease-out) 0.05s both;
-}
-
-.hero__eyebrow-dot {
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-}
-
-.hero__wordmark {
-  margin: 26px 0 0;
-  font-size: clamp(3.1rem, 8.2vw, 7.3rem);
-  font-weight: 600;
-  line-height: 0.9;
-  letter-spacing: -0.052em;
-  animation: riseIn 0.9s var(--ease-out) 0.12s both;
-}
-
-.hero__rule {
-  position: relative;
-  height: 1px;
-  margin-top: 26px;
-  background: linear-gradient(to right, var(--line-strong), transparent 88%);
-  transform-origin: left center;
-  animation: drawX 1.1s var(--ease-out) 0.42s both;
-}
-
-.hero__rule-marker {
-  position: absolute;
-  top: 50%;
-  left: 68%;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: var(--accent);
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 5px var(--accent-soft);
-  animation: riseIn 0.6s var(--ease-spring) 1.2s both;
-}
-
-.hero__tagline {
-  max-width: 34ch;
-  margin-top: 26px;
-  font-size: clamp(1rem, 1.35vw, 1.18rem);
-  line-height: 1.68;
-  color: var(--text-secondary);
-  word-break: keep-all;
-  animation: riseIn 0.8s var(--ease-out) 0.24s both;
-}
-
-.hero__tagline strong {
-  display: block;
-  margin-bottom: 4px;
-  font-size: 1.16em;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: -0.015em;
-}
-
-/* 줄바꿈이 em 대시 역할을 대신하므로 시각적으로는 숨기되,
-   화면 낭독기에는 문구가 끊기지 않도록 DOM에 남겨둔다. */
-.hero__tagline-dash {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-}
-
-.hero__tagline-x {
-  color: var(--accent);
-  font-family: var(--font-mono);
-  font-size: 0.94em;
-  padding: 0 1px;
-}
-
-.hero__actions {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 20px 36px;
-  margin-top: 38px;
-  animation: riseIn 0.8s var(--ease-out) 0.36s both;
-}
-
-.hero__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 13px 22px;
-  border-radius: 10px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  font-size: 0.92rem;
-  font-weight: 600;
-  letter-spacing: -0.01em;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 12px 28px -14px rgba(91, 192, 190, 0.6);
-  transition: transform 160ms var(--ease-out), background 160ms ease;
-}
-
-/* 터치 기기는 탭에도 hover가 걸려 오작동한다. 포인터가 있는 기기로 제한. */
-@media (hover: hover) and (pointer: fine) {
-  .hero__cta:hover {
-    transform: translateY(-2px);
-    background: var(--accent-bright);
+/* 움직임을 줄여달라고 한 사용자에게는 미끄러지지 않고 그냥 자리를 옮긴다. */
+@media (prefers-reduced-motion: reduce) {
+  .topbar__toggle-thumb {
+    transition: none;
   }
 }
 
-.hero__cta:active {
-  transform: translateY(0) scale(0.98);
-}
-
-.hero__cta svg {
-  animation: nudgeDown 2.4s ease-in-out infinite;
-}
-
-.hero__facts {
-  display: flex;
-  gap: 30px;
-}
-
-.hero__facts dt {
-  font-size: 0.72rem;
-  color: var(--text-muted);
-}
-
-.hero__facts dd {
-  margin-top: 5px;
-  font-family: var(--font-mono);
-  font-size: 0.92rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-}
-
-.hero__visual {
-  position: relative;
-  display: flex;
-  justify-content: center;
-  animation: riseIn 1s var(--ease-out) 0.2s both;
-}
-
-@media (max-width: 900px) {
-  .hero {
-    padding-top: 108px;
-    padding-bottom: 110px;
-  }
-  .hero__inner {
-    grid-template-columns: 1fr;
-    gap: 44px;
-  }
-  .hero__visual {
-    order: -1;
-    max-width: 300px;
-  }
-  .hero__tagline {
-    max-width: 42ch;
-  }
-}
-
-/* ======================================================================
-   compass
-   ====================================================================== */
 
 .compass {
   width: 100%;
@@ -507,7 +273,7 @@ a {
 }
 
 .compass__halo {
-  fill: rgba(255, 255, 255, 0.012);
+  fill: rgba(0, 0, 0, 0.015);
   stroke: var(--line);
   stroke-width: 1;
 }
@@ -520,7 +286,7 @@ a {
 
 .compass__ticks {
   fill: none;
-  stroke: rgba(183, 201, 224, 0.3);
+  stroke: rgba(58, 53, 45, 0.26);
   stroke-width: 6;
   stroke-dasharray: 1 13.3;
   stroke-linecap: round;
@@ -634,71 +400,27 @@ a {
    page shell & section heads
    ====================================================================== */
 
+/* 상단바가 fixed라 본문이 그 아래로 깔린다. 히어로가 있던 시절에는 히어로
+   자체 패딩이 그 자리를 만들어줬는데, 히어로를 없앴으니 여기서 직접 띄운다. */
+/* 상단바가 fixed라 본문이 그 아래로 깔린다. 예전에는 히어로가 이 자리를
+   만들어줬는데 히어로를 걷어냈으므로 여기서 직접 띄운다. .dict와 같은 112px을
+   써야 지도 <-> 사전을 오갈 때 본문이 위아래로 튀지 않는다. */
 .page__main {
   position: relative;
   max-width: var(--shell);
   margin: 0 auto;
-  padding: 0 clamp(20px, 5vw, 56px);
+  padding: 112px clamp(20px, 5vw, 56px) 0;
   display: flex;
   flex-direction: column;
   gap: clamp(72px, 8vw, 120px);
 }
 
 /* 고정 상단바 아래로 앵커가 파묻히지 않도록 각 섹션에 여유를 준다. */
-.quadrants,
 .map-section,
 .quadrant-map__anchor {
   scroll-margin-top: 104px;
 }
 
-.section-head {
-  max-width: 60ch;
-  margin-bottom: 26px;
-}
-
-/* 라벨류는 한글이라 자간을 넓히면 글자가 따로 논다. 대문자 변환도 무의미하므로
-   자간은 약하게만 주고 굵기로 구분한다. */
-.section-head__eyebrow {
-  font-size: 0.76rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--accent);
-}
-
-.section-head__title {
-  margin-top: 16px;
-  font-size: clamp(1.7rem, 3.4vw, 2.6rem);
-  font-weight: 600;
-  line-height: 1.28;
-  letter-spacing: -0.032em;
-  word-break: keep-all;
-}
-
-.section-head__title em {
-  font-style: normal;
-  color: var(--accent);
-}
-
-.section-head__lead {
-  margin-top: 16px;
-  font-size: 0.96rem;
-  line-height: 1.72;
-  color: var(--text-secondary);
-  word-break: keep-all;
-}
-
-/* ======================================================================
-   quadrant intro — 스크롤 진입 시 네 칸이 각자의 바깥쪽에서 모여든다
-   ====================================================================== */
-
-.quadrants__frame {
-  display: grid;
-  grid-template-columns: 30px minmax(0, 1fr);
-  grid-template-rows: minmax(0, 1fr) 30px;
-  gap: 10px;
-}
-
-.quadrants__axis,
 .gap-map__axis {
   display: flex;
   align-items: center;
@@ -709,7 +431,6 @@ a {
 }
 
 /* 세로축은 writing-mode만으로 세운다. rotate를 겹치면 한글 자모 순서가 꼬인다. */
-.quadrants__axis--y,
 .gap-map__axis--y {
   grid-column: 1;
   grid-row: 1;
@@ -717,255 +438,22 @@ a {
   padding: 6px 0;
 }
 
-.quadrants__axis--x,
 .gap-map__axis--x {
   grid-column: 2;
   grid-row: 2;
   padding: 0 6px;
 }
 
-.quadrants__axis-name,
 .gap-map__axis-name {
   color: var(--text-secondary);
   font-weight: 500;
 }
 
-.quadrants__axis-cap,
 .gap-map__axis-cap {
   font-family: var(--font-mono);
   font-size: 0.62rem;
 }
 
-.quadrants__grid {
-  position: relative;
-  grid-column: 2;
-  grid-row: 1;
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  grid-template-rows: 1fr 1fr;
-  gap: 12px;
-}
-
-.quadrants__crosshair {
-  position: absolute;
-  background: var(--line-strong);
-  pointer-events: none;
-  transition: transform 900ms var(--ease-out) 60ms;
-}
-
-.quadrants__crosshair--x {
-  left: 0;
-  right: 0;
-  top: 50%;
-  height: 1px;
-  transform: scaleX(0);
-}
-
-.quadrants__crosshair--y {
-  top: 0;
-  bottom: 0;
-  left: 50%;
-  width: 1px;
-  transform: scaleY(0);
-}
-
-.quadrants[data-revealed="true"] .quadrants__crosshair {
-  transform: scale(1);
-}
-
-.quadrant-cell {
-  --cell-color: var(--quad-minimal);
-  --cell-bg: var(--quad-minimal-bg);
-  display: grid;
-  align-content: start;
-  gap: 12px;
-  padding: clamp(20px, 2.4vw, 28px);
-  text-align: left;
-  border: 1px solid var(--line);
-  border-radius: 18px;
-  background: linear-gradient(160deg, var(--cell-bg), transparent 78%), var(--ink-900);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04);
-  cursor: pointer;
-  opacity: 0;
-}
-
-.quadrant-cell:disabled {
-  cursor: default;
-}
-
-.quadrant-cell--essential {
-  --cell-color: var(--quad-essential);
-  --cell-bg: var(--quad-essential-bg);
-}
-.quadrant-cell--early-mover {
-  --cell-color: var(--quad-early-mover);
-  --cell-bg: var(--quad-early-mover-bg);
-  border-color: rgba(91, 192, 190, 0.28);
-}
-.quadrant-cell--niche {
-  --cell-color: var(--quad-niche);
-  --cell-bg: var(--quad-niche-bg);
-}
-
-.quadrants[data-revealed="false"] .quadrant-cell--top-left {
-  transform: translate3d(-32px, -32px, 0) scale(0.95);
-}
-.quadrants[data-revealed="false"] .quadrant-cell--top-right {
-  transform: translate3d(32px, -32px, 0) scale(0.95);
-}
-.quadrants[data-revealed="false"] .quadrant-cell--bottom-left {
-  transform: translate3d(-32px, 32px, 0) scale(0.95);
-}
-.quadrants[data-revealed="false"] .quadrant-cell--bottom-right {
-  transform: translate3d(32px, 32px, 0) scale(0.95);
-}
-
-.quadrants[data-revealed="true"] .quadrant-cell {
-  opacity: 1;
-  transform: none;
-  transition: opacity 700ms var(--ease-out) var(--reveal-delay, 0ms),
-    transform 900ms var(--ease-spring) var(--reveal-delay, 0ms),
-    border-color 240ms ease, background 240ms ease;
-}
-
-.quadrants[data-revealed="true"] .quadrant-cell:not(:disabled):hover {
-  border-color: color-mix(in srgb, var(--cell-color) 45%, transparent);
-  background: linear-gradient(160deg, var(--cell-bg), transparent 62%), var(--ink-850);
-}
-
-.quadrant-cell:not(:disabled):active {
-  transform: scale(0.99);
-}
-
-.quadrant-cell__top {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-.quadrant-cell__marker {
-  width: 9px;
-  height: 9px;
-  border-radius: 50%;
-  background: var(--cell-color);
-  flex: none;
-}
-
-.quadrant-cell__label {
-  font-size: 1.02rem;
-  font-weight: 600;
-  letter-spacing: -0.015em;
-}
-
-.quadrant-cell__count {
-  margin-left: auto;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  font-variant-numeric: tabular-nums;
-  color: var(--text-muted);
-}
-
-.quadrant-cell__count::after {
-  content: "개";
-  margin-left: 2px;
-  font-size: 0.9em;
-}
-
-.quadrant-cell__desc {
-  font-size: 0.86rem;
-  line-height: 1.65;
-  color: var(--text-secondary);
-  word-break: keep-all;
-}
-
-.quadrant-cell__samples {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 6px;
-  margin-top: 2px;
-}
-
-.quadrant-cell__tag {
-  padding: 5px 10px;
-  border: 1px solid var(--line);
-  border-radius: 7px;
-  background: rgba(255, 255, 255, 0.025);
-  font-family: var(--font-mono);
-  font-size: 0.72rem;
-  color: var(--text-secondary);
-}
-
-.quadrant-cell__empty {
-  font-size: 0.76rem;
-  color: var(--text-muted);
-}
-
-.quadrant-cell__skeleton {
-  width: 62px;
-  height: 27px;
-  border-radius: 7px;
-  background: linear-gradient(
-    90deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0.09),
-    rgba(255, 255, 255, 0.04)
-  );
-  background-size: 200% 100%;
-  animation: shimmer 1.5s linear infinite;
-}
-
-/* 좁은 화면에서도 2x2를 유지한다. 세로로 4개를 세우면 "두 축이 기술을 네
-   자리로 나눈다"는 이 섹션의 설명 자체가 화면과 어긋난다 (/m의
-   .mv-quad-grid도 같은 이유로 2열을 지킨다). 대신 칸 안쪽 치수를 줄인다. */
-@media (max-width: 720px) {
-  .quadrants__frame {
-    grid-template-columns: 24px minmax(0, 1fr);
-  }
-  .quadrants__grid {
-    gap: 8px;
-  }
-  .quadrant-cell {
-    padding: 13px;
-    gap: 8px;
-    border-radius: 14px;
-  }
-  /* 칸이 좁아지면 이름과 개수가 한 줄에 다 안 들어간다. 줄바꿈을 허용해
-     개수가 넘쳐 잘리는 대신 아래로 내려가게 한다. */
-  .quadrant-cell__top {
-    flex-wrap: wrap;
-    gap: 6px 8px;
-  }
-  .quadrant-cell__marker {
-    width: 7px;
-    height: 7px;
-  }
-  .quadrant-cell__label {
-    font-size: 0.82rem;
-  }
-  .quadrant-cell__count {
-    font-size: 0.68rem;
-  }
-  .quadrant-cell__desc {
-    font-size: 0.72rem;
-    line-height: 1.5;
-  }
-  .quadrant-cell__samples {
-    gap: 5px;
-  }
-  .quadrant-cell__tag {
-    padding: 4px 8px;
-    border-radius: 6px;
-    font-size: 0.64rem;
-  }
-  .quadrant-cell__empty {
-    font-size: 0.68rem;
-  }
-  .quadrant-cell__skeleton {
-    width: 50px;
-    height: 22px;
-    border-radius: 6px;
-  }
-}
 
 /* ======================================================================
    map section
@@ -990,8 +478,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--ink-900);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 24px 48px -28px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 18px 40px -30px rgba(40, 34, 24, 0.35);
 }
 
 .chart-panel__head {
@@ -1130,7 +617,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--ink-850);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05), 0 20px 40px -20px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 16px 34px -22px rgba(40, 34, 24, 0.3);
   list-style: none;
   /* 직군이 14개라 옵션이 15줄이 된다. 뷰포트를 넘기지 않게 잘라 스크롤한다. */
   max-height: min(60vh, 380px);
@@ -1213,7 +700,7 @@ a {
 
 .gap-map__status--error {
   border-style: solid;
-  border-color: rgba(232, 135, 126, 0.32);
+  border-color: rgba(168, 60, 60, 0.3);
   background: var(--status-error-bg);
 }
 
@@ -1241,9 +728,9 @@ a {
   top: calc(16% + (var(--i) / 3) * 22%);
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.05),
-    rgba(255, 255, 255, 0.11),
-    rgba(255, 255, 255, 0.05)
+    rgba(0, 0, 0, 0.05),
+    rgba(0, 0, 0, 0.1),
+    rgba(0, 0, 0, 0.05)
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s linear infinite;
@@ -1256,9 +743,9 @@ a {
   border-radius: 10px;
   background: linear-gradient(
     90deg,
-    rgba(255, 255, 255, 0.04),
-    rgba(255, 255, 255, 0.09),
-    rgba(255, 255, 255, 0.04)
+    rgba(0, 0, 0, 0.04),
+    rgba(0, 0, 0, 0.085),
+    rgba(0, 0, 0, 0.04)
   );
   background-size: 200% 100%;
   animation: shimmer 1.5s linear infinite;
@@ -1280,8 +767,7 @@ a {
   position: relative;
   grid-column: 2;
   grid-row: 1;
-  /* 사분면 설명 격자(.quadrants__grid)가 같은 값을 써야 두 레이어가 정확히
-     포개진다. QuadrantMapStage가 둘을 겹쳐 놓기 때문이다. */
+  /* 화면 높이에서 끌어온 값이라 판이 한 화면에 들어온다 (--plot-h 참고). */
   height: var(--plot-h);
 }
 
@@ -1294,6 +780,7 @@ a {
   overflow: hidden;
 }
 
+/* 구역은 배경일 뿐이다. 설명을 여는 것은 모서리의 이름표 버튼(.gap-map__corner). */
 .gap-map__zone {
   position: absolute;
   width: 50%;
@@ -1325,16 +812,16 @@ a {
 }
 
 .gap-map__zone--essential {
-  background: linear-gradient(215deg, var(--quad-essential-bg), transparent 72%);
+  background: var(--quad-essential-bg);
 }
 .gap-map__zone--early-mover {
-  background: linear-gradient(305deg, var(--quad-early-mover-bg), transparent 72%);
+  background: var(--quad-early-mover-bg);
 }
 .gap-map__zone--niche {
-  background: linear-gradient(125deg, var(--quad-niche-bg), transparent 72%);
+  background: var(--quad-niche-bg);
 }
 .gap-map__zone--minimal {
-  background: linear-gradient(35deg, var(--quad-minimal-bg), transparent 72%);
+  background: var(--quad-minimal-bg);
 }
 
 /* 선택한 기술이 속한 구역만 틴트를 한 겹 더 얹어 강조한다. */
@@ -1380,31 +867,50 @@ a {
 /* transition은 반드시 기본 선택자에 둔다 — revealed 규칙 안에만 두면
    data-revealed가 true -> false로 돌아갈 때("읽는 법 다시 보기") 페이드
    없이 즉시 사라진다. */
+/* 구역 이름표이자 그 구역 설명을 여는 버튼이다. 장식이던 시절에는 데이터
+   아래(z-index 0)에 깔았지만, 이제 눌러야 하는 컨트롤이라 점 위로 올린다.
+   네 모서리에만 있고 크기가 작아 점을 가리는 손해보다 눌리는 이득이 크다. */
 .gap-map__corner {
   position: absolute;
-  /* 사분면 이름표는 장식이다. 모서리에 찍힌 점(z-index 2)과 그 이름표(1)를
-     가리면 안 되므로 데이터보다 아래에 깐다. */
-  z-index: 0;
+  z-index: 4;
   display: inline-flex;
   align-items: center;
   gap: 7px;
   padding: 5px 11px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(6, 12, 28, 0.66);
+  background: rgba(251, 250, 248, 0.82);
+  font-family: inherit;
   font-size: 0.72rem;
   font-weight: 500;
   color: var(--text-secondary);
   white-space: nowrap;
+  cursor: pointer;
   opacity: 0;
   transform: translateY(6px);
   transition: opacity 600ms var(--ease-out) var(--reveal-delay, 0ms),
-    transform 600ms var(--ease-out) var(--reveal-delay, 0ms);
+    transform 600ms var(--ease-out) var(--reveal-delay, 0ms),
+    color 160ms ease, border-color 160ms ease, background 160ms ease;
 }
 
 .gap-map[data-revealed="true"] .gap-map__corner {
   opacity: 1;
   transform: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gap-map__corner:hover {
+    color: var(--text-primary);
+    border-color: var(--line-strong);
+    background: var(--ink-850);
+  }
+}
+
+/* 열려 있는 동안에는 어느 이름표에서 나온 설명인지 드러나 있어야 한다. */
+.gap-map__corner[data-open="true"] {
+  color: var(--text-primary);
+  border-color: var(--line-strong);
+  background: var(--ink-850);
 }
 
 .gap-map__corner--top-left {
@@ -1460,6 +966,10 @@ a {
 /* transition은 반드시 기본 선택자에 둔다 — revealed 규칙 안에만 두면
    data-revealed가 true -> false로 돌아갈 때("읽는 법 다시 보기") 페이드
    없이 즉시 사라진다. */
+/* transition에는 절대 --reveal-delay를 걸지 않는다.
+   그 값은 점마다 다르고(780ms + i*55ms, 최대 4초) 호버 규칙이 걷힌 뒤에도
+   남아 있어서, 마우스를 뗐을 때 커진 점이 점마다 다른 시간만큼 커진 채로
+   버티게 된다. 등장 지연은 아래 animation이 따로 맡는다. */
 .gap-map__dot {
   position: absolute;
   z-index: 2;
@@ -1469,15 +979,17 @@ a {
   border-radius: 50%;
   cursor: pointer;
   opacity: 0;
-  transform: translate(-50%, 50%) scale(0.2);
-  transition: opacity 420ms var(--ease-out) var(--reveal-delay, 0ms),
-    transform 620ms var(--ease-spring) var(--reveal-delay, 0ms),
-    box-shadow 200ms ease;
+  transform: translate(-50%, 50%) scale(1);
+  transition: transform 180ms var(--ease-out), box-shadow 200ms ease;
 }
 
+/* 등장은 transition이 아니라 animation이다. animation은 한 번 끝나면 물러나서
+   이후 상태 변화(호버)에 관여하지 않는다.
+   점마다 지연을 다르게 주지 않는다 — 표시 개수를 30개에서 60개로 바꿀 때마다
+   새 점이 하나씩 튀어나와 기다리게 된다. 한꺼번에, 짧게 나타난다. */
 .gap-map[data-revealed="true"] .gap-map__dot {
   opacity: 1;
-  transform: translate(-50%, 50%) scale(1);
+  animation: dotIn 240ms var(--ease-out) backwards;
 }
 
 .gap-map[data-revealed="true"] .gap-map__dot:hover,
@@ -1491,22 +1003,12 @@ a {
   background: var(--quad-essential);
   border: none;
 }
-.gap-map__dot--essential:hover,
-.gap-map__dot--essential:focus-visible {
-  box-shadow: 0 0 0 7px var(--quad-essential-bg);
-}
-
 .gap-map__dot--early-mover {
   background: var(--quad-early-mover);
   border: none;
 }
-.gap-map__dot--early-mover:hover,
-.gap-map__dot--early-mover:focus-visible {
-  box-shadow: 0 0 0 7px var(--quad-early-mover-bg);
-}
-
 .gap-map__dot--niche {
-  background: rgba(201, 163, 95, 0.12);
+  background: rgba(154, 109, 41, 0.12);
   border: 1.5px dashed var(--quad-niche);
 }
 
@@ -1516,58 +1018,149 @@ a {
   border: 1.5px solid var(--quad-minimal);
 }
 
-.gap-map__dot--niche:hover,
-.gap-map__dot--niche:focus-visible {
-  box-shadow: 0 0 0 7px var(--quad-niche-bg);
-}
-
-.gap-map__dot--minimal:hover,
-.gap-map__dot--minimal:focus-visible,
-.gap-map__dot--unknown:hover,
-.gap-map__dot--unknown:focus-visible {
-  box-shadow: 0 0 0 7px rgba(255, 255, 255, 0.07);
-}
-
 .gap-map__dot--selected {
   width: 17px;
   height: 17px;
 }
 
-/* transition은 반드시 기본 선택자에 둔다 — revealed 규칙 안에만 두면
-   data-revealed가 true -> false로 돌아갈 때("읽는 법 다시 보기") 페이드
-   없이 즉시 사라진다. */
+/* 고른 점 하나에만 붙는 이름표. 골랐을 때 나타났다가 선택을 풀면 사라지므로
+   등장/퇴장을 상태로 관리하지 않는다 — 렌더되면 곧 그 자리에 있다.
+   점(z-index 2) 위에 두고, 글자 둘레를 배경색으로 도려내(text-shadow) 점 위에
+   겹쳐도 읽히게 한다. pointer-events: none이라 아래 점의 클릭·호버를 막지 않는다. */
 .gap-map__dot-label {
   position: absolute;
-  z-index: 1;
+  z-index: 3;
   pointer-events: none;
   white-space: nowrap;
   font-family: var(--font-mono);
-  font-size: 0.7rem;
-  font-weight: 500;
-  color: var(--text-secondary);
-  opacity: 0;
-  transform: translate(-50%, 30px);
-  transition: opacity 500ms var(--ease-out) var(--reveal-delay, 0ms),
-    transform 500ms var(--ease-out) var(--reveal-delay, 0ms);
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-primary);
+  text-shadow: 0 0 3px var(--ink-950), 0 0 3px var(--ink-950), 0 0 2px var(--ink-950);
+  transform: translate(-50%, 26px);
+  animation: dotLabelIn 200ms var(--ease-out) both;
 }
 
 /* 판 바닥에 붙은 점은 이름표를 점 위로 올린다. 아래에 두면 판 밖으로 잘린다. */
 .gap-map__dot-label[data-flip="up"] {
-  transform: translate(-50%, -18px);
+  transform: translate(-50%, -14px);
 }
 
-.gap-map__dot-label--minimal,
-.gap-map__dot-label--unknown {
+/* ---------- gap map: 구역 설명 팝오버 ---------- */
+
+/* 누른 구역 한가운데에 뜬다. 판(overflow: hidden)이 아니라 래퍼에 그리므로
+   상자가 판 밖으로 나가도 잘리지 않는다 — 툴팁과 같은 이유다. */
+.gap-map__zone-pop {
+  position: absolute;
+  z-index: 5;
+  width: min(280px, 44%);
+  padding: 13px 14px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  /* 툴팁과 같은 이유로 뒤를 살짝 비춘다. 이 상자는 구역의 1/4을 덮으므로
+     그 아래 점이 아예 안 보이면 어느 구역 얘기인지 감이 끊긴다. */
+  background: color-mix(in srgb, var(--ink-850) 88%, transparent);
+  backdrop-filter: blur(7px);
+  box-shadow: 0 20px 44px -18px rgba(40, 34, 24, 0.3);
+  /* tipIn은 fill-mode: both라 끝 프레임의 transform이 아래 선언을 덮는다.
+     그래서 정렬 기준을 transform이 아니라 --tip-* 로 넘겨야 한다 — 안 그러면
+     애니메이션이 끝난 뒤 상자가 자기 높이의 절반만큼 아래로 내려앉는다. */
+  --tip-x: -50%;
+  --tip-y: -50%;
+  transform: translate(-50%, -50%);
+  animation: tipIn 0.18s var(--ease-out) both;
+}
+
+.gap-map__zone-pop--top-left {
+  left: 25%;
+  top: 25%;
+}
+.gap-map__zone-pop--top-right {
+  left: 75%;
+  top: 25%;
+}
+.gap-map__zone-pop--bottom-left {
+  left: 25%;
+  top: 75%;
+}
+.gap-map__zone-pop--bottom-right {
+  left: 75%;
+  top: 75%;
+}
+
+.gap-map__zone-pop-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.gap-map__zone-pop-label {
+  font-size: 0.92rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.gap-map__zone-pop-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
   color: var(--text-muted);
 }
 
-.gap-map[data-revealed="true"] .gap-map__dot-label {
-  opacity: 1;
-  transform: translate(-50%, 26px);
+.gap-map__zone-pop-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex: none;
+  border: none;
+  border-radius: 999px;
+  background: var(--ink-800);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color 160ms ease, background 160ms ease;
 }
 
-.gap-map[data-revealed="true"] .gap-map__dot-label[data-flip="up"] {
-  transform: translate(-50%, -14px);
+.gap-map__zone-pop-close:hover {
+  color: var(--text-primary);
+  background: var(--line-strong);
+}
+
+.gap-map__zone-pop-desc {
+  margin-top: 8px;
+  font-size: 0.8rem;
+  line-height: 1.62;
+  color: var(--text-secondary);
+  word-break: keep-all;
+}
+
+.gap-map__zone-pop-samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 11px;
+}
+
+/* 누르면 그 기술이 지도에서 선택된다 — 설명에서 데이터로 이어지는 통로다. */
+.gap-map__zone-pop-tag {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 7px;
+  background: var(--ink-900);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  cursor: pointer;
+  transition: color 160ms ease, border-color 160ms ease;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .gap-map__zone-pop-tag:hover {
+    color: var(--text-primary);
+    border-color: var(--line-strong);
+  }
 }
 
 /* ---------- gap map: tooltip ---------- */
@@ -1577,13 +1170,22 @@ a {
   z-index: 4;
   pointer-events: none;
   /* --tip-x는 GapMap이 점의 x좌표를 보고 넣는다. 판 가장자리에서는 상자가
-     밖으로 나가지 않게 -50%(가운데) 대신 0이나 -100%가 들어온다. */
-  transform: translate(var(--tip-x, -50%), 0);
+     밖으로 나가지 않게 -50%(가운데) 대신 0이나 -100%가 들어온다.
+     --tip-y는 상자를 점 위에 놓을지(0px) 아래에 놓을지(100%, 자기 높이만큼
+     내려서 윗변을 기준선에 맞춤)를 정한다. */
+  transform: translate(var(--tip-x, -50%), var(--tip-y, 0px));
   animation: tipIn 0.16s var(--ease-out) both;
-  background: var(--ink-800);
+  /* 뒤에 있는 점이 살짝 비치게 둔다. 상자가 판을 완전히 덮으면 지금 보고 있던
+     자리를 잃는다. 다만 글자가 점 위에 겹쳐 읽히지 않으면 안 되므로, 투명도만
+     주지 않고 뒤를 흐려서(backdrop-filter) 바탕을 고르게 만든다.
+     색은 토큰에서 섞어 쓴다 — 팔레트를 바꾸면 이 값도 같이 따라간다.
+     바탕이 ink-800이 아니라 ink-850인 이유: ink-800 위의 흐린 글씨는 불투명한
+     상태에서도 대비 여유가 4.57:1뿐이라, 조금만 비쳐도 AA 아래로 떨어진다. */
+  background: color-mix(in srgb, var(--ink-850) 88%, transparent);
+  backdrop-filter: blur(7px);
   border: 1px solid var(--line-strong);
   border-radius: 11px;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.07), 0 18px 40px -12px rgba(0, 0, 0, 0.85);
+  box-shadow: 0 16px 32px -14px rgba(40, 34, 24, 0.28);
   padding: 11px 13px;
   min-width: 184px;
 }
@@ -1701,7 +1303,7 @@ a {
   background: var(--quad-early-mover);
 }
 .legend-swatch--niche {
-  background: rgba(201, 163, 95, 0.12);
+  background: rgba(154, 109, 41, 0.12);
   border: 1.5px dashed var(--quad-niche);
 }
 .legend-swatch--minimal,
@@ -1780,8 +1382,8 @@ a {
    detail panel
    ====================================================================== */
 
-/* 스스로 붙지 않는다. 지도와 함께 격자째로 붙기 때문이다(.map-section__grid).
-   따로 붙이면 붙어 있는 거리가 서로 달라 스크롤할 때 어긋난다. */
+/* 붙이지 않는다. 예전에는 지도와 함께 격자째로 sticky였는데, 스크롤이 그
+   구간에서 멈칫하는 느낌을 줘서 고정을 걷어냈다. 그냥 흐른다. */
 .detail-panel {
   position: static;
 }
@@ -1826,8 +1428,7 @@ a {
   border: 1px solid var(--line);
   border-radius: 20px;
   background: var(--ink-900);
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04),
-    0 24px 48px -28px rgba(0, 0, 0, 0.9);
+  box-shadow: 0 18px 40px -30px rgba(40, 34, 24, 0.35);
   max-height: calc(100dvh - 108px);
   overflow: auto;
   animation: panelIn 0.32s var(--ease-out) both;
@@ -2038,7 +1639,7 @@ a {
   padding: 13px 14px;
   border: 1px solid var(--line);
   border-radius: 10px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .detail-panel__posting-company {
@@ -2087,7 +1688,7 @@ a {
   margin-top: 7px;
   height: 4px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.08);
   overflow: hidden;
 }
 
@@ -2157,188 +1758,12 @@ a {
   color: var(--text-secondary);
 }
 
-.detail-panel__verdict {
-  margin-top: 22px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-}
-
-.detail-panel__verdict-text {
-  margin-top: 9px;
-  font-size: 0.86rem;
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
 .detail-panel__footnote {
   margin-top: 16px;
   font-size: 0.7rem;
   line-height: 1.6;
   color: var(--text-muted);
   word-break: keep-all;
-}
-
-/* ---- 공식 문서 링크. 배지 줄 끝에 붙는 강조 알약이라, 배지의 크기를 그대로
-   따르고 색만 강조색으로 간다. 탭 밖이라 어느 탭에서도 보인다. ---- */
-.detail-panel__docs {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 5px 11px;
-  border: 1px solid var(--accent);
-  border-radius: 999px;
-  background: var(--accent-soft);
-  color: var(--accent);
-  font-size: 0.74rem;
-  font-weight: 600;
-  text-decoration: none;
-  transition: background 160ms var(--ease-out), color 160ms var(--ease-out);
-}
-
-.detail-panel__docs:hover {
-  background: var(--accent);
-  color: var(--accent-ink);
-}
-
-/* 통계 격자의 네 번째 칸(전월 대비)만 부호에 따라 색이 바뀐다. ±1% 미만은
-   숫자를 강조할 만한 변화가 아니라 회색으로 둔다. */
-.detail-panel__stat-value[data-tone="up"] {
-  color: var(--status-good-text);
-}
-
-.detail-panel__stat-value[data-tone="down"] {
-  color: var(--status-error-text);
-}
-
-.detail-panel__stat-value[data-tone="flat"] {
-  color: var(--text-secondary);
-}
-
-/* ---- 생태계 활동 추이 스파크라인 ---- */
-.detail-panel__trend {
-  margin-top: 24px;
-}
-
-.detail-panel__trend-head {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 10px;
-}
-
-.detail-panel__trend-head .detail-panel__section-title {
-  margin-top: 0;
-}
-
-.detail-panel__trend-range {
-  font-family: var(--font-mono);
-  font-size: 0.66rem;
-  color: var(--text-muted);
-}
-
-.detail-panel__trend-body {
-  margin-top: 10px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-}
-
-/* preserveAspectRatio="none"이라 가로로 늘어난다. 선 굵기는 컴포넌트에서
-   vector-effect="non-scaling-stroke"로 지킨다. */
-.detail-panel__spark {
-  flex: 1 1 auto;
-  min-width: 0;
-  height: 44px;
-  display: block;
-}
-
-.detail-panel__trend-figures {
-  flex: none;
-  text-align: right;
-}
-
-.detail-panel__trend-value {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 500;
-  font-variant-numeric: tabular-nums;
-  letter-spacing: -0.02em;
-}
-
-.detail-panel__trend-sub {
-  margin-top: 2px;
-  font-size: 0.68rem;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.detail-panel__trend-note {
-  margin: 8px 0 0;
-  font-size: 0.68rem;
-  line-height: 1.6;
-  color: var(--text-muted);
-  word-break: keep-all;
-}
-
-/* ---- 학습 탭의 추천 영상 ---- */
-.detail-panel__videos {
-  list-style: none;
-  margin: 16px 0 0;
-  padding: 0;
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.detail-panel__video-link {
-  display: flex;
-  gap: 12px;
-  padding: 8px;
-  border: 1px solid var(--line);
-  border-radius: 12px;
-  background: var(--ink-850);
-  color: inherit;
-  text-decoration: none;
-  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out);
-}
-
-.detail-panel__video-link:hover {
-  border-color: var(--line-strong);
-  background: var(--ink-800);
-}
-
-.detail-panel__video-thumb {
-  flex: none;
-  width: 104px;
-  height: 59px;
-  object-fit: cover;
-  border-radius: 8px;
-  background: var(--ink-950);
-}
-
-.detail-panel__video-body {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 5px;
-  min-width: 0;
-}
-
-.detail-panel__video-title {
-  font-size: 0.8rem;
-  line-height: 1.4;
-  font-weight: 500;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-}
-
-.detail-panel__video-meta {
-  font-size: 0.68rem;
-  color: var(--text-muted);
 }
 
 @media (max-width: 1000px) {
@@ -2378,94 +1803,6 @@ a {
   font-weight: 600;
   letter-spacing: -0.02em;
   color: var(--text-secondary);
-}
-
-/* ======================================================================
-   map -> list handoff
-   ====================================================================== */
-
-.next-step {
-  margin-top: 28px;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 20px 32px;
-  padding: 24px clamp(20px, 2.4vw, 30px);
-  border: 1px solid var(--line);
-  border-radius: 16px;
-  background: linear-gradient(120deg, var(--accent-soft), transparent 58%), var(--ink-900);
-  opacity: 0;
-  transform: translateY(16px);
-  transition: opacity 600ms var(--ease-out) 240ms, transform 700ms var(--ease-out) 240ms,
-    border-color 240ms ease;
-}
-
-.next-step[data-revealed="true"] {
-  opacity: 1;
-  transform: none;
-}
-
-.next-step:hover {
-  border-color: var(--line-strong);
-}
-
-.next-step__copy {
-  display: flex;
-  flex-direction: column;
-  gap: 7px;
-  max-width: 58ch;
-}
-
-.next-step__title {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-}
-
-.next-step__text {
-  font-size: 0.85rem;
-  line-height: 1.7;
-  color: var(--text-secondary);
-  word-break: keep-all;
-}
-
-.next-step__cta {
-  display: inline-flex;
-  align-items: center;
-  gap: 9px;
-  padding: 12px 20px;
-  border-radius: 999px;
-  background: var(--accent);
-  color: var(--accent-ink);
-  font-size: 0.88rem;
-  font-weight: 600;
-  white-space: nowrap;
-  transition: transform 140ms var(--ease-out), background 180ms ease;
-}
-
-.next-step__cta svg {
-  transition: transform 200ms var(--ease-out);
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .next-step:hover .next-step__cta {
-    background: var(--accent-bright);
-  }
-  .next-step:hover .next-step__cta svg {
-    transform: translateX(3px);
-  }
-}
-
-.next-step:active .next-step__cta {
-  transform: scale(0.97);
-}
-
-@media (max-width: 620px) {
-  .next-step__cta {
-    width: 100%;
-    justify-content: center;
-  }
 }
 
 /* ======================================================================
@@ -2522,7 +1859,7 @@ a {
   .dict__back:hover {
     color: var(--accent-bright);
     border-color: var(--accent-bright);
-    background: rgba(91, 192, 190, 0.22);
+    background: rgba(27, 25, 22, 0.12);
   }
   .dict__back:hover svg {
     transform: translateX(-2px);
@@ -2714,22 +2051,10 @@ a {
   font-weight: 600;
 }
 
-.dict-count {
-  margin-top: 28px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.dict-count__q {
-  font-family: var(--font-sans);
-}
-
 /* ---------- layout: index rail + list ---------- */
 
 .dict-body {
-  margin-top: 18px;
+  margin-top: 28px;
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 28px;
@@ -2929,9 +2254,6 @@ a {
   flex-direction: column;
   gap: 3px;
   text-align: right;
-  /* 값 자릿수가 행마다 달라도(919 대 2,412) 열이 흔들리지 않게 바닥 너비를
-     준다. 위의 배지 순서 조정과 함께 있어야 세 칸이 실제로 줄을 맞춘다. */
-  min-width: 58px;
 }
 
 .dict-score__label {
@@ -3153,18 +2475,6 @@ a {
   transform: scale(0.96);
 }
 
-.dict-entry__verdict {
-  margin-top: 24px;
-  padding: 18px 20px;
-  border-radius: 12px;
-}
-
-.dict-entry__verdict-text {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
 /* ---------- status & skeleton ---------- */
 
 .dict-status {
@@ -3359,14 +2669,31 @@ a {
   }
 }
 
+/* to 프레임을 일부러 비워 둔다 — 끝점을 적어 두면 애니메이션이 끝난 뒤에도
+   그 값이 호버 확대를 이기려 든다. 비워 두면 요소의 원래 스타일로 착지한다. */
+@keyframes dotIn {
+  from {
+    opacity: 0;
+    transform: translate(-50%, 50%) scale(0.2);
+  }
+}
+
+/* 같은 이유로 to를 비워 둔다. data-flip에 따라 착지점이 두 가지라 여기에
+   끝점을 적으면 뒤집힌 이름표가 엉뚱한 자리에 선다. */
+@keyframes dotLabelIn {
+  from {
+    opacity: 0;
+  }
+}
+
 @keyframes tipIn {
   from {
     opacity: 0;
-    transform: translate(var(--tip-x, -50%), 5px) scale(0.97);
+    transform: translate(var(--tip-x, -50%), calc(var(--tip-y, 0px) + 5px)) scale(0.97);
   }
   to {
     opacity: 1;
-    transform: translate(var(--tip-x, -50%), 0) scale(1);
+    transform: translate(var(--tip-x, -50%), var(--tip-y, 0px)) scale(1);
   }
 }
 
@@ -3477,164 +2804,437 @@ a {
   scroll-margin-top: 104px;
 }
 
-/* 사분면 카드가 눌린다는 안내. 프레임 아래에 놓여 가이드와 함께 나타났다
-   사라진다. */
-.quadrants__hint {
-  margin: 12px 0 0 40px;
-  font-size: 0.76rem;
-  color: var(--text-muted);
-}
-
-/* #quadrants 앵커의 표적. 병합 전에는 별도 섹션이었고 히어로 CTA와 사전
-   상단바가 아직 이 주소를 가리킨다. */
-.quadrant-map__anchor {
-  display: block;
-  height: 0;
-}
-
-/* 차트 패널만 고정한다. 스테이지 전체나 격자를 고정하면 그 안의
-   .detail-panel(자체 sticky, top: 84px)이 고정된 조상 안에 들어가 두 고정
-   지점이 얽힌다. 패널만 붙이면 상세 패널은 형제로 남아 지금 동작 그대로다.
-   같은 84px를 쓰는 이유도 그것이다 — 둘이 같은 높이에서 함께 멈춘다. */
-/* 지도와 상세 패널을 각각 sticky로 붙이면 반드시 따로 논다. sticky는 부모
-   상자 안에서만 움직이는데, 둘은 부모도 높이도 달라서 붙어 있을 수 있는
-   거리가 서로 다르기 때문이다(실측 260px 대 0px, 칸을 늘려도 260px 대 388px).
-   그래서 둘을 감싼 격자를 통째로 하나로 붙인다. 한 상자 안에 있으니 어긋날
-   수가 없다. */
-@media (min-width: 1001px) and (min-height: 700px) {
-  .map-section__grid {
-    position: sticky;
-    top: 84px;
-  }
-}
-
-/* 고정이 유지되는 동안 스크롤할 거리. 차트 패널 바로 뒤에 있어서 이것이
-   화면에 들어오는 순간이 곧 패널이 화면을 꽉 채운 순간이고, 그때 가이드→지도
-   전환이 시작된다. 이 높이만큼은 패널이 제자리에 멈춰 있으므로 점이 순서대로
-   찍히는 연출이 화면 안에서 끝난다. "살짝" 고정에 맞춰 짧게 잡았다. */
-.quadrant-map__runway {
-  display: block;
-  height: 260px;
-}
-
 /* 이 래퍼가 격자 칸을 차지하고, 그 안에서 패널이 고정된다. */
 .quadrant-map__pinwrap {
   min-width: 0;
 }
 
-/* 가이드와 지도를 같은 칸에 겹친다. 둘 다 항상 마운트 상태로 두고 투명도만
-   바꾼다 — 조건부로 빼면 높이가 튀고 점 버튼이 포커스를 잃는다. */
-.quadrant-map__stack {
+/* ---------- 학습 자료 (펼침 패널 하단) ----------
+   지표·근거를 보고 나면 다음 질문은 "그래서 어떻게 배우나"다. 같은 패널 안에
+   두되 위 두 열과 가로줄로 끊어, 데이터가 아니라 링크임을 구분한다. */
+.dict-learn {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.dict-learn__grid {
+  margin-top: 12px;
   display: grid;
+  /* 380px 이상일 때만 두 칸. 카드 4개(문서 1 + 영상 3)가 2×2로 떨어진다. */
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 10px;
 }
 
-.quadrant-map__layer {
-  grid-area: 1 / 1;
-  min-width: 0;
-}
-
-/* 가이드가 위에 있다가 걷히면서 그 아래 판이 드러나는 순서로 읽히게 한다. */
-.quadrant-map__layer--guide {
-  z-index: 1;
-  align-self: start;
-  transition: opacity 520ms var(--ease-out), transform 520ms var(--ease-out);
-}
-
-.quadrant-map__layer--map {
-  z-index: 0;
-}
-
-/* 설명 격자를 판과 같은 높이로 맞춘다. 그래야 카드 네 장이 판의 네 구역
-   위에 그대로 포개진다. */
-.quadrant-map__stack .quadrants__grid {
-  height: var(--plot-h);
-}
-
-/* 판이 화면 높이를 따라 줄어들면 카드도 같이 줄어야 한다. 원래 패딩
-   (최대 28px)이면 가장 큰 카드가 205px라 2행에 422px가 필요한데, 낮은
-   화면에서는 판이 340px까지 내려간다. */
-.quadrant-map__stack .quadrant-cell {
-  padding: clamp(14px, 1.4vw, 20px);
-  gap: 8px;
-}
-
-.quadrant-map__stage[data-mode="map"] .quadrant-map__layer--guide {
-  opacity: 0;
-  /* 제자리에서 살짝 오므라들며 사라진다. 카드가 각자의 구역으로 빨려드는
-     것처럼 읽히게 하려는 것이고, 위치를 옮기지는 않는다 — 카드는 이미
-     자기 구역 위에 있다. */
-  transform: scale(0.96);
-  pointer-events: none;
-}
-
-/* 되돌아올 때는 처음 드러날 때만큼 뜸을 들일 이유가 없다. */
-.quadrant-map__stage[data-mode="guide"] .quadrant-map__layer--guide {
-  transition-duration: 340ms;
-}
-
-/* 가이드가 떠 있는 동안에는 지도 조작을 막는다. 보이지 않는 점을 누르거나
-   탭으로 들어가는 일이 없게 한다. */
-.quadrant-map__stage[data-mode="guide"] .quadrant-map__layer--map {
-  pointer-events: none;
-}
-
-.quadrant-map__replay {
-  display: inline-flex;
+.dict-learn__item {
+  display: flex;
   align-items: center;
-  gap: 7px;
-  margin-top: 16px;
-  padding: 7px 14px 7px 11px;
+  gap: 12px;
+  padding: 10px;
   border: 1px solid var(--line);
-  border-radius: 999px;
-  background: transparent;
-  color: var(--text-secondary);
-  font-size: 0.76rem;
-  font-weight: 600;
-  cursor: pointer;
-  opacity: 0;
-  transform: translateY(8px);
-  pointer-events: none;
-  transition: opacity 500ms var(--ease-out), transform 500ms var(--ease-out),
-    color 200ms ease, border-color 200ms ease, background 200ms ease;
-}
-
-.quadrant-map__replay[data-revealed="true"] {
-  opacity: 1;
-  transform: none;
-  pointer-events: auto;
-}
-
-/* 점이 다 찍힌 뒤에 나타나야 연출을 가리지 않는다. */
-.quadrant-map__replay[data-revealed="true"][data-mode="map"] {
-  transition-delay: 1200ms;
+  border-radius: 12px;
+  background: var(--ink-900);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, transform 140ms var(--ease-out);
 }
 
 @media (hover: hover) and (pointer: fine) {
-  .quadrant-map__replay:hover {
-    color: var(--text-primary);
+  .dict-learn__item:hover {
     border-color: var(--line-strong);
-    background: var(--ink-850);
+    background: var(--ink-800);
   }
 }
 
-/* 좁은 화면에서는 판이 세로로 줄어들 여지가 없으므로 설명 격자를 판 높이에
-   억지로 맞추지 않는다. 내용만큼만 차지하게 둔다. */
-@media (max-width: 1000px) {
-  .quadrant-map__stack .quadrants__grid {
-    height: auto;
-  }
-  /* 여기서는 격자가 1열이 되어 상세 패널이 지도 아래로 쌓인다. 고정을
-     유지하면 내용이 화면보다 커져 잘리므로, 평범하게 흐르게 둔다. */
-  .quadrant-map__runway {
-    display: none;
+.dict-learn__item:active {
+  transform: scale(0.99);
+}
+
+/* 썸네일. 유튜브 hqdefault는 4:3 판에 16:9 그림이 담겨 오므로 object-fit:cover로
+   위아래 검은 띠를 잘라낸다. 자리는 이미지가 늦게 와도 흔들리지 않게 고정폭이다. */
+.dict-learn__thumb {
+  position: relative;
+  flex: none;
+  width: 128px;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink-800);
+}
+
+.dict-learn__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트 파비콘을
+   얹는다. 파비콘을 못 받아오면 img가 스스로 지워지고 타일만 남는다. */
+.dict-learn__thumb--doc {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, currentColor 10%, var(--ink-850));
+}
+
+.dict-learn__initial {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.dict-learn__favicon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  background: var(--ink-850);
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.dict-learn__duration {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.dict-learn__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.dict-learn__kind {
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.dict-learn__title {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 영상 제목은 길다. 한 줄로 자르면 무슨 영상인지 안 남아서 두 줄까지 준다. */
+.dict-learn__title--clamp {
+  white-space: normal;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.dict-learn__meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ---------- 맨 위로 ----------
+   href="#" + html 의 scroll-behavior: smooth 로 굴러간다. 스크립트는 보임/숨김만
+   맡는다. 표제어가 200개라 아래쪽에서 상단바까지 거리가 멀다. */
+.to-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--ink-900);
+  color: var(--text-secondary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: opacity 200ms ease, transform 200ms var(--ease-out),
+    color 180ms ease, border-color 180ms ease;
+}
+
+/* 안 보일 때는 눌리지도 않아야 한다. opacity만 0으로 두면 투명한 버튼이 남는다. */
+.to-top[data-show="false"] {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .to-top:hover {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
   }
 }
 
-/* 화면이 낮으면 판을 바닥값까지 줄여도 패널이 화면에 안 들어간다.
-   그런 경우엔 고정을 걸지 않는다(위 @media의 min-height 조건). 활주로만
-   남으면 빈 공간이 되므로 함께 없앤다. */
-@media (max-height: 699px) {
-  .quadrant-map__runway {
-    display: none;
+.to-top:active {
+  transform: scale(0.94);
+}
+
+/* 꼬리말 위에 겹치지 않게 — 좁은 화면에서는 오른쪽 여백이 줄어든다. */
+@media (max-width: 720px) {
+  .to-top {
+    right: 16px;
+    bottom: 16px;
   }
+}
+
+/* ---- 전월 대비 타일: 부호에 따라 색이 바뀐다 ----
+   ±1% 미만은 강조할 만한 변화가 아니라 회색으로 둔다. */
+.detail-panel__stat-value[data-tone="up"] {
+  color: var(--status-good-text);
+}
+
+.detail-panel__stat-value[data-tone="down"] {
+  color: var(--status-error-text);
+}
+
+.detail-panel__stat-value[data-tone="flat"] {
+  color: var(--text-secondary);
+}
+
+/* ---- 생태계 활동 추이 스파크라인 ----
+   좁은 패널이라 축을 그리지 않는다. 기준선(100)과 마지막 값만 있으면
+   "전체 평균보다 빨리 늘고 있나"는 읽힌다. */
+.detail-panel__trend {
+  margin-top: 24px;
+}
+
+.detail-panel__trend-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.detail-panel__trend-range {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+.detail-panel__trend-body {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.detail-panel__spark {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 44px;
+  display: block;
+}
+
+.detail-panel__trend-figures {
+  flex: none;
+  text-align: right;
+}
+
+.detail-panel__trend-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.detail-panel__trend-sub {
+  margin-top: 2px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-panel__trend-note {
+  margin: 8px 0 0;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  word-break: keep-all;
+}
+
+/* ---- 학습 탭: 공식 문서 1장 + 영상 3장 ----
+   배지 줄의 공식 문서 알약을 없애면서 문서가 이 탭으로 들어왔다. 두 종류가
+   같은 목록에 서므로 카드 모양을 하나로 쓴다. 패널이 좁아 가로 배치다. */
+.detail-panel__learn {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-panel__learn-link {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink-850);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out);
+}
+
+.detail-panel__learn-link:hover {
+  border-color: var(--line-strong);
+  background: var(--ink-800);
+}
+
+/* 유튜브 hqdefault는 4:3 판에 16:9 그림이 담겨 오므로 cover로 위아래를 자른다.
+   자리는 이미지가 늦게 와도 흔들리지 않게 고정폭이다. */
+.detail-panel__learn-thumb {
+  position: relative;
+  flex: none;
+  width: 104px;
+  height: 59px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink-800);
+}
+
+.detail-panel__learn-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트 파비콘을
+   얹는다. 파비콘을 못 받아오면 img가 스스로 지워지고 타일만 남는다. */
+.detail-panel__learn-thumb--doc {
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.detail-panel__learn-initial {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.detail-panel__learn-favicon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  background: var(--ink-850);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.detail-panel__learn-duration {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-panel__learn-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.detail-panel__learn-kind {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* 제목은 길다. 한 줄로 자르면 무슨 자료인지 안 남아서 두 줄까지 준다. */
+.detail-panel__learn-title {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.detail-panel__learn-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.detail-panel__footnote code {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
+}
+
+/* ---------- 살아남은 앱 전용 규칙 (미리보기에는 없던 것) ---------- */
+.detail-panel__trend-head .detail-panel__section-title {
+  margin-top: 0;
+}
+
+.dict-count {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.dict-count__q {
+  font-family: var(--font-sans);
+}
+
+.gap-map__dot--early-mover:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-early-mover-bg);
+}
+
+.gap-map__dot--essential:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-essential-bg);
+}
+
+.gap-map__dot--niche:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-niche-bg);
+}
+
+.gap-map__dot--unknown:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-unknown-bg);
+}
+
+.gap-map__dot-label--unknown {
+  color: var(--text-muted);
 }

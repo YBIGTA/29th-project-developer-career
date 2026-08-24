@@ -406,7 +406,7 @@ a {
   position: relative;
   max-width: var(--shell);
   margin: 0 auto;
-  padding: 92px clamp(20px, 5vw, 56px) 0;
+  padding: 112px clamp(20px, 5vw, 56px) 0;
   display: flex;
   flex-direction: column;
   gap: clamp(72px, 8vw, 120px);
@@ -996,6 +996,22 @@ a {
   outline: none;
 }
 
+.gap-map__dot--essential:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-essential-bg);
+}
+
+.gap-map__dot--early-mover:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-early-mover-bg);
+}
+
+.gap-map__dot--niche:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-niche-bg);
+}
+
+.gap-map__dot--unknown:focus-visible {
+  box-shadow: 0 0 0 7px var(--quad-unknown-bg);
+}
+
 .gap-map__dot--essential {
   background: var(--quad-essential);
   border: none;
@@ -1041,6 +1057,10 @@ a {
 /* 판 바닥에 붙은 점은 이름표를 점 위로 올린다. 아래에 두면 판 밖으로 잘린다. */
 .gap-map__dot-label[data-flip="up"] {
   transform: translate(-50%, -14px);
+}
+
+.gap-map__dot-label--unknown {
+  color: var(--text-muted);
 }
 
 /* ---------- gap map: 구역 설명 팝오버 ---------- */
@@ -1755,20 +1775,6 @@ a {
   color: var(--text-secondary);
 }
 
-.detail-panel__verdict {
-  margin-top: 22px;
-  padding: 16px;
-  border: 1px solid var(--line);
-  border-radius: 14px;
-}
-
-.detail-panel__verdict-text {
-  margin-top: 9px;
-  font-size: 0.86rem;
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
 .detail-panel__footnote {
   margin-top: 16px;
   font-size: 0.7rem;
@@ -1893,6 +1899,18 @@ a {
   align-items: center;
   justify-content: space-between;
   gap: 14px;
+}
+
+.dict-count {
+  margin-top: 28px;
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.dict-count__q {
+  font-family: var(--font-sans);
 }
 
 .dict-search {
@@ -2062,22 +2080,10 @@ a {
   font-weight: 600;
 }
 
-.dict-count {
-  margin-top: 28px;
-  font-family: var(--font-mono);
-  font-size: 0.78rem;
-  color: var(--text-muted);
-  font-variant-numeric: tabular-nums;
-}
-
-.dict-count__q {
-  font-family: var(--font-sans);
-}
-
 /* ---------- layout: index rail + list ---------- */
 
 .dict-body {
-  margin-top: 18px;
+  margin-top: 28px;
   display: grid;
   grid-template-columns: 44px minmax(0, 1fr);
   gap: 28px;
@@ -2498,18 +2504,6 @@ a {
   transform: scale(0.96);
 }
 
-.dict-entry__verdict {
-  margin-top: 24px;
-  padding: 18px 20px;
-  border-radius: 12px;
-}
-
-.dict-entry__verdict-text {
-  font-size: 0.88rem;
-  line-height: 1.7;
-  word-break: keep-all;
-}
-
 /* ---------- status & skeleton ---------- */
 
 .dict-status {
@@ -2844,4 +2838,398 @@ a {
 /* 이 래퍼가 격자 칸을 차지하고, 그 안에서 패널이 고정된다. */
 .quadrant-map__pinwrap {
   min-width: 0;
+}
+
+/* ---------- 학습 자료 (펼침 패널 하단) ----------
+   지표·근거를 보고 나면 다음 질문은 "그래서 어떻게 배우나"다. 같은 패널 안에
+   두되 위 두 열과 가로줄로 끊어, 데이터가 아니라 링크임을 구분한다. */
+.dict-learn {
+  margin-top: 26px;
+  padding-top: 20px;
+  border-top: 1px solid var(--line);
+}
+
+.dict-learn__grid {
+  margin-top: 12px;
+  display: grid;
+  /* 380px 이상일 때만 두 칸. 카드 4개(문서 1 + 영상 3)가 2×2로 떨어진다. */
+  grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+  gap: 10px;
+}
+
+.dict-learn__item {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink-900);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 180ms ease, background 180ms ease, transform 140ms var(--ease-out);
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .dict-learn__item:hover {
+    border-color: var(--line-strong);
+    background: var(--ink-800);
+  }
+}
+
+.dict-learn__item:active {
+  transform: scale(0.99);
+}
+
+/* 썸네일. 유튜브 hqdefault는 4:3 판에 16:9 그림이 담겨 오므로 object-fit:cover로
+   위아래 검은 띠를 잘라낸다. 자리는 이미지가 늦게 와도 흔들리지 않게 고정폭이다. */
+.dict-learn__thumb {
+  position: relative;
+  flex: none;
+  width: 128px;
+  height: 72px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink-800);
+}
+
+.dict-learn__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트 파비콘을
+   얹는다. 파비콘을 못 받아오면 img가 스스로 지워지고 타일만 남는다. */
+.dict-learn__thumb--doc {
+  display: grid;
+  place-items: center;
+  background: color-mix(in srgb, currentColor 10%, var(--ink-850));
+}
+
+.dict-learn__initial {
+  font-family: var(--font-mono);
+  font-size: 1.4rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.dict-learn__favicon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 32px;
+  height: 32px;
+  object-fit: contain;
+  background: var(--ink-850);
+  border-radius: 6px;
+  padding: 4px;
+}
+
+.dict-learn__duration {
+  position: absolute;
+  right: 5px;
+  bottom: 5px;
+  padding: 1px 5px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.dict-learn__body {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+}
+
+.dict-learn__kind {
+  font-size: 0.68rem;
+  font-weight: 600;
+}
+
+.dict-learn__title {
+  font-size: 0.85rem;
+  color: var(--text-primary);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* 영상 제목은 길다. 한 줄로 자르면 무슨 영상인지 안 남아서 두 줄까지 준다. */
+.dict-learn__title--clamp {
+  white-space: normal;
+  line-height: 1.35;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.dict-learn__meta {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+/* ---------- 맨 위로 ----------
+   href="#" + html 의 scroll-behavior: smooth 로 굴러간다. 스크립트는 보임/숨김만
+   맡는다. 표제어가 200개라 아래쪽에서 상단바까지 거리가 멀다. */
+.to-top {
+  position: fixed;
+  right: 28px;
+  bottom: 28px;
+  z-index: 40;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--line-strong);
+  border-radius: 50%;
+  background: var(--ink-900);
+  color: var(--text-secondary);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+  transition: opacity 200ms ease, transform 200ms var(--ease-out),
+    color 180ms ease, border-color 180ms ease;
+}
+
+/* 안 보일 때는 눌리지도 않아야 한다. opacity만 0으로 두면 투명한 버튼이 남는다. */
+.to-top[data-show="false"] {
+  opacity: 0;
+  transform: translateY(8px);
+  pointer-events: none;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .to-top:hover {
+    color: var(--text-primary);
+    border-color: var(--text-muted);
+  }
+}
+
+.to-top:active {
+  transform: scale(0.94);
+}
+
+/* 꼬리말 위에 겹치지 않게 — 좁은 화면에서는 오른쪽 여백이 줄어든다. */
+@media (max-width: 720px) {
+  .to-top {
+    right: 16px;
+    bottom: 16px;
+  }
+}
+
+/* ---- 전월 대비 타일: 부호에 따라 색이 바뀐다 ----
+   ±1% 미만은 강조할 만한 변화가 아니라 회색으로 둔다. */
+.detail-panel__stat-value[data-tone="up"] {
+  color: var(--status-good-text);
+}
+
+.detail-panel__stat-value[data-tone="down"] {
+  color: var(--status-error-text);
+}
+
+.detail-panel__stat-value[data-tone="flat"] {
+  color: var(--text-secondary);
+}
+
+/* ---- 생태계 활동 추이 스파크라인 ----
+   좁은 패널이라 축을 그리지 않는다. 기준선(100)과 마지막 값만 있으면
+   "전체 평균보다 빨리 늘고 있나"는 읽힌다. */
+.detail-panel__trend {
+  margin-top: 24px;
+}
+
+.detail-panel__trend-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.detail-panel__trend-head .detail-panel__section-title {
+  margin-top: 0;
+}
+
+.detail-panel__trend-range {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+.detail-panel__trend-body {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.detail-panel__spark {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 44px;
+  display: block;
+}
+
+.detail-panel__trend-note {
+  margin: 8px 0 0;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  word-break: keep-all;
+}
+
+.detail-panel__trend-figures {
+  flex: none;
+  text-align: right;
+}
+.detail-panel__trend-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+.detail-panel__trend-sub {
+  margin-top: 2px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+/* ---- 학습 탭: 공식 문서 1장 + 영상 3장 ----
+   배지 줄의 공식 문서 알약을 없애면서 문서가 이 탭으로 들어왔다. 두 종류가
+   같은 목록에 서므로 카드 모양을 하나로 쓴다. 패널이 좁아 가로 배치다. */
+.detail-panel__learn {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.detail-panel__learn-link {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink-850);
+  color: inherit;
+  text-decoration: none;
+  transition: border-color 160ms var(--ease-out), background 160ms var(--ease-out);
+}
+
+.detail-panel__learn-link:hover {
+  border-color: var(--line-strong);
+  background: var(--ink-800);
+}
+
+/* 유튜브 hqdefault는 4:3 판에 16:9 그림이 담겨 오므로 cover로 위아래를 자른다.
+   자리는 이미지가 늦게 와도 흔들리지 않게 고정폭이다. */
+.detail-panel__learn-thumb {
+  position: relative;
+  flex: none;
+  width: 104px;
+  height: 59px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink-800);
+}
+
+.detail-panel__learn-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트 파비콘을
+   얹는다. 파비콘을 못 받아오면 img가 스스로 지워지고 타일만 남는다. */
+.detail-panel__learn-thumb--doc {
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.detail-panel__learn-initial {
+  font-family: var(--font-mono);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.detail-panel__learn-favicon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+  background: var(--ink-850);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.detail-panel__learn-duration {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.detail-panel__learn-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.detail-panel__learn-kind {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* 제목은 길다. 한 줄로 자르면 무슨 자료인지 안 남아서 두 줄까지 준다. */
+.detail-panel__learn-title {
+  font-size: 0.8rem;
+  line-height: 1.4;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.detail-panel__learn-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+
+.detail-panel__footnote code {
+  font-family: var(--font-mono);
+  font-size: 0.95em;
 }

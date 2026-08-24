@@ -47,7 +47,7 @@
     </header>
 
     <p class="dict__lead">
-      기술 <span id="dict-total"></span>개를 이름·분류로 찾아보고, 각각이 채용공고에 얼마나
+      기술 <span id="dict-total"></span>개를 이름·별칭·분류로 찾아보고, 각각이 채용공고에 얼마나
       나오는지 확인하세요.
     </p>
 
@@ -58,7 +58,13 @@
           <path d="m10.5 10.5 3 3" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" />
         </svg>
         <input type="search" class="dict-search__input" id="dict-search"
-          placeholder="기술 이름, 분류로 찾기" aria-label="기술 검색" />
+          placeholder="기술 이름, 별칭(K8s·Golang), 분류로 찾기" aria-label="기술 검색" />
+        <button type="button" class="dict-search__clear" id="dict-clear" aria-label="검색어 지우기" hidden>
+          <svg viewBox="0 0 16 16" aria-hidden="true" width="12" height="12">
+            <path d="m4.5 4.5 7 7m0-7-7 7" fill="none" stroke="currentColor"
+              stroke-width="1.6" stroke-linecap="round" />
+          </svg>
+        </button>
       </div>
 
       <div class="dict-filters dict-filters--cat" role="group" aria-label="분류로 거르기" id="dict-cats"></div>
@@ -73,13 +79,22 @@
       </div>
     </div>
 
-    <div class="dict-count" id="dict-count"></div>
+    <div class="dict-count" id="dict-count" aria-live="polite"></div>
 
     <div class="dict-body" id="dict-body" data-rail="true">
       <nav class="dict-rail" id="dict-rail" aria-label="첫 글자로 이동"></nav>
       <div class="dict-list" id="dict-list"></div>
     </div>
   </main>
+
+  <!-- href="#" 이면 브라우저가 알아서 문서 맨 위로 간다. html 에 걸린
+       scroll-behavior: smooth 가 부드럽게 굴려주므로 JS가 필요 없다. -->
+  <a class="to-top" href="#" id="to-top" data-show="false" aria-label="맨 위로">
+    <svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true">
+      <path d="M8 12.5V4M4 7.5 8 3.5l4 4" fill="none" stroke="currentColor"
+        stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+  </a>
 
   <footer class="page__footer">
     <span class="page__footer-brand">DevCompass</span>

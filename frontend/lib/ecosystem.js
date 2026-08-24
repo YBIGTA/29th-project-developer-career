@@ -25,7 +25,15 @@ export function formatCount(n) {
   return n.toLocaleString("ko-KR");
 }
 
-/** meta의 수집 기간을 히어로 통계에 들어갈 짧은 형태로 줄인다. */
+/** 1842초 -> "30분", 7341초 -> "2시간 2분". 추천 영상 길이에 쓴다. */
+export function formatDuration(seconds) {
+  const total = Math.round(seconds / 60);
+  const h = Math.floor(total / 60);
+  const m = total % 60;
+  return h ? `${h}시간 ${m}분` : `${m}분`;
+}
+
+/** meta의 수집 기간을 짧은 형태로 줄인다. */
 export function formatPeriod(meta) {
   if (!meta?.fromDate || !meta?.toDate) return "—";
   const [fy, fm] = meta.fromDate.split("-");

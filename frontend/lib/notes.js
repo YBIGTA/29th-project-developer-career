@@ -1,4 +1,4 @@
-// 상세 패널에 실리는 해설(summary / verdict / stack)을 API 응답에 덧붙인다.
+// 상세 패널에 실리는 해설(summary / stack)을 API 응답에 덧붙인다.
 //
 // summary는 두 부분을 이어 붙인다 — techNotes.json의 손으로 쓴 description
 // ("AWS는 아마존이 제공하는 클라우드 컴퓨팅 플랫폼입니다" 같은, 이 기술이
@@ -10,11 +10,10 @@
 // 매번 여기서 새로 만들고, description처럼 숫자가 없어 안 낡는 텍스트만
 // techNotes.json에 손으로 남긴다.
 //
-// verdict("지금 배운다면" 카드에 뜨는 조언)와 stack(연관 기술)도 같은
-// 이유로 techNotes.json에 있는 기술에만 붙는다. verdict는 공고 수 상위
-// 기술 위주로 채워져 있고(2026-08 기준 상위 80개 + 기존 27개), stack은
-// 실제로는 공고 동시등장률로 계산해야 할 값이라 손으로는 기존 27개 것만
-// 남기고 새로 추가하지 않았다 — 나머지는 DW 연동을 기다린다.
+// stack(함께 요구되는 기술)은 이제 API가 군집 분석에서 계산해 내려준다
+// (app/api/routes.py의 build_stacks — 같은 군집에서 유사도가 높은 기술들).
+// 여기 남은 27개는 API가 그 필드를 못 줄 때만 쓰는 대체본이다. 손으로는
+// 27개에서 멈춰 있었는데, 애초에 공고 동시등장으로 계산할 값이었다.
 import techNotes from "./techNotes.json";
 
 function buildSummary(item, description) {
@@ -33,7 +32,7 @@ function buildSummary(item, description) {
   return description ? `${description} ${stats}` : stats;
 }
 
-/** getGapMapData()가 받아온 원본 응답에 summary/verdict/stack을 덧붙인다. */
+/** getGapMapData()가 받아온 원본 응답에 summary/stack을 덧붙인다. */
 export function withNotes(gapMapData) {
   if (!gapMapData?.items) return gapMapData;
 
@@ -42,14 +41,14 @@ export function withNotes(gapMapData) {
     return {
       ...item,
       summary: buildSummary(item, note?.description),
-      ...(note?.verdict && { verdict: note.verdict }),
-      ...(note?.stack && { stack: note.stack }),
+      // 응답이 이미 갖고 있으면 덮지 않는다 — 덮으면 200개가 27개로 되돌아간다.
+      ...(note?.stack && !item.stack && { stack: note.stack }),
     };
   });
 
   return {
     ...gapMapData,
-    meta: { ...gapMapData.meta, detailedTechs: items.filter((i) => i.verdict).length },
+    meta: { ...gapMapData.meta, detailedTechs: items.filter((i) => i.summary).length },
     items,
   };
 }

@@ -45,7 +45,7 @@ export function mergeSkills(indexItems, detailItems) {
   return indexItems.map((item) => {
     const detail = byCode.get(item.skillCode);
     if (!detail) return item;
-    // detailed는 "생태계 지표가 수집됐는가"다. 해설 문장(summary/verdict)이
+    // detailed는 "생태계 지표가 수집됐는가"다. 손으로 쓴 설명 문장이
     // 있는 27개와는 다른 조건이다 — 200개 전부가 지표는 갖고 있고, 해설은
     // 없는 항목이 훨씬 많다.
     return { ...item, ...detail, detailed: Boolean(detail.ecosystem) };

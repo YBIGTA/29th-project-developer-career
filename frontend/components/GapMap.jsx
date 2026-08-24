@@ -2,7 +2,7 @@
 
 import { useMemo, useState } from "react";
 import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
-import { plot, labelFlipsUp, makeAxisScale, makeRankScale } from "@/lib/mapPoints";
+import { plot, labelFlipsUp, makeAxisScale, makeRankScale, PLOT_PAD_CORNER } from "@/lib/mapPoints";
 
 const LEGEND = [
   {
@@ -27,18 +27,21 @@ function GapMapTooltip({ tech, scaleX, yOf }) {
   // 판 가장자리의 점에서는 상자를 가운데 정렬로 두면 절반이 판 밖으로 나간다.
   // Python(생태계 98.5)처럼 오른쪽 끝에 있는 점이 그렇다. 그래서 왼쪽 끝에서는
   // 점을 상자의 왼쪽 모서리에, 오른쪽 끝에서는 오른쪽 모서리에 맞춘다.
-  const x = plot(scaleX(tech.ecosystemScore));
-  const y = plot(yOf(tech));
+  // --tip-x 판정은 판 위 좌표가 아니라 0~100 원값으로 한다. plot()은 이제
+  // calc() 문자열을 돌려주므로 크기 비교에 쓸 수 없다.
+  const xScore = Math.min(100, Math.max(0, Number(scaleX(tech.ecosystemScore)) || 0));
+  const x = plot(xScore);
+  const y = plot(yOf(tech), PLOT_PAD_CORNER);
 
   return (
     <div
       className="gap-map__tooltip"
       style={{
-        left: `${x}%`,
-        bottom: above ? `calc(${y}% + ${TIP_GAP}px)` : `calc(${y}% - ${TIP_GAP}px)`,
+        left: x,
+        bottom: `calc(${y} ${above ? "+" : "-"} ${TIP_GAP}px)`,
         // 등장 애니메이션도 transform을 쓰기 때문에 인라인 transform은 덮인다.
         // 정렬 기준을 커스텀 속성으로 넘겨 keyframes 안에서 함께 읽게 한다.
-        "--tip-x": x <= 18 ? "0" : x >= 82 ? "-100%" : "-50%",
+        "--tip-x": xScore <= 18 ? "0" : xScore >= 82 ? "-100%" : "-50%",
         "--tip-y": above ? "0px" : "100%",
       }}
     >
@@ -271,8 +274,8 @@ export default function GapMap({
               <span
                 className="gap-map__ring"
                 style={{
-                  left: `${plot(scaleX(selectedTech.ecosystemScore))}%`,
-                  bottom: `${plot(yOf(selectedTech))}%`,
+                  left: plot(scaleX(selectedTech.ecosystemScore)),
+                  bottom: plot(yOf(selectedTech), PLOT_PAD_CORNER),
                 }}
               />
             )}
@@ -290,8 +293,8 @@ export default function GapMap({
                     isSelected ? " gap-map__dot--selected" : ""
                   }`}
                   style={{
-                    left: `${plot(scaleX(d.ecosystemScore))}%`,
-                    bottom: `${plot(yOf(d))}%`,
+                    left: plot(scaleX(d.ecosystemScore)),
+                    bottom: plot(yOf(d), PLOT_PAD_CORNER),
                   }}
                   onClick={() => onSelectPoint?.(d)}
                   onMouseEnter={() => setHoverTech(d)}
@@ -313,8 +316,8 @@ export default function GapMap({
               }`}
               data-flip={labelFlipsUp(yOf(selectedTech)) ? "up" : undefined}
               style={{
-                left: `${plot(scaleX(selectedTech.ecosystemScore))}%`,
-                bottom: `${plot(yOf(selectedTech))}%`,
+                left: plot(scaleX(selectedTech.ecosystemScore)),
+                bottom: plot(yOf(selectedTech), PLOT_PAD_CORNER),
               }}
             >
               {selectedTech.tech}

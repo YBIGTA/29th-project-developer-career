@@ -10,7 +10,7 @@ import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 import {
   pickMapPoints, makeAxisScale, makeRankScale, plot, labelFlipsUp,
-  MAP_LIMIT, PLOT_PAD,
+  MAP_LIMIT, PLOT_PAD, PLOT_PAD_CORNER,
 } from "../lib/mapPoints.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
@@ -52,14 +52,43 @@ assert.deepEqual(
 );
 checks++;
 
-// 4. plot()은 항상 판 안쪽에 머문다. 벗어나면 점의 절반이 잘린다
-//    (.gap-map__plane이 overflow: hidden).
-for (const v of [-50, 0, 1, 50, 99, 100, 150, undefined, null]) {
-  const p = plot(v);
-  assert.ok(p >= PLOT_PAD && p <= 100 - PLOT_PAD, `plot(${v}) = ${p} 가 판을 벗어난다`);
+// 4. plot()은 항상 판 안쪽에 머문다. 벗어나면 점의 절반이 잘리고
+//    (.gap-map__plane이 overflow: hidden), 모서리에서는 구역 이름표 뒤로 숨는다.
+//
+//    여백이 픽셀이라 판 크기를 알아야 실제 위치가 나온다. calc()를 직접 푼다:
+//      calc(Apx + (100% - Bpx) * F)  ->  A + (크기 - B) * F
+const solve = (css, size) => {
+  const m = /^calc\((\d+)px \+ \(100% - (\d+)px\) \* ([\d.]+)\)$/.exec(css);
+  assert.ok(m, `plot()이 예상한 모양을 내지 않았다: ${css}`);
+  return Number(m[1]) + (size - Number(m[2])) * Number(m[3]);
+};
+
+// NaN이 섞이면 calc() 선언 자체가 무효라 브라우저가 통째로 버린다.
+for (const v of [-50, 0, 1, 50, 99, 100, 150, undefined, null, NaN, "x"]) {
+  for (const size of [320, 520, 780]) {
+    const at = solve(plot(v), size);
+    assert.ok(at >= PLOT_PAD && at <= size - PLOT_PAD,
+      `plot(${v})가 ${size}px 판을 벗어난다: ${at}`);
+  }
 }
-// 50점은 사분면 경계선과 정확히 겹쳐야 한다.
-assert.equal(plot(50), 50);
+
+// 50점은 판 크기와 무관하게 사분면 경계선과 정확히 겹쳐야 한다.
+for (const pad of [PLOT_PAD, PLOT_PAD_CORNER]) {
+  for (const size of [320, 340, 520, 780]) {
+    assert.equal(solve(plot(50, pad), size), size / 2,
+      `여백 ${pad}px · 판 ${size}px에서 50점이 한가운데가 아니다`);
+  }
+}
+
+// 여백은 판이 작아져도 줄지 않는다. 백분율이면 340px 판에서 절반 이하로 줄어
+// 데스크톱 모서리의 구역 이름표(약 42px) 뒤로 점이 숨는다.
+for (const size of [340, 430, 520]) {
+  assert.equal(solve(plot(0, PLOT_PAD_CORNER), size), PLOT_PAD_CORNER);
+  assert.equal(solve(plot(100, PLOT_PAD_CORNER), size), size - PLOT_PAD_CORNER);
+}
+assert.ok(PLOT_PAD_CORNER >= 49.5,
+  `PLOT_PAD_CORNER가 ${PLOT_PAD_CORNER}px이라 구역 이름표를 비껴가지 못한다`);
+assert.ok(PLOT_PAD >= 7.5, `PLOT_PAD가 ${PLOT_PAD}px이라 가장자리 점이 잘린다`);
 checks++;
 
 // 5. 축 스케일은 사분면 경계(50)를 넘지 않는다. 넘으면 점의 색(사분면)과

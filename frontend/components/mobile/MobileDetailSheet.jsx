@@ -3,7 +3,10 @@
 import { useRef, useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
 import { ecosystemBars, ecosystemNote } from "@/lib/ecosystem";
+import { docHost, normalizeVideos } from "@/lib/learn";
 import { useTechPostings } from "@/lib/useTechPostings";
+import LearnList from "../LearnList";
+import TrendSpark from "../TrendSpark";
 
 function PostingList({ postings, loading, techName }) {
   if (loading) {
@@ -125,6 +128,16 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
   const meta = tech ? getQuadrantMeta(tech.quadrant) : null;
   const color = meta ? `var(--quad-${meta.slug})` : undefined;
   const bars = tech ? ecosystemBars(tech) : [];
+  const delta = tech?.trend?.delta;
+  const deltaTone = !delta || Math.abs(delta.pct) < 1 ? "flat" : delta.pct > 0 ? "up" : "down";
+
+  // 영상이 없어도 문서만 있으면 탭을 만든다 — 데스크톱과 같은 규칙이다
+  // (components/DetailPanel.jsx). 모바일에는 배지 줄 문서 링크가 없었으므로
+  // 이 탭이 공식 문서로 가는 유일한 통로다.
+  const hasLearning = Boolean(tech) &&
+    (Boolean(docHost(tech.docs)) || normalizeVideos(tech.videos).length > 0);
+  // 자료가 없는 기술로 옮겨 왔는데 학습 탭이 열려 있으면 빈 화면이 된다.
+  const activeTab = tab === "learn" && !hasLearning ? "overview" : tab;
 
   return (
     <>
@@ -187,23 +200,34 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                   type="button"
                   role="tab"
                   className="mv-sheet__tab"
-                  aria-selected={tab === "overview"}
+                  aria-selected={activeTab === "overview"}
                   onClick={() => selectTab("overview")}
                 >
                   개요
                 </button>
+                {hasLearning && (
+                  <button
+                    type="button"
+                    role="tab"
+                    className="mv-sheet__tab"
+                    aria-selected={activeTab === "learn"}
+                    onClick={() => selectTab("learn")}
+                  >
+                    학습
+                  </button>
+                )}
                 <button
                   type="button"
                   role="tab"
                   className="mv-sheet__tab"
-                  aria-selected={tab === "postings"}
+                  aria-selected={activeTab === "postings"}
                   onClick={() => selectTab("postings")}
                 >
                   채용 공고
                 </button>
               </div>
 
-              {tab === "overview" ? (
+              {activeTab === "overview" && (
                 <>
                   {tech.summary && <p className="mv-sheet__summary">{tech.summary}</p>}
 
@@ -232,6 +256,24 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                       <div className="mv-sheet__stat-value">{tech.ecosystemScore}</div>
                       <div className="mv-sheet__stat-note">{ecosystemNote(tech)}</div>
                     </div>
+                    {delta && (
+                      <div className="mv-sheet__stat">
+                        <div className="mv-sheet__stat-label">전월 대비 생태계 활동</div>
+                        <div className="mv-sheet__stat-value" data-tone={deltaTone}>
+                          {deltaTone === "flat" ? "보합" : `${delta.pct > 0 ? "+" : ""}${delta.pct}%`}
+                        </div>
+                        <div className="mv-sheet__stat-note">
+                          {`${delta.month} 점유율 지수 ${Math.round(delta.value)} · 전월 ${Math.round(
+                            delta.prevValue
+                          )}`}
+                          {deltaTone === "flat"
+                            ? "에서 거의 변동 없음"
+                            : deltaTone === "up"
+                              ? "에서 상승"
+                              : "에서 하락"}
+                        </div>
+                      </div>
+                    )}
                   </div>
 
                   <div className="mv-sheet__metrics">
@@ -253,6 +295,8 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                       </div>
                     ))}
                   </div>
+
+                  {tech.trend && <TrendSpark trend={tech.trend} prefix="mv-sheet" />}
 
                   {tech.signals?.length > 0 && (
                     <>
@@ -287,7 +331,22 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                     수집된 공고에서 추출한 기술 태그 빈도의 백분위 순위입니다.
                   </p>
                 </>
-              ) : (
+              )}
+
+              {activeTab === "learn" && (
+                <>
+                  <p className="mv-sheet__summary">
+                    {tech.tech}을(를) 처음 배울 때 볼 만한 공식 문서와 영상입니다.
+                  </p>
+                  <LearnList tech={tech} prefix="mv-sheet" />
+                  <p className="mv-sheet__footnote">
+                    영상은 조회수와 평가를 함께 반영해 고른 영어 입문 강의입니다. 새 탭에서
+                    열립니다.
+                  </p>
+                </>
+              )}
+
+              {activeTab === "postings" && (
                 <>
                   <p className="mv-sheet__summary">
                     {tech.tech}을(를) 요구하는 공고입니다. 회사명과 지원 링크는 수집된 채용공고에서

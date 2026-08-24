@@ -4,46 +4,11 @@
    그대로 쓰고, 색 토큰만 아래에서 다크로 되박는다.
    ========================================================================== */
 
-/* ---- 모바일은 남색 다크를 유지한다 ----------------------------------------
-   데스크톱을 라이트 테마로 바꾸면서 globals.css의 :root 토큰이 종이색이 됐다.
-   모바일 화면은 이번 개편 대상이 아니므로, 여기서 예전 값을 그대로 되박아
-   /m 이 지금까지와 똑같이 보이게 한다. 모바일까지 라이트로 옮길 때 이
-   블록을 지우면 된다. */
+/* ---- 색 토큰은 globals.css의 :root(라이트)를 그대로 쓴다 -----------------
+   예전에는 여기서 남색 다크 토큰을 되박아 /m 만 어둡게 유지했다. 데스크톱과
+   모바일이 같은 화면을 다르게 보여줄 이유가 없어서 그 블록을 걷어냈다. 남은
+   것은 배경을 다시 칠하는 한 줄뿐이다 — body 배경은 .mv 밖에서 칠해진다. */
 .mv {
-  color-scheme: dark;
-
-  --ink-950: #060c1c;
-  --ink-900: #0e1832;
-  --ink-850: #182244;
-  --ink-800: #27345e;
-  --line: rgba(138, 172, 214, 0.18);
-  --line-strong: rgba(154, 188, 230, 0.42);
-
-  --text-primary: #f4fafd;
-  --text-secondary: #b7c9e0;
-  --text-muted: #8ba0bd;
-
-  --quad-essential: #a6caf9;
-  --quad-essential-bg: rgba(166, 202, 249, 0.12);
-  --quad-early-mover: #5bc0be;
-  --quad-early-mover-bg: rgba(91, 192, 190, 0.15);
-  --quad-niche: #e0b478;
-  --quad-niche-bg: rgba(224, 180, 120, 0.11);
-  --quad-minimal: #8296b6;
-  --quad-minimal-bg: rgba(130, 150, 182, 0.1);
-  --quad-unknown: #8296b6;
-  --quad-unknown-bg: rgba(130, 150, 182, 0.1);
-
-  --accent: #5bc0be;
-  --accent-bright: #6fffe9;
-  --accent-soft: rgba(91, 192, 190, 0.14);
-  --accent-ink: #06222b;
-
-  --status-good-text: #5fd3bd;
-  --status-error-text: #ee8d8d;
-  --status-error-bg: rgba(238, 141, 141, 0.12);
-
-  /* body 배경은 .mv 밖(globals.css)에서 칠해지므로 여기서 다시 덮는다. */
   background: var(--ink-950);
   color: var(--text-primary);
 }
@@ -74,7 +39,7 @@
   align-items: center;
   height: 52px;
   padding: 0 16px;
-  background: rgba(6, 12, 28, 0.82);
+  background: rgba(245, 244, 241, 0.86);
   backdrop-filter: blur(14px) saturate(150%);
   border-bottom: 1px solid var(--line);
 }
@@ -106,7 +71,7 @@
   z-index: 50;
   display: flex;
   padding-bottom: env(safe-area-inset-bottom);
-  background: rgba(6, 12, 28, 0.92);
+  background: rgba(245, 244, 241, 0.92);
   backdrop-filter: blur(16px) saturate(150%);
   border-top: 1px solid var(--line);
 }
@@ -199,7 +164,7 @@
   padding: 6px 12px 6px 9px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(0, 0, 0, 0.025);
   font-size: 0.7rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -267,7 +232,7 @@
   color: var(--accent-ink);
   font-size: 0.92rem;
   font-weight: 600;
-  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.28), 0 12px 28px -14px rgba(91, 192, 190, 0.6);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18), 0 12px 28px -14px rgba(27, 25, 22, 0.45);
 }
 
 .mv-hero__cta:active {
@@ -434,7 +399,7 @@
 .mv-quad-card--early-mover {
   --cell-color: var(--quad-early-mover);
   --cell-bg: var(--quad-early-mover-bg);
-  border-color: rgba(91, 192, 190, 0.28);
+  border-color: rgba(44, 125, 111, 0.3);
 }
 .mv-quad-card--niche {
   --cell-color: var(--quad-niche);
@@ -492,7 +457,7 @@
   padding: 4px 8px;
   border: 1px solid var(--line);
   border-radius: 6px;
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(0, 0, 0, 0.025);
   font-family: var(--font-mono);
   font-size: 0.64rem;
   color: var(--text-secondary);
@@ -502,7 +467,7 @@
   width: 50px;
   height: 22px;
   border-radius: 6px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.04));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.09), rgba(0, 0, 0, 0.04));
   background-size: 200% 100%;
   animation: mvShimmer 1.5s linear infinite;
 }
@@ -593,7 +558,7 @@
   border: 1px solid var(--line);
   border-radius: 12px;
   background: var(--ink-850);
-  box-shadow: 0 20px 40px -20px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 20px 40px -20px rgba(40, 34, 24, 0.28);
   list-style: none;
   /* 직군이 14개라 옵션이 15줄이 된다. 뷰포트를 넘기지 않게 잘라 스크롤한다. */
   max-height: min(55vh, 320px);
@@ -675,7 +640,7 @@
 
 .mv-map__status--error {
   border-style: solid;
-  border-color: rgba(232, 135, 126, 0.32);
+  border-color: rgba(168, 60, 60, 0.32);
   background: var(--status-error-bg);
 }
 
@@ -699,7 +664,7 @@
   border-radius: 50%;
   left: calc(14% + (var(--i) % 3) * 26%);
   top: calc(16% + (var(--i) / 3) * 22%);
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.05));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.05), rgba(0, 0, 0, 0.11), rgba(0, 0, 0, 0.05));
   background-size: 200% 100%;
   animation: mvShimmer 1.5s linear infinite;
   animation-delay: calc(var(--i) * 90ms);
@@ -828,17 +793,22 @@
   width: 1px;
 }
 
+/* 이름표는 누르면 그 구역 설명이 뜨는 버튼이다(components/mobile/MobileGapMap.jsx).
+   점(.mv-map__hit, z-index 2)보다는 아래에 둬서 데이터를 가리지 않게 하되,
+   구역 색칠(z-index 0)보다는 위로 올려야 탭이 먹는다. */
 .mv-map__corner {
   position: absolute;
-  /* 사분면 이름표는 장식이라 모서리에 찍힌 점을 가리면 안 된다. 데이터보다 아래에 깐다. */
-  z-index: 0;
+  z-index: 1;
+  appearance: none;
+  cursor: pointer;
+  font-family: inherit;
   display: inline-flex;
   align-items: center;
   gap: 5px;
   padding: 4px 8px;
   border: 1px solid var(--line);
   border-radius: 999px;
-  background: rgba(6, 12, 28, 0.66);
+  background: rgba(245, 244, 241, 0.72);
   font-size: 0.62rem;
   font-weight: 500;
   color: var(--text-secondary);
@@ -923,7 +893,7 @@
   background: var(--quad-early-mover);
 }
 .mv-map__dot--niche {
-  background: rgba(201, 163, 95, 0.12);
+  background: rgba(154, 109, 41, 0.12);
   border: 1.5px dashed var(--quad-niche);
 }
 .mv-map__dot--minimal,
@@ -989,7 +959,7 @@
   background: var(--quad-early-mover);
 }
 .mv-legend-swatch--niche {
-  background: rgba(201, 163, 95, 0.12);
+  background: rgba(154, 109, 41, 0.12);
   border: 1.5px dashed var(--quad-niche);
 }
 .mv-legend-swatch--minimal,
@@ -1089,7 +1059,7 @@
   position: fixed;
   inset: 0;
   z-index: 60;
-  background: rgba(6, 10, 20, 0.55);
+  background: rgba(40, 34, 24, 0.34);
   backdrop-filter: blur(2px);
   opacity: 0;
   pointer-events: none;
@@ -1114,7 +1084,7 @@
   border: 1px solid var(--line-strong);
   border-bottom: none;
   background: var(--ink-900);
-  box-shadow: 0 -8px 24px -12px rgba(0, 0, 0, 0.6);
+  box-shadow: 0 -8px 24px -12px rgba(40, 34, 24, 0.3);
   transform: translateY(100%);
   transition: transform 320ms var(--ease-out);
 }
@@ -1342,7 +1312,7 @@
   padding: 13px 14px;
   border: 1px solid var(--line);
   border-radius: 12px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(0, 0, 0, 0.02);
 }
 
 .mv-sheet__posting-company {
@@ -1388,7 +1358,7 @@
   margin-top: 6px;
   height: 4px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.08);
   overflow: hidden;
 }
 
@@ -1702,7 +1672,7 @@
   width: 96px;
   height: 16px;
   border-radius: 4px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.04), rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.04));
   background-size: 200% 100%;
   animation: mvShimmer 1.5s linear infinite;
   animation-delay: calc(var(--i) * 80ms);
@@ -1714,7 +1684,7 @@
   width: 100%;
   height: 12px;
   border-radius: 4px;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+  background: linear-gradient(90deg, rgba(0, 0, 0, 0.03), rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.03));
   background-size: 200% 100%;
   animation: mvShimmer 1.5s linear infinite;
   animation-delay: calc(var(--i) * 80ms);
@@ -1913,7 +1883,7 @@
   margin-top: 5px;
   height: 4px;
   border-radius: 2px;
-  background: rgba(255, 255, 255, 0.07);
+  background: rgba(0, 0, 0, 0.08);
   overflow: hidden;
 }
 
@@ -2004,4 +1974,367 @@
     animation-iteration-count: 1 !important;
     transition-duration: 0.001ms !important;
   }
+}
+
+/* ==========================================================================
+   데스크톱에서 넘어온 것들 — 전월 대비 · 활동 추이 · 학습 자료
+   마크업은 components/TrendSpark.jsx와 components/LearnList.jsx 한 벌을
+   양쪽이 같이 쓰고, 클래스 앞머리(prefix)만 갈아 끼운다. 그래서 여기 규칙은
+   데스크톱(globals.css)의 .detail-panel__* 와 짝이 맞아야 한다.
+   ========================================================================== */
+
+/* ---- 전월 대비 생태계 활동: 통계 격자의 네 번째 칸 ---- */
+.mv-sheet__stat-value[data-tone="up"] {
+  color: var(--status-good-text);
+}
+
+.mv-sheet__stat-value[data-tone="down"] {
+  color: var(--status-error-text);
+}
+
+.mv-sheet__stat-value[data-tone="flat"] {
+  color: var(--text-secondary);
+}
+
+/* ---- 생태계 활동 추이 스파크라인 ----
+   좁은 화면이라 축을 그리지 않는다. 기준선(100)과 마지막 값만 있으면
+   "전체 평균보다 빨리 늘고 있나"는 읽힌다. */
+.mv-sheet__trend {
+  margin-top: 22px;
+}
+
+.mv-sheet__trend-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.mv-sheet__trend-head .mv-sheet__section-title {
+  margin-top: 0;
+}
+
+.mv-sheet__trend-range {
+  font-family: var(--font-mono);
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+.mv-sheet__trend-body {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.mv-sheet__spark {
+  flex: 1 1 auto;
+  min-width: 0;
+  height: 48px;
+  display: block;
+}
+
+.mv-sheet__trend-figures {
+  flex: none;
+  text-align: right;
+}
+
+.mv-sheet__trend-value {
+  font-family: var(--font-mono);
+  font-size: 0.95rem;
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+  letter-spacing: -0.02em;
+}
+
+.mv-sheet__trend-sub {
+  margin-top: 2px;
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
+.mv-sheet__trend-note {
+  margin: 8px 0 0;
+  font-size: 0.68rem;
+  line-height: 1.6;
+  color: var(--text-muted);
+  word-break: keep-all;
+}
+
+/* ---- 학습 자료: 공식 문서 1장 + 영상 3장 ----
+   바텀시트(학습 탭)와 사전 펼침 패널이 같은 카드를 쓴다. */
+.mv-sheet__learn,
+.mv-dict-entry__learn {
+  list-style: none;
+  margin: 16px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.mv-dict-entry__learn {
+  margin-top: 0;
+}
+
+.mv-sheet__learn-link,
+.mv-dict-entry__learn-link {
+  display: flex;
+  gap: 12px;
+  padding: 8px;
+  border: 1px solid var(--line);
+  border-radius: 12px;
+  background: var(--ink-850);
+  color: inherit;
+  text-decoration: none;
+}
+
+.mv-sheet__learn-link:active,
+.mv-dict-entry__learn-link:active {
+  border-color: var(--line-strong);
+  background: var(--ink-800);
+}
+
+/* 유튜브 hqdefault는 4:3 판에 16:9 그림이 담겨 오므로 cover로 위아래를 자른다.
+   자리는 이미지가 늦게 와도 흔들리지 않게 고정폭이다. */
+.mv-sheet__learn-thumb,
+.mv-dict-entry__learn-thumb {
+  position: relative;
+  flex: none;
+  width: 96px;
+  height: 54px;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--ink-800);
+}
+
+.mv-sheet__learn-thumb img,
+.mv-dict-entry__learn-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트 파비콘을
+   얹는다. 못 받아오면 img가 스스로 지워지고 타일만 남는다. */
+.mv-sheet__learn-thumb--doc,
+.mv-dict-entry__learn-thumb--doc {
+  display: grid;
+  place-items: center;
+  background: var(--accent-soft);
+  color: var(--accent);
+}
+
+.mv-sheet__learn-initial,
+.mv-dict-entry__learn-initial {
+  font-family: var(--font-mono);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  text-transform: uppercase;
+}
+
+.mv-sheet__learn-favicon,
+.mv-dict-entry__learn-favicon {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  width: 26px;
+  height: 26px;
+  object-fit: contain;
+  background: var(--ink-850);
+  border-radius: 6px;
+  padding: 3px;
+}
+
+.mv-sheet__learn-duration,
+.mv-dict-entry__learn-duration {
+  position: absolute;
+  right: 4px;
+  bottom: 4px;
+  padding: 1px 4px;
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.78);
+  color: #fff;
+  font-family: var(--font-mono);
+  font-size: 0.62rem;
+  font-variant-numeric: tabular-nums;
+}
+
+.mv-sheet__learn-body,
+.mv-dict-entry__learn-body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 3px;
+  min-width: 0;
+}
+
+.mv-sheet__learn-kind,
+.mv-dict-entry__learn-kind {
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--accent);
+}
+
+/* 제목은 길다. 한 줄로 자르면 무슨 자료인지 안 남아서 두 줄까지 준다. */
+.mv-sheet__learn-title,
+.mv-dict-entry__learn-title {
+  font-size: 0.79rem;
+  line-height: 1.4;
+  font-weight: 500;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mv-sheet__learn-meta,
+.mv-dict-entry__learn-meta {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- 사전 표제어의 직군 배지 (데스크톱 .dict-entry__role) ---- */
+.mv-dict-entry__role {
+  padding: 1px 7px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.66rem;
+  color: var(--text-muted);
+}
+
+
+/* ---- 구역 설명 팝오버 ----
+   데스크톱은 구역의 1/4 위에 뜨지만(globals.css의 .gap-map__zone-pop), 좁은
+   화면에서 그 크기면 글자가 서너 자씩 끊긴다. 판 아래쪽에 전체 폭으로 깐다. */
+.mv-map__zone-pop {
+  position: absolute;
+  z-index: 5;
+  left: 8px;
+  right: 8px;
+  bottom: 8px;
+  padding: 12px 13px;
+  border: 1px solid var(--line-strong);
+  border-radius: 12px;
+  /* 뒤로 판이 계속 보여야 어느 구역 얘기인지 감이 끊기지 않는다. */
+  background: color-mix(in srgb, var(--ink-850) 92%, transparent);
+  backdrop-filter: blur(7px);
+  box-shadow: 0 18px 40px -18px rgba(40, 34, 24, 0.32);
+  animation: mvZonePopIn 0.18s var(--ease-out) both;
+}
+
+@keyframes mvZonePopIn {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .mv-map__zone-pop {
+    animation: none;
+  }
+}
+
+.mv-map__zone-pop-head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.mv-map__zone-pop-label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.mv-map__zone-pop-count {
+  margin-left: auto;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-muted);
+}
+
+.mv-map__zone-pop-close {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 26px;
+  height: 26px;
+  flex: none;
+  border: none;
+  border-radius: 999px;
+  background: var(--ink-800);
+  color: var(--text-secondary);
+}
+
+.mv-map__zone-pop-desc {
+  margin: 8px 0 0;
+  font-size: 0.76rem;
+  line-height: 1.6;
+  color: var(--text-secondary);
+  word-break: keep-all;
+}
+
+.mv-map__zone-pop-samples {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 10px;
+}
+
+.mv-map__zone-pop-tag {
+  padding: 5px 10px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--ink-900);
+  color: var(--text-secondary);
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+}
+
+.mv-map__zone-pop-tag:active {
+  border-color: var(--line-strong);
+  color: var(--text-primary);
+}
+
+/* ---- 지도 표시 개수 (데스크톱 .chart-panel__limits) ----
+   데스크톱은 제목 줄 오른쪽에 붙지만, 좁은 화면에서 그러면 제목이 두 줄로
+   접힌다. 제목 아래 한 줄을 통째로 준다. */
+.mv-chart__limits {
+  display: flex;
+  gap: 2px;
+  margin-bottom: 14px;
+  padding: 2px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+
+.mv-chart__limit {
+  flex: 1;
+  min-height: 32px;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--text-muted);
+  font-family: inherit;
+  font-size: 0.74rem;
+  letter-spacing: -0.01em;
+}
+
+.mv-chart__limit[aria-pressed="true"] {
+  background: var(--accent-soft);
+  color: var(--text-primary);
 }

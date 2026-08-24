@@ -10,7 +10,7 @@ import MobileQuadrants from "@/components/mobile/MobileQuadrants";
 import MobileTopBar from "@/components/mobile/MobileTopBar";
 import MobileTabBar from "@/components/mobile/MobileTabBar";
 import { getGapMapData } from "@/lib/api";
-import { pickMapPoints } from "@/lib/mapPoints";
+import { pickMapPoints, MAP_LIMIT, MAP_LIMIT_STEPS } from "@/lib/mapPoints";
 import { ALL_ROLES, projectByRole } from "@/lib/roles";
 import { useInView } from "@/lib/useInView";
 
@@ -21,6 +21,8 @@ export default function MobileDashboard() {
   const [error, setError] = useState(null);
   const [selectedRole, setSelectedRole] = useState(ALL_ROLES);
   const [selectedTech, setSelectedTech] = useState(null);
+  // 표시 개수 직접 고르기(데스크톱과 동일). null이면 서버가 준 기본값을 따른다.
+  const [limitOverride, setLimitOverride] = useState(null);
 
   const [mapRef, mapInView] = useInView({ threshold: 0.2 });
 
@@ -69,9 +71,10 @@ export default function MobileDashboard() {
   // 좁은 화면일수록 점이 더 잘 겹치므로 N개만 찍는다. 수요 상위 N개가 아니라
   // 사분면별로 고르게 뽑는다 (lib/mapPoints.js). 잘린 기술은 아래 기술 사전
   // 안내로 넘긴다.
+  const mapLimit = limitOverride ?? meta?.mapLimit ?? MAP_LIMIT;
   const mapData = useMemo(
-    () => pickMapPoints(filteredData, meta?.mapLimit),
-    [filteredData, meta?.mapLimit]
+    () => pickMapPoints(filteredData, mapLimit),
+    [filteredData, mapLimit]
   );
   const hiddenCount = filteredData.length - mapData.length;
 
@@ -126,6 +129,23 @@ export default function MobileDashboard() {
                   ? `사분면마다 고르게 ${mapData.length}개 표시 · 점을 탭해 상세 보기`
                   : "점을 탭해 상세 정보 보기"}
               </div>
+            </div>
+
+            <div className="mv-chart__limits" role="group" aria-label="지도에 표시할 기술 수">
+              {MAP_LIMIT_STEPS.map((step) => {
+                const value = Number.isFinite(step) ? step : filteredData.length;
+                return (
+                  <button
+                    key={String(step)}
+                    type="button"
+                    className="mv-chart__limit"
+                    aria-pressed={mapLimit === value}
+                    onClick={() => setLimitOverride(value)}
+                  >
+                    {Number.isFinite(step) ? `${step}개` : "전체"}
+                  </button>
+                );
+              })}
             </div>
             <MobileGapMap
               data={mapData}

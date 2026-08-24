@@ -12,9 +12,30 @@
   const PREVIEW_POSTINGS = window.PREVIEW_POSTINGS;
 
   // ------------------------------------------------- 좌표 (lib/mapPoints.js)
-  const LOW = [0, 46], HIGH = [54, 100], PAD = 4;
+  const LOW = [0, 46], HIGH = [54, 100];
 
-  const plot = (v) => PAD + (Math.min(100, Math.max(0, v ?? 0)) * (100 - 2 * PAD)) / 100;
+  // 점을 판 안쪽으로 들여 찍는다. 0%/100% 자리에 그대로 찍으면 원의 절반이
+  // 판 밖으로 잘리고(.gap-map__plane이 overflow: hidden), 모서리에서는 구역
+  // 이름표(.gap-map__corner) 뒤로 숨는다.
+  //
+  // **백분율이 아니라 픽셀로 들인다.** 이름표는 판 안쪽 12px 자리에 약 30px
+  // 높이로 앉아 있고, 그 크기는 판이 커지든 작아지든 변하지 않는다. 백분율로
+  // 들이면 판이 낮아질수록(--plot-h는 340px까지 내려간다) 여백이 같이 줄어
+  // 가장자리 점이 다시 이름표 밑으로 들어간다.
+  //
+  //   세로 50px = 12(안쪽 여백) + 30(이름표 높이) + 7.5(점 반지름) + 여유
+  //   가로 14px = 점 반지름 + 여유
+  //
+  // 가로는 이름표 너비(약 96px)만큼 들이지 않는다. 세로에서 이미 이름표를
+  // 비껴가므로 가로까지 들이면 판만 좁아지고 얻는 게 없다.
+  const PAD_X = 14, PAD_Y = 50;
+
+  // `v ?? 0`으로는 NaN이 통과한다. calc()에 NaN이 들어가면 선언 자체가 무효라
+  // 브라우저가 통째로 버리고, 점이 판 구석에 쌓인다.
+  const clamp100 = (v) => Math.min(100, Math.max(0, Number(v) || 0));
+  // 0~100 점수를 판 위의 CSS 길이로. left/bottom에 그대로 넣는다.
+  const posX = (v) => `calc(${PAD_X}px + (100% - ${PAD_X * 2}px) * ${clamp100(v) / 100})`;
+  const posY = (v) => `calc(${PAD_Y}px + (100% - ${PAD_Y * 2}px) * ${clamp100(v) / 100})`;
   // 판 바닥에 붙은 점은 이름표를 위로 뒤집는다. 아래로 두면 판 밖으로 잘린다.
   const labelFlipsUp = (demand) => (demand ?? 0) < 12;
 
@@ -167,8 +188,8 @@
     if (selectedOnMap) {
       const ring = document.createElement("span");
       ring.className = "gap-map__ring";
-      ring.style.left = `${plot(scaleX(selected.ecosystemScore))}%`;
-      ring.style.bottom = `${plot(yOf(selected))}%`;
+      ring.style.left = posX(scaleX(selected.ecosystemScore));
+      ring.style.bottom = posY(yOf(selected));
       plane.appendChild(ring);
     }
 
@@ -178,8 +199,8 @@
       dot.type = "button";
       dot.className = `gap-map__dot gap-map__dot--${m.slug}` +
         (selected && selected.skillCode === d.skillCode ? " gap-map__dot--selected" : "");
-      dot.style.left = `${plot(scaleX(d.ecosystemScore))}%`;
-      dot.style.bottom = `${plot(yOf(d))}%`;
+      dot.style.left = posX(scaleX(d.ecosystemScore));
+      dot.style.bottom = posY(yOf(d));
       dot.setAttribute("aria-label",
         `${d.tech} — ${m.label}, 생태계 ${d.ecosystemScore}, 수요 ${d.demand}`);
       dot.addEventListener("click", () => { selected = d; renderAll(); });
@@ -196,8 +217,8 @@
       const label = document.createElement("span");
       label.className = `gap-map__dot-label gap-map__dot-label--${m.slug}`;
       if (labelFlipsUp(yOf(selected))) label.dataset.flip = "up";
-      label.style.left = `${plot(scaleX(selected.ecosystemScore))}%`;
-      label.style.bottom = `${plot(yOf(selected))}%`;
+      label.style.left = posX(scaleX(selected.ecosystemScore));
+      label.style.bottom = posY(yOf(selected));
       label.textContent = selected.tech;
       wrap.appendChild(label);
     }
@@ -213,14 +234,14 @@
     hideTooltip();
     const m = metaOf(d.quadrant);
     const filled = m.slug === "early-mover" || m.slug === "essential";
-    const x = plot(scaleX(d.ecosystemScore));
-    const y = plot(yOf(d));
-    const above = yOf(d) < 45;
+    const x = clamp100(scaleX(d.ecosystemScore));
+    const y = yOf(d);
+    const above = y < 45;
 
     const tip = document.createElement("div");
     tip.className = "gap-map__tooltip";
-    tip.style.left = `${x}%`;
-    tip.style.bottom = above ? `calc(${y}% + ${TIP_GAP}px)` : `calc(${y}% - ${TIP_GAP}px)`;
+    tip.style.left = posX(x);
+    tip.style.bottom = `calc(${posY(y)} ${above ? "+" : "-"} ${TIP_GAP}px)`;
     tip.style.setProperty("--tip-x", x <= 18 ? "0" : x >= 82 ? "-100%" : "-50%");
     tip.style.setProperty("--tip-y", above ? "0px" : "100%");
     tip.innerHTML = `

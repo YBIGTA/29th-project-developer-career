@@ -136,3 +136,100 @@ export async function getTechCluster(skillCode) {
     return null;
   }
 }
+
+/**
+ * Stack Overflow 일별 30일 롤링 비중 지수.
+ *
+ * 하루 질문 수를 그대로 보지 않는다. SO는 기술별로 질문이 없는 날이 많아서
+ * 하루 단위 비중은 0이 대부분이고 값이 튄다. 그래서 각 날짜마다 **그 날짜
+ * 기준 최근 30일**을 묶어 비중을 낸다 — 8/20 값은 8/20 하루가 아니라
+ * 7/22~8/20 동안의 그 기술 질문 수를 같은 기간 전체 질문 수로 나눈 값이다.
+ * 그 비중을 조회 구간 전체(기본 180일)의 평균 비중 = 100으로 지수화한다.
+ * 100보다 크면 최근 30일 기준으로 평소보다 비중이 높다는 뜻이다.
+ *
+ * 계산은 전부 서버가 한다(app/api/routes.py의 TIMESERIES_DAILY_SQL). 여기서는
+ * 받아서 { dates, index } 로 펴 놓기만 한다.
+ *
+ * 기간을 좁히면 뜻이 달라진다 — 기준선(평균 비중)이 그 좁힌 구간의 평균이
+ * 되기 때문이다. 그래서 기본 180일을 그대로 쓰고 인자로 열어두지 않는다.
+ *
+ * **응답 크기 주의.** 이 엔드포인트는 원래 모든 기술의 모든 날짜를 한 번에
+ * 내려줬다 — 200개 x 180일이면 6.4MB다. 상세 화면은 기술 하나의 선만 그리는
+ * 데 그만큼을 받는 것이 폰에서는 특히 나쁘다. 그래서 skill= 필터를 함께
+ * 넣었다(routes.py의 get_timeseries_daily).
+ *
+ * 다만 **아직 그 필터가 없는 API도 상대해야 한다.** 배포된 백엔드가 먼저
+ * 갱신되리라는 보장이 없고, 모르는 쿼리 파라미터는 그냥 무시되어 전체가
+ * 내려온다. 그래서 받은 것을 무조건 기술별로 갈라 캐시에 전부 넣는다.
+ * 필터가 있으면 요청마다 한 기술씩(약 32KB), 없으면 첫 요청 한 번만 크고
+ * 그 뒤의 기술들은 캐시에서 바로 나온다. 어느 쪽이든 낭비가 한 번을 넘지 않는다.
+ */
+const dailyIndexCache = new Map(); // skillCode -> { dates, index } | null
+const dailyIndexPending = new Map(); // skillCode -> Promise
+// 한 번이라도 전체 응답을 받았는가. 받았다면 캐시에 없는 기술은 지수가 없는
+// 기술이므로 더 물어볼 필요가 없다.
+let dailyIndexFullSet = false;
+
+export function getDailyIndex(skillCode) {
+  if (!skillCode || !API_URL) return Promise.resolve(null);
+  if (dailyIndexCache.has(skillCode)) {
+    return Promise.resolve(dailyIndexCache.get(skillCode));
+  }
+  if (dailyIndexFullSet) return Promise.resolve(null);
+  if (dailyIndexPending.has(skillCode)) return dailyIndexPending.get(skillCode);
+
+  const request = (async () => {
+    try {
+      const res = await fetch(
+        `${API_URL}/api/v1/timeseries/daily?skill=${encodeURIComponent(skillCode)}`,
+        { cache: "no-store" }
+      );
+      if (!res.ok) {
+        throw new Error(`일별 지수를 불러오지 못했습니다 (status: ${res.status})`);
+      }
+      const body = await res.json();
+
+      // 응답은 날짜 오름차순이라 그대로 밀어 넣으면 순서가 유지된다.
+      const bySkill = new Map();
+      for (const row of body.items ?? []) {
+        // 기준선이 없는 기술(조회 구간 내내 질문 0건)은 지수가 null이다.
+        // 그런 날은 선을 그릴 수 없으므로 아예 담지 않는다.
+        if (row.stackoverflowIndex === null || row.stackoverflowIndex === undefined) continue;
+        let series = bySkill.get(row.skillCode);
+        if (!series) {
+          series = { dates: [], index: [] };
+          bySkill.set(row.skillCode, series);
+        }
+        series.dates.push(row.date);
+        series.index.push(Number(row.stackoverflowIndex));
+      }
+
+      // 응답에 기술이 여럿이면 필터가 무시된 것이다 — 즉 이 응답이 전체다.
+      const wholeSet = bySkill.size > 1;
+
+      // 나머지 기술도 같이 캐시해 둔다. 이미 있는 것은 덮지 않는다 — 내용이
+      // 같은 새 객체로 갈아치우면 그 배열을 참조하던 화면이 괜히 다시 그린다.
+      for (const [code, series] of bySkill) {
+        if (!dailyIndexCache.has(code)) dailyIndexCache.set(code, series);
+      }
+
+      // 전체를 받았는데 없는 기술은 지수 자체가 없는 기술이다. null로 못박아
+      // 두지 않으면 그런 기술을 열 때마다 전체를 다시 받는다.
+      if (wholeSet) {
+        dailyIndexFullSet = true;
+      }
+      if (!dailyIndexCache.has(skillCode)) dailyIndexCache.set(skillCode, null);
+
+      return dailyIndexCache.get(skillCode) ?? null;
+    } catch (error) {
+      console.error("[getDailyIndex] 요청 실패, 일별 지수 칸을 숨깁니다:", error);
+      // 실패는 캐시에 남기지 않는다 — 남기면 새로고침 전까지 다시 시도하지 않는다.
+      return null;
+    } finally {
+      dailyIndexPending.delete(skillCode);
+    }
+  })();
+
+  dailyIndexPending.set(skillCode, request);
+  return request;
+}

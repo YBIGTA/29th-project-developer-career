@@ -5,7 +5,11 @@ import { getQuadrantMeta } from "@/lib/quadrants";
 import { ecosystemBars, ecosystemNote } from "@/lib/ecosystem";
 import { docHost, normalizeVideos } from "@/lib/learn";
 import { useTechPostings } from "@/lib/useTechPostings";
+import { useTechCluster } from "@/lib/useTechCluster";
+import { useDailyIndex } from "@/lib/useDailyIndex";
+import DailySpark from "../DailySpark";
 import LearnList from "../LearnList";
+import StackList from "../StackList";
 import TrendSpark from "../TrendSpark";
 
 function PostingList({ postings, loading, techName }) {
@@ -85,6 +89,12 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
     tech?.skillCode,
     open && tab === "postings"
   );
+
+  // 개요 탭에서만 부른다(데스크톱과 같은 규칙). 시트를 열지 않으면 요청이
+  // 나가지 않는다.
+  const overviewOpen = open && tab !== "postings" && tab !== "learn";
+  const { cluster } = useTechCluster(tech?.skillCode, overviewOpen);
+  const { series: dailySeries } = useDailyIndex(tech?.skillCode, overviewOpen);
 
   const selectTab = (next) => {
     setTab(next);
@@ -298,6 +308,8 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
 
                   {tech.trend && <TrendSpark trend={tech.trend} prefix="mv-sheet" />}
 
+                  {dailySeries && <DailySpark series={dailySeries} prefix="mv-sheet" />}
+
                   {tech.signals?.length > 0 && (
                     <>
                       <div className="mv-sheet__section-title">이 자리에 있는 이유</div>
@@ -313,18 +325,7 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                     </>
                   )}
 
-                  {tech.stack?.length > 0 && (
-                    <>
-                      <div className="mv-sheet__section-title">함께 요구되는 기술</div>
-                      <div className="mv-sheet__stack">
-                        {tech.stack.map((s) => (
-                          <span className="mv-sheet__chip" key={s}>
-                            {s}
-                          </span>
-                        ))}
-                      </div>
-                    </>
-                  )}
+                  <StackList tech={tech} cluster={cluster} prefix="mv-sheet" />
 
                   <p className="mv-sheet__footnote">
                     생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는

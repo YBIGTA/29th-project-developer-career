@@ -277,3 +277,52 @@ def test_early_mover_score_weighs_evidence_but_never_gates_on_it():
     assert scores["graded"] > scores["ungraded"] > 0
     # 가중치가 백분위 순서를 뒤집지는 않는다.
     assert scores["top"] > scores["graded"]
+
+
+def test_no_sql_has_phantom_bind_parameters():
+    """모든 text() SQL이 유령 바인드 파라미터를 만들지 않는가.
+
+    두 가지가 조용히 유령 파라미터를 만든다. 둘 다 실제로 겪은 것이다.
+
+      1. PostgreSQL의 postfix 캐스트. 콜론 파라미터 바로 뒤에 콜론 두 개를
+         붙이면 text()가 이름을 한 글자 짧게 끊는다. 값이 안 채워진 콜론이
+         날것으로 넘어가 "syntax error at or near" 로 쿼리 전체가 죽는다.
+         CAST(...) 를 쓸 것.
+      2. SQL 주석. text()는 주석 안까지 훑으므로, 설명하려고 적어둔 예시가
+         그대로 바인드 파라미터가 된다.
+
+    **파싱 결과를 정규식으로 재현해 비교하면 안 된다** — 그 정규식이
+    SQLAlchemy와 똑같이 틀리므로 1번을 놓친다. 두 패턴을 직접 금지한다.
+
+    실행할 때가 아니라 import 시점에 잡는다 — DB 없이 확인할 수 있다.
+    """
+    import re
+
+    from sqlalchemy.sql.elements import TextClause
+
+    from app.api import routes
+
+    POSTFIX_CAST = re.compile(r"(?<![:\w]):[a-zA-Z_]\w*::")
+    NAMED = re.compile(r"(?<![:\w]):([a-zA-Z_]\w*)")
+
+    checked = 0
+    for name in dir(routes):
+        sql = getattr(routes, name)
+        if not isinstance(sql, TextClause):
+            continue
+
+        hit = POSTFIX_CAST.search(sql.text)
+        assert hit is None, (
+            f"{name}: 파라미터 뒤에 postfix 캐스트가 붙었다 ({hit.group()!r}). "
+            f"text()가 이름을 한 글자 잘라먹는다 — CAST(... AS ...) 로 바꿀 것."
+        )
+
+        for comment in re.findall(r"--[^\n]*", sql.text):
+            found = NAMED.findall(comment)
+            assert not found, (
+                f"{name}: 주석에 콜론+이름이 있다 ({found}). text()는 주석 안까지 "
+                f"훑어서 바인드 파라미터로 잡는다 — 예시에서 콜론을 뺄 것."
+            )
+        checked += 1
+
+    assert checked >= 5, f"검사한 SQL이 {checked}개뿐이다 — 수집이 안 되고 있다"

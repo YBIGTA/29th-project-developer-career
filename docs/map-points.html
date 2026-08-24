@@ -1,0 +1,811 @@
+<title>60개의 점</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Gothic+A1:wght@700;800&family=IBM+Plex+Mono:wght@400;500;600&family=IBM+Plex+Sans+KR:wght@400;500;600&display=swap">
+
+<style>
+  /* 팔레트는 frontend/app/globals.css의 토큰을 그대로 가져왔다 —
+     따뜻한 종이 톤 + 무채색 강조 + 사분면 4색. 어두운 테마만 여기서 새로 짰다. */
+  :root {
+    --paper: #f5f4f1;
+    --card: #ffffff;
+    --sunk: #eceae5;
+    --ink: #1b1916;
+    --ink-2: #4e4941;
+    --ink-3: #6e6961;
+    --rule: rgba(58, 53, 45, 0.14);
+    --rule-strong: rgba(58, 53, 45, 0.32);
+    --q-ess: #3d6da6;
+    --q-early: #2c7d6f;
+    --q-niche: #9a6d29;
+    --q-min: #7d7870;
+    --q-early-bg: rgba(44, 125, 111, 0.1);
+    --good: #1f7a63;
+    --bad: #a83c3c;
+    --shadow: 0 1px 2px rgba(58, 53, 45, 0.05), 0 8px 24px -18px rgba(58, 53, 45, 0.5);
+  }
+
+  @media (prefers-color-scheme: dark) {
+    :root:not([data-theme="light"]) {
+      --paper: #16130f;
+      --card: #1e1a15;
+      --sunk: #12100c;
+      --ink: #f3efe8;
+      --ink-2: #c9c1b4;
+      --ink-3: #9d9488;
+      --rule: rgba(240, 232, 218, 0.14);
+      --rule-strong: rgba(240, 232, 218, 0.3);
+      --q-ess: #7fadde;
+      --q-early: #62c6a9;
+      --q-niche: #d5a75e;
+      --q-min: #a49c90;
+      --q-early-bg: rgba(98, 198, 169, 0.13);
+      --good: #62c6a9;
+      --bad: #e58c8c;
+      --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -18px rgba(0, 0, 0, 0.9);
+    }
+  }
+
+  :root[data-theme="dark"] {
+    --paper: #16130f;
+    --card: #1e1a15;
+    --sunk: #12100c;
+    --ink: #f3efe8;
+    --ink-2: #c9c1b4;
+    --ink-3: #9d9488;
+    --rule: rgba(240, 232, 218, 0.14);
+    --rule-strong: rgba(240, 232, 218, 0.3);
+    --q-ess: #7fadde;
+    --q-early: #62c6a9;
+    --q-niche: #d5a75e;
+    --q-min: #a49c90;
+    --q-early-bg: rgba(98, 198, 169, 0.13);
+    --good: #62c6a9;
+    --bad: #e58c8c;
+    --shadow: 0 1px 2px rgba(0, 0, 0, 0.4), 0 8px 24px -18px rgba(0, 0, 0, 0.9);
+  }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: "IBM Plex Sans KR", system-ui, -apple-system, sans-serif;
+    font-size: 16px;
+    line-height: 1.75;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .wrap {
+    max-width: 50rem;
+    margin: 0 auto;
+    padding: 4rem 1.5rem 6rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3.5rem;
+  }
+
+  /* ── 머리말 ───────────────────────────────────────────── */
+  .masthead { display: flex; flex-direction: column; gap: 1rem; }
+
+  .eyebrow {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    font-weight: 500;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  h1 {
+    font-family: "Gothic A1", "IBM Plex Sans KR", sans-serif;
+    font-weight: 800;
+    font-size: clamp(2.4rem, 7vw, 3.6rem);
+    line-height: 1.08;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+
+  .standfirst {
+    font-size: 1.06rem;
+    color: var(--ink-2);
+    max-width: 38ch;
+  }
+
+  .masthead-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.25rem;
+    padding-top: 1rem;
+    border-top: 1px solid var(--rule);
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.76rem;
+    color: var(--ink-3);
+  }
+
+  /* ── 요약 깔때기 ───────────────────────────────────────── */
+  .funnel {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(8rem, 1fr));
+    gap: 1px;
+    background: var(--rule);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .funnel-step {
+    background: var(--card);
+    padding: 1.1rem 1.15rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.15rem;
+  }
+
+  .funnel-n {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 1.7rem;
+    font-weight: 600;
+    letter-spacing: -0.04em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1.1;
+  }
+
+  .funnel-step:last-child .funnel-n { color: var(--q-early); }
+
+  .funnel-label { font-size: 0.82rem; color: var(--ink-2); }
+
+  .funnel-sub {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.7rem;
+    color: var(--ink-3);
+  }
+
+  /* ── 단계 ─────────────────────────────────────────────── */
+  .stage { display: flex; flex-direction: column; gap: 1.1rem; }
+
+  .stage-head {
+    display: grid;
+    grid-template-columns: 2.6rem 1fr;
+    align-items: baseline;
+    gap: 0.75rem;
+    padding-bottom: 0.75rem;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .stage-num {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  h2 {
+    font-family: "Gothic A1", "IBM Plex Sans KR", sans-serif;
+    font-weight: 700;
+    font-size: 1.5rem;
+    letter-spacing: -0.025em;
+    line-height: 1.25;
+    text-wrap: balance;
+  }
+
+  .stage-where {
+    grid-column: 2;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.74rem;
+    color: var(--ink-3);
+    margin-top: 0.2rem;
+  }
+
+  .stage-body { display: flex; flex-direction: column; gap: 1rem; }
+  .stage-body > p { max-width: 64ch; }
+
+  h3 {
+    font-family: "Gothic A1", "IBM Plex Sans KR", sans-serif;
+    font-weight: 700;
+    font-size: 1.02rem;
+    letter-spacing: -0.01em;
+  }
+
+  code {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.86em;
+    background: var(--sunk);
+    padding: 0.1em 0.36em;
+    border-radius: 2px;
+  }
+
+  strong { font-weight: 600; }
+
+  /* ── 규칙 목록 ────────────────────────────────────────── */
+  .rules {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    border-top: 1px solid var(--rule);
+  }
+
+  .rule-row {
+    display: grid;
+    grid-template-columns: minmax(6.5rem, 9rem) 1fr;
+    gap: 0.4rem 1.25rem;
+    padding: 0.85rem 0;
+    border-bottom: 1px solid var(--rule);
+  }
+
+  .rule-key {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.76rem;
+    color: var(--ink-3);
+    line-height: 1.6;
+    padding-top: 0.18rem;
+  }
+
+  .rule-val { font-size: 0.94rem; }
+  .rule-val em { font-style: normal; color: var(--ink-3); }
+
+  /* ── 큐 카드 (사분면별 정렬) ──────────────────────────── */
+  .queues { display: flex; flex-direction: column; gap: 0.5rem; }
+
+  .queue {
+    display: grid;
+    grid-template-columns: 0.25rem 1fr;
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    overflow: hidden;
+    box-shadow: var(--shadow);
+  }
+
+  .queue-stripe { background: var(--stripe, var(--q-min)); }
+  .queue-inner {
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0.3rem 0.9rem;
+  }
+
+  .queue-name { font-weight: 600; color: var(--stripe, var(--ink)); }
+
+  .queue-count {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.76rem;
+    color: var(--ink-3);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .queue-sort {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.8rem;
+    color: var(--ink-2);
+    flex-basis: 100%;
+  }
+
+  .queue--early { --stripe: var(--q-early); background: var(--q-early-bg); }
+  .queue--ess { --stripe: var(--q-ess); }
+  .queue--niche { --stripe: var(--q-niche); }
+  .queue--min { --stripe: var(--q-min); }
+
+  /* ── 게이트 ──────────────────────────────────────────── */
+  .gate {
+    border: 1px solid var(--rule);
+    border-left: 3px solid var(--q-early);
+    border-radius: 2px;
+    background: var(--card);
+    padding: 1.25rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+
+  .gate-title {
+    font-family: "Gothic A1", "IBM Plex Sans KR", sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    color: var(--q-early);
+  }
+
+  .gate-rows { display: flex; flex-direction: column; gap: 0; }
+
+  .gate-row {
+    display: grid;
+    grid-template-columns: 1.4rem minmax(5rem, 7rem) 1fr;
+    gap: 0.3rem 0.9rem;
+    padding: 0.7rem 0;
+    border-top: 1px solid var(--rule);
+    font-size: 0.92rem;
+  }
+
+  .gate-row:first-child { border-top: none; padding-top: 0; }
+
+  .gate-mark {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-weight: 600;
+    color: var(--q-early);
+  }
+
+  .gate-role {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.76rem;
+    color: var(--ink-3);
+    padding-top: 0.16rem;
+  }
+
+  .formula {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.8rem;
+    line-height: 1.9;
+    background: var(--sunk);
+    border-radius: 2px;
+    padding: 0.9rem 1.1rem;
+    overflow-x: auto;
+    white-space: pre;
+    color: var(--ink-2);
+  }
+
+  /* ── 라운드로빈 격자 ──────────────────────────────────── */
+  .rr-scroll { overflow-x: auto; padding-bottom: 0.35rem; }
+
+  .rr {
+    border-collapse: collapse;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.78rem;
+    font-variant-numeric: tabular-nums;
+    min-width: 34rem;
+  }
+
+  .rr th, .rr td {
+    border: 1px solid var(--rule);
+    padding: 0.4rem 0.55rem;
+    text-align: center;
+    font-weight: 400;
+  }
+
+  .rr thead th {
+    color: var(--ink-3);
+    font-size: 0.7rem;
+    letter-spacing: 0.06em;
+    border-top: none;
+    background: transparent;
+  }
+
+  .rr tbody th {
+    text-align: left;
+    white-space: nowrap;
+    font-family: "IBM Plex Sans KR", sans-serif;
+    font-weight: 600;
+    font-size: 0.82rem;
+    color: var(--row, var(--ink));
+    border-left: none;
+  }
+
+  .rr .pick { background: var(--card); color: var(--ink); }
+  .rr .pick--30 { box-shadow: inset 0 0 0 2px var(--rule-strong); font-weight: 600; }
+  .rr .empty { color: var(--ink-3); opacity: 0.45; }
+  .rr .r-ess { --row: var(--q-ess); }
+  .rr .r-early { --row: var(--q-early); }
+  .rr .r-niche { --row: var(--q-niche); }
+  .rr .r-min { --row: var(--q-min); }
+
+  .rr-legend {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem 1.5rem;
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.74rem;
+    color: var(--ink-3);
+  }
+
+  .swatch {
+    display: inline-block;
+    width: 0.85rem;
+    height: 0.85rem;
+    border: 2px solid var(--rule-strong);
+    vertical-align: -0.12em;
+    margin-right: 0.4rem;
+  }
+
+  /* ── 주의 상자 ────────────────────────────────────────── */
+  .note {
+    background: var(--card);
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    padding: 1.2rem 1.35rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+  }
+
+  .note-head {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-3);
+  }
+
+  .note p { font-size: 0.94rem; max-width: 62ch; }
+
+  /* ── 예시 칩 목록 ─────────────────────────────────────── */
+  .chips { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+  .chip {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border: 1px solid var(--rule);
+    border-radius: 2px;
+    background: var(--card);
+    color: var(--ink-2);
+    white-space: nowrap;
+  }
+
+  .chip--down { color: var(--bad); border-color: color-mix(in srgb, var(--bad) 32%, transparent); }
+  .chip--up { color: var(--good); border-color: color-mix(in srgb, var(--good) 32%, transparent); }
+
+  .chip-key {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.72rem;
+    color: var(--ink-3);
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem 1.25rem;
+  }
+
+  /* ── 파일 색인 ────────────────────────────────────────── */
+  .files { display: flex; flex-direction: column; gap: 0; border-top: 1px solid var(--rule); }
+
+  .file-row {
+    display: grid;
+    grid-template-columns: minmax(11rem, 16rem) 1fr;
+    gap: 0.25rem 1.25rem;
+    padding: 0.8rem 0;
+    border-bottom: 1px solid var(--rule);
+    align-items: baseline;
+  }
+
+  .file-path {
+    font-family: "IBM Plex Mono", ui-monospace, monospace;
+    font-size: 0.78rem;
+    word-break: break-all;
+  }
+
+  .file-what { font-size: 0.9rem; color: var(--ink-2); }
+
+  @media (max-width: 34rem) {
+    .rule-row, .file-row { grid-template-columns: 1fr; }
+    .gate-row { grid-template-columns: 1.4rem 1fr; }
+    .gate-role { grid-column: 2; padding-top: 0; }
+  }
+</style>
+
+<div class="wrap">
+
+  <header class="masthead">
+    <div class="eyebrow">DevCompass · 괴리맵</div>
+    <h1>60개의 점</h1>
+    <p class="standfirst">기술 200개 중 지도에 실제로 찍히는 건 60개다. 그 60개가 정해지는 순서.</p>
+    <div class="masthead-meta">
+      <span>실측 기준 · 기술 200개</span>
+      <span>표본 기업 30개사</span>
+      <span>단계 4개 · 파일 3개</span>
+    </div>
+  </header>
+
+  <section class="funnel">
+    <div class="funnel-step">
+      <span class="funnel-n">200</span>
+      <span class="funnel-label">활성 기술</span>
+      <span class="funnel-sub">skill 테이블</span>
+    </div>
+    <div class="funnel-step">
+      <span class="funnel-n">164</span>
+      <span class="funnel-label">모집단</span>
+      <span class="funnel-sub">공고 + 생태계 有</span>
+    </div>
+    <div class="funnel-step">
+      <span class="funnel-n">4</span>
+      <span class="funnel-label">사분면 큐</span>
+      <span class="funnel-sub">각자 다른 정렬</span>
+    </div>
+    <div class="funnel-step">
+      <span class="funnel-n">60</span>
+      <span class="funnel-label">지도에 찍는 점</span>
+      <span class="funnel-sub">15 · 15 · 15 · 15</span>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="stage-head">
+      <span class="stage-num">01</span>
+      <h2>모집단을 만든다</h2>
+      <p class="stage-where">app/api/routes.py · map_items()</p>
+    </div>
+    <div class="stage-body">
+      <p>서버가 활성 기술 전부를 꺼낸 뒤 두 조건으로 거른다. 여기서 살아남은 집합이 이후 모든 백분위의 분모가 된다.</p>
+
+      <div class="rules">
+        <div class="rule-row">
+          <div class="rule-key">거르는 조건</div>
+          <div class="rule-val"><code>postings &gt; 0</code> 이고 생태계 데이터가 있을 것. <em>생태계 수집이 Stack Overflow에만 있어 200개 중 164개가 남는다.</em></div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-key">y축 · demand</div>
+          <div class="rule-val">공고 건수의 <strong>백분위</strong>. 원시 건수가 Python 919건 대 Cloudflare 14건으로 치우쳐 있어, Min-Max로 펴면 선점 후보 사분면이 통째로 비어버린다.</div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-key">x축 · ecosystem</div>
+          <div class="rule-val">GitHub 저장소 · GitHub 활동 · Stack Overflow 질문 세 건수를 각각 백분위로 바꾼 뒤 평균.</div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-key">사분면</div>
+          <div class="rule-val">두 축을 <strong>50</strong>으로 나눈 값. <em>서버가 계산해서 내려준다 — 프론트는 좌표에서 다시 계산하지 않는다.</em></div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-head">실측 분포 · 200개 기준</div>
+        <div class="chip-key">
+          <span><span class="swatch" style="border-color: var(--q-min);"></span>저관심 68</span>
+          <span><span class="swatch" style="border-color: var(--q-ess);"></span>필수 65</span>
+          <span><span class="swatch" style="border-color: var(--q-early);"></span>선점 후보 34</span>
+          <span><span class="swatch" style="border-color: var(--q-niche);"></span>희소가치 33</span>
+        </div>
+        <p>백분위를 쓰는 이유가 이 숫자다. 중앙값이 정확히 50이라 차트가 그리는 50% 십자선과 맞고, 네 사분면이 모두 찬다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="stage-head">
+      <span class="stage-num">02</span>
+      <h2>직군 필터가 걸리면 축을 갈아끼운다</h2>
+      <p class="stage-where">frontend/lib/roles.js · projectByRole()</p>
+    </div>
+    <div class="stage-body">
+      <p>“전체”면 아무 일도 일어나지 않는다. 직군을 하나 고르면 그 직군 공고에 실제로 등장한 기술만 남고, y축이 <strong>그 직군 안에서의 백분위</strong>로 바뀐다. Frontend 직군에서 React가 몇 위인지는 전체 순위와 다른 질문이고, 직군을 고른 사람이 알고 싶은 쪽은 후자다.</p>
+      <p>x축(생태계)은 직군과 무관하므로 그대로 둔다. 축 하나만 움직이므로 <strong>사분면도 함께 바뀐다</strong> — 그 값 역시 서버가 <code>roleBreakdown[].quadrant</code>에 미리 계산해 실어 보낸 것을 고를 뿐이다.</p>
+      <p>여기서 모집단이 줄기 때문에, 뒤 단계에서 어떤 사분면이 15개를 못 채우는 일이 실제로 생긴다.</p>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="stage-head">
+      <span class="stage-num">03</span>
+      <h2>사분면마다 따로 줄을 세운다</h2>
+      <p class="stage-where">frontend/lib/mapPoints.js · app/api/routes.py</p>
+    </div>
+    <div class="stage-body">
+      <p>네 개의 큐를 만든다. 셋은 채용 수요 내림차순이고, 선점 후보만 다른 키를 쓴다.</p>
+
+      <div class="queues">
+        <div class="queue queue--min">
+          <div class="queue-stripe"></div>
+          <div class="queue-inner">
+            <span class="queue-name">저관심</span>
+            <span class="queue-count">68개</span>
+            <span class="queue-sort">demand ↓</span>
+          </div>
+        </div>
+        <div class="queue queue--ess">
+          <div class="queue-stripe"></div>
+          <div class="queue-inner">
+            <span class="queue-name">필수</span>
+            <span class="queue-count">65개</span>
+            <span class="queue-sort">demand ↓</span>
+          </div>
+        </div>
+        <div class="queue queue--early">
+          <div class="queue-stripe"></div>
+          <div class="queue-inner">
+            <span class="queue-name">선점 후보</span>
+            <span class="queue-count">34개</span>
+            <span class="queue-sort">earlyMoverScore ↓ → demand ↓</span>
+          </div>
+        </div>
+        <div class="queue queue--niche">
+          <div class="queue-stripe"></div>
+          <div class="queue-inner">
+            <span class="queue-name">희소가치</span>
+            <span class="queue-count">33개</span>
+            <span class="queue-sort">demand ↓</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-head">왜 선점 후보만 다른가</div>
+        <p>수요 내림차순으로 뽑으면 사분면 경계(수요 50)에 가장 가까운 기술이 위로 올라온다. 그 결과 지금 규칙이 뽑는 15개는 이렇다 — <strong>8개는 생태계 비중이 오히려 줄고 있다.</strong> 선점과는 반대 방향이다.</p>
+        <div class="chips">
+          <span class="chip chip--up">scikit-learn +105%</span>
+          <span class="chip chip--up">Vault +78%</span>
+          <span class="chip chip--up">Perl +59%</span>
+          <span class="chip chip--up">PHP +20%</span>
+          <span class="chip chip--up">Flask +16%</span>
+          <span class="chip chip--up">GitLab +15%</span>
+          <span class="chip chip--up">FastAPI +1%</span>
+          <span class="chip chip--down">.NET −0%</span>
+          <span class="chip chip--down">Express −13%</span>
+          <span class="chip chip--down">Gemini −14%</span>
+          <span class="chip chip--down">NumPy −18%</span>
+          <span class="chip chip--down">Spring −21%</span>
+          <span class="chip chip--down">Angular −24%</span>
+          <span class="chip chip--down">SwiftUI −32%</span>
+          <span class="chip chip--down">React Native −38%</span>
+        </div>
+      </div>
+
+      <div class="gate">
+        <div class="gate-title">선점 후보 큐의 정렬 키</div>
+        <p style="font-size: 0.94rem;">세 가지 근거를 쓰되 역할이 각각 다르다. 셋 다 게이트로 걸면 34개가 한 자릿수로 줄어 15칸을 못 채운다.</p>
+
+        <div class="gate-rows">
+          <div class="gate-row">
+            <span class="gate-mark">a</span>
+            <span class="gate-role">방향은 게이트<br>크기는 점수</span>
+            <span>생태계 비중이 오르는가. 지수의 <strong>양끝 3개월 평균</strong>을 비교한다 — 시계열이 8개월치뿐이라 직전 달 대비로 보면 한 달만 튀어도 상승·하락이 뒤집힌다.</span>
+          </div>
+          <div class="gate-row">
+            <span class="gate-mark">b</span>
+            <span class="gate-role">가중치</span>
+            <span>군집 분석의 근거 등급. <code>supporting</code> 1.0 / <code>weak</code> 0.8 / 없음 0.6. <strong>게이트가 아니다</strong> — 근거 없음은 반증이 아니라 데이터 부족이라, 게이트로 쓰면 정작 찾으려는 신생 기술이 구조적으로 탈락한다.</span>
+          </div>
+          <div class="gate-row">
+            <span class="gate-mark">c</span>
+            <span class="gate-role">게이트</span>
+            <span>몇 개 회사로 퍼졌는가. <code>company_count ≥ 3</code>이고 <code>1/HHI ≥ 2</code>. 한 회사 전용 기술은 “근거가 약한 후보”가 아니라 <strong>후보가 아니다.</strong></span>
+          </div>
+        </div>
+
+        <div class="formula">점수 = (성장률 백분위 + 실질기업수 백분위) / 2 × 근거가중치
+게이트 탈락 = −1
+
+백분위는 선점 후보 34개 안에서 다시 매긴다.
+200개 전체 기준으로 매기면 이 사분면은 정의상 수요 하위라
+값이 전부 아래에 눌려 순위가 갈리지 않는다.</div>
+
+        <p style="font-size: 0.94rem;"><strong>게이트 탈락은 제외가 아니라 −1점이다.</strong> 다음 단계가 사분면마다 15개씩 가져가므로, 여기서 행을 지우면 이 사분면이 덜 차고 남은 몫이 다른 사분면으로 넘어가 판이 기운다. 뒤로 밀면 칸은 채우되 순서는 근거대로다. 통과 여부는 점수가 아니라 화면의 배지(확산형 / 집중형 / 단일기업)가 말한다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="stage-head">
+      <span class="stage-num">04</span>
+      <h2>네 큐에서 한 개씩 돌아가며 집는다</h2>
+      <p class="stage-where">frontend/lib/mapPoints.js · pickMapPoints()</p>
+    </div>
+    <div class="stage-body">
+      <p>큐를 <strong>크기 내림차순</strong>으로 세워 놓고 한 바퀴에 하나씩 집는다. 순회 순서를 크기로 고정하는 이유는 마지막 한 자리를 누가 가져갈지가 입력 순서에 따라 흔들리지 않게 하기 위해서다.</p>
+
+      <div class="rr-scroll">
+        <table class="rr">
+          <thead>
+            <tr>
+              <th></th>
+              <th>1바퀴</th>
+              <th>2</th>
+              <th>3</th>
+              <th>4</th>
+              <th>5</th>
+              <th>⋯</th>
+              <th>8바퀴</th>
+              <th>⋯</th>
+              <th>15바퀴</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr class="r-min">
+              <th>저관심 68</th>
+              <td class="pick">1</td><td class="pick">5</td><td class="pick">9</td><td class="pick">13</td><td class="pick">17</td>
+              <td class="empty">⋯</td>
+              <td class="pick pick--30">29</td>
+              <td class="empty">⋯</td>
+              <td class="pick">57</td>
+            </tr>
+            <tr class="r-ess">
+              <th>필수 65</th>
+              <td class="pick">2</td><td class="pick">6</td><td class="pick">10</td><td class="pick">14</td><td class="pick">18</td>
+              <td class="empty">⋯</td>
+              <td class="pick pick--30">30</td>
+              <td class="empty">⋯</td>
+              <td class="pick">58</td>
+            </tr>
+            <tr class="r-early">
+              <th>선점 후보 34</th>
+              <td class="pick">3</td><td class="pick">7</td><td class="pick">11</td><td class="pick">15</td><td class="pick">19</td>
+              <td class="empty">⋯</td>
+              <td class="pick">31</td>
+              <td class="empty">⋯</td>
+              <td class="pick">59</td>
+            </tr>
+            <tr class="r-niche">
+              <th>희소가치 33</th>
+              <td class="pick">4</td><td class="pick">8</td><td class="pick">12</td><td class="pick">16</td><td class="pick">20</td>
+              <td class="empty">⋯</td>
+              <td class="pick">32</td>
+              <td class="empty">⋯</td>
+              <td class="pick">60</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="rr-legend">
+        <span><span class="swatch"></span>30개에서 멈추는 자리</span>
+        <span>30개 → 8 · 8 · 7 · 7</span>
+        <span>60개 → 15 · 15 · 15 · 15</span>
+      </div>
+
+      <div class="rules">
+        <div class="rule-row">
+          <div class="rule-key">부분집합</div>
+          <div class="rule-val">순서가 바퀴로 정해지므로 <strong>30개는 언제나 60개의 부분집합</strong>이다. 토글해도 점이 사라지고 나타날 뿐 서로 뒤바뀌지 않는다. <em>실측으로 확인.</em></div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-key">큐가 바닥나면</div>
+          <div class="rule-val">그 큐는 건너뛰고 몫이 남은 큐로 자동으로 돌아간다. “15개씩이 불가능하면 많은 쪽을 더 띄운다”가 별도 분기 없이 성립한다. <em>직군 필터를 걸면 실제로 생긴다.</em></div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-key">전체보다 적으면</div>
+          <div class="rule-val">모집단이 상한보다 작으면 아무것도 하지 않고 전부 반환한다.</div>
+        </div>
+      </div>
+
+      <div class="note">
+        <div class="note-head">왜 수요 상위 60개가 아닌가</div>
+        <p>y축이 백분위라 상위 60개를 뽑으면 y값이 전부 70~100 구간에 들어간다. 판 위쪽 좁은 띠에 점이 겹쳐 쌓이고, 아래 세 사분면은 비어 사분면이 사분면으로 읽히지 않는다. 사분면별로 고르게 뽑아야 점이 판 전체에 퍼진다.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="stage-head">
+      <span class="stage-num">—</span>
+      <h2>여기부터는 선별이 아니라 배치다</h2>
+      <p class="stage-where">frontend/lib/mapPoints.js · 스케일 함수들</p>
+    </div>
+    <div class="stage-body">
+      <p>60개가 정해진 뒤에 일어나는 일은 <strong>어떤 점을 찍느냐가 아니라 어디에 찍느냐</strong>다. 헷갈리기 쉬워 함께 적어 둔다.</p>
+
+      <div class="rules">
+        <div class="rule-row">
+          <div class="rule-key">makeAxisScale</div>
+          <div class="rule-val">x축(생태계)을 지금 찍는 점들만 놓고 다시 편다. <strong>50은 고정</strong>한 채 위아래 절반 안에서만 편다 — 50은 사분면 경계라, 넘나들면 색과 위치가 어긋난다.</div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-key">makeRankScale</div>
+          <div class="rule-val">y축(수요)은 값이 아니라 <strong>순위</strong>로 편다. 공고 건수가 작은 정수라 동점이 대량으로 생기고, 60개 중 28개(47%)가 같은 높이에 서면 이름표를 못 읽는다.</div>
+        </div>
+        <div class="rule-row">
+          <div class="rule-key">plot</div>
+          <div class="rule-val">0%·100% 자리에 찍으면 원의 절반이 판 밖으로 잘려 안쪽 4%씩 들여 찍는다. 좌우 대칭이라 50점은 그대로 50%에 남는다.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="stage">
+    <div class="stage-head">
+      <span class="stage-num">↳</span>
+      <h2>파일</h2>
+    </div>
+    <div class="stage-body">
+      <div class="files">
+        <div class="file-row">
+          <div class="file-path">app/api/routes.py</div>
+          <div class="file-what">모집단 · 두 축 · 사분면 · earlyMoverScore를 계산해 내려보낸다</div>
+        </div>
+        <div class="file-row">
+          <div class="file-path">frontend/lib/roles.js</div>
+          <div class="file-what">직군 필터. y축과 사분면을 그 직군 기준으로 갈아끼운다</div>
+        </div>
+        <div class="file-row">
+          <div class="file-path">frontend/lib/mapPoints.js</div>
+          <div class="file-what">큐 정렬 · 라운드로빈 · 표시용 스케일</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+</div>

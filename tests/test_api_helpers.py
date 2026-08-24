@@ -174,3 +174,106 @@ def test_learning_resources_are_shaped_for_the_frontend():
                              "channel": None, "views": None, "seconds": None}]
     assert "Python" not in videos, "자료가 없는 기술은 키 자체가 없어야 한다"
     assert VIDEOS_PER_TECH == 3
+
+
+def test_trend_growth_reads_both_ends_not_just_the_last_month():
+    from app.api.routes import trend_growth
+
+    # 마지막 달만 꺾인 상승 곡선. delta(직전 달 대비)로 보면 하락으로 뒤집힌다.
+    assert trend_growth({"index": [100, 105, 110, 150, 160, 140]}) > 0
+    assert trend_growth({"index": [100, 90, 80, 70, 60, 50]}) < 0
+    # 구간이 짧으면 창을 줄여 양끝이 겹치지 않게 한다.
+    assert trend_growth({"index": [100, 200]}) == 1.0
+    assert trend_growth({"index": [100]}) is None
+    assert trend_growth(None) is None
+    # 첫 구간이 0이면 배수를 낼 수 없다.
+    assert trend_growth({"index": [0, 0, 50, 60]}) is None
+
+
+def test_spread_label_separates_alpha_beta_gamma():
+    """설계 문서의 세 예시가 서로 다른 라벨을 받는다.
+
+    셋 다 job_count는 24로 같다 — 건수만 보면 구분되지 않는 것이 요점이다.
+    """
+    from app.api.routes import spread_label
+
+    alpha = {"company_count": 12, "sample_company_count": 30, "effective_company_count": 9.3}
+    beta = {"company_count": 7, "sample_company_count": 30, "effective_company_count": 2.1}
+    gamma = {"company_count": 1, "sample_company_count": 30, "effective_company_count": 1.0}
+
+    assert spread_label(alpha) == "확산형"
+    assert spread_label(beta) == "집중형"
+    assert spread_label(gamma) == "단일기업"
+    assert spread_label(None) is None
+
+    # 회사 수는 많아도 한 회사가 다 쓰면 확산이 아니다 — HHI가 잡아내는 경우.
+    concentrated = {"company_count": 12, "sample_company_count": 30, "effective_company_count": 1.4}
+    assert spread_label(concentrated) == "단일기업"
+
+
+def _candidate(code, growth_index, spread, effective, evidence=None, quadrant="선점 후보"):
+    item = {
+        "skillCode": code,
+        "quadrant": quadrant,
+        "trend": {"index": growth_index},
+        "adoption": {"spread": spread, "effectiveCompanyCount": effective},
+    }
+    if evidence:
+        item["evidenceLabel"] = evidence
+    return item
+
+
+def test_early_mover_scores_gate_then_rank():
+    """게이트는 제외가 아니라 뒤로 미는 것이고, 다른 사분면에는 붙지 않는다."""
+    from app.api.routes import GATE_FAIL_SCORE, early_mover_scores
+
+    items = [
+        _candidate("wide", [100, 100, 100, 180, 180, 180], "확산형", 9.3, "supporting_evidence"),
+        _candidate("narrow", [100, 100, 100, 140, 140, 140], "집중형", 2.1, "weak_evidence"),
+        _candidate("ungraded", [100, 100, 100, 120, 120, 120], "집중형", 3.0),
+        _candidate("solo", [100, 100, 100, 300, 300, 300], "단일기업", 1.0, "supporting_evidence"),
+        _candidate("falling", [100, 100, 100, 60, 60, 60], "확산형", 8.0, "supporting_evidence"),
+        _candidate("essential", [100, 100, 100, 180, 180, 180], "확산형", 9.0,
+                   "supporting_evidence", quadrant="필수"),
+    ]
+    scores = early_mover_scores(items)
+
+    # 다른 사분면은 이 점수를 받지 않는다 (수요순 정렬을 그대로 쓴다).
+    assert "essential" not in scores
+
+    # c 게이트: 단일기업은 성장률이 아무리 높아도 탈락한다.
+    assert scores["solo"] == GATE_FAIL_SCORE
+    # a 게이트: 생태계 비중이 줄면 확산형이어도 탈락한다.
+    assert scores["falling"] == GATE_FAIL_SCORE
+
+    # 통과분은 성장률과 실질 기업 수의 백분위 × 근거 가중치로 줄을 선다.
+    assert scores["wide"] > scores["narrow"] > scores["ungraded"] > 0
+
+    # 게이트 탈락분은 항상 통과분보다 뒤다 — 프론트가 이 순서로 뽑는다.
+    assert max(scores["solo"], scores["falling"]) < min(
+        scores["wide"], scores["narrow"], scores["ungraded"]
+    )
+
+
+def test_early_mover_score_weighs_evidence_but_never_gates_on_it():
+    """b는 게이트가 아니라 가중치다. 근거 등급이 없어도 후보로 남는다.
+
+    가중치는 곱이라 백분위 꼴찌(=0점)끼리는 갈라주지 못한다. 그 경우 순위는
+    어차피 마지막이라 결과가 바뀌지 않는다. 그래서 중간 순위 한 쌍으로 본다.
+    """
+    from app.api.routes import GATE_FAIL_SCORE, early_mover_scores
+
+    items = [
+        _candidate("bottom", [100, 110], "확산형", 4.0),
+        _candidate("graded", [100, 150], "확산형", 5.0, "supporting_evidence"),
+        _candidate("ungraded", [100, 150], "확산형", 5.0),
+        _candidate("top", [100, 200], "확산형", 9.0),
+    ]
+    scores = early_mover_scores(items)
+
+    # 등급이 없어도 게이트는 통과한다 — 탈락(-1)과 섞이지 않는다.
+    assert scores["ungraded"] > GATE_FAIL_SCORE
+    # 같은 수치라면 근거가 있는 쪽이 앞선다.
+    assert scores["graded"] > scores["ungraded"] > 0
+    # 가중치가 백분위 순서를 뒤집지는 않는다.
+    assert scores["top"] > scores["graded"]

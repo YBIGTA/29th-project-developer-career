@@ -106,6 +106,8 @@ COMMENT ON VIEW public.vw_monthly_job_skill IS
 --     effective_company_count가 그 집중도를 갈라준다 — 40건이 30개 회사에
 --     흩어진 것과 한 회사에서 나온 것이 구분된다.
 --
---     프론트는 아직 이 뷰를 쓰지 않는다. 지금 지도의 y축(채용 수요)은 공고 건수
---     백분위 하나뿐이다.
+--     지도의 y축(채용 수요)은 여전히 공고 건수 백분위 하나다. 이 뷰는 축이
+--     아니라 **"선점 후보" 사분면의 정렬 키**로 쓰인다 — app/api/routes.py의
+--     ADOPTION_BREADTH_SQL이 읽어 company_count / effective_company_count로
+--     단일기업 의존 기술을 그 사분면 뒤로 민다(early_mover_scores).
 -- ---------------------------------------------------------------------------

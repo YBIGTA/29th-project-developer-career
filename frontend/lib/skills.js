@@ -52,6 +52,25 @@ export function mergeSkills(indexItems, detailItems) {
   });
 }
 
+/**
+ * 검색어가 이 기술의 이름(또는 별칭) 그 자체인가.
+ *
+ * skillHaystack에는 설명 문장과 연관 기술까지 들어 있다. 덕분에 "쿠버네티스로
+ * 배포"처럼 이름이 아닌 말로도 찾히지만, 대신 "React"를 치면 React를 언급하는
+ * 표제어가 전부 걸린다 — 실측 7개다. 펼침 패널의 연관 기술 칩을 누르면 그
+ * 이름이 그대로 검색어가 되므로 이 경우가 특히 잦다.
+ *
+ * 찾는 것이 이름 그 자체라면 그것 하나만 보여준다(DictionaryClient 참고).
+ */
+export function isExactSkillName(skill, query) {
+  const q = query.trim().toLowerCase();
+  if (!q) return false;
+  return (
+    skill.tech?.toLowerCase() === q ||
+    (skill.aliases ?? []).some((alias) => alias.toLowerCase() === q)
+  );
+}
+
 /** 검색 대상 문자열. 별칭까지 포함해야 "K8s", "Golang" 같은 표기로도 찾힌다. */
 export function skillHaystack(skill) {
   return [

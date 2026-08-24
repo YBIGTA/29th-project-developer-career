@@ -18,6 +18,19 @@
     d.summary, ...(d.stack ?? []),
   ].filter(Boolean).join(" ").toLowerCase();
 
+  // 검색어가 기술 이름(또는 별칭) 그 자체일 때 쓰는 판정.
+  //
+  // haystack에는 설명 문장과 연관 기술까지 들어 있다. 덕분에 "쿠버네티스로
+  // 배포"처럼 이름이 아닌 말로도 찾히지만, 대신 "React"를 치면 React를 언급하는
+  // 표제어가 전부 걸린다 — 실측 26개다. 펼침 패널의 연관 기술 칩을 누르면 그
+  // 이름이 그대로 검색어가 되므로 이 경우가 특히 잦다.
+  //
+  // 찾는 것이 이름 그 자체라면 그것 하나만 보여준다. 이름이 아닌 검색어는
+  // 지금까지처럼 전부 걸린다.
+  const isExactName = (d, q) =>
+    d.tech.toLowerCase() === q ||
+    (d.aliases ?? []).some((alias) => alias.toLowerCase() === q);
+
   // 표제어의 첫 글자. 기술명은 대부분 로마자라 A-Z로 묶고 나머지는 #으로 보낸다.
   const initialOf = (name) => {
     const c = (name.trim()[0] || "#").toUpperCase();
@@ -213,8 +226,10 @@
     renderFilters();
 
     const q = query.trim().toLowerCase();
-    const rows = DATA.items.filter((d) =>
-      (!q || haystack(d).includes(q)) &&
+    const hits = DATA.items.filter((d) => !q || haystack(d).includes(q));
+    // 이름이 정확히 맞는 표제어가 있으면 그것만 남긴다 (isExactName 주석 참고).
+    const exact = q ? hits.filter((d) => isExactName(d, q)) : [];
+    const rows = (exact.length ? exact : hits).filter((d) =>
       (quadFilter === "all" || d.quadrant === quadFilter) &&
       (catFilter === "all" || d.category === catFilter));
 

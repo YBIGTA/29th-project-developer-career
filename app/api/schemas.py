@@ -43,6 +43,21 @@ class Video(BaseModel):
     seconds: int | None = None
 
 
+class Adoption(BaseModel):
+    """수요가 몇 개 회사로 퍼져 있는가 (vw_skill_adoption_breadth).
+
+    spread는 세 값 중 하나다 — 확산형 / 집중형 / 단일기업. HHI를 화면에
+    그대로 내놓지 않기 위한 분류이고, 기준은 routes.spread_label에 있다.
+    """
+
+    companyCount: int
+    sampleCompanyCount: int
+    coverageRate: float | None
+    hhi: float | None
+    effectiveCompanyCount: float | None
+    spread: str | None
+
+
 class GapItem(BaseModel):
     tech: str
     skillCode: str
@@ -67,6 +82,12 @@ class GapItem(BaseModel):
     # 학습 자료. 자료가 없는 기술에는 키가 없다.
     docs: Docs | None = None
     videos: list[Video] | None = None
+    # 확산 범위와 군집 근거 등급. 해당 행이 없는 기술에는 키가 없다.
+    adoption: Adoption | None = None
+    evidenceLabel: str | None = None
+    # "선점 후보" 사분면에만 붙는 정렬 키(0~100, 게이트 탈락은 -1).
+    # 다른 사분면은 지금까지처럼 demand 내림차순으로 뽑는다.
+    earlyMoverScore: float | None = None
 
 
 class GapMeta(BaseModel):

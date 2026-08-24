@@ -77,6 +77,8 @@ palette.test.mjs    팔레트 명암비 검사 (preview.css 의 토큰을 읽음
 detailPanel.test.mjs 상세 패널 검사 (200개 기술 × 3탭을 실제로 그려본다)
 dictLearn.test.mjs  사전 학습 카드 검사 (썸네일·링크·빈 블록)
 learn.test.mjs      lib/learn.js 검사 (URL만 있을 때도 카드가 서는지)
+dictSearch.test.mjs 사전 검색 검사 (이름이 정확히 맞으면 그것만 남는가)
+mapPlacement.test.mjs 점이 앉는 자리 검사 (판을 좁혀도 구역 이름표를 비껴가는가)
 ```
 
 검사 실행:
@@ -87,6 +89,8 @@ node frontend/test/palette.test.mjs
 node frontend/test/detailPanel.test.mjs
 node frontend/test/dictLearn.test.mjs
 node frontend/test/learn.test.mjs
+node frontend/test/dictSearch.test.mjs
+node frontend/test/mapPlacement.test.mjs
 ```
 
 ## 알려진 한계

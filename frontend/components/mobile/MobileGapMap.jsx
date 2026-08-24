@@ -86,8 +86,8 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
             <span
               className="mv-map__ring"
               style={{
-                left: `${plot(scaleX(selectedTech.ecosystemScore))}%`,
-                bottom: `${plot(scaleY(selectedTech.demand))}%`,
+                left: plot(scaleX(selectedTech.ecosystemScore)),
+                bottom: plot(scaleY(selectedTech.demand)),
               }}
             />
           )}
@@ -102,7 +102,7 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
                 className="mv-map__hit"
                 aria-label={`${d.tech} — ${meta.label}, 생태계 ${d.ecosystemScore}, 수요 ${d.demand}`}
                 aria-pressed={isSelected}
-                style={{ left: `${plot(scaleX(d.ecosystemScore))}%`, bottom: `${plot(scaleY(d.demand))}%` }}
+                style={{ left: plot(scaleX(d.ecosystemScore)), bottom: plot(scaleY(d.demand)) }}
                 onClick={() => onSelectPoint?.(d)}
               >
                 <span

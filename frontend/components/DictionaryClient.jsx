@@ -496,7 +496,7 @@ export default function DictionaryClient() {
         <span>
           생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된 공고{" "}
           {dataMeta?.totalPostings ? `${dataMeta.totalPostings.toLocaleString("ko-KR")}건` : ""}에서
-          tech_stack_pipeline이 추출한 기술 태그 기준입니다. 개별 공고 목록만 아직 예시입니다.
+          tech_stack_pipeline이 추출한 기술 태그 기준입니다.
         </span>
       </footer>
     </div>

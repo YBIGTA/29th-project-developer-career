@@ -567,10 +567,6 @@
       </p>`;
 
     const postings = `
-      <p class="detail-panel__summary">
-        ${esc(t.tech)}을(를) 요구하는 공고입니다. 회사명과 지원 링크는 수집된 채용공고에서
-        그대로 가져옵니다.
-      </p>
       ${postingsHtml(t)}
       <p class="detail-panel__footnote">
         채용 API에서 공고를 받지 못해 예시 공고를 대신 표시합니다.

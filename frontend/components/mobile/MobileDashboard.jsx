@@ -167,7 +167,7 @@ export default function MobileDashboard() {
         <span className="mv-footer__brand">DevCompass</span>
         생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된 공고{" "}
         {meta?.totalPostings ? `${meta.totalPostings.toLocaleString("ko-KR")}건` : ""}에서 추출한
-        기술 태그 기준입니다. 개별 공고 목록만 아직 예시입니다.
+        기술 태그 기준입니다.
       </footer>
 
       <MobileDetailSheet

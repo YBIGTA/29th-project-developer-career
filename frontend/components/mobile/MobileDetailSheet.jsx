@@ -348,10 +348,6 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
 
               {activeTab === "postings" && (
                 <>
-                  <p className="mv-sheet__summary">
-                    {tech.tech}을(를) 요구하는 공고입니다. 회사명과 지원 링크는 수집된 채용공고에서
-                    그대로 가져옵니다.
-                  </p>
                   <PostingList postings={postings} loading={postingsLoading} techName={tech.tech} />
                   {isSample && (
                     <p className="mv-sheet__footnote">

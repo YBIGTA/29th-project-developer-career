@@ -8,7 +8,7 @@ import { ecosystemBars, formatDuration } from "@/lib/ecosystem";
 import { docHost, normalizeVideos, videoMeta, videoThumb, videoTitle, videoUrl } from "@/lib/learn";
 import { mapCodeSet } from "@/lib/mapPoints";
 import { getGapMapData } from "@/lib/api";
-import { getSkillIndex, mergeSkills, skillHaystack } from "@/lib/skills";
+import { getSkillIndex, isExactSkillName, mergeSkills, skillHaystack } from "@/lib/skills";
 import { useActiveSection } from "@/lib/useInView";
 
 const SORTS = [
@@ -185,9 +185,12 @@ export default function DictionaryClient() {
   }, []);
 
   const filtered = useMemo(() => {
-    const rows = skills.filter(
+    const hits = skills.filter((d) => matches(d, query));
+    // 이름이 정확히 맞는 표제어가 있으면 그것만 남긴다. 없으면 지금까지처럼
+    // 넓게 걸린다 (lib/skills.js isExactSkillName 참고).
+    const exact = hits.filter((d) => isExactSkillName(d, query));
+    const rows = (exact.length ? exact : hits).filter(
       (d) =>
-        matches(d, query) &&
         (quadFilter === "all" || d.quadrant === quadFilter) &&
         (catFilter === "all" || d.category === catFilter)
     );
@@ -493,7 +496,7 @@ export default function DictionaryClient() {
         <span>
           생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된 공고{" "}
           {dataMeta?.totalPostings ? `${dataMeta.totalPostings.toLocaleString("ko-KR")}건` : ""}에서
-          tech_stack_pipeline이 추출한 기술 태그 기준입니다. 개별 공고 목록만 아직 예시입니다.
+          tech_stack_pipeline이 추출한 기술 태그 기준입니다.
         </span>
       </footer>
     </div>

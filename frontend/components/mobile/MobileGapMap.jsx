@@ -163,8 +163,8 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
             <span
               className="mv-map__ring"
               style={{
-                left: `${plot(scaleX(selectedTech))}%`,
-                bottom: `${plot(scaleY(selectedTech))}%`,
+                left: plot(scaleX(selectedTech)),
+                bottom: plot(scaleY(selectedTech)),
               }}
             />
           )}
@@ -179,7 +179,7 @@ export default function MobileGapMap({ data, selectedTech, onSelectPoint, loadin
                 className="mv-map__hit"
                 aria-label={`${d.tech} — ${meta.label}, 생태계 ${d.ecosystemScore}, 수요 ${d.demand}`}
                 aria-pressed={isSelected}
-                style={{ left: `${plot(scaleX(d))}%`, bottom: `${plot(scaleY(d))}%` }}
+                style={{ left: plot(scaleX(d)), bottom: plot(scaleY(d)) }}
                 onClick={() => onSelectPoint?.(d)}
               >
                 <span

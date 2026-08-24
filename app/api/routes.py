@@ -104,6 +104,26 @@ CLUSTER_SQL = text("""
     WHERE s.skill_code = :skill_code
 """)
 
+# 선점 후보 판정에 쓰는 두 근거. 둘 다 지도의 "선점 후보" 사분면에서만 쓰인다.
+#
+# vw_skill_adoption_breadth는 이 저장소가 만들지 않는 뷰다(db/jobs/views.sql 주석).
+# 한 회사가 비슷한 공고를 여럿 올리면 공고 건수만으로는 시장 수요처럼 보이는데,
+# 그 착시를 company_count와 effective_company_count(=1/HHI)가 갈라준다.
+ADOPTION_BREADTH_SQL = text("""
+    SELECT skill_id, company_count, sample_company_count,
+           coverage_rate, hhi, effective_company_count
+    FROM vw_skill_adoption_breadth
+""")
+
+# 군집 분석이 붙인 근거 등급. as_of_date 한 벌이 한 번의 수동 실행이라
+# 가장 최근 것만 본다 (CLUSTER_SQL과 같은 규칙).
+EVIDENCE_SQL = text("""
+    WITH latest AS (SELECT max(as_of_date) AS as_of_date FROM candidate_skill_evidence)
+    SELECT ev.skill_id, ev.evidence_label
+    FROM latest
+    JOIN candidate_skill_evidence ev ON ev.as_of_date = latest.as_of_date
+""")
+
 NEIGHBOR_RE = re.compile(r"(.+?) \(score=([\d.]+), companies=(\d+)\)(?:, |$)")
 
 
@@ -426,6 +446,127 @@ def quadrant(demand: float, ecosystem: float) -> str:
     return "선점 후보" if ecosystem >= 50 else "저관심"
 
 
+# ---------------------------------------------------------------------------
+# 선점 후보 사분면의 줄 세우기
+#
+# 이 사분면(수요 낮음 · 생태계 높음)은 지금까지 다른 사분면과 똑같이 수요
+# 내림차순으로만 뽑았다. 그러면 사분면 경계(수요 50)에 가장 가까운 기술이
+# 위로 올라와, 실측 200개 기준으로 PHP·Perl·.NET·Angular가 "선점 후보"로
+# 찍힌다 — 셋 다 생태계 비중이 오히려 줄고 있다. 선점과는 반대 방향이다.
+#
+# 그래서 이 사분면만 세 가지 근거로 다시 줄을 세운다.
+#
+#   a. 생태계 비중이 오르는가   trend.index 양끝 3개월 평균 비교
+#   b. 산업 스택에 편입됐는가   candidate_skill_evidence.evidence_label
+#   c. 여러 회사로 퍼졌는가     vw_skill_adoption_breadth
+#
+# 셋의 역할이 다르다.
+#   c는 게이트다 — 한 회사 전용 기술은 "근거가 약한 후보"가 아니라 후보가 아니다.
+#   a는 방향이 게이트고(하락 중이면 탈락) 크기가 점수다.
+#   b는 게이트가 아니라 가중치다 — insufficient_evidence는 반증이 아니라 근거
+#   부족이라, 게이트로 쓰면 신생 기술이 구조적으로 탈락한다. 정작 찾으려는 게
+#   신생 기술인데.
+#
+# **게이트 탈락은 제외가 아니라 -1점이다.** 지도는 사분면당 N개를 뽑으므로
+# (frontend/lib/mapPoints.js) 여기서 행을 지우면 그 사분면이 덜 차고 남은 몫이
+# 다른 사분면으로 넘어가 판이 기운다. 뒤로 밀면 칸은 채우되 순서는 근거대로다.
+# 화면은 점수가 아니라 adoption.spread / evidenceLabel 배지로 이 차이를 보여준다.
+# ---------------------------------------------------------------------------
+
+GATE_FAIL_SCORE = -1.0
+
+# c 게이트. 표본이 30개사라 3곳은 10%다.
+MIN_COMPANY_COUNT = 3
+MIN_EFFECTIVE_COMPANIES = 2.0
+# "확산형" 배지 기준. 표본의 20%(30개사면 6곳) 이상에서, 실질 4개사 이상으로.
+WIDE_COVERAGE_RATIO = 0.2
+WIDE_EFFECTIVE_COMPANIES = 4.0
+
+EVIDENCE_WEIGHT = {"supporting_evidence": 1.0, "weak_evidence": 0.8}
+UNGRADED_EVIDENCE_WEIGHT = 0.6
+
+
+def num(value) -> float | None:
+    """NUMERIC 컬럼은 Decimal로 온다. JSON에 그대로 실을 수 없다."""
+    return None if value is None else float(value)
+
+
+def trend_growth(trend: dict | None) -> float | None:
+    """생태계 비중 지수의 최근 구간 대비 초기 구간 증가율.
+
+    trend["delta"](직전 달 대비)로 판정하면 안 된다 — 지금 시계열이 8개월치라
+    마지막 달 하나만 튀어도 상승/하락이 뒤집힌다. 양끝 3개월씩의 평균으로 본다.
+    구간이 짧으면 겹치지 않게 줄인다.
+    """
+    index = (trend or {}).get("index") or []
+    if len(index) < 2:
+        return None
+    window = min(3, len(index) // 2)
+    head = sum(index[:window]) / window
+    if not head:
+        return None
+    return sum(index[-window:]) / window / head - 1
+
+
+def spread_label(breadth: dict | None) -> str | None:
+    """c축을 화면 문구로 옮긴다. HHI를 숫자 그대로 보여주지 않기 위한 3분류.
+
+    coverage_rate 컬럼이 아니라 정수 두 개로 판정한다 — 저 컬럼이 0~1인지
+    0~100인지 뷰 소유자 쪽 정의를 아직 확인하지 못했다(db/jobs/views.sql 주석).
+    company_count / sample_company_count는 단위가 모호할 수 없다.
+    """
+    if not breadth:
+        return None
+    companies = breadth["company_count"] or 0
+    sample = breadth["sample_company_count"] or 0
+    effective = num(breadth["effective_company_count"]) or 0.0
+    if (
+        sample
+        and companies >= WIDE_COVERAGE_RATIO * sample
+        and effective >= WIDE_EFFECTIVE_COMPANIES
+    ):
+        return "확산형"
+    if companies >= MIN_COMPANY_COUNT and effective >= MIN_EFFECTIVE_COMPANIES:
+        return "집중형"
+    return "단일기업"
+
+
+def early_mover_scores(items: list[dict]) -> dict[str, float]:
+    """선점 후보 사분면 안에서만 매기는 0~100 점수. skillCode -> score.
+
+    백분위를 이 사분면 안에서 다시 매기는 게 핵심이다. 200개 전체 기준으로
+    매기면 이 사분면은 정의상 수요 하위 절반이라 값이 전부 아래에 눌려 순위가
+    갈리지 않는다.
+    """
+    pool = [item for item in items if item["quadrant"] == "선점 후보"]
+    if not pool:
+        return {}
+
+    growths = {item["skillCode"]: trend_growth(item.get("trend")) for item in pool}
+    effectives = {
+        item["skillCode"]: (item.get("adoption") or {}).get("effectiveCompanyCount")
+        for item in pool
+    }
+    growth_pct = percentile([value for value in growths.values() if value is not None])
+    effective_pct = percentile([value for value in effectives.values() if value is not None])
+
+    scores = {}
+    for item in pool:
+        code = item["skillCode"]
+        growth = growths[code]
+        spread = (item.get("adoption") or {}).get("spread")
+        # 확산 근거가 없거나(c), 생태계 비중이 줄고 있으면(a) 뒤로 보낸다.
+        # breadth 행 자체가 없는 기술도 여기 걸린다 — 확산을 확인하지 못한 것과
+        # 확산되지 않은 것을 구분할 방법이 없으니 후보로 올리지 않는다.
+        if spread in (None, "단일기업") or growth is None or growth <= 0:
+            scores[code] = GATE_FAIL_SCORE
+            continue
+        base = (growth_pct[growth] + effective_pct.get(effectives[code], 0.0)) / 2
+        weight = EVIDENCE_WEIGHT.get(item.get("evidenceLabel"), UNGRADED_EVIDENCE_WEIGHT)
+        scores[code] = round(base * weight, 1)
+    return scores
+
+
 def load_data(db: Session):
     skills = [dict(row) for row in db.execute(SKILLS_SQL).mappings()]
     role_counts: dict[int, list[dict]] = defaultdict(list)
@@ -441,6 +582,14 @@ def load_data(db: Session):
 def map_items(db: Session) -> tuple[list[dict], dict]:
     skills, role_counts, ecosystem, period = load_data(db)
     trends = build_trends(db)
+    breadth = {
+        row["skill_id"]: dict(row)
+        for row in db.execute(ADOPTION_BREADTH_SQL).mappings()
+    }
+    evidence = {
+        row["skill_id"]: row["evidence_label"]
+        for row in db.execute(EVIDENCE_SQL).mappings()
+    }
     skills = [
         skill
         for skill in skills
@@ -507,7 +656,28 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
         trend = trends.get(skill["skill_code"])
         if trend:
             item["trend"] = trend
+        # 확산 범위와 근거 등급. 뷰/테이블에 행이 없는 기술에는 키를 만들지
+        # 않는다 — 프론트는 없으면 배지를 그리지 않는다.
+        row = breadth.get(skill["skill_id"])
+        if row:
+            item["adoption"] = {
+                "companyCount": row["company_count"],
+                "sampleCompanyCount": row["sample_company_count"],
+                "coverageRate": num(row["coverage_rate"]),
+                "hhi": num(row["hhi"]),
+                "effectiveCompanyCount": num(row["effective_company_count"]),
+                "spread": spread_label(row),
+            }
+        label = evidence.get(skill["skill_id"])
+        if label:
+            item["evidenceLabel"] = label
         items.append(item)
+
+    # 선점 후보 사분면의 정렬 키. 다른 사분면에는 붙지 않는다(수요순 그대로).
+    scores = early_mover_scores(items)
+    for item in items:
+        if item["skillCode"] in scores:
+            item["earlyMoverScore"] = scores[item["skillCode"]]
     # 이웃 이름을 지금 응답에 실린 기술로만 거른다. build_stacks가 이 집합을
     # 넘겨받아야 화면에서 검색 결과 0건인 칩이 나오지 않는다.
     stacks = build_stacks(db, {item["tech"] for item in items})

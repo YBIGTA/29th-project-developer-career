@@ -18,8 +18,9 @@ open frontend/test/dictionary.html   # 기술 사전
 > 데스크톱 화면은 이제 여기와 같습니다. 이 폴더는 다음 개선안을 굴려보는
 > 작업장으로 계속 씁니다 — 앱을 건드리기 전에 여기서 먼저 바꿉니다.
 
-반영되지 않은 것은 **모바일(`/m`)** 뿐입니다. 미리보기에 모바일 화면이 없어
-`app/mobile.css` 상단에서 예전 남색 다크 토큰을 그대로 되박아 두었습니다.
+**2026-08-24: 모바일(`/m`)도 반영되었습니다.** `app/mobile.css` 상단에서 예전
+남색 다크 토큰을 되박던 블록을 걷어냈고, 이제 두 화면이 같은 라이트 토큰을
+씁니다. 미리보기에는 여전히 모바일 화면이 없습니다.
 
 ## 미리보기와 앱이 아직 다른 곳
 
@@ -77,6 +78,8 @@ palette.test.mjs    팔레트 명암비 검사 (preview.css 의 토큰을 읽음
 detailPanel.test.mjs 상세 패널 검사 (200개 기술 × 3탭을 실제로 그려본다)
 dictLearn.test.mjs  사전 학습 카드 검사 (썸네일·링크·빈 블록)
 learn.test.mjs      lib/learn.js 검사 (URL만 있을 때도 카드가 서는지)
+dictSearch.test.mjs 사전 검색 검사 (이름이 정확히 맞으면 그것만 남는가)
+mapPlacement.test.mjs 점이 앉는 자리 검사 (판을 좁혀도 구역 이름표를 비껴가는가)
 ```
 
 검사 실행:
@@ -87,6 +90,8 @@ node frontend/test/palette.test.mjs
 node frontend/test/detailPanel.test.mjs
 node frontend/test/dictLearn.test.mjs
 node frontend/test/learn.test.mjs
+node frontend/test/dictSearch.test.mjs
+node frontend/test/mapPlacement.test.mjs
 ```
 
 ## 알려진 한계

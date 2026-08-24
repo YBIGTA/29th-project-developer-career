@@ -120,3 +120,57 @@ def test_build_stacks_orders_by_similarity_and_drops_unknown_names():
     assert "폐기된기술" not in stacks["AWS"]
     assert "Vue" not in stacks
     assert "COBOL" not in stacks
+
+
+def test_learning_resources_are_shaped_for_the_frontend():
+    """공식 문서·영상이 화면이 기대하는 모양으로 나오는지.
+
+    두 테이블 모두 CSV를 그대로 올린 것이라 기술명 문자열로 조인한다. 이름이
+    어긋난 행은 SQL의 JOIN이 걸러내므로 여기서는 값 변환만 본다 — 특히
+    썸네일 주소를 싣지 않는다는 규칙(화면이 video_id로 만든다)을 못 박는다.
+    """
+    from app.api.routes import VIDEOS_PER_TECH, build_docs, build_videos
+
+    class StubSession:
+        def __init__(self, rows):
+            self.rows = rows
+
+        def execute(self, *args, **kwargs):
+            rows = self.rows
+
+            class Result:
+                def mappings(self):
+                    return rows
+
+            return Result()
+
+    docs = build_docs(StubSession([
+        {"skill_name": "Java", "url": " https://docs.oracle.com/en/java/ ", "note": None},
+        {"skill_name": "JavaScript", "url": "https://developer.mozilla.org/", "note": "MDN"},
+    ]))
+    assert docs["Java"] == {"url": "https://docs.oracle.com/en/java/"}, "앞뒤 공백은 떼고, note가 없으면 키도 없다"
+    assert docs["JavaScript"] == {"url": "https://developer.mozilla.org/", "note": "MDN"}
+
+    videos = build_videos(StubSession([
+        {"skill_name": "Java", "video_id": "LBqE4YOvhyc", "title": "JAVA Full Course",
+         "channel_title": "Coder Army", "view_count": 283628, "duration_seconds": 3547},
+        {"skill_name": "Java", "video_id": "23HFxAPyJ9U", "title": "Start coding with JAVA",
+         "channel_title": "Bro Code", "view_count": 538762, "duration_seconds": 659},
+        {"skill_name": "Go", "video_id": "aaaaaaaaaaa", "title": "Go",
+         "channel_title": None, "view_count": None, "duration_seconds": None},
+    ]))
+
+    # 프론트가 읽는 키 이름 그대로여야 한다 (lib/learn.js 참고).
+    assert videos["Java"][0] == {
+        "id": "LBqE4YOvhyc", "title": "JAVA Full Course",
+        "channel": "Coder Army", "views": 283628, "seconds": 3547,
+    }
+    # SQL이 rank 순으로 내려주므로 받은 순서를 그대로 지킨다.
+    assert [v["id"] for v in videos["Java"]] == ["LBqE4YOvhyc", "23HFxAPyJ9U"]
+    # 썸네일 주소는 싣지 않는다. 저장된 주소에는 만료된 것이 섞인다.
+    assert all("thumbnail" not in key for v in videos["Java"] for key in v)
+    # 메타가 비어도 항목을 버리지 않는다 — 화면이 그 줄만 안 그린다.
+    assert videos["Go"] == [{"id": "aaaaaaaaaaa", "title": "Go",
+                             "channel": None, "views": None, "seconds": None}]
+    assert "Python" not in videos, "자료가 없는 기술은 키 자체가 없어야 한다"
+    assert VIDEOS_PER_TECH == 3

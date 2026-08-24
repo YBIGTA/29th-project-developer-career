@@ -28,6 +28,21 @@ class Trend(BaseModel):
     delta: dict[str, float | str] | None
 
 
+class Docs(BaseModel):
+    url: str
+    note: str | None = None
+
+
+class Video(BaseModel):
+    """썸네일 주소는 없다. 화면이 id로 만든다(i.ytimg.com/vi/{id}/hqdefault.jpg)."""
+
+    id: str
+    title: str | None = None
+    channel: str | None = None
+    views: int | None = None
+    seconds: int | None = None
+
+
 class GapItem(BaseModel):
     tech: str
     skillCode: str
@@ -49,6 +64,9 @@ class GapItem(BaseModel):
     trend: Trend | None = None
     # 같은 군집에서 가장 가까운 기술들. 군집 대상이 아니면 없다.
     stack: list[str] | None = None
+    # 학습 자료. 자료가 없는 기술에는 키가 없다.
+    docs: Docs | None = None
+    videos: list[Video] | None = None
 
 
 class GapMeta(BaseModel):

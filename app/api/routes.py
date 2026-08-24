@@ -283,6 +283,62 @@ def build_trends(db: Session) -> dict[str, dict]:
     return trends
 
 
+# 학습 자료 — 공식 문서 1개 + 유튜브 영상 3개.
+#
+# 두 테이블 모두 팀원이 원본 CSV를 그대로 올린 것이라, 정규화된 skill_id가
+# 아니라 **기술명 문자열 skill로 조인한다**. skill 테이블에 붙여 이름이 정확히
+# 맞는 행만 통과시킨다 — 이름이 어긋난 행을 그냥 내보내면 프론트가 어느 기술의
+# 자료인지 붙일 수 없다.
+DOCS_SQL = text("""
+    SELECT s.skill_name, d.official_docs_url AS url, NULLIF(BTRIM(d.note), '') AS note
+    FROM tech_official_docs d
+    JOIN skill s ON s.skill_name = d.skill AND s.is_active = true
+    WHERE NULLIF(BTRIM(d.official_docs_url), '') IS NOT NULL
+""")
+
+# rank가 추천 순위다(1이 첫 카드). 화면은 3장만 그리므로 여기서 잘라 보낸다.
+VIDEOS_SQL = text("""
+    SELECT s.skill_name, v.video_id, v.title, v.channel_title, v.view_count, v.duration_seconds
+    FROM youtube_skill_videos v
+    JOIN skill s ON s.skill_name = v.skill AND s.is_active = true
+    WHERE v.rank IS NOT NULL AND v.rank <= :per_tech
+      AND NULLIF(BTRIM(v.video_id), '') IS NOT NULL
+    ORDER BY s.skill_name, v.rank
+""")
+
+VIDEOS_PER_TECH = 3
+
+
+def build_docs(db: Session) -> dict[str, dict]:
+    """기술별 공식 문서. note는 있는 기술에만 붙는다(툴팁으로만 쓰인다)."""
+    docs = {}
+    for row in db.execute(DOCS_SQL).mappings():
+        entry = {"url": row["url"].strip()}
+        if row["note"]:
+            entry["note"] = row["note"]
+        docs[row["skill_name"]] = entry
+    return docs
+
+
+def build_videos(db: Session) -> dict[str, list[dict]]:
+    """기술별 입문 영상 3편.
+
+    썸네일 주소는 싣지 않는다. 200건 전부
+    https://i.ytimg.com/vi/{video_id}/hqdefault.jpg 규칙을 따르므로 화면이
+    id로 만든다 — 원본 thumbnail_url을 그대로 내보내면 만료된 주소가 섞인다.
+    """
+    videos: dict[str, list[dict]] = defaultdict(list)
+    for row in db.execute(VIDEOS_SQL, {"per_tech": VIDEOS_PER_TECH}).mappings():
+        videos[row["skill_name"]].append({
+            "id": row["video_id"].strip(),
+            "title": row["title"],
+            "channel": row["channel_title"],
+            "views": row["view_count"],
+            "seconds": row["duration_seconds"],
+        })
+    return dict(videos)
+
+
 def percentile(values: list[int]) -> dict[int, float]:
     if len(values) < 2:
         return {value: 100.0 for value in values}
@@ -394,10 +450,15 @@ def map_items(db: Session) -> tuple[list[dict], dict]:
     # 이웃 이름을 지금 응답에 실린 기술로만 거른다. build_stacks가 이 집합을
     # 넘겨받아야 화면에서 검색 결과 0건인 칩이 나오지 않는다.
     stacks = build_stacks(db, {item["tech"] for item in items})
+    docs = build_docs(db)
+    videos = build_videos(db)
     for item in items:
-        stack = stacks.get(item["tech"])
-        if stack:
-            item["stack"] = stack
+        # 없는 자료는 키 자체를 만들지 않는다. 프론트는 없으면 그 카드를,
+        # 둘 다 없으면 학습 탭 자체를 그리지 않는다.
+        for key, table in (("stack", stacks), ("docs", docs), ("videos", videos)):
+            value = table.get(item["tech"])
+            if value:
+                item[key] = value
 
     items.sort(key=lambda item: (-item["postings"], item["tech"]))
     return items, period

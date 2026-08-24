@@ -2,9 +2,15 @@
 
 import { useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
-import { ecosystemBars, ecosystemNote, formatCount, formatDuration } from "@/lib/ecosystem";
-import { docHost, normalizeVideos, videoMeta, videoThumb, videoTitle, videoUrl } from "@/lib/learn";
+import { ecosystemBars, ecosystemNote } from "@/lib/ecosystem";
+import { docHost, normalizeVideos } from "@/lib/learn";
 import { useTechPostings } from "@/lib/useTechPostings";
+import { useTechCluster } from "@/lib/useTechCluster";
+import { useDailyIndex } from "@/lib/useDailyIndex";
+import DailySpark from "./DailySpark";
+import LearnList from "./LearnList";
+import StackList from "./StackList";
+import TrendSpark from "./TrendSpark";
 
 function ExternalIcon() {
   return (
@@ -60,203 +66,6 @@ function PostingList({ postings, loading, techName }) {
   );
 }
 
-const SPARK_W = 100;
-const SPARK_H = 44;
-const SPARK_PAD = 5;
-
-/**
- * 최근 8개월 생태계 활동 추이.
- *
- * 그리는 값은 원시 건수가 아니라 점유율 지수다(lib/techExtras.js 참고).
- * 원시값을 쓰면 8개월간 GitHub 전체가 +162%, Stack Overflow 전체가 -69%
- * 움직인 탓에, 개별 기술과 무관하게 GitHub는 거의 다 상승, SO는 거의 다
- * 하락으로 나온다.
- *
- * viewBox를 preserveAspectRatio="none"으로 늘려 쓰므로 선에는
- * vector-effect="non-scaling-stroke"를 준다. 같은 이유로 마지막 값 표시는
- * 원이 아니라 세로 선이다 — 원은 가로로 늘어나 찌그러진다.
- */
-function TrendSpark({ trend }) {
-  const { months, index, github, stackoverflow, hasStackoverflow, delta } = trend;
-
-  // 기준선 100이 항상 판 안에 들어오게 범위를 잡는다. 그래야 "100 위 = 시장
-  // 평균보다 빨리 큰다"가 눈으로 읽힌다.
-  const lo = Math.min(...index, 100);
-  const hi = Math.max(...index, 100);
-  const span = hi - lo;
-  const yOf = (v) =>
-    span === 0
-      ? SPARK_H / 2
-      : SPARK_H - SPARK_PAD - ((v - lo) / span) * (SPARK_H - SPARK_PAD * 2);
-  const xOf = (i) => (index.length === 1 ? SPARK_W / 2 : (i / (index.length - 1)) * SPARK_W);
-
-  const last = index[index.length - 1];
-  const rising = last >= 100;
-  const stroke = rising ? "var(--status-good-text)" : "var(--status-error-text)";
-  const points = index.map((v, i) => `${xOf(i).toFixed(2)},${yOf(v).toFixed(2)}`).join(" ");
-
-  const rawText = [
-    `GitHub 이슈·PR ${formatCount(github[github.length - 1])}건`,
-    hasStackoverflow
-      ? `Stack Overflow ${formatCount(stackoverflow[stackoverflow.length - 1])}건`
-      : null,
-  ]
-    .filter(Boolean)
-    .join(" + ");
-
-  return (
-    <div className="detail-panel__trend">
-      <div className="detail-panel__trend-head">
-        <span className="detail-panel__section-title">생태계 활동 추이</span>
-        <span className="detail-panel__trend-range">
-          {months[0]} → {months[months.length - 1]}
-        </span>
-      </div>
-
-      <div className="detail-panel__trend-body">
-        <svg
-          className="detail-panel__spark"
-          viewBox={`0 0 ${SPARK_W} ${SPARK_H}`}
-          preserveAspectRatio="none"
-          role="img"
-        >
-          <title>
-            {`${months[0]} 대비 ${months[months.length - 1]} 지수 ${Math.round(last)}, ${
-              rising ? "기준선 위" : "기준선 아래"
-            }`}
-          </title>
-          <line
-            x1="0"
-            x2={SPARK_W}
-            y1={yOf(100)}
-            y2={yOf(100)}
-            stroke="var(--line-strong)"
-            strokeWidth="1"
-            strokeDasharray="3 3"
-            vectorEffect="non-scaling-stroke"
-          />
-          <polyline
-            points={points}
-            fill="none"
-            stroke={stroke}
-            strokeWidth="1.75"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            vectorEffect="non-scaling-stroke"
-          />
-          <line
-            x1={SPARK_W}
-            x2={SPARK_W}
-            y1={yOf(last) - 4}
-            y2={yOf(last) + 4}
-            stroke={stroke}
-            strokeWidth="2.5"
-            vectorEffect="non-scaling-stroke"
-          />
-        </svg>
-
-        <div className="detail-panel__trend-figures">
-          <div className="detail-panel__trend-value" style={{ color: stroke }}>
-            지수 {Math.round(last)}
-          </div>
-          {delta && (
-            <div className="detail-panel__trend-sub">
-              전월 대비 {delta.pct > 0 ? "+" : ""}
-              {delta.pct}%
-            </div>
-          )}
-        </div>
-      </div>
-
-      <p className="detail-panel__trend-note">
-        {months[0]} = 100 기준 · {months[months.length - 1]} {rawText}
-      </p>
-      <p className="detail-panel__trend-note">
-        {hasStackoverflow ? "GitHub·Stack Overflow 활동량" : "GitHub 활동량"}
-      </p>
-    </div>
-  );
-}
-
-/**
- * 학습 탭의 자료 카드 — 공식 문서 1장 + 영상 3장.
- *
- * 배지 줄에 있던 공식 문서 알약을 없애면서 문서가 이 탭으로 들어왔다. 두
- * 종류가 같은 목록에 서므로 카드 모양을 하나로 쓴다.
- *
- * 값이 URL뿐이어도 카드가 서게 하는 규칙은 lib/learn.js에 있다.
- */
-function LearnList({ tech }) {
-  const videos = normalizeVideos(tech.videos);
-  const host = docHost(tech.docs);
-  if (!host && !videos.length) return null;
-
-  return (
-    <ul className="detail-panel__learn">
-      {host && (
-        <li>
-          <a
-            className="detail-panel__learn-link"
-            href={tech.docs.url}
-            target="_blank"
-            rel="noopener noreferrer"
-            title={tech.docs.note || undefined}
-          >
-            {/* 문서 카드에는 쓸 그림이 없다. 머리글자 타일을 깔고 그 위에 사이트
-                파비콘을 얹는다. 못 받아오면 img가 스스로 지워지고 타일만 남는다. */}
-            <span className="detail-panel__learn-thumb detail-panel__learn-thumb--doc">
-              <span className="detail-panel__learn-initial">{tech.tech.slice(0, 2)}</span>
-              {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img
-                className="detail-panel__learn-favicon"
-                src={`https://${host}/favicon.ico`}
-                alt=""
-                loading="lazy"
-                onError={(e) => e.currentTarget.remove()}
-              />
-            </span>
-            <span className="detail-panel__learn-body">
-              <span className="detail-panel__learn-kind">공식 문서</span>
-              <span className="detail-panel__learn-title">{tech.tech} 공식 문서</span>
-              <span className="detail-panel__learn-meta">{host}</span>
-            </span>
-          </a>
-        </li>
-      )}
-
-      {videos.map((v, i) => {
-        const meta = videoMeta(v);
-        return (
-          <li key={v.id}>
-            <a
-              className="detail-panel__learn-link"
-              href={videoUrl(v.id)}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <span className="detail-panel__learn-thumb">
-                {/* next/image를 쓰려면 i.ytimg.com과 문서 도메인 159곳을
-                    next.config.mjs의 remotePatterns에 등록해야 한다. 저장소가
-                    의존성 3개를 유지하고 있으므로 평범한 img로 둔다. */}
-                {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src={videoThumb(v.id)} alt="" loading="lazy" />
-                {typeof v.seconds === "number" && (
-                  <span className="detail-panel__learn-duration">{formatDuration(v.seconds)}</span>
-                )}
-              </span>
-              <span className="detail-panel__learn-body">
-                <span className="detail-panel__learn-kind">영상</span>
-                <span className="detail-panel__learn-title">{videoTitle(v, tech.tech, i)}</span>
-                {meta && <span className="detail-panel__learn-meta">{meta}</span>}
-              </span>
-            </a>
-          </li>
-        );
-      })}
-    </ul>
-  );
-}
-
 export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
   const [tab, setTab] = useState("overview");
 
@@ -272,6 +81,12 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
     tech?.skillCode,
     Boolean(tech) && tab === "postings"
   );
+
+  // 개요 탭에서만 부른다. 둘 다 지도 첫 로드에는 딸려오지 않는 값이라,
+  // 상세를 열지 않으면 요청 자체가 나가지 않는다.
+  const overviewOpen = Boolean(tech) && tab !== "postings" && tab !== "learn";
+  const { cluster } = useTechCluster(tech?.skillCode, overviewOpen);
+  const { series: dailySeries } = useDailyIndex(tech?.skillCode, overviewOpen);
 
   if (!tech) {
     return (
@@ -441,6 +256,8 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
 
             {tech.trend && <TrendSpark trend={tech.trend} />}
 
+            {dailySeries && <DailySpark series={dailySeries} />}
+
             {tech.signals?.length > 0 && (
               <>
                 <div className="detail-panel__section-title">이 자리에 있는 이유</div>
@@ -456,18 +273,7 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
               </>
             )}
 
-            {tech.stack?.length > 0 && (
-              <>
-                <div className="detail-panel__section-title">함께 요구되는 기술</div>
-                <div className="detail-panel__stack">
-                  {tech.stack.map((s) => (
-                    <span className="detail-panel__chip" key={s}>
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </>
-            )}
+            <StackList tech={tech} cluster={cluster} />
 
             <p className="detail-panel__footnote">
               생태계 지표는 GitHub·Stack Overflow의 최근 180일 실측값이고, 채용 수요는 수집된

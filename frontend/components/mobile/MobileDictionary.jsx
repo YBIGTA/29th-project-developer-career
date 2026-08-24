@@ -7,7 +7,8 @@ import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
 import { ecosystemBars } from "@/lib/ecosystem";
 import { mapCodeSet } from "@/lib/mapPoints";
 import { getGapMapData } from "@/lib/api";
-import { getSkillIndex, mergeSkills, skillHaystack } from "@/lib/skills";
+import { getSkillIndex, isExactSkillName, mergeSkills, skillHaystack } from "@/lib/skills";
+import LearnList from "@/components/LearnList";
 
 const SORTS = [
   { key: "dict", label: "사전순" },
@@ -68,9 +69,12 @@ export default function MobileDictionary() {
   }, []);
 
   const filtered = useMemo(() => {
-    const rows = data.filter(
+    const hits = data.filter((d) => matches(d, query));
+    // 이름이 정확히 맞는 표제어가 있으면 그것만 남긴다. 없으면 지금까지처럼
+    // 넓게 걸린다 (lib/skills.js isExactSkillName 참고).
+    const exact = hits.filter((d) => isExactSkillName(d, query));
+    const rows = (exact.length ? exact : hits).filter(
       (d) =>
-        matches(d, query) &&
         (quadFilter === "all" || d.quadrant === quadFilter) &&
         (catFilter === "all" || d.category === catFilter)
     );
@@ -336,6 +340,11 @@ function MobileDetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
             <span className={`mv-legend-swatch mv-legend-swatch--${meta.slug}`} />
             {meta.label}
           </span>
+          {(tech.roles ?? []).map((r) => (
+            <span key={r} className="mv-dict-entry__role">
+              {r}
+            </span>
+          ))}
         </span>
 
         <span className="mv-dict-entry__summary">
@@ -348,6 +357,10 @@ function MobileDetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
           </span>
           <span className="mv-dict-score">
             채용 수요 <span className="mv-dict-score__value">{tech.demand}</span>
+          </span>
+          <span className="mv-dict-score">
+            공고 언급{" "}
+            <span className="mv-dict-score__value">{tech.postings.toLocaleString("ko-KR")}</span>
           </span>
           {offMap && <span className="mv-dict-score__offmap">지도 미표시</span>}
         </span>
@@ -422,6 +435,7 @@ function MobileDetailedEntry({ tech, open, onToggle, offMap, onPickStack }) {
             )}
           </div>
 
+          <LearnList tech={tech} prefix="mv-dict-entry" />
         </div>
       )}
     </article>

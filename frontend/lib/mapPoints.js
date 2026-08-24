@@ -118,17 +118,22 @@ export function makeAxisScale(values) {
  * 50 아래/위를 따로 순위 매겨 각자의 띠 안에서만 편다. makeAxisScale과 같은
  * 이유다 — 점이 사분면 경계선을 넘으면 색과 위치가 어긋난다.
  *
- * x축(생태계)에는 쓰지 않는다. 동점이 훨씬 적고, x를 흔들면 "생태계 점수가
- * 같으면 같은 세로선에 선다"는 읽기가 깨진다.
+ * x축(생태계)에도 쓴다. 예전에는 "x를 흔들면 생태계 점수가 같으면 같은
+ * 세로선에 선다는 읽기가 깨진다"는 이유로 y축에만 썼는데, 생태계 점수가
+ * 백분위에서 연속적인 사다리 값으로 바뀌면서 x축 동점이 사실상 사라져 그
+ * 읽기를 지킬 대상이 없어졌다. 반대로 사다리 점수는 절대값이라 가운데가
+ * 두꺼워(실측 표준편차 26 -> 20) 그대로 찍으면 판 양 끝이 빈다.
+ *
+ * isHigh는 어느 띠에 넣을지 정하는 판정이다. 기본값은 예전과 같은 "50 이상"
+ * 이고, x축에는 사분면 분류를 그대로 읽는 판정을 넘긴다 — 사다리 점수의
+ * 경계는 50이 아니라 중앙값이기 때문이다(lib/ecosystemScore.js).
  */
-export function makeRankScale(items, key = "demand") {
+export function makeRankScale(items, key = "demand", isHigh = (item) => (item[key] ?? 0) >= 50) {
   const positions = new Map();
 
   for (const band of [LOW_BAND, HIGH_BAND]) {
     const group = items
-      .filter((item) =>
-        band === LOW_BAND ? (item[key] ?? 0) < 50 : (item[key] ?? 0) >= 50
-      )
+      .filter((item) => (band === LOW_BAND ? !isHigh(item) : isHigh(item)))
       // 같은 값끼리의 순서는 생태계 점수, 그다음 이름으로 고정한다.
       // 렌더링할 때마다 위아래가 뒤바뀌지 않게 하기 위해서다.
       .sort(
@@ -175,8 +180,9 @@ export const PLOT_PAD = 14; // 점 반지름(7.5px) + 여유
 // 가로는 이 값을 쓰지 않는다. 세로에서 이미 이름표를 비껴가므로, 가로까지
 // 이름표 너비(약 96px)만큼 들이면 판만 좁아지고 얻는 게 없다.
 //
-// 모바일(.mv-map__corner)은 이름표를 점 **아래**(z-index 0)에 깔아 이 문제가
-// 없다. 모바일 판은 320px로 낮아 여기서 50px을 들이면 손해가 크다.
+// 모바일(.mv-map__corner)은 이름표도 누르면 구역 설명이 뜨는 버튼이지만, 점
+// **아래**(z-index 1 < 점의 2)에 깔아 이 문제가 없다 — 겹치면 점이 이긴다.
+// 모바일 판은 320px로 낮아 여기서 50px을 들이면 손해가 크다.
 export const PLOT_PAD_CORNER = 50;
 
 /**

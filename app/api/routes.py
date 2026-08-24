@@ -258,6 +258,13 @@ TIMESERIES_DAILY_SQL = text("""
     FROM shared
     JOIN baseline ON baseline.skill_id = shared.skill_id
     JOIN skill s ON s.skill_id = shared.skill_id AND s.is_active = TRUE
+    -- 기술 하나만 걸러 내보낼 수 있다. **걸러내기는 여기, 맨 마지막에서만
+    -- 한다** — 위의 totals/totals_rolling은 전체 기술 합계라 분모이고,
+    -- baseline은 그 기술의 조회 구간 평균 비중이다. 어느 쪽이든 앞단에서
+    -- 걸러내면 비중이 1.0이 되어 지수가 통째로 무의미해진다.
+    -- ::TEXT 캐스팅이 필요하다. 형 없는 파라미터를 IS NULL에 바로 쓰면
+    -- Postgres가 "could not determine data type of parameter"로 거절한다.
+    WHERE (:skill_code::TEXT IS NULL OR s.skill_code = :skill_code)
     ORDER BY shared.metric_date, s.skill_name
 """)
 
@@ -795,16 +802,20 @@ def get_timeseries(
 def get_timeseries_daily(
     from_date: str = Query(default="2026-02-24", alias="from"),
     to_date: str = Query(default="2026-08-23", alias="to"),
+    # 기술 하나만 받으려면 skill=<skill_code>. 상세 화면은 한 기술의 선만
+    # 그리는데, 걸러내지 않으면 200개 기술 x 180일이 한꺼번에 내려와 응답이
+    # 6MB를 넘는다. 생략하면 지금까지처럼 전부 내려준다.
+    skill_code: str | None = Query(default=None, alias="skill"),
     db: Session = Depends(get_db),
 ):
     rows = [dict(row) for row in db.execute(
         TIMESERIES_DAILY_SQL,
-        {"from_date": from_date, "to_date": to_date},
+        {"from_date": from_date, "to_date": to_date, "skill_code": skill_code},
     ).mappings()]
     for row in rows:
         if row["date"] is not None:
             row["date"] = row["date"].isoformat()
     return {
-        "meta": {"from": from_date, "to": to_date},
+        "meta": {"from": from_date, "to": to_date, "skill": skill_code},
         "items": rows,
     }

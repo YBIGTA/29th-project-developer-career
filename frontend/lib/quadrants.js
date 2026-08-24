@@ -67,3 +67,15 @@ const UNKNOWN_QUADRANT = {
 export function getQuadrantMeta(key) {
   return QUADRANT_MAP[key] ?? { ...UNKNOWN_QUADRANT, key: key || "미분류" };
 }
+
+/**
+ * 이 기술이 판의 오른쪽(생태계가 활발한 쪽)에 속하는가.
+ *
+ * 생태계 점수가 백분위였을 때는 "50 이상"이 곧 이 판정이었다. 지금은 절대
+ * 사다리 점수라 경계가 50이 아니라 응답 안의 중앙값이고(lib/ecosystemScore.js),
+ * 그 중앙값은 quadrant를 매길 때 이미 한 번 쓰였다. 그래서 점수를 다시 비교하는
+ * 대신 매겨진 분류를 그대로 읽는다 — 경계가 바뀌어도 두 곳이 어긋나지 않는다.
+ */
+export function isEcosystemHigh(quadrant) {
+  return Boolean(getQuadrantMeta(quadrant).zone?.endsWith("right"));
+}

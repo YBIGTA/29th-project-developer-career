@@ -1,8 +1,8 @@
 "use client";
 
 import { useMemo, useState } from "react";
-import { QUADRANTS, getQuadrantMeta } from "@/lib/quadrants";
-import { plot, labelFlipsUp, makeAxisScale, makeRankScale, PLOT_PAD_CORNER } from "@/lib/mapPoints";
+import { QUADRANTS, getQuadrantMeta, isEcosystemHigh } from "@/lib/quadrants";
+import { plot, labelFlipsUp, makeRankScale, PLOT_PAD_CORNER } from "@/lib/mapPoints";
 
 const LEGEND = [
   {
@@ -19,7 +19,7 @@ const LEGEND = [
 // 글자 수에 따라 상자 윗변이 점에 붙었다 떨어졌다 한다.
 const TIP_GAP = 26;
 
-function GapMapTooltip({ tech, scaleX, yOf }) {
+function GapMapTooltip({ tech, xOf, yOf }) {
   const meta = getQuadrantMeta(tech.quadrant);
   const filled = meta.slug === "early-mover" || meta.slug === "essential";
   const above = yOf(tech) < 45;
@@ -29,7 +29,7 @@ function GapMapTooltip({ tech, scaleX, yOf }) {
   // 점을 상자의 왼쪽 모서리에, 오른쪽 끝에서는 오른쪽 모서리에 맞춘다.
   // --tip-x 판정은 판 위 좌표가 아니라 0~100 원값으로 한다. plot()은 이제
   // calc() 문자열을 돌려주므로 크기 비교에 쓸 수 없다.
-  const xScore = Math.min(100, Math.max(0, Number(scaleX(tech.ecosystemScore)) || 0));
+  const xScore = Math.min(100, Math.max(0, Number(xOf(tech)) || 0));
   const x = plot(xScore);
   const y = plot(yOf(tech), PLOT_PAD_CORNER);
 
@@ -181,10 +181,16 @@ export default function GapMap({
   const [hoverTech, setHoverTech] = useState(null);
   const setOpenZone = onZoneChange;
 
-  // 지금 찍는 점들만 놓고 축을 다시 편다. 데이터가 바뀌면 스케일도 바뀐다.
-  const scaleX = useMemo(() => makeAxisScale(data.map((d) => d.ecosystemScore)), [data]);
-  // y는 값이 아니라 순위로 편다 — 공고 건수가 같은 기술이 많아 값으로 두면
-  // 점이 한 줄에 가로로 쌓인다 (lib/mapPoints.js의 makeRankScale 참고).
+  // 두 축 모두 값이 아니라 순위로 편다 (lib/mapPoints.js의 makeRankScale 참고).
+  // y는 공고 건수가 같은 기술이 많아 값으로 두면 점이 한 줄에 가로로 쌓이고,
+  // x는 생태계 점수가 절대 사다리 값이라 가운데가 두꺼워 판 양 끝이 빈다.
+  // x의 좌우 띠는 점수 50이 아니라 매겨진 사분면을 따른다 — 사다리 점수의
+  // 경계는 응답 안의 중앙값이다(lib/ecosystemScore.js).
+  const xPos = useMemo(
+    () => makeRankScale(data, "ecosystemScore", (d) => isEcosystemHigh(d.quadrant)),
+    [data]
+  );
+  const xOf = useMemo(() => (d) => xPos.get(d.skillCode) ?? 0, [xPos]);
   const yPos = useMemo(() => makeRankScale(data), [data]);
   const yOf = useMemo(() => (d) => yPos.get(d.skillCode) ?? 0, [yPos]);
 
@@ -274,7 +280,7 @@ export default function GapMap({
               <span
                 className="gap-map__ring"
                 style={{
-                  left: plot(scaleX(selectedTech.ecosystemScore)),
+                  left: plot(xOf(selectedTech)),
                   bottom: plot(yOf(selectedTech), PLOT_PAD_CORNER),
                 }}
               />
@@ -293,7 +299,7 @@ export default function GapMap({
                     isSelected ? " gap-map__dot--selected" : ""
                   }`}
                   style={{
-                    left: plot(scaleX(d.ecosystemScore)),
+                    left: plot(xOf(d)),
                     bottom: plot(yOf(d), PLOT_PAD_CORNER),
                   }}
                   onClick={() => onSelectPoint?.(d)}
@@ -316,7 +322,7 @@ export default function GapMap({
               }`}
               data-flip={labelFlipsUp(yOf(selectedTech)) ? "up" : undefined}
               style={{
-                left: plot(scaleX(selectedTech.ecosystemScore)),
+                left: plot(xOf(selectedTech)),
                 bottom: plot(yOf(selectedTech), PLOT_PAD_CORNER),
               }}
             >
@@ -324,7 +330,7 @@ export default function GapMap({
             </span>
           )}
 
-          {hoverTech && <GapMapTooltip tech={hoverTech} scaleX={scaleX} yOf={yOf} />}
+          {hoverTech && <GapMapTooltip tech={hoverTech} xOf={xOf} yOf={yOf} />}
 
           {openQuad && (
             <ZonePopover

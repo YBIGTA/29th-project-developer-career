@@ -2,6 +2,7 @@ import mockData from "./mockData.json";
 import mockPostings from "./mockPostings.json";
 import { withNotes } from "./notes";
 import { withExtras } from "./techExtras";
+import { withEcosystemScore } from "./ecosystemScore";
 
 // frontend/.env.local의 NEXT_PUBLIC_API_URL (Vercel에는 `vercel env add`로 등록).
 // 저장소 루트의 .env.local은 Next.js가 읽지 않는다 — frontend/ 안에 둬야 한다.
@@ -47,7 +48,7 @@ export async function getGapMapData() {
   // 확정된 요청을 굳이 보내지 않는다. 그대로 두면 매번 404가 나고 콘솔에
   // 놀랄 만한 에러 로그만 남긴 채 어차피 mockData로 대체된다.
   if (!API_URL) {
-    return withExtras(withNotes(mockData));
+    return withEcosystemScore(withExtras(withNotes(mockData)));
   }
 
   try {
@@ -57,10 +58,10 @@ export async function getGapMapData() {
       throw new Error(`괴리맵 데이터를 불러오지 못했습니다 (status: ${res.status})`);
     }
 
-    return withExtras(withNotes(await res.json()));
+    return withEcosystemScore(withExtras(withNotes(await res.json())));
   } catch (error) {
     console.error("[getGapMapData] 요청 실패, mockData.json으로 대체합니다:", error);
-    return withExtras(withNotes(mockData));
+    return withEcosystemScore(withExtras(withNotes(mockData)));
   }
 }
 

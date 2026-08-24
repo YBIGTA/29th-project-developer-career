@@ -198,27 +198,38 @@ TIMESERIES_SQL = text("""
         ORDER BY j.metric_month, s.skill_name
 """)
 
+# 일별 Stack Overflow 활동.
+#
+# 원본은 stackoverflow_daily_all이다. 이름이 ecosystem_* 규칙을 따르지 않는데,
+# 팀원이 수집 CSV를 그대로 올린 테이블이라 그렇다. 정규화된 skill_id가 아니라
+# **기술명 문자열 skill로 조인한다** — 학습 자료 테이블들과 같은 사정이다
+# (DOCS_SQL 주석 참고). 200개 기술 x 180일이 빠짐없이 들어 있다.
+#
+# GitHub 쪽 일별 테이블은 없고, 쓰지 않는다. 이 엔드포인트는 SO 하나만 본다.
 TIMESERIES_DAILY_SQL = text("""
     WITH so AS (
         SELECT
-            d.metric_date,
-            d.skill_id,
+            d.date AS metric_date,
+            d.skill,
             d.question_count,
             AVG(d.question_count) OVER (
-                PARTITION BY d.skill_id ORDER BY d.metric_date
+                PARTITION BY d.skill ORDER BY d.date
                 ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
             ) AS rolling_avg_30d,
             SUM(d.question_count) OVER (
-                PARTITION BY d.skill_id ORDER BY d.metric_date
+                PARTITION BY d.skill ORDER BY d.date
                 ROWS BETWEEN 29 PRECEDING AND CURRENT ROW
             ) AS skill_rolling_sum_30d
-        FROM ecosystem_daily_stackoverflow_metrics d
-        WHERE d.metric_date >= :from_date AND d.metric_date < :to_date
+        FROM stackoverflow_daily_all d
+        WHERE d.date >= :from_date AND d.date < :to_date
     ), totals AS (
-        SELECT metric_date, SUM(question_count) AS total_count
-        FROM ecosystem_daily_stackoverflow_metrics
-        WHERE metric_date >= :from_date AND metric_date < :to_date
-        GROUP BY metric_date
+        -- 분모는 **수집된 200개 전부**의 합이다. skill 테이블과 조인하기 전에
+        -- 낸다 — 이름이 맞지 않는 32개(Deno, ESLint 등)를 여기서 떨구면
+        -- 분모가 작아져 나머지 기술의 비중이 전부 부풀려진다.
+        SELECT date AS metric_date, SUM(question_count) AS total_count
+        FROM stackoverflow_daily_all
+        WHERE date >= :from_date AND date < :to_date
+        GROUP BY date
     ), totals_rolling AS (
         SELECT
             metric_date,
@@ -230,7 +241,7 @@ TIMESERIES_DAILY_SQL = text("""
     ), shared AS (
         SELECT
             so.metric_date,
-            so.skill_id,
+            so.skill,
             so.question_count,
             so.rolling_avg_30d,
             CASE WHEN tr.total_rolling_sum_30d > 0
@@ -240,9 +251,9 @@ TIMESERIES_DAILY_SQL = text("""
         FROM so
         JOIN totals_rolling tr ON tr.metric_date = so.metric_date
     ), baseline AS (
-        SELECT skill_id, AVG(share) AS avg_share
+        SELECT skill, AVG(share) AS avg_share
         FROM shared
-        GROUP BY skill_id
+        GROUP BY skill
     )
     SELECT
         shared.metric_date AS date,
@@ -256,12 +267,16 @@ TIMESERIES_DAILY_SQL = text("""
         END AS "stackoverflowIndex",
         (baseline.avg_share > 0) AS "hasIndexBaseline"
     FROM shared
-    JOIN baseline ON baseline.skill_id = shared.skill_id
-    JOIN skill s ON s.skill_id = shared.skill_id AND s.is_active = TRUE
+    JOIN baseline ON baseline.skill = shared.skill
+    -- 이름이 정확히 맞는 기술만 통과시킨다. 200개 중 168개다. 나머지는 위에서
+    -- 분모에는 들어갔지만 응답에는 실리지 않는다 — 어느 기술인지 모르는 행을
+    -- 내보내면 화면이 붙일 데가 없다.
+    JOIN skill s ON s.skill_name = shared.skill AND s.is_active = TRUE
     -- 기술 하나만 걸러 내보낼 수 있다. **걸러내기는 여기, 맨 마지막에서만
     -- 한다** — 위의 totals/totals_rolling은 전체 기술 합계라 분모이고,
     -- baseline은 그 기술의 조회 구간 평균 비중이다. 어느 쪽이든 앞단에서
     -- 걸러내면 비중이 1.0이 되어 지수가 통째로 무의미해진다.
+    --
     -- 형 없는 파라미터를 IS NULL에 바로 쓰면 Postgres가 "could not determine
     -- data type of parameter"로 거절하므로 캐스팅이 필요하다.
     --

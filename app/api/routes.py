@@ -262,9 +262,17 @@ TIMESERIES_DAILY_SQL = text("""
     -- 한다** — 위의 totals/totals_rolling은 전체 기술 합계라 분모이고,
     -- baseline은 그 기술의 조회 구간 평균 비중이다. 어느 쪽이든 앞단에서
     -- 걸러내면 비중이 1.0이 되어 지수가 통째로 무의미해진다.
-    -- ::TEXT 캐스팅이 필요하다. 형 없는 파라미터를 IS NULL에 바로 쓰면
-    -- Postgres가 "could not determine data type of parameter"로 거절한다.
-    WHERE (:skill_code::TEXT IS NULL OR s.skill_code = :skill_code)
+    -- 형 없는 파라미터를 IS NULL에 바로 쓰면 Postgres가 "could not determine
+    -- data type of parameter"로 거절하므로 캐스팅이 필요하다.
+    --
+    -- **postfix 캐스트가 아니라 CAST()로 쓴다.** 콜론 두 개를 붙여 쓰면
+    -- SQLAlchemy의 text()가 파라미터 이름을 한 글자 짧게 끊는다 — 콜론 표기와
+    -- PostgreSQL 캐스트가 충돌해서다. 값이 안 채워진 콜론이 날것으로 넘어가
+    -- "syntax error at or near" 로 쿼리 전체가 죽는다. skill을 주든 말든 항상.
+    --
+    -- 이 주석에 콜론+이름 형태를 예시로 적지 말 것. text()는 주석 안까지
+    -- 훑어서 그것도 바인드 파라미터로 잡는다.
+    WHERE (CAST(:skill_code AS TEXT) IS NULL OR s.skill_code = :skill_code)
     ORDER BY shared.metric_date, s.skill_name
 """)
 

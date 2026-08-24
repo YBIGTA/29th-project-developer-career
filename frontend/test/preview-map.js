@@ -89,7 +89,14 @@
     const queues = [...groups.entries()]
       .map(([key, list]) => ({
         key,
-        list: list.slice().sort((a, b) => b.demand - a.demand || a.tech.localeCompare(b.tech)),
+        // "선점 후보" 큐만 earlyMoverScore로 정렬한다 (lib/mapPoints.js 주석 참고).
+        // 다른 사분면은 이 값이 없어 `?? 0`으로 무승부가 되고 demand가 정한다.
+        list: list.slice().sort(
+          (a, b) =>
+            (b.earlyMoverScore ?? 0) - (a.earlyMoverScore ?? 0) ||
+            b.demand - a.demand ||
+            a.tech.localeCompare(b.tech)
+        ),
       }))
       .sort((a, b) => b.list.length - a.list.length || a.key.localeCompare(b.key));
 

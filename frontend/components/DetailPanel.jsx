@@ -2,11 +2,13 @@
 
 import { useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
+import { adoptionView } from "@/lib/adoption";
 import { ecosystemBars, ecosystemNote } from "@/lib/ecosystem";
 import { docHost, normalizeVideos } from "@/lib/learn";
 import { useTechPostings } from "@/lib/useTechPostings";
 import { useTechCluster } from "@/lib/useTechCluster";
 import { useDailyIndex } from "@/lib/useDailyIndex";
+import AdoptionBreadth from "./AdoptionBreadth";
 import DailySpark from "./DailySpark";
 import LearnList from "./LearnList";
 import StackList from "./StackList";
@@ -84,7 +86,8 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
 
   // 개요 탭에서만 부른다. 둘 다 지도 첫 로드에는 딸려오지 않는 값이라,
   // 상세를 열지 않으면 요청 자체가 나가지 않는다.
-  const overviewOpen = Boolean(tech) && tab !== "postings" && tab !== "learn";
+  const overviewOpen =
+    Boolean(tech) && tab !== "postings" && tab !== "learn" && tab !== "adoption";
   const { cluster } = useTechCluster(tech?.skillCode, overviewOpen);
   const { series: dailySeries } = useDailyIndex(tech?.skillCode, overviewOpen);
 
@@ -115,9 +118,13 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
   // 탭 하나뿐이다. 영상이 없어도 문서만 있으면 탭을 만든다 — 그러지 않으면
   // 영상이 없는 기술은 공식 문서에 닿을 길이 아예 사라진다.
   const hasLearning = Boolean(docHost(tech.docs)) || normalizeVideos(tech.videos).length > 0;
+  // 채택 범위는 지도 응답에 실려 오지만 모든 기술에 있지는 않다(뷰에 행이
+  // 없으면 서버가 키 자체를 만들지 않는다).
+  const adoption = adoptionView(tech);
 
-  // 자료가 없는 기술로 옮겨 왔는데 학습 탭이 열려 있으면 빈 화면이 된다.
-  const activeTab = tab === "learn" && !hasLearning ? "overview" : tab;
+  // 자료가 없는 기술로 옮겨 왔는데 그 탭이 열려 있으면 빈 화면이 된다.
+  const activeTab =
+    (tab === "learn" && !hasLearning) || (tab === "adoption" && !adoption) ? "overview" : tab;
 
   const deltaTone =
     !delta || Math.abs(delta.pct) < 1 ? "flat" : delta.pct > 0 ? "up" : "down";
@@ -169,6 +176,17 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
               onClick={() => setTab("learn")}
             >
               학습
+            </button>
+          )}
+          {adoption && (
+            <button
+              type="button"
+              role="tab"
+              className="detail-panel__tab"
+              aria-selected={activeTab === "adoption"}
+              onClick={() => setTab("adoption")}
+            >
+              채택 범위
             </button>
           )}
           <button
@@ -292,6 +310,10 @@ export default function DetailPanel({ tech, totalTechs = 200, onClose }) {
               영상은 조회수와 평가를 함께 반영해 고른 영어 입문 강의입니다. 새 탭에서 열립니다.
             </p>
           </>
+        )}
+
+        {activeTab === "adoption" && (
+          <AdoptionBreadth view={adoption} techName={tech.tech} />
         )}
 
         {activeTab === "postings" && (

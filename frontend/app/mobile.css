@@ -1276,14 +1276,24 @@
   display: flex;
   gap: 4px;
   border-bottom: 1px solid var(--line);
+  /* 탭이 네 개가 되면서 좁은 폰(360px)에서는 한 줄에 다 들어가지 않는다.
+     줄바꿈 대신 가로 스크롤로 흘린다 — 두 줄이 되면 아래 내용이 밀린다. */
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.mv-sheet__tabs::-webkit-scrollbar {
+  display: none;
 }
 
 .mv-sheet__tab {
   appearance: none;
   border: 0;
   background: transparent;
+  flex: 0 0 auto;
   min-height: 44px;
   padding: 0 14px;
+  white-space: nowrap;
   margin-bottom: -1px;
   border-bottom: 2px solid transparent;
   color: var(--text-muted);
@@ -2390,4 +2400,48 @@
   font-size: 0.66rem;
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
+}
+
+/* 채택 범위 탭 — 데스크톱(app/globals.css)과 같은 구조, 여백만 좁다. */
+.mv-sheet__verdicts {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.mv-sheet__verdict {
+  padding: 11px 12px;
+  border: 1px solid var(--line);
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  opacity: 0.55;
+}
+
+.mv-sheet__verdict[data-active="true"] {
+  border-left-color: var(--accent);
+  background: var(--accent-soft);
+  opacity: 1;
+}
+
+.mv-sheet__verdict-axis {
+  font-size: 0.7rem;
+  color: var(--text-muted);
+}
+
+.mv-sheet__verdict-title {
+  margin-top: 3px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.mv-sheet__verdict-body {
+  margin: 4px 0 0;
+  font-size: 0.76rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  word-break: keep-all;
 }

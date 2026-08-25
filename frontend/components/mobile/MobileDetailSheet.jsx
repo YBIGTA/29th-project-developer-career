@@ -2,11 +2,13 @@
 
 import { useRef, useState } from "react";
 import { getQuadrantMeta } from "@/lib/quadrants";
+import { adoptionView } from "@/lib/adoption";
 import { ecosystemBars, ecosystemNote } from "@/lib/ecosystem";
 import { docHost, normalizeVideos } from "@/lib/learn";
 import { useTechPostings } from "@/lib/useTechPostings";
 import { useTechCluster } from "@/lib/useTechCluster";
 import { useDailyIndex } from "@/lib/useDailyIndex";
+import AdoptionBreadth from "../AdoptionBreadth";
 import DailySpark from "../DailySpark";
 import LearnList from "../LearnList";
 import StackList from "../StackList";
@@ -92,7 +94,7 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
 
   // 개요 탭에서만 부른다(데스크톱과 같은 규칙). 시트를 열지 않으면 요청이
   // 나가지 않는다.
-  const overviewOpen = open && tab !== "postings" && tab !== "learn";
+  const overviewOpen = open && tab !== "postings" && tab !== "learn" && tab !== "adoption";
   const { cluster } = useTechCluster(tech?.skillCode, overviewOpen);
   const { series: dailySeries } = useDailyIndex(tech?.skillCode, overviewOpen);
 
@@ -146,8 +148,12 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
   // 이 탭이 공식 문서로 가는 유일한 통로다.
   const hasLearning = Boolean(tech) &&
     (Boolean(docHost(tech.docs)) || normalizeVideos(tech.videos).length > 0);
-  // 자료가 없는 기술로 옮겨 왔는데 학습 탭이 열려 있으면 빈 화면이 된다.
-  const activeTab = tab === "learn" && !hasLearning ? "overview" : tab;
+  // 채택 범위는 지도 응답에 실려 오지만 모든 기술에 있지는 않다(데스크톱과
+  // 같은 규칙 — components/DetailPanel.jsx).
+  const adoption = tech ? adoptionView(tech) : null;
+  // 자료가 없는 기술로 옮겨 왔는데 그 탭이 열려 있으면 빈 화면이 된다.
+  const activeTab =
+    (tab === "learn" && !hasLearning) || (tab === "adoption" && !adoption) ? "overview" : tab;
 
   return (
     <>
@@ -224,6 +230,17 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                     onClick={() => selectTab("learn")}
                   >
                     학습
+                  </button>
+                )}
+                {adoption && (
+                  <button
+                    type="button"
+                    role="tab"
+                    className="mv-sheet__tab"
+                    aria-selected={activeTab === "adoption"}
+                    onClick={() => selectTab("adoption")}
+                  >
+                    채택 범위
                   </button>
                 )}
                 <button
@@ -345,6 +362,10 @@ export default function MobileDetailSheet({ tech, totalTechs = 200, onClose }) {
                     열립니다.
                   </p>
                 </>
+              )}
+
+              {activeTab === "adoption" && (
+                <AdoptionBreadth view={adoption} techName={tech.tech} prefix="mv-sheet" />
               )}
 
               {activeTab === "postings" && (

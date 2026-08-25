@@ -26,6 +26,10 @@ const API_URL = process.env.NEXT_PUBLIC_API_URL;
  *             로컬 mockData.json만 세 개를 모두 갖는다. 화면은 있는 것만 그린다
  *             (lib/ecosystem.js 참고),
  *           sampleRepositories, signals,
+ *           adoption { companyCount, sampleCompanyCount, coverageRate, hhi,
+ *             effectiveCompanyCount, spread } — 수요가 몇 개 회사로 퍼져 있는가.
+ *             spread는 확산형/집중형/단일기업 셋 중 하나로 **서버가 판정한다**.
+ *             뷰에 행이 없는 기술에는 키가 아예 없다 (lib/adoption.js 참고),
  *           summary(항상 있음 — 매 응답마다 lib/notes.js가 데이터로 새로 조립한다),
  *           stack — 같은 군집에서 가까운 기술 (API가 계산, 없으면 lib/techNotes.json),
  *           docs { url, note? } — 공식 문서 (198개 기술),

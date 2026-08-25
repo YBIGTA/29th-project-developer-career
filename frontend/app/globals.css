@@ -3303,3 +3303,48 @@ button.detail-panel__neighbor-name:hover {
   font-variant-numeric: tabular-nums;
   color: var(--text-muted);
 }
+
+/* 채택 범위 탭 — 해석 세 줄. 지금 기술에 해당하는 줄만 강조하고 나머지는
+   "이럴 수도 있었다"는 기준으로 남긴다. 색이 아니라 대비로 가른다. */
+.detail-panel__verdicts {
+  list-style: none;
+  margin: 12px 0 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.detail-panel__verdict {
+  padding: 11px 13px;
+  border: 1px solid var(--line);
+  border-left: 3px solid transparent;
+  border-radius: 10px;
+  opacity: 0.55;
+}
+
+.detail-panel__verdict[data-active="true"] {
+  border-left-color: var(--accent);
+  background: var(--accent-soft);
+  opacity: 1;
+}
+
+.detail-panel__verdict-axis {
+  font-size: 0.68rem;
+  color: var(--text-muted);
+}
+
+.detail-panel__verdict-title {
+  margin-top: 3px;
+  font-size: 0.86rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.detail-panel__verdict-body {
+  margin: 4px 0 0;
+  font-size: 0.74rem;
+  line-height: 1.55;
+  color: var(--text-secondary);
+  word-break: keep-all;
+}
